@@ -10,6 +10,6 @@
 **/.settings
 **/logs
 **/.classpath
-**/.project
+#**/.project
 **/conf
 **/target
