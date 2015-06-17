@@ -1,0 +1,15 @@
+.metadata
+.recommenders
+.settings
+
+/BaseSpaceSDKJersey2
+/PaulProject
+/BSWAClientProcessor/Delivery
+
+**/bin/**
+**/.settings
+**/logs
+**/.classpath
+**/.project
+**/conf
+**/target

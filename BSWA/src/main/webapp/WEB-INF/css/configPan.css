@@ -1,0 +1,161 @@
+
+.accConnResources {
+	margin: 10px;
+	margin-top: 10px;
+	white-space : nowrap;
+}
+
+#configPanContent {
+	padding : 30px;
+	padding-top: 0;
+}
+
+.tableList {
+	display: table;
+	padding-bottom: 15px;
+}
+
+.tableRow {
+	display: table-row;
+}
+
+.tableCell {
+	padding-left: 30px;
+	display: table-cell;
+	vertical-align:middle;
+	height:32px;
+}
+
+.cellClickable:hover{
+	cursor:pointer;
+}
+
+#AWSAcc .ui-accordion-content {
+	padding : 0;
+}
+
+#ActiveAcc .ui-accordion-content {
+	padding : 0;
+}
+
+.resourcesToolBar {
+	width : 100%;
+	height: 40px;
+	background: #EDF2F7;
+	margin-bottom:10px;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+}
+
+.resourcesToolBar ul {
+	list-style: outside none none;
+}
+
+.resourcesToolBar ul li{
+	color: #2D4C7A;
+	float: left;
+	font-size: 10px;
+	text-align: center;
+	padding-left: 11px;
+	width: 50px;
+	line-height:1.0;
+}
+
+.resourcesToolBar ul li:hover{
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* MAP DISPLAY */
+
+#mapdiv {
+	width	: 100%;
+	height	: 500px;
+}
+
+.map-marker {
+    /* adjusting for the marker dimensions 
+    so that it is centered on coordinates */
+    margin-left: -8px;
+    margin-top: -8px;
+}
+.map-marker.map-clickable {
+    cursor: pointer;
+}
+.pulse {
+		width: 10px;
+		height: 10px;
+		border: 5px solid #f7f14c;
+		-webkit-border-radius: 30px;
+		-moz-border-radius: 30px;
+		border-radius: 30px;
+		background-color: #716f42;
+		z-index: 10;
+		position: absolute;
+	}
+.map-marker .dot {
+		border: 10px solid #fff601;
+		background: transparent;
+		-webkit-border-radius: 60px;
+		-moz-border-radius: 60px;
+		border-radius: 60px;
+		height: 50px;
+		width: 50px;
+		-webkit-animation: pulse 3s ease-out;
+		-moz-animation: pulse 3s ease-out;
+		animation: pulse 3s ease-out;
+		-webkit-animation-iteration-count: infinite;
+		-moz-animation-iteration-count: infinite;
+		animation-iteration-count: infinite;
+		position: absolute;
+		top: -25px;
+		left: -25px;
+		z-index: 1;
+		opacity: 0;
+	}
+	@-moz-keyframes pulse {
+	 0% {
+	   	-moz-transform: scale(0);
+	   	opacity: 0.0;
+	 }
+	 25% {
+	   	-moz-transform: scale(0);
+	   	opacity: 0.1;
+	 }
+	 50% {
+	   	-moz-transform: scale(0.1);
+	   	opacity: 0.3;
+	 }
+	 75% {
+	   	-moz-transform: scale(0.5);
+	   	opacity: 0.5;
+	 }
+	 100% {
+	   	-moz-transform: scale(1);
+	   	opacity: 0.0;
+	 }
+	}
+	@-webkit-keyframes "pulse" {
+	 0% {
+	    -webkit-transform: scale(0);
+	   	opacity: 0.0;
+	 }
+	 25% {
+	    -webkit-transform: scale(0);
+	   	opacity: 0.1;
+	 }
+	 50% {
+	    -webkit-transform: scale(0.1);
+	   	opacity: 0.3;
+	 }
+	 75% {
+	    -webkit-transform: scale(0.5);
+	   	opacity: 0.5;
+	 }
+	 100% {
+	    -webkit-transform: scale(1);
+	   	opacity: 0.0;
+	 }
+	}		

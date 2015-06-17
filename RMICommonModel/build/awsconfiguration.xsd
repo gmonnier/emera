@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://configuration/jaxb/aws"
+	xmlns:tns="http://configuration/jaxb/aws" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	jaxb:version="2.1" elementFormDefault="qualified">
+
+	<xs:element name="AWSConfiguration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="awsAccessKeyID" type="xs:string" />
+				<xs:element name="awsSecretAccessKey" type="xs:string" />
+				<xs:element name="IAMUser" type="xs:string" />
+				<xs:element name="IAMpwd" type="xs:string" />
+				<xs:element name="aws_account_id" type="xs:string" />
+				<xs:element name="IAM_URL_Login" type="xs:string" />
+				<xs:element name="sshUser" type="xs:string" />
+				<xs:element name="sshPrivateKeyFile" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

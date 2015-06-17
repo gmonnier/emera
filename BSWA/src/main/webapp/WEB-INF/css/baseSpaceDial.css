@@ -1,0 +1,40 @@
+.selected { background: #42A3FF; color: white; }
+.selected { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+
+.selectable:hover{
+	cursor : pointer;
+	background: #A3C9FF;
+}
+
+.BSDialFileTable {
+	letter-spacing: 0.1em;
+	display: table;
+	margin-bottom: 10px;
+}
+.BSDialrow {
+	display: table-row;
+}
+
+.BSDialPropcell {
+	display: table-cell;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.BSDialValuecell {
+	display: table-cell;
+	
+	margin: 3px; 
+	padding: 0.4em; 
+	height: 18px;
+	vertical-align: middle;
+}
+
+.BSDialSizecell{
+	display: table-cell;
+	margin: 3px; 
+	padding: 0.4em; 
+	height: 18px;
+	font-size: 10px;
+	vertical-align: middle;
+}

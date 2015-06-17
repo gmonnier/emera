@@ -1,0 +1,100 @@
+#parameterscontainer {
+	width: 83%;
+	float: left;
+}
+
+#filescontainer {
+	width: 60%;
+	float: left;
+}
+
+#optionccontainer {
+	float: right;
+	width: 40%;
+}
+
+.addleft {
+	float: left;
+	width: 100px;
+}
+
+.nodisplay{
+	display: none;
+}
+
+.fileTable {
+	letter-spacing: 0.1em;
+	display: table;
+	margin-bottom: 10px;
+}
+.filerow {
+	display: table-row;
+	height: 30px;
+}
+
+.propcell {
+	display: table-cell;
+	font-weight: bold;
+	vertical-align: middle;
+	
+}
+.propcell img {
+	display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.valuecell {
+	display: table-cell;
+	padding-left: 20px;
+	vertical-align: middle;
+}
+
+.sizecell{
+	display: table-cell;
+	margin: 3px; 
+	padding: 0.4em; 
+	height: 18px;
+	font-size: 10px;
+	vertical-align: middle;
+	padding-left: 20px;
+}
+
+.deletecell {
+  display: table-cell;
+  padding-left: 10px;
+  cursor:pointer;
+  vertical-align: middle;
+  padding-top:
+}
+
+.deletecell img {
+	display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.storedFileNameDisp {
+	font-weight:normal;
+	font-size: 13px;
+	padding:2px;
+	padding-right:5px;
+}
+
+.storedDateDisp {
+	color: #5785C6;
+	font-weight:normal;
+	padding:2px;
+	padding-left:5px;
+}
+
+.storedSizeDisp {
+	min-width: 100px;
+}
+
+.column1 {
+  display: table-column;
+}
+.column2 {
+  display: table-column;
+}

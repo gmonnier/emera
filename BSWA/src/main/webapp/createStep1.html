@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="WEB-INF/css/createStep1.css"/>
+
+<script type="text/javascript">
+    (function($) {
+        $(function() {
+            $("#filescontainer > div, #optionccontainer > div").accordion({  heightStyle: "content",autoHeight: false,clearStyle: true, header: "h3", collapsible: true });
+			$("#filescontainer > div, #optionccontainer > div").css("margin","10px");
+			$("#filescontainer > div, #optionccontainer > div").css("margin-top","20px");
+			$("#filescontainer > div, #optionccontainer > div").css("white-space","nowrap");
+			$("#filescontainer > div, #optionccontainer > div").addClass("shadowed");
+        })
+
+    })(jQuery);
+	
+	(function($) {
+		$( "#menuLoadData" ).menu();
+		$( "#menuLoadData" ).css('position','absolute');
+		$( "#menuLoadData" ).css('z-index','100');
+		$( "#menuLoadData" ).hide();
+		
+		
+		 
+		$("#addDataLeft").hover(function(e){
+			 $( "#menuLoadData" ).width(250);
+			 $( "#menuLoadData" ).show();
+		}, function(){
+			$( "#menuLoadData" ).hide();
+			 $( "#menuLoadData" ).width(0);
+		});
+	})(jQuery);
+	
+	(function($) {
+		$( "#menuLoadLibrary" ).menu();
+		$( "#menuLoadLibrary" ).css('position','absolute');
+		$( "#menuLoadLibrary" ).css('z-index','100');
+		$("#menuLoadLibrary").hide();
+		$("#addLibLeft").hover(function(){
+			 $( "#menuLoadLibrary" ).show();
+			 $( "#menuLoadLibrary" ).width(250);
+		}, function(){
+			$( "#menuLoadLibrary" ).hide();
+			 $( "#menuLoadLibrary" ).width(0);
+		});
+	})(jQuery);
+	
+	function selectFile(elemId) {
+	   var elem = document.getElementById(elemId);
+	   if(elem && document.createEvent) {
+		  var evt = document.createEvent("MouseEvents");
+		  evt.initEvent("click", true, false);
+		  elem.dispatchEvent(evt);
+		}
+	}
+	
+	// hide dialogs
+	$("#basespacedialog").hide();
+	$("#dialog-duplicate-warning").hide();
+	$("#dialog-file-exists").hide();
+	$("#dialog-error-sending-file").hide();
+</script>
+
+<div id="parameterscontainer">
+	<div id="filescontainer">
+			 <div>
+				<h3><a href="#">Data files</a></h3>
+				<div>
+					<div id="addDataLeft" class="addleft">
+						<a id="linkLoadData" href=""> 
+							<span class="helper"></span><img src="img/addFile.png" alt="Next">
+							<ul id="menuLoadData">
+								<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storeDataFilesList)]">Stored data files
+									 <ul class="storedmenu">
+										<li ng-repeat="file in storeDataFilesList" ng-click="addDataViewFile(file)">
+											<span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
+										</li>
+									</ul>
+								</li>
+								<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+								<li onclick="selectFile('dataFileIn');">Load from my computer</li>
+							</ul>
+						</a>
+					</div>
+					<div class="addright">
+						<p ng-if="isEmpty(configuration.selectedDataFiles)">
+							No file selected, please select at least one data file to process.
+						</p>
+						<div ng-if="!isEmpty(configuration.selectedDataFiles)">
+							<div class="fileTable">
+								<div class="column1"></div>
+								<div class="column2"></div>
+								<div class="column3"></div>
+								<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in configuration.selectedDataFiles">
+									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
+									<div class="sizecell">{{selected.readableSize}}</div>
+									<div class="valuecell">{{selected.name}}</div>
+									<div class="deletecell" ng-click="removeDataFile(selected)"><span><img src="img/remove.png" alt="Delete"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div>
+				<h3><a href="#">Library files</a></h3>
+				<div>
+					<div id="addLibLeft" class="addleft">
+						<a class="hvr-effect" href=""> 
+							<span class="helper"></span><img src="img/addFile.png" alt="Next">
+							<ul id="menuLoadLibrary">
+								<li ng-class="{true:'ui-state-disabled', false:''}[isEmpty(storeLibraryFilesList)]">Stored Libraries
+									 <ul class="storedmenu">
+										<li ng-repeat="file in storeLibraryFilesList" ng-click="addLibraryViewFile(file)">{{file.name}}</li>
+									</ul>
+								</li>
+								<li onclick="selectFile('libraryFileIn');">Load from my computer</li>
+							</ul>
+						</a>
+					</div>
+					<div class="addright">
+						<p ng-if="isEmpty(configuration.selectedLibraries)">
+							No library selected, please select at least one library file.
+						</p>
+						<div ng-if="!isEmpty(configuration.selectedLibraries)">
+							<div class="fileTable">
+								<div class="column1"></div>
+								<div class="column2"></div>
+								<div class="filerow" ng-repeat="selected in configuration.selectedLibraries">
+									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
+									<div class="sizecell">{{selected.readableSize}}</div>
+									<div class="valuecell">{{selected.name}}</div>
+									<div class="deletecell" ng-click="removeLibraryFile(selected)"><span><img src="img/remove.png" alt="Delete"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+	<div id="optionccontainer">
+		<div>
+			<h3><a href="#">Options</a></h3>
+			<div ng-include="'optionsContent.html'">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="basespacedialog" title="Base space account files" ng-controller="bsModelCtrl" ng-include="'baseSpaceDialog.html'">
+</div>
+
+<div id="dialog-duplicate-warning" title="File already selected">
+	 <p>
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+		File has already been selected. Duplicates are not allowed.
+	</p>
+</div>
+
+<div id="dialog-file-exists" title="File already exists in database">
+	 <p>
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+		File already exists in server storage location.
+	</p>
+</div>
+
+<div id="dialog-error-sending-file" title="An error occured while sending file to server">
+	 <p>
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+		An error occured while sending file to server.
+	</p>
+</div>
+
+
+<!-- Hidden input -- Files uploads -->
+<input class="nodisplay" id="dataFileIn" type="file" nv-file-select="" uploader="dataUploader" ></div>
+<input class="nodisplay" id="libraryFileIn" type="file" nv-file-select="" uploader="libUploader" ></div>

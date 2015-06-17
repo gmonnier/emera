@@ -1,0 +1,16 @@
+.patterncreateContent input{
+	width: 100%;
+	height: 30px;
+	
+	-webkit-box-shadow: inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.unvalid {
+	background: rgb(255,197,120); 
+
+	-webkit-box-shadow: inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         inset 0px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}

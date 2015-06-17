@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="WEB-INF/css/configPan.css"/>
+<link rel="stylesheet" href="components/ammap_3.13.3.free/ammap/ammap.css" type="text/css">
+
+<div id="configPanContent">
+
+	<div>
+		<map-element mapData="mapData" latlong="latlong"></map-element>    
+	</div>
+	
+	<div id="ActiveAcc" class="accConnResources shadowed" connected-resources-accordion>
+		<h3>
+			<a href="#">
+			    <div>Connected and active resources</div>
+				<div style="position: absolute; right: 10px;top: 5px;">
+						<div style="display:inline;" class="tooltip">
+							<img style="padding-right: 10px; vertical-align:middle" src="img/userAuth/lock.png" alt="secured"/>
+							<span>
+							<strong>Authentication required</strong><br />
+							Administration rights are required to manage network resources.
+							<img class="callout left" src="img/calloutleft.gif" alt="->"/>
+						</span>
+					</div>
+				</div>
+			</a>
+		</h3>
+		<div>
+			<div id="ActiveResourcesToolBar" class="resourcesToolBar shadowed">
+				<ul>
+					<li title="Deploy processor client on all resources">
+						<img ng-src="img/network/deploy.png" ng-click="deployClient()" ></img>
+						<div>Deploy</div>
+					</li>
+				<ul>
+			</div>
+		
+			<div class="tableList">
+				<div class="tableRow">
+					<div class="tableCell" ><img style="position: relative; top:20%;" ng-src="img/network/srv.png" alt="res"/></div>
+					<div class="tableCell">{{serverresource.name}}</div>
+					<div class="tableCell">{{serverresource.location.externalIP}}</div>
+					<div class="tableCell"></div>
+					<div class="tableCell">{{serverresource.location.cityName}}</div>
+				</div>
+				<div class="tableRow" ng-repeat="resource in netresources">
+					<div class="tableCell" ><img style="position: relative; top:20%;" ng-src="img/network/distResource.png" alt="res"/></div>
+					<div class="tableCell">{{resource.name}}</div>
+					<div class="tableCell">{{resource.IP}}</div>
+					<div class="tableCell">{{resource.status}}</div>
+					<div class="tableCell">{{resource.location.cityName}}</div>
+					<div class="tableCell cellClickable" ng-click="removeDistantResource(resource.IP)"><img ng-src="img/remove.png" alt="remove"/></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="AWSAcc" class="accConnResources shadowed" connected-resources-accordion>
+		<h3>
+			<a href="#">
+				<div>
+					<div>Amazon EC2 instances</div>
+					<div style="position: absolute; right: 10px;top: 5px;">
+						<div style="display:inline;" class="tooltip">
+							<img style="padding-right: 10px; vertical-align:middle" src="img/userAuth/lock.png" alt="secured"/>
+							<span>
+								<strong>Authentication required</strong><br />
+								Administration rights are required to manage network resources.
+								<img class="callout left" src="img/calloutleft.gif" alt="->"/>
+							</span>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+		</h3>
+		<div>
+			<div id="AWSResourcesToolBar" class="resourcesToolBar shadowed">
+				<ul>
+					<li title="Start all aws instances">
+						<img ng-src="img/network/awsRun.png" ng-click="startAllAWS()" ></img>
+						<div>Start all</div>
+					</li>
+					<li title="Stop all currently running aws instances">
+						<img ng-src="img/network/awsStop.png" ng-click="stopAllAWS()"/>
+						<div>Stop all</div>
+					</li>
+				<ul>
+			</div>
+			
+			<div class="tableList">
+				<div class="tableRow" ng-repeat="awsresource in awsInstances">
+					<div class="tableCell"><img ng-src="img/network/ec2Resource.png" alt="res"/></div>
+					<div class="tableCell">{{awsresource.id}}</div>
+					<div class="tableCell">{{awsresource.instanceType}}</div>
+					<div class="tableCell">{{awsresource.privateIP}}</div>
+					<div class="tableCell">{{awsresource.publicIP}}</div>
+					<div class="tableCell">{{awsresource.status}}</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+.ui-dialog {
+	-webkit-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+}
+
+.ui-widget-header {
+	border: 1px solid #3961A8;
+}
+
+.ui-widget-overlay  {
+	background: url("/img/back.png") repeat scroll 50% 50% #666666;
+	
+}

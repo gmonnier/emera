@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://configuration/jaxb/applicationContext"
+	xmlns="http://configuration/jaxb/applicationContext" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	jaxb:version="2.1" elementFormDefault="qualified">
+	
+	<xs:complexType name="PatternsStorage">
+		<xs:sequence>
+			<xs:element name="DefaultPatternIndex" type="xs:int" />
+			<xs:sequence>
+				<xs:element name="PatternList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+					
+	<xs:element name="ApplicationContext">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AllowCharacterError" type="xs:boolean" />
+				<xs:element name="AllowShifting" type="xs:boolean" />
+				<xs:element name="GeneratePDFOutput" type="xs:boolean" />
+				<xs:element name="GenerateCSVOutput" type="xs:boolean" />
+				<xs:element name="PatternsStorage" type="PatternsStorage"/>
+				<xs:element name="checkForUnfoundEntries" type="xs:boolean" />
+				<xs:element name="analysisResultsLocation" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+</xs:schema>
+
