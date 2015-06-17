@@ -11,5 +11,5 @@ This project provide a highly scalable, fault tolerant system based on Amazon We
 Current status info
 ---------------------
 
-Yet, deployment on gilles-monnier.com:10
-Contact gilles_monnier@yahoo.fr for detailed info.
++ Yet, deployment on gilles-monnier.com:10
++ Contact gilles_monnier@yahoo.fr for detailed info.
