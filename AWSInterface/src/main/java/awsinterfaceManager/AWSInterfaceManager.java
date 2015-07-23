@@ -35,6 +35,9 @@ public class AWSInterfaceManager {
 
 	// associate watcher manager
 	private AWSWatcherManager watcherManager;
+	
+	// Specify wether connection has been successfully done to AWS
+	private boolean initialized;
 
 	private static class AnalysisManagerHolder {
 		public final static AWSInterfaceManager instance = new AWSInterfaceManager();
@@ -53,7 +56,13 @@ public class AWSInterfaceManager {
 
 		instances = Collections.synchronizedList(new ArrayList<Instance>());
 		watcherManager = new AWSWatcherManager();
-		updateInstances();
+		try {
+			updateInstances();
+			initialized = true;
+		} catch (com.amazonaws.AmazonServiceException e) {
+			initialized = false;
+		}
+		
 	}
 
 	public static synchronized AWSInterfaceManager getInstance() {
@@ -129,4 +138,14 @@ public class AWSInterfaceManager {
 
 		}
 	}
+
+	public boolean isInitialized() {
+		return initialized;
+	}
+
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
+	}
+	
+	
 }
