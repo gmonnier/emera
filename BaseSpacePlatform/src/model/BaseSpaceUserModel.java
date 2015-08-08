@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import logger.Log4JLogger;
@@ -14,12 +13,12 @@ import basespaceObjects.UserInfo;
 import basespaceObjects.UserRun;
 
 import com.illumina.basespace.ApiClient;
-import com.illumina.basespace.entity.File;
 import com.illumina.basespace.entity.FileCompact;
 import com.illumina.basespace.entity.RunCompact;
 import com.illumina.basespace.entity.SampleCompact;
 import com.illumina.basespace.entity.User;
 import com.illumina.basespace.param.FileParams;
+import com.illumina.basespace.param.QueryParams;
 import com.illumina.basespace.response.GetUserResponse;
 
 public class BaseSpaceUserModel {
@@ -38,9 +37,12 @@ public class BaseSpaceUserModel {
 		ApiClient client = BaseSpacePlatformManager.getInstance().getClientBS();
 		List<UserRun> listRuns = new ArrayList<UserRun>();
 
-		RunCompact[] list = client.getRuns(null).items();
-
+		RunCompact[] list = client.getRuns(new QueryParams(20)).items();
+		LOG.info(list.length + "runs extracted");
 		for (int i = 0; i < list.length; i++) {
+			
+			LOG.debug("RUN ----> " + list[i].getName());
+			
 			UserRun currRun = new UserRun();
 			currRun.setName(list[i].getName());
 			currRun.setId(list[i].getId());
