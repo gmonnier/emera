@@ -6,6 +6,11 @@
 	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
 }
 
+.show-prev-container {
+	text-align: center;
+}
+
+
 .selectable:hover{
 	cursor : pointer;
 	background: #A3C9FF;
@@ -28,7 +33,6 @@
 
 .BSDialValuecell {
 	display: table-cell;
-	
 	margin: 3px; 
 	padding: 0.4em; 
 	height: 18px;

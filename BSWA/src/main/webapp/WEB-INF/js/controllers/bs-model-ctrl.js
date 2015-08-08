@@ -1,9 +1,20 @@
 appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceService) {
 	
 	$scope.selectedFile = null;
+	$scope.showAllRuns = false;
+	$scope.maxDisplayedRuns = 5;
 	
 	$scope.setSelectedBSResource = function(file) {
 		$scope.selectedFile = file;
+	}
+	
+	$scope.getDisplayedRuns = function() {
+		if($scope.showAllRuns == true) {
+			return $scope.userruns;
+		} else {
+			// display only the first five items
+			return $scope.userruns.slice(0,$scope.maxDisplayedRuns);
+		}
 	}
 	
 	basespaceService.listruns().then(function(listruns) {
