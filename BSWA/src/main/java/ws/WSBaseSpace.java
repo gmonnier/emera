@@ -53,8 +53,9 @@ public class WSBaseSpace extends Application {
 		List<UserRun> input = BaseSpaceModelManager.getInstance().getListRuns();
 		List<ViewUserRun> listrunView = new ArrayList<ViewUserRun>();
 
-		for (Iterator<UserRun> iterator = input.iterator(); iterator.hasNext();) {
-			UserRun inputRun = (UserRun) iterator.next();
+		// Sort from the last run (most recent) to the last one
+		for (int i = input.size() - 1 ; i >= 0 ; i--) {
+			UserRun inputRun = input.get(i);
 			listrunView.add(new ViewUserRun(inputRun));
 		}
 		return listrunView;

@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="WEB-INF/css/baseSpaceDial.css"/>
 
-<p>
+<p class="base-space-dialog">
 	<div style="padding-bottom: 15px;">
 		<ng-include src="'components/loadAnimation.html'"></ng-include>
 		<span style="padding-left: 25px;">List of runs on BaseSpace - {{user.name}} :</span>
 		<span ng-if="!connectionstatus">connected to BaseSpace : {{connectionstatus}}</span>
 	</div>
 	<div class="accrun" >
-		<h3 ng-click="setSelectedBSResource(null)" ng-repeat-start="run in userruns" post-repeat-directive-bs-dial><a href="#">Run : {{run.name}} - {{run.dateCreatedFormat}}</a></h3>
+		<h3 ng-click="setSelectedBSResource(null)" ng-repeat-start="run in userruns" post-repeat-directive-bs-dial><a href="#">Run : <span class="header-date">{{run.dateCreatedFormat}}</span> - {{run.name}}</a></h3>
 		<div ng-repeat-end>
 			<div class="BSDialFileTable " style="width:100%;">
 					<div class="column1"></div>

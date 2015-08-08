@@ -1,6 +1,11 @@
 .selected { background: #42A3FF; color: white; }
 .selected { list-style-type: none; margin: 0; padding: 0; width: 100%;}
 
+.header-date {
+	color: gray;
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
+
 .selectable:hover{
 	cursor : pointer;
 	background: #A3C9FF;
