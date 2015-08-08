@@ -155,7 +155,25 @@ app.directive('postRunningRepeatDirective', function() {
 app.directive('postCompleteRepeatDirective', function() {
 	return function(scope, element, attrs) {
 		if (scope.$last){
-			$(".accComplete").accordion({ active: "false", heightStyle: "content",autoHeight: false,clearStyle: true, header: "h3", collapsible: true });
+			$(".accComplete").accordion({ active: "false"
+			, heightStyle: "content"
+			,autoHeight: false
+			,clearStyle: true
+			,header: "h3"
+			,collapsible: true 
+			,beforeActivate: function( event, ui ) {
+				if(ui.oldHeader.length > 0) {
+					// This accordion has been deactivated
+					$(this).find(".ui-accordion-content").toggleClass("overflow-visible");
+				}
+			}
+			,activate: function( event, ui ) {
+				if(ui.newHeader.length > 0) {
+					// This accordion has been activated
+					$(this).find(".ui-accordion-content").toggleClass("overflow-visible");
+				}
+			}});
+			
 			
 			$( ".sortMenu" ).menu({
 			  items: "> :not(.ui-widget-header)"

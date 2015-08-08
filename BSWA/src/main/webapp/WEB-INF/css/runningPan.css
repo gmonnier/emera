@@ -305,7 +305,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
 }
 
 .additionalAnalysisMenu {
-	position: absolute;
+	position: relative;
 }
 
 .additionnalFileRow {
