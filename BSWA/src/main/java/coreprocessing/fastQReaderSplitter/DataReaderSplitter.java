@@ -52,6 +52,7 @@ public class DataReaderSplitter {
 		LOG.info("Enter reading and splitting fastq input");
 
 		int totalCount = 0;
+		int ignoredLinesCount = 0;
 		long totalByteReads = 0;
 
 		for (ModelFileStored modelFileStored : listInputData) {
@@ -63,6 +64,11 @@ public class DataReaderSplitter {
 				reader = new BufferedReader(new FileReader(modelFileStored.getSystemFile()));
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
+				for (int i = 0; i < splitModel.size(); i++) {
+					splitModel.get(i).getWritter().write(line);
+					splitModel.get(i).getWritter().newLine();
+				}
+				
 				totalByteReads += line.length();
 				DataSplitterModel modelFound = null;
 				
@@ -71,6 +77,7 @@ public class DataReaderSplitter {
 					totalCount++;
 					
 					// process line
+					modelFound = null;
 					for (int i = 0; i < splitModel.size(); i++) {
 						if(splitModel.get(i).fitPattern(line)) {
 							modelFound = splitModel.get(i);
@@ -82,10 +89,12 @@ public class DataReaderSplitter {
 					if(modelFound != null && modelFound.getWritter() != null) {
 						totalByteReads += line.length();
 						modelFound.getWritter().write(line);
+						modelFound.getWritter().newLine();
 						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
 						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
 						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
 					} else {
+						ignoredLinesCount++;
 						totalByteReads += line.length();
 						totalByteReads += skipLine(reader);
 						totalByteReads += skipLine(reader);
@@ -128,6 +137,7 @@ public class DataReaderSplitter {
 		for (int i = 0; i < splitModel.size(); i++) {
 			LOG.debug("     model result --> nbSequence = " + splitModel.get(i).getAssociatedSequencesCount() + "   on output : " + splitModel.get(i).getOutputName());
 		}
+		LOG.debug("     Ignored lines count : " + ignoredLinesCount);
 		LOG.debug("<-- Split results");
 		currentPercent = (int) ((totalByteReads * 100) / totalByteToProcess);
 		dispatcherListener.readDone(totalCount);
@@ -135,8 +145,9 @@ public class DataReaderSplitter {
 
 	private int skipAndWriteLine(BufferedReader reader, BufferedWriter writer) throws IOException {
 		String skippedLine = reader.readLine();
-		writer.write(skippedLine);
 		if (skippedLine != null) {
+			writer.write(skippedLine);
+			writer.newLine();
 			return skippedLine.length();
 		}
 		return 0;

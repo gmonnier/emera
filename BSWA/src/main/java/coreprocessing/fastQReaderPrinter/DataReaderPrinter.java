@@ -44,7 +44,7 @@ public class DataReaderPrinter {
 	 * @throws ReadDispatchException
 	 * @throws InterruptedException
 	 */
-	public void readAndSplit() throws ReadDispatchException, InterruptedException {
+	public void readAndPrint() throws ReadDispatchException, InterruptedException {
 
 		LOG.info("Enter reading and printing fastq input");
 
