@@ -1,4 +1,4 @@
-package coreprocessing.fastQReaderSplitter;
+package coreprocessing.fastQReaderPrinter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,13 +14,11 @@ import org.apache.logging.log4j.Logger;
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import coreprocessing.fastQReaderDispatcher.ReadDispatchException;
 
-public class DataReaderSplitter {
+public class DataReaderPrinter {
 	
 	private static Logger LOG = Log4JLogger.logger;
 
 	private List<ModelFileStored> listInputData;
-	
-	private List<DataSplitterModel> splitModel;
 
 	private volatile long totalByteReads;
 	private long totalByteToProcess;
@@ -28,12 +26,11 @@ public class DataReaderSplitter {
 
 	private IReaderDispatcherListener dispatcherListener;
 
-	public DataReaderSplitter(List<ModelFileStored> listInputData, List<DataSplitterModel> splitModel, IReaderDispatcherListener processListener) {
+	public DataReaderPrinter(List<ModelFileStored> listInputData, IReaderDispatcherListener processListener) {
 
 		this.listInputData = listInputData;
 		this.currentPercent = 0;
 		this.dispatcherListener = processListener;
-		this.splitModel = splitModel;
 
 		// Get the total size in bytes to be treated from the data files
 		totalByteToProcess = 0;
@@ -49,7 +46,7 @@ public class DataReaderSplitter {
 	 */
 	public void readAndSplit() throws ReadDispatchException, InterruptedException {
 
-		LOG.info("Enter reading and splitting fastq input");
+		LOG.info("Enter reading and printing fastq input");
 
 		int totalCount = 0;
 		long totalByteReads = 0;
@@ -64,33 +61,18 @@ public class DataReaderSplitter {
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
 				totalByteReads += line.length();
-				DataSplitterModel modelFound = null;
 				
 				while ((line = reader.readLine()) != null) {
 					
 					totalCount++;
 					
 					// process line
-					for (int i = 0; i < splitModel.size(); i++) {
-						if(splitModel.get(i).fitPattern(line)) {
-							modelFound = splitModel.get(i);
-							modelFound.incrementSequenceCount();
-							break;
-						}
-					}
+					LOG.debug(line);
 					
-					if(modelFound != null && modelFound.getWritter() != null) {
-						totalByteReads += line.length();
-						modelFound.getWritter().write(line);
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
-					} else {
-						totalByteReads += line.length();
-						totalByteReads += skipLine(reader);
-						totalByteReads += skipLine(reader);
-						totalByteReads += skipLine(reader);
-					}
+					totalByteReads += line.length();
+					totalByteReads += skipLine(reader);
+					totalByteReads += skipLine(reader);
+					totalByteReads += skipLine(reader);
 
 
 					// Equivalent to totalByteToProcess%1024 == 0
@@ -122,24 +104,9 @@ public class DataReaderSplitter {
 			}
 		}
 		
-	
 		LOG.debug("Reading ended : totalByteReads = " + totalByteReads + "     totalByteToProcess = " + totalByteToProcess + "     totalLineProcessed = " + totalCount);
-		LOG.debug("Split results -->");
-		for (int i = 0; i < splitModel.size(); i++) {
-			LOG.debug("     model result --> nbSequence = " + splitModel.get(i).getAssociatedSequencesCount() + "   on output : " + splitModel.get(i).getOutputName());
-		}
-		LOG.debug("<-- Split results");
 		currentPercent = (int) ((totalByteReads * 100) / totalByteToProcess);
 		dispatcherListener.readDone(totalCount);
-	}
-
-	private int skipAndWriteLine(BufferedReader reader, BufferedWriter writer) throws IOException {
-		String skippedLine = reader.readLine();
-		writer.write(skippedLine);
-		if (skippedLine != null) {
-			return skippedLine.length();
-		}
-		return 0;
 	}
 	
 	private int skipLine(BufferedReader reader) throws IOException {
