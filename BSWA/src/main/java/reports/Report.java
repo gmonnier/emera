@@ -61,7 +61,7 @@ public class Report implements OutputWriterListener, Serializable {
 		this.outputReportFiles = new ArrayList<>();
 
 		uncorrespondingEntry = new HashMap<String, UnfoundStartSeqMap>();
-		outputReportFiles = Collections.synchronizedList(new ArrayList<>());
+		outputReportFiles = Collections.synchronizedList(new ArrayList<File>());
 		library = new GeneLibrary();
 
 		chunkSize = DataReaderDispatcher.CHUNK_SIZE;
