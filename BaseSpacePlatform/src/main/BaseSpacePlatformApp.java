@@ -32,7 +32,7 @@ public class BaseSpacePlatformApp {
 	public static void main(String[] args) {
 
 		LOG.info("---------------------------------------------");
-		LOG.info("-----START BaseSpace Serv APPLICATION--------");
+		LOG.info("---START BaseSpace Interface APPLICATION-----");
 		LOG.info("---------------------------------------------");
 		LOG.info("Rmi Module --> request to start baseSpaceModel rmi interface server");
 		new RMIServer();

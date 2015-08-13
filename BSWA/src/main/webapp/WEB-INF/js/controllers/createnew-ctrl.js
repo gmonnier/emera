@@ -239,7 +239,7 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
 				}
 			}
 		});
-		// clear selection and colse accordions
+		// clear selection and close accordions
 		$('.accrun .ui-state-focus').removeClass('ui-state-focus');
 	}
 

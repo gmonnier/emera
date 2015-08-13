@@ -3,9 +3,14 @@ appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceS
 	$scope.selectedFile = null;
 	$scope.showAllRuns = false;
 	$scope.maxDisplayedRuns = 5;
+	$scope.userruns = []
 	
 	$scope.setSelectedBSResource = function(file) {
 		$scope.selectedFile = file;
+	}
+	
+	$scope.toggleShowRuns = function(){
+		$scope.showAllRuns = !$scope.showAllRuns;
 	}
 	
 	$scope.getDisplayedRuns = function() {
@@ -42,8 +47,17 @@ appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceS
 app.directive('postRepeatDirectiveBsDial', function() {
 	return function(scope, element, attrs) {
 		if (scope.$last){
+			//alert($(".accrun > div").length + "   " + scope.$index);
 			$(".accrun").accordion({  heightStyle: "content",autoHeight: false,clearStyle: true, active: false, header: "h3", collapsible: true });
 		}
 	};
 });
+
+app.directive('refreshAcc', function() {
+	return function(scope, element, attrs) {
+		$(".accrun").accordion("refresh");
+	};
+});
+
+
 
