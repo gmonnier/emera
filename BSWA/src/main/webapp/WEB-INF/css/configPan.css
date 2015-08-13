@@ -68,6 +68,11 @@
 	font-weight: bold;
 }
 
+.no-instances {
+	color: #ccc;
+	padding-left: 15px;
+}
+
 /* MAP DISPLAY */
 
 #mapdiv {

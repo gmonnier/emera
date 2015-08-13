@@ -95,6 +95,9 @@
 					<div class="tableCell">{{awsresource.publicIP}}</div>
 					<div class="tableCell">{{awsresource.status}}</div>
 				</div>
+				<div class="tableRow no-instances" ng-if="!awsInstances.length">
+					<div class="tableCell">No instances available.</div>
+				</div>
 			</div>
 			
 			
