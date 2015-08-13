@@ -24,6 +24,8 @@ public class PanelMiddle extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		Painting.dialogGrayGradientVerticalBGPaint(g2, getWidth(), getHeight());
 		
+		GraphicsUtility.ombrageHorizontal(g2, 0, 0, getWidth(), 5, Color.lightGray, 15, true);
+		
 		g2.setColor(Color.BLACK);
 		int starty = 10;
 		for (Info info : currentInfos.getListinfos()) {
