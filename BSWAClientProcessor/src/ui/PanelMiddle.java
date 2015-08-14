@@ -27,7 +27,7 @@ public class PanelMiddle extends JPanel {
 		GraphicsUtility.ombrageHorizontal(g2, 0, 0, getWidth(), 5, Color.lightGray, 15, true);
 		
 		g2.setColor(Color.BLACK);
-		int starty = 10;
+		int starty = 50;
 		for (Info info : currentInfos.getListinfos()) {
 			g.drawString(info.toString(), 10, starty);
 			starty += 20;
