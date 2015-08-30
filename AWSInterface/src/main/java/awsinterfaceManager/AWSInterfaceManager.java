@@ -59,7 +59,7 @@ public class AWSInterfaceManager {
 		try {
 			updateInstances();
 			initialized = true;
-		} catch (com.amazonaws.AmazonServiceException e) {
+		} catch (Throwable e) {
 			initialized = false;
 		}
 		
