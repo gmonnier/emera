@@ -1,14 +1,13 @@
-#homeContent{
-	padding : 0px;
-	height:400px;
+#homeContent {
+	padding: 0px;
+	height: 400px;
 }
 
-.csslider1{
-	-webkit-box-shadow: 0px 0px 37px 2px rgba(255,255,255,1);
-	-moz-box-shadow: 0px 0px 37px 2px rgba(255,255,255,1);
-	box-shadow: 0px 0px 37px 2px rgba(50,50,50,1);
+.csslider1 {
+	-webkit-box-shadow: 0px 0px 37px 2px rgba(255, 255, 255, 1);
+	-moz-box-shadow: 0px 0px 37px 2px rgba(255, 255, 255, 1);
+	box-shadow: 0px 0px 37px 2px rgba(50, 50, 50, 1);
 }
-
 
 .lightBack img {
 	padding-top: 60px;
@@ -17,79 +16,85 @@
 section {
 	text-align: center;
 }
+
+#overview img {
+	width: 30%;
+}
+
 .lightBack {
 	background: #F0F0F0;
 	color: #474d58;
 	padding-bottom: 30px;
-	
 }
 
-section h1{
+section h1 {
 	font-size: 36px;
-    font-weight: 300;
-    line-height: 30px;
+	font-weight: 300;
+	line-height: 30px;
 	padding-bottom: 24px;
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
-.lightBack p{
+.lightBack p {
 	padding-left: 25%;
-    width: 50%;
+	width: 50%;
 }
 
-.lightBack p strong{
+.lightBack p strong {
 	font-weight: bold;
 }
 
-.sub{
+.sub {
 	font-weight: 300;
-    line-height: 30px;
-    padding-bottom: 30px;
+	line-height: 30px;
+	padding-bottom: 30px;
 	font-size: 20px
 }
 
-.darkBack{
+.darkBack {
 	background: #7D8891;
-	color:#F0F0F0;
+	background: url("/img/back.svg") no-repeat center center;
+	background-size: 100%; 
+	color : #F0F0F0;
 	padding: 20px;
 	border-bottom: 1px solid #444;
 	border-top: 1px solid #444;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.24) inset;
+	color: #F0F0F0;
 }
 
-.feature_wrapper{
+.feature_wrapper {
 	display: block;
-    height: 127px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 738px;
+	height: 127px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 738px;
 }
 
 .feature_content {
 	display: inline-block;
-    float: left;
-    position: relative;
+	float: left;
+	position: relative;
 }
-
 
 .feature_content span {
 	font-size: 16px;
-    padding-top: 10px;
-    position: absolute;
-    width: 120px;
+	padding-top: 10px;
+	position: absolute;
+	width: 120px;
 }
 
-#first span{
-	left:-25px;
+#first span {
+	left: -25px;
 }
 
 .hr {
-    background: none repeat scroll 0 0 #e0e0e0;
-    display: block;
-    float: left;
-    height: 1px;
-    margin: 30px 10px;
-    width: 100px;
+	background: none repeat scroll 0 0 #e0e0e0;
+	display: block;
+	float: left;
+	height: 1px;
+	margin: 30px 10px;
+	width: 100px;
 }
 
 #incomingContent {

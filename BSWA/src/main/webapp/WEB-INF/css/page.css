@@ -182,7 +182,7 @@ a:link,a:visited{
 	font-size: 20px;
 	
 	background-repeat: no-repeat;
-	background-color : rgba(255,255,255,0.5);
+	background-color : rgba(255,255,255,0.1);
 	
 	display: table; 
 	width: 25%;
@@ -208,25 +208,33 @@ a:link,a:visited{
 }
 
 ul.wtoolbar li{
-
 	display: inline;
 }
 
 #buthome {
 	width: 100px;
-	background : url("/img/Home.png") no-repeat center center;
+	background : url("/img/home.svg") no-repeat center center;
+	background-size: 80px 80px;
+	background-position: 10px 10px;
 }
 
 #but1 {
-	background-image : url("/img/Create.png");
+	background-image : url("/img/create.svg");
+	background-size: 80px 80px;
+	background-position: 10px 10px;
 }
 
 #but2 {
-	background-image : url("/img/manageQueue.png");
+	background-image : url("/img/manageQueue.svg");
+	background-size: 80px 80px;
+	background-position: 10px 10px;
 }
 
 #but3 {
-	background-image : url("/img/netConf.png");
+	background-image: url("/img/net-config.svg");
+	background-size: 80px 80px;
+	background-position: 10px 10px;
+	
 }
 
 .truncate {
