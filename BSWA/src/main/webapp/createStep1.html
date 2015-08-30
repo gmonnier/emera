@@ -20,7 +20,7 @@
 		
 		
 		 
-		$("#addDataLeft").hover(function(e){
+		$(".open-load-data").hover(function(e){
 			 $( "#menuLoadData" ).width(250);
 			 $( "#menuLoadData" ).show();
 		}, function(){
@@ -34,7 +34,7 @@
 		$( "#menuLoadLibrary" ).css('position','absolute');
 		$( "#menuLoadLibrary" ).css('z-index','100');
 		$("#menuLoadLibrary").hide();
-		$("#addLibLeft").hover(function(){
+		$(".open-load-lib").hover(function(){
 			 $( "#menuLoadLibrary" ).show();
 			 $( "#menuLoadLibrary" ).width(250);
 		}, function(){
@@ -63,24 +63,24 @@
 	<div id="filescontainer">
 			 <div>
 				<h3><a href="#">Data files</a></h3>
-				<div>
-					<div id="addDataLeft" class="addleft">
-						<a id="linkLoadData" href=""> 
-							<span class="helper"></span><img src="img/addFile.png" alt="Next">
-							<ul id="menuLoadData">
-								<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storeDataFilesList)]">Stored data files
-									 <ul class="storedmenu">
-										<li ng-repeat="file in storeDataFilesList" ng-click="addDataViewFile(file)">
-											<span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
-										</li>
-									</ul>
-								</li>
-								<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
-								<li onclick="selectFile('dataFileIn');">Load from my computer</li>
-							</ul>
-						</a>
+				<div class="panel-content">
+					<div class="open-load open-load-data add-left">
+						<svg class="add-icon">
+						   <use xlink:href="img/addFile.svg#add-file"></use>
+						</svg>
+						<ul id="menuLoadData">
+							<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storeDataFilesList)]">Stored data files
+								 <ul class="storedmenu">
+									<li ng-repeat="file in storeDataFilesList" ng-click="addDataViewFile(file)">
+										<span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
+									</li>
+								</ul>
+							</li>
+							<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+							<li onclick="selectFile('dataFileIn');">Load from my computer</li>
+						</ul>
 					</div>
-					<div class="addright">
+					<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(configuration.selectedDataFiles)]">
 						<p ng-if="isEmpty(configuration.selectedDataFiles)">
 							No file selected, please select at least one data file to process.
 						</p>
@@ -93,7 +93,7 @@
 									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
 									<div class="sizecell">{{selected.readableSize}}</div>
 									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeDataFile(selected)"><span><img src="img/remove.png" alt="Delete"></span></div>
+									<div class="deletecell" ng-click="removeDataFile(selected)"><span><img src="img/remove.svg" alt="Delete"></span></div>
 								</div>
 							</div>
 						</div>
@@ -103,21 +103,21 @@
 			
 			<div>
 				<h3><a href="#">Library files</a></h3>
-				<div>
-					<div id="addLibLeft" class="addleft">
-						<a class="hvr-effect" href=""> 
-							<span class="helper"></span><img src="img/addFile.png" alt="Next">
-							<ul id="menuLoadLibrary">
-								<li ng-class="{true:'ui-state-disabled', false:''}[isEmpty(storeLibraryFilesList)]">Stored Libraries
-									 <ul class="storedmenu">
-										<li ng-repeat="file in storeLibraryFilesList" ng-click="addLibraryViewFile(file)">{{file.name}}</li>
-									</ul>
-								</li>
-								<li onclick="selectFile('libraryFileIn');">Load from my computer</li>
-							</ul>
-						</a>
+				<div class="panel-content">
+					<div class="open-load open-load-lib add-left">
+						<svg class="add-icon">
+						   <use xlink:href="img/addFile.svg#add-file"></use>
+						</svg>
+						<ul id="menuLoadLibrary">
+							<li ng-class="{true:'ui-state-disabled', false:''}[isEmpty(storeLibraryFilesList)]">Stored Libraries
+								 <ul class="storedmenu">
+									<li ng-repeat="file in storeLibraryFilesList" ng-click="addLibraryViewFile(file)">{{file.name}}</li>
+								</ul>
+							</li>
+							<li onclick="selectFile('libraryFileIn');">Load from my computer</li>
+						</ul>
 					</div>
-					<div class="addright">
+					<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(configuration.selectedLibraries)]">
 						<p ng-if="isEmpty(configuration.selectedLibraries)">
 							No library selected, please select at least one library file.
 						</p>
@@ -129,7 +129,7 @@
 									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
 									<div class="sizecell">{{selected.readableSize}}</div>
 									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeLibraryFile(selected)"><span><img src="img/remove.png" alt="Delete"></span></div>
+									<div class="deletecell" ng-click="removeLibraryFile(selected)"><span><img src="img/remove.svg" alt="Delete"></span></div>
 								</div>
 							</div>
 						</div>

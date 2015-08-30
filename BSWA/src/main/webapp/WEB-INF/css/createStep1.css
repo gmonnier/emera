@@ -13,13 +13,30 @@
 	width: 40%;
 }
 
-.addleft {
-	float: left;
+.panel-content {
+	display: table;
+}
+
+.add-left {
+	display: table-cell;
+	vertical-align: middle;
 	width: 100px;
+}
+
+.add-right {
+	display: table-cell;
 }
 
 .nodisplay{
 	display: none;
+}
+
+.align-middle {
+	vertical-align: middle;
+}
+
+.align-top {
+	vertical-align: top;
 }
 
 .fileTable {
@@ -70,6 +87,8 @@
 
 .deletecell img {
 	display: block;
+	width: 15px;
+	height: 15px;
     margin-left: auto;
     margin-right: auto
 }
@@ -98,3 +117,22 @@
 .column2 {
   display: table-column;
 }
+
+.add-icon{
+    width: 80px;
+    height: 80px;
+}
+
+.add-icon .st0{fill:#567C13;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+.add-icon .st1{fill:url('/img/addFile.svg#gradient-back');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+.add-icon .st2{fill:#FFCE00;stroke:#6785A5;stroke-width:2;}
+.add-icon .st3{fill:#85A838;stroke:#6785A5;stroke-width:2;}
+
+.open-load:hover {
+	cursor: pointer;
+}
+
+.open-load:hover .add-icon .st0{fill:#85A838;}
+.open-load:hover .add-icon .st1{fill:url('/img/addFile.svg#gradient-back-hover');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+.open-load:hover .add-icon .st2 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}
+.open-load:hover .add-icon .st3 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}
