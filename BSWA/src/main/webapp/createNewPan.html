@@ -5,9 +5,10 @@
 		// Animate next button
 		$("#nextlink").hover(function(){
 			 $("#nextlink").clearQueue();
-			 $("#nextlink").animate({width: "250px"}, 300)
+			 $("#nextlink").animate({width: "250px"}, 100);
+			 
 		}, function(){
-			$("#nextlink").animate({width: "200px"}, 300)
+			$("#nextlink").animate({width: "200px"}, 100)
 		});
 		
 	})(jQuery);
@@ -29,8 +30,13 @@
 
 <div id="nextlink" ng-click="nextStep()"> 
 	<div id="next">
-		<span class="helper"></span>
-		<img ng-src="{{currentCreateStep == '1' && 'img/next.png' || 'img/start_button.png'}}" alt="Next">
+		<svg class="action-button next-icon" ng-if="currentCreateStep == '1'">
+			<use xlink:href="img/next.svg#icon-next"></use>
+		</svg>
+		<svg class="action-button start-icon" ng-if="currentCreateStep != '1'">
+			<use xlink:href="img/start_button.svg#icon-start"></use>
+		</svg>
+		<div class="icon-label">Next</div>
 	</div>
 </div>
 
