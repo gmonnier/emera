@@ -1,15 +1,16 @@
 .ui-dialog {
 	-webkit-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75) !important;
-	-moz-box-shadow:    0px 0px 30px 0px rgba(50, 50, 50, 0.75) !important;
-	box-shadow:         0px 0px 30px 0px rgba(50, 50, 50, 0.75) !important;
+	-moz-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75) !important;
+	box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75) !important;
 }
 
 .ui-widget-header {
 	border: 1px solid #3961A8 !important;
 }
 
-.ui-widget-overlay  {
-	background: url("/img/back.png") repeat scroll 50% 50% #666666 !important;
+.ui-widget-overlay {
+	background: url("/img/back.png") repeat scroll 50% 50% #666666
+		!important;
 }
 
 .overflow-visible {
@@ -18,4 +19,32 @@
 
 .overflow-auto {
 	overflow: auto !important;
+}
+
+.ui-widget-header {
+	background: rgb(40, 74, 116); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(40, 74, 116, 1) 0%,
+		rgba(27, 98, 161, 1) 50%, rgba(22, 88, 146, 1) 51%,
+		rgba(39, 141, 219, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(40,
+		74, 116, 1)), color-stop(50%, rgba(27, 98, 161, 1)),
+		color-stop(51%, rgba(22, 88, 146, 1)),
+		color-stop(100%, rgba(39, 141, 219, 1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(40, 74, 116, 1) 0%,
+		rgba(27, 98, 161, 1) 50%, rgba(22, 88, 146, 1) 51%,
+		rgba(39, 141, 219, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(40, 74, 116, 1) 0%,
+		rgba(27, 98, 161, 1) 50%, rgba(22, 88, 146, 1) 51%,
+		rgba(39, 141, 219, 1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(40, 74, 116, 1) 0%,
+		rgba(27, 98, 161, 1) 50%, rgba(22, 88, 146, 1) 51%,
+		rgba(39, 141, 219, 1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(40, 74, 116, 1) 0%,
+		rgba(27, 98, 161, 1) 50%, rgba(22, 88, 146, 1) 51%,
+		rgba(39, 141, 219, 1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#284a74',
+		endColorstr='#278ddb', GradientType=0); /* IE6-9 */
+	-webkit-box-shadow: inset 0px 0px 45px -1px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 0px 45px -1px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 0px 45px -1px rgba(255, 255, 255, 0.5);
 }

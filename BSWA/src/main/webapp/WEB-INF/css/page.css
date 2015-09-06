@@ -99,7 +99,7 @@ a:link,a:visited{
 	position:absolute;
 	height : 80px;
 	width : 100%;
-	background-image : url("/img/toolBack.jpg");
+	background: #cccccc;
 	color: #2669B3;
 	font-size: 15px;
 	min-width:1100px;

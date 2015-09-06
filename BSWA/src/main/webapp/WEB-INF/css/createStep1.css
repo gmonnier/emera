@@ -13,10 +13,6 @@
 	width: 40%;
 }
 
-.panel-content {
-	display: table;
-}
-
 .add-left {
 	display: table-cell;
 	vertical-align: middle;
