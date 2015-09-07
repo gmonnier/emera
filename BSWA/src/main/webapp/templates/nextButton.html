@@ -1,0 +1,14 @@
+<div id="nextlink" class="nodisplay" ng-click="nextClicked()">
+	<div id="nextlink-content">
+		<div class="button-next">
+			<svg class="action-button next-icon" ng-if="currentCreateStep == '1'">
+						<use xlink:href="img/next.svg#icon-next"></use>
+					</svg>
+			<svg class="action-button start-icon" ng-if="currentCreateStep != '1'">
+						<use xlink:href="img/start_button.svg#icon-start"></use>
+					</svg>
+			<div class="icon-label" ng-if="currentCreateStep == '1'">Next</div>
+			<div class="icon-label" ng-if="currentCreateStep != '1'">Start</div>
+		</div>
+	</div>
+</div>

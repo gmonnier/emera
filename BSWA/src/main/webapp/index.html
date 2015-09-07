@@ -1,194 +1,179 @@
 <!doctype html>
 <html lang="en" ng-app="app">
-	<head>
-	  <meta charset="utf-8">
-	  <title>Emera web platform</title>
-	  <link rel="stylesheet" href="WEB-INF/css/page.css"/>
-	  <link rel="stylesheet" href="WEB-INF/js/jquery-ui-1.11.3/jquery-ui.css">
-	  <link rel="stylesheet" href="WEB-INF/css/overload-jquery-ui.css">
-	  <link rel="stylesheet" href="WEB-INF/css/offline-default.css">
-	  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro" />
-	</head>
+<head>
+<meta charset="utf-8">
+<title>Emera web platform</title>
+<link rel="stylesheet" href="WEB-INF/css/page.css" />
+<link rel="stylesheet" href="WEB-INF/js/jquery-ui-1.11.3/jquery-ui.css">
+<link rel="stylesheet" href="WEB-INF/css/overload-jquery-ui.css">
+<link rel="stylesheet" href="WEB-INF/css/offline-default.css">
+<link rel="stylesheet" href="components/css3-animate-it-master/css/animations.css" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro" />
+</head>
 
-	<body>
-	
-	  <div id="content">
-			<div id="topToolBar" ng-controller="topToolBarCtrl"> 
-				<div id="topToolBarLogo" > 
-					<img ng-src="img/logotop.svg" height="60px" alt="logo"/>
-				</div>
-				
-				<div id="authContent" >
-					<img style="vertical-align:middle" ng-src="{{user.authenticated && 'img/userAuth/user.png' || 'img/userAuth/guest.png'}}" alt="logo"/>
-					
-					<span ng-show="!user.authenticated" ng-click="showLoginDial()"><b class="connectionInfo">Connected as guest </b><img style="vertical-align:middle" ng-src="img/userAuth/arrowR.png"/> <b class="loginLink" >Log in</b></span>
-					<span ng-show="user.authenticated"><b class="connectionInfo">{{ user.first_name }} {{ user.last_name }} </b><img style="vertical-align:middle" ng-src="img/userAuth/arrowR.png"/> <a class="loginLink" href="#" ua-logout>Log Out</a></span>
-				</div>
+<body>
+
+	<div id="content">
+		<header id="topToolBar" ng-controller="topToolBarCtrl">
+			<div id="topToolBarLogo">
+				<img ng-src="img/logotop.svg" height="60px" alt="logo" />
 			</div>
-		  
-			 <div id="workingToolBar" ng-controller="navController">
-					<ul class="wtoolbar">
-						<li class="one" ng-click="menuClicked(1)">
-							<a class="toolbaraction" href="#/home"> 
-								<div class="buttondiv hvr-bounce-in" id="buthome">
-								</div>
-							</a>
-						</li> 
-						<li class="two" ng-click="menuClicked(2)">
-							<a class="toolbaraction" href="#/create"> 
-								<div class="buttondiv hvr-bounce-in" id="but1">
-									<p>Create new analysis</p>
-								</div>
-							</a>
-						</li>
-						<li class="three" ng-click="menuClicked(3)">
-							<a class="toolbaraction" href="#/running"> 
-								<div class="buttondiv hvr-bounce-in" id="but2">
-									<p>Manage analyses</p>
-								</div>
-							</a>
-						</li>
-						<li class="four" ng-click="menuClicked(4)">
-							<a class="toolbaraction" href="#/config">
-								<div class="buttondiv hvr-bounce-in" id="but3">
-									<p>Network Configuration</p>
-								</div>
-							</a>
-						</li>
-						<hr id="subSelectBar" class="select1"/>
-				</ul>
-			  </div> 
-		  
-			  <div id="workingPan">
-				<div id="ngViewFade">
-					<div ng-view>
-					</div>
-				</div>
-			  </div>
-			 
+
+			<div id="authContent">
+				<img style="vertical-align: middle" ng-src="{{user.authenticated && 'img/userAuth/user.png' || 'img/userAuth/guest.png'}}" alt="logo" /> <span ng-show="!user.authenticated" ng-click="showLoginDial()"><b class="connectionInfo">Connected
+						as guest </b><img style="vertical-align: middle" ng-src="img/userAuth/arrowR.png" /> <b class="loginLink">Log in</b></span> <span ng-show="user.authenticated"><b class="connectionInfo">{{ user.first_name }} {{ user.last_name }} </b><img
+					style="vertical-align: middle" ng-src="img/userAuth/arrowR.png" /> <a class="loginLink" href="#" ua-logout>Log Out</a></span>
+			</div>
+		</header>
+
+		<nav class="nav" id="workingToolBar" ng-controller="navController" nav-directive>
+			<ul class="wtoolbar">
+				<li class="one" ng-click="menuClicked(1)"><a class="toolbaraction" href="#/home">
+						<div class="buttondiv hvr-bounce-in" id="buthome"></div>
+				</a></li>
+				<li class="two" ng-click="menuClicked(2)"><a class="toolbaraction" href="#/create">
+						<div class="buttondiv hvr-bounce-in" id="but1">
+							<p>Create new analysis</p>
+						</div>
+				</a></li>
+				<li class="three" ng-click="menuClicked(3)"><a class="toolbaraction" href="#/running">
+						<div class="buttondiv hvr-bounce-in" id="but2">
+							<p>Manage analyses</p>
+						</div>
+				</a></li>
+				<li class="four" ng-click="menuClicked(4)"><a class="toolbaraction" href="#/config">
+						<div class="buttondiv hvr-bounce-in" id="but3">
+							<p>Network Configuration</p>
+						</div>
+				</a></li>
+				<hr id="subSelectBar" class="select1" />
+			</ul>
+		</nav>
+
+		<div id="workingPan">
+			<div id="ngViewFade">
+				<div ng-view></div>
+			</div>
 		</div>
-		
-		<div id="loginDialog" title="Enter your credentials">
-			 <p>
-				<span class="ui-icon ui-icon-locked" style="float:left; margin:0 7px 50px 0;"></span>
-				Enter your Emera user account credentials.
-				
-			</p>
-			<img style="vertical-align:middle; float: left; padding-top: 5px" ng-src="img/userAuth/user.png" alt="logo"/>
-			<form id="loginForm" style="text-align: center;" ua-login>
-				<input name="login" placeholder="Username">
-				<input name="password" placeholder="Password" type="password">
-				<p ng-show="error" style="color:rgb(150,0,0)">{{ error.message }}</p>
-			</form>
-		</div>
-		<div id="authenticationRequestDialog" title="Authentication required">
-			 <p>
-				<span class="ui-icon ui-icon-locked" style="float:left; margin:0 7px 50px 0;"></span>
-				Authentication required to perform this task. Please login first.
-			</p>
-		</div>
-		
-		
-		
-		<script src="WEB-INF/js/jquery-2.1.3.min.js"></script>
-		<script src="WEB-INF/js/jquery-ui-1.11.3/jquery-ui.min.js"></script>
-		<script src="WEB-INF/js/offline.min.js"></script>
-	  	<!--<script src="WEB-INF/js/angular.min.js"></script>
+
+		<div id="nextlinkHolder" init-next-button/>
+
+	</div>
+
+	<div id="loginDialog" title="Enter your credentials">
+		<p>
+			<span class="ui-icon ui-icon-locked" style="float: left; margin: 0 7px 50px 0;"></span> Enter your Emera user account credentials.
+
+		</p>
+		<img style="vertical-align: middle; float: left; padding-top: 5px" ng-src="img/userAuth/user.png" alt="logo" />
+		<form id="loginForm" style="text-align: center;" ua-login>
+			<input name="login" placeholder="Username"> <input name="password" placeholder="Password" type="password">
+			<p ng-show="error" style="color: rgb(150, 0, 0)">{{ error.message }}</p>
+		</form>
+	</div>
+	<div id="authenticationRequestDialog" title="Authentication required">
+		<p>
+			<span class="ui-icon ui-icon-locked" style="float: left; margin: 0 7px 50px 0;"></span> Authentication required to perform this task. Please login first.
+		</p>
+	</div>
+
+
+
+	<script src="WEB-INF/js/jquery-2.1.3.min.js"></script>
+	<script src="WEB-INF/js/jquery-ui-1.11.3/jquery-ui.min.js"></script>
+	<script src="WEB-INF/js/offline.min.js"></script>
+	<!--<script src="WEB-INF/js/angular.min.js"></script>
 		<script src="WEB-INF/js/angular-route.min.js"></script>
 		<script src="WEB-INF/js/angular-animate.min.js"></script>-->
-		<script script src="WEB-INF/js/angular.js"></script>
-		<script src="WEB-INF/js/angular-route.js"></script>
-		<script src="WEB-INF/js/angular-animate.js"></script>
-		
-		<script src="WEB-INF/js/angular-touch.min.js"></script>
-		<script src="WEB-INF/js/angular-file-upload.min.js"></script> 
-		
-		<script type="text/javascript">
-			// List of all applications controllers
-			var appControllers = angular.module('appControllers', []);
-			
-			// List of all applications directives
-			var directives = angular.module('appDirectives', []);
-			
-			// List of all applications services
-			var services = angular.module('appServices', []);
-			
-			//inject angular file upload directives and services.
-			
-			var app = angular.module('app', [
-			  'ngRoute',
-			  'appControllers',
-			  'appDirectives',
-			  'appServices',
-			  'ngAnimate',
-			  'angularFileUpload',
-			  'UserApp'
-			]);
-			
-			app.run(function(user) {
-				user.init({ appId: '554d0317250f5' });
-			});
-			
-			Offline.on('up', function () {
-				// similar behavior as an HTTP redirect
-				window.location.href = "/";
-			});
-			/*var run = function(){
-				var req = new XMLHttpRequest();
-				req.timeout = 5000;
-				req.open('GET', 'ws-resources/connection', true);
-				req.send();
-			}
-			setInterval(run, 3000);*/
-		</script>
-		
-		<script src="WEB-INF/js/root.js"></script>
-		<!-- Inlude application controllers -->
-		<script src="WEB-INF/js/controllers/top-toolbar-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/navigation-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/bs-model-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/createnew-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/welcome-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/pattern-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/running-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/running-info-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/network-ctrl.js"></script>
-		<script src="WEB-INF/js/controllers/reportdialog-ctrl.js"></script>
-		
-		<!-- Authentication management -->
-		<script src="https://app.userapp.io/js/userapp.client.js"></script>
-		<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
-		
-		<!-- Inlude application services -->
-		<script src="WEB-INF/js/services/upload-srvc.js"></script>
-		<script src="WEB-INF/js/services/basespace-srvc.js"></script> 
-		<script src="WEB-INF/js/services/analysismgt-srvc.js"></script>
-		<script src="WEB-INF/js/services/patternStorage-srvc.js"></script>
-		<script src="WEB-INF/js/services/report-srvc.js"></script>
-		
+	<script script src="WEB-INF/js/angular.js"></script>
+	<script src="WEB-INF/js/angular-route.js"></script>
+	<script src="WEB-INF/js/angular-animate.js"></script>
 
-		<script src="components/amcharts_3.13.3.free/amcharts/amcharts.js" type="text/javascript"></script>
-		<script src="components/amcharts_3.13.3.free/amcharts/serial.js" type="text/javascript"></script>
-		
-		<script type="text/javascript" src="components/ammap_3.13.3.free/ammap/ammap.js"></script>
-		<script type="text/javascript" src="components/ammap_3.13.3.free/ammap/maps/js/worldLow.js"></script>
-		<script src="components/ammap_3.13.3.free/ammap/themes/black.js" type="text/javascript"></script>-->
+	<script src="WEB-INF/js/angular-touch.min.js"></script>
+	<script src="WEB-INF/js/angular-file-upload.min.js"></script>
+
+	<script type="text/javascript">
+		// List of all applications controllers
+		var appControllers = angular.module('appControllers', []);
+
+		// List of all applications directives
+		var directives = angular.module('appDirectives', []);
+
+		// List of all applications services
+		var services = angular.module('appServices', []);
+
+		//inject angular file upload directives and services.
+
+		var app = angular.module('app', [ 'ngRoute', 'appControllers',
+				'appDirectives', 'appServices', 'ngAnimate',
+				'angularFileUpload', 'UserApp' ]);
+
+		app.run(function(user) {
+			user.init({
+				appId : '554d0317250f5'
+			});
+		});
+
+		Offline.on('up', function() {
+			// similar behavior as an HTTP redirect
+			window.location.href = "/";
+		});
+		/*var run = function(){
+			var req = new XMLHttpRequest();
+			req.timeout = 5000;
+			req.open('GET', 'ws-resources/connection', true);
+			req.send();
+		}
+		setInterval(run, 3000);*/
+	</script>
+
+	<script src="WEB-INF/js/root.js"></script>
+	<!-- Inlude application controllers -->
+	<script src="WEB-INF/js/controllers/top-toolbar-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/navigation-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/bs-model-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/createnew-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/pattern-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/running-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/running-info-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/network-ctrl.js"></script>
+	<script src="WEB-INF/js/controllers/reportdialog-ctrl.js"></script>
+
+	<!-- Authentication management -->
+	<script src="https://app.userapp.io/js/userapp.client.js"></script>
+	<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+
+	<!-- Inlude application services -->
+	<script src="WEB-INF/js/services/upload-srvc.js"></script>
+	<script src="WEB-INF/js/services/basespace-srvc.js"></script>
+	<script src="WEB-INF/js/services/analysismgt-srvc.js"></script>
+	<script src="WEB-INF/js/services/patternStorage-srvc.js"></script>
+	<script src="WEB-INF/js/services/report-srvc.js"></script>
 
 
-		<script type="text/javascript">
-			// With the element initially hidden, we can show it slowly:
-			$( ".toolbaraction" ).click(function() {
-				$( "#ngViewFade" ).clearQueue();
-				$( "#ngViewFade" ).stop();
-				$( "#ngViewFade" ).hide();
-				$( "#ngViewFade" ).fadeIn( "slow", function() {
-				});
+	<script src="components/amcharts_3.13.3.free/amcharts/amcharts.js" type="text/javascript"></script>
+	<script src="components/amcharts_3.13.3.free/amcharts/serial.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="components/ammap_3.13.3.free/ammap/ammap.js"></script>
+	<script type="text/javascript" src="components/ammap_3.13.3.free/ammap/maps/js/worldLow.js"></script>
+	<script src="components/ammap_3.13.3.free/ammap/themes/black.js" type="text/javascript"></script>
+	<script src="components/css3-animate-it-master/js/css3-animate-it.js" type="text/javascript"></script>
+
+
+	<script type="text/javascript">
+		// With the element initially hidden, we can show it slowly:
+		$(".toolbaraction").click(function() {
+			$("#ngViewFade").clearQueue();
+			$("#ngViewFade").stop();
+			$("#ngViewFade").hide();
+			$("#ngViewFade").fadeIn("slow", function() {
 			});
-			
-			$( "#loginDialog" ).hide();
-			$( "#authenticationRequestDialog" ).hide();
-		</script>
-		
-		
-	</body>
+		});
+
+		$("#loginDialog").hide();
+		$("#authenticationRequestDialog").hide();
+	</script>
+
+
+</body>
 </html>

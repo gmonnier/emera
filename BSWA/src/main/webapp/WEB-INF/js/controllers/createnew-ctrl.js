@@ -38,7 +38,11 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
 		return true;
 	}
 	
-	$scope.nextStep = function() {
+	$scope.$on('nextStepClicked', function(evt, data) {
+		nextStep();
+	  });
+	
+	var nextStep = function() {
 		$scope.currentCreateStep = $scope.currentCreateStep + 1;
 		
 		if($scope.currentCreateStep > MAX_STEP) {
@@ -194,6 +198,16 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
             $scope.$apply();
         }
     };
+    
+    $scope.$on('$routeChangeSuccess', function() {
+        $('#nextlink').removeClass('nodisplay')
+    });
+    
+    $scope.$on('$routeChangeStart', function() {
+        $('#nextlink').addClass('nodisplay')
+    });
+    
+    
 	
 	// init upload lists
 	uploadService.clearLists();
@@ -243,4 +257,20 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
 		$('.accrun .ui-state-focus').removeClass('ui-state-focus');
 	}
 
-});
+}).directive('initNextButton', function($rootScope) {
+	return {
+		scope: {},
+		link : function(scope) {
+			scope.currentCreateStep = 1;
+			scope.nextClicked = function() {
+				scope.currentCreateStep++;
+				$rootScope.$broadcast('nextStepClicked');
+			};
+			
+		    scope.$on('$routeChangeSuccess', function() {
+		    	scope.currentCreateStep = 1;
+		    });
+		},
+		templateUrl: '/templates/nextButton.html'
+	};
+});;

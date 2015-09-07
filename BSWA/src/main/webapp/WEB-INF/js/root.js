@@ -14,7 +14,6 @@ app.config(['$routeProvider',
         controller: 'networkCtrl', public: true
       }).
       otherwise({
-		templateUrl: 'homePan.html',
-        controller: 'welcomeCtrl'
+		templateUrl: 'homePan.html'
       });
 }]);

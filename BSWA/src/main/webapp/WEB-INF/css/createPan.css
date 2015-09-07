@@ -6,31 +6,35 @@
 
 .slideAnim.ng-enter   { animation: slideInRight 0.5s both ease-in;  }
 
-#next {
+#nextlink-content {
 	text-align: center;
 	height:100%;
 	background: rgb(216,234,175);
 	background:#fff;
 	cursor: pointer;
-	display: table-cell;
-	vertical-align: middle;
-	
+	display: table;
+	width: 100%;
 }
 
-#next p {
+#nextlink-content p {
 	margin: 0;
 }
 
 #nextlink {
-	display: table;
+	float:right;
 	position: absolute;
 	right: 0;
-	top: 0;
-	height:100%;
-	width: 200px;
+	top: 205px;
+	width:200px;
+	bottom: 0;
 	-webkit-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow:    0px 0px 17px 0px rgba(50, 50, 50, 0.75);
 	box-shadow:         0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+}
+
+.button-next{
+	display: table-cell;
+	vertical-align:middle;
 }
 
 .action-button{
