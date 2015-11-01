@@ -71,7 +71,7 @@ app.directive('chartElement',
        return {
         restrict: 'E',
         replace:true,
-        template: '<div id="chartdiv" style="position: fixed; width: 100%; height: 100%;"><div class="loadingChart shadowedText">Loading chart...</div></div>',
+        template: '<div id="chartdiv"><div class="loadingChart shadowedText">Loading chart...</div></div>',
         link: function (scope, element, attrs) {
 
 			// Prevent css incompatibilities between map and graphs libraries

@@ -234,16 +234,16 @@
 	</div>
 </div>
 
-<div id="reportDialog" title="Analysis report" ng-if="analyseDisplayedResult!==null">
-	<div id="chartContent" ng-controller="reportDialogCtrl">
-		<div id="topChartBar" class="shadowedText">
-			{{title}}
-			<div id="closebutton" ng-click="openGraphData(null)">
-				<img ng-src="img/analysemgt/close.png" alt="Next"/>
+<div class="overlay-report" ng-if="analyseDisplayedResult!==null">
+	<div id="reportDialog" title="Analysis report">
+		<div id="chartContent" ng-controller="reportDialogCtrl">
+			<div id="topChartBar" class="shadowedText">
+				{{title}}
+				<div id="closebutton" ng-click="openGraphData(null)">
+					<img ng-src="img/analysemgt/close.png" alt="Next"/>
+				</div>
 			</div>
-		</div>
-		<div >
-			<chart-element graphData="graphData" config="chartConfig"></chart-element>    
+			<chart-element graphData="graphData" config="chartConfig"></chart-element> 
 		</div>
 	</div>
 </div>
