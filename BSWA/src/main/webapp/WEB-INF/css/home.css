@@ -21,6 +21,19 @@ section {
 	width: 50%;
 }
 
+#overview .animatedParent {
+	position: relative;
+}
+
+#overview .logo {
+	position: relative;
+}
+
+#overview .slogan {
+	position: absolute;
+	left: 25%;
+}
+
 .lightBack {
 	background: #F0F0F0;
 	color: #474d58;
