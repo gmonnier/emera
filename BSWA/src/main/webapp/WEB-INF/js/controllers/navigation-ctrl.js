@@ -25,10 +25,12 @@ app.directive('navDirective', function() {
 			var stickyNav = function() {
 				var scrollTop = $(window).scrollTop();
 				var headerHeight = $('#topToolBarLogo').height();
-				if (scrollTop > 40) {
+				if (scrollTop > 70) {
 					$('.nav').css('top', '0px' );
+					$('#topToolBar').css('margin-bottom', '100px' );
 				} else {
 					$('.nav').offset({ top: 80 });
+					$('#topToolBar').css('margin-bottom', '125px' );
 				}
 			};
 
