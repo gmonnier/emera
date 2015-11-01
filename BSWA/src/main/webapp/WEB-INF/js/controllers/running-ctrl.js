@@ -139,6 +139,14 @@ appControllers.controller('runningCtrl', function ($scope,$http, analysisMgtServ
 			modal: true,
 			height: 170,
 			width: 520,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			buttons: {
 			Ok: function() {
 				$( this ).dialog( "close" );
