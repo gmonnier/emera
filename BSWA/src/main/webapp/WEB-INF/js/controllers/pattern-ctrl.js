@@ -31,6 +31,14 @@ appControllers.controller('patternsCtrl', function ($scope, $http, PatternStorag
 		$("#createPatternDialog").dialog({
 			modal: true,
 			width: 700,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			buttons: {
 				Ok: function() {
 					$( this ).dialog( "close" );

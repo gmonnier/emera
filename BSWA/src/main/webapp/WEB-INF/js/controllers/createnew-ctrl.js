@@ -158,6 +158,14 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
 		$(dialogid).dialog({
 			modal: true,
 			width: 700,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			buttons: {
 			Ok: function() {
 				$( this ).dialog( "close" );
@@ -243,6 +251,14 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
 		$("#basespacedialog").dialog({
 			modal: true,
 			width: 700,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			close: closeAccordions(),
 			buttons: {
 				Ok: function() {

@@ -17,6 +17,14 @@ appControllers.controller('topToolBarCtrl', function ($scope,$rootScope, $http, 
 			modal: true,
 			resizable: false,
 			width: 400,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			buttons: {
 			"Log in": function() {
 			

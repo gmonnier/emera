@@ -122,6 +122,14 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 			modal: true,
 			resizable: false,
 			width: 400,
+			show: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
+		    hide: {
+		        effect: 'fade',
+		        duration: 1000
+		    },
 			buttons: {
 			Ok: function() {
 				$(this).dialog("close");
