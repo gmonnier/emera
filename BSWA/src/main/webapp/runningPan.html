@@ -1,45 +1,36 @@
-<link rel="stylesheet" href="WEB-INF/css/runningPan.css"/>
+<link rel="stylesheet" href="WEB-INF/css/runningPan.css" />
 
 <script>
 	$("#deleteAllConfirmationDialog").hide();
 	$("#additionnalAnalysisSentDialog").hide();
 	$("#deletAdditionalConfirm").hide();
 	$("#additionalAnalysisDialog").hide();
-	
 </script>
 <div id="analyseContent">
 	<div id="runningtools">
 		<ul>
-			<li title="Stop all running analyses"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/stopAll.png" ng-click="stopAll();"/></li>
-			<li title="Expand all tabs"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/expandAll.png" ng-click="expandAll();"/></li>
-			<li title="Collapse all tabs"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/collapseAll.png" ng-click="collapseAll();"/></li>
-			<li style=" position:relative;" title="Sort tabs" id="sortToolItem" ><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/sort.png"/>
-				<ul style="position:absolute; top: 0;left: 32px; z-index:10000;" class="sortMenu shadowed">
-					<li style="text-align:center;" class="ui-widget-header">Sort analyses :</li>
-					<li ng-click="sortByDate();">
-						By completion date
-					</li>
-					<li ng-click="sortByName();">
-						Alphabetically
-					</li>
-				</ul>
-			</li>
-		<ul>
+			<li title="Stop all running analyses"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/stopAll.png" ng-click="stopAll();" /></li>
+			<li title="Expand all tabs"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/expandAll.png" ng-click="expandAll();" /></li>
+			<li title="Collapse all tabs"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/collapseAll.png" ng-click="collapseAll();" /></li>
+			<li style="position: relative;" title="Sort tabs" id="sortToolItem"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/sort.png" />
+				<ul style="position: absolute; top: 0; left: 32px; z-index: 10000;" class="sortMenu shadowed">
+					<li style="text-align: center;" class="ui-widget-header">Sort analyses :</li>
+					<li ng-click="sortByDate();">By completion date</li>
+					<li ng-click="sortByName();">Alphabetically</li>
+				</ul></li>
+			<ul>
 	</div>
 	<div class="lightBack" id="runTitle">
-		<p><span ng-show="!user.authenticated"><b>Guest user</b></span>
-			<span ng-show="user.authenticated"><b>{{ user.first_name }} {{ user.last_name }} </b></span>
-			- Running analyses
+		<p>
+			<span ng-show="!user.authenticated"><b>Guest user</b></span> <span ng-show="user.authenticated"><b>{{ user.first_name }} {{ user.last_name }} </b></span> - Running analyses
 		</p>
 	</div>
 	<div class="emptyListInfo" ng-if="runningAnalyses.length <= 0">
-		<p>
-			No running analysis.
-		</p>
+		<p>No running analysis.</p>
 	</div>
 	<div id="runningContent" style="padding-left: 100px;">
-		
-		<div class="accRunning shadowed" ng-repeat="runanalyse in runningAnalyses" post-running-repeat-directive >
+
+		<div class="accRunning shadowed" ng-repeat="runanalyse in runningAnalyses" post-running-repeat-directive>
 			<h3>
 				<a href="#">
 					<div ng-controller="runningInfosCtrl">Analysis - {{runningAnalyses[$index].progress}}%</div>
@@ -79,34 +70,28 @@
 							</div>
 						</div>
 					</div>
-					<div id="progressbar_{{$index}}" class="progressbar">
-					</div>
+					<div id="progressbar_{{$index}}" class="progressbar"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="lightBack" id="completedTitle">
-		<p><span ng-show="!user.authenticated"><b>Guest user</b></span>
-			<span ng-show="user.authenticated"><b>{{ user.first_name }} {{ user.last_name }} </b></span>
-			- Completed analyses
+		<p>
+			<span ng-show="!user.authenticated"><b>Guest user</b></span> <span ng-show="user.authenticated"><b>{{ user.first_name }} {{ user.last_name }} </b></span> - Completed analyses
 		</p>
 	</div>
 	<div id="doneContent" style="padding-left: 100px;">
-		<div class="accComplete shadowed" ng-repeat="completeanalyse in completeAnalyses" post-complete-repeat-directive >
+		<div class="accComplete shadowed" ng-repeat="completeanalyse in completeAnalyses" post-complete-repeat-directive>
 			<h3>
 				<a href="#">
 					<div>
 						<div>Completed Analysis - {{completeanalyse.report.analyseConfig.selectedDataFiles[0].name}}</div>
-						<div style="position:absolute;right:5px;top:5px;font-size:10px;color:rgb(100,100,100)" >
-							<div style="display:inline;" class="tooltip" ng-if="completeanalyse.additionalAnalyses.length !== 0">
-								<img style="padding-right: 10px; vertical-align:middle" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/additional.png" alt="+">
-								<span>
-									<strong>Additional analyses</strong><br />
-									have been performed within this raw analysis.
-									<img class="callout left" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/calloutleft.gif" alt="+"/>
-								</span>
-								</img> 
+						<div style="position: absolute; right: 5px; top: 5px; font-size: 10px; color: rgb(100, 100, 100)">
+							<div style="display: inline;" class="tooltip" ng-if="completeanalyse.additionalAnalyses.length !== 0">
+								<img style="padding-right: 10px; vertical-align: middle" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/additional.png" alt="+"> <span> <strong>Additional analyses</strong><br /> have been performed within this raw
+									analysis. <img class="callout left" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/calloutleft.gif" alt="+" />
+								</span> </img>
 							</div>
 							<span>{{completeanalyse.completionDateFormat}}</span>
 						</div>
@@ -114,12 +99,12 @@
 				</a>
 			</h3>
 			<div>
-				<div style="display:table; width: 100%;">
-					<div style="display:table-row;">
+				<div style="display: table; width: 100%;">
+					<div style="display: table-row;">
 						<div class="completeAnimContent">
-							<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/complete.png" alt="Next"/>
+							<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/complete.png" alt="Next" />
 						</div>
-						<div style="display:inline">
+						<div style="display: inline">
 							<div style="float: left;">
 								<div class="propTable" style="float: left;">
 									<div class="column1"></div>
@@ -154,61 +139,47 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<ul id="buttonlist">
-								<li class="resultbutton" title="Download CSV Report">
-									<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/csvdownload.png" ng-click="downloadCSV(completeanalyse.id)" alt="Next"/>
-								</li>
-								<li class="resultbutton" title="Download PDF Report">
-									<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/pdfdownload.png" ng-click="downloadPDF(completeanalyse.id)" alt="Next"/>
-								</li>
-								<li class="resultbutton graph-button" title="View result chart">
-									<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/graph.png" ng-click="openGraphData(completeanalyse)" alt="Next"/>
-								</li>
-							<ul>
-							
+								<li class="resultbutton" title="Download CSV Report"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/csvdownload.png" ng-click="downloadCSV(completeanalyse.id)" alt="Next" /></li>
+								<li class="resultbutton" title="Download PDF Report"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/pdfdownload.png" ng-click="downloadPDF(completeanalyse.id)" alt="Next" /></li>
+								<li class="resultbutton graph-button" title="View result chart"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/graph.png" ng-click="openGraphData(completeanalyse)" alt="Next" /></li>
+								<ul>
 						</div>
 					</div>
-				
-					<div style="display:table-row;">
-						<div class="lineSeparator1"/>
-						<div class="lineSeparator2"/>
-						<div class="additionalAnalyse" >
+
+					<div style="display: table-row;">
+						<div class="lineSeparator1" />
+						<div class="lineSeparator2" />
+						<div class="additionalAnalyse">
 							<ul class="additionalAnalysisMenu shadowed">
-								<li>
-									<img style="vertical-align: middle;" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/additionalSmall.png"/>
-									Additional Analyses
+								<li><img style="vertical-align: middle;" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/additionalSmall.png" /> Additional Analyses
 									<ul class="shadowed">
-										<li>
-											Occurences increase rate
+										<li>Occurences increase rate
 											<ul class="ulanalysisCompareSelect shadowed">
-												<li ng-repeat="completeOtherAnalyse in completeAnalyses" ng-if="completeOtherAnalyse.id!==completeanalyse.id" ng-click="additionalAnalysisCompareRequest(completeanalyse.id,completeOtherAnalyse.id)">
-													<span class="dateDisp">{{completeOtherAnalyse.completionDateFormat}} </span> - <span class="fileNameDisp">{{completeOtherAnalyse.report.analyseConfig.selectedDataFiles[0].name}}</span>
-												</li>
+												<li ng-repeat="completeOtherAnalyse in completeAnalyses" ng-if="completeOtherAnalyse.id!==completeanalyse.id" ng-click="additionalAnalysisCompareRequest(completeanalyse.id,completeOtherAnalyse.id)"><span class="dateDisp">{{completeOtherAnalyse.completionDateFormat}}
+												</span> - <span class="fileNameDisp">{{completeOtherAnalyse.report.analyseConfig.selectedDataFiles[0].name}}</span></li>
 											</ul>
 										</li>
-									</ul>
-								</li>
+									</ul></li>
 							</ul>
 						</div>
 					</div>
-					
-					<div style="display:table-row;" ng-if="completeanalyse.additionalAnalyses.length !== 0">
-						<div class="lineSeparator3"/>
-						<div style="display:table;">
+
+					<div style="display: table-row;" ng-if="completeanalyse.additionalAnalyses.length !== 0">
+						<div class="lineSeparator3" />
+						<div style="display: table;">
 							<div class="additionnalFileRow" ng-repeat="additionnalAnalyseFile in completeanalyse.additionalAnalyses" ng-click="downloadAdditionalAnalysis(completeanalyse.id,additionnalAnalyseFile)">
 								<div class="additionnalFileCell">
-									<img ng-if="additionnalAnalyseFile.fileType == 'PDF'" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/pdfdownload20.png"/>
-									<img ng-if="additionnalAnalyseFile.fileType == 'CSV'" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/csvdownload20.png"/>
-									<img ng-if="additionnalAnalyseFile.fileType != 'CSV' && additionnalAnalyseFile.fileType !== 'PDF'" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/unknownTypedownload20.png"/>
+									<img ng-if="additionnalAnalyseFile.fileType == 'PDF'" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/pdfdownload20.png" /> <img ng-if="additionnalAnalyseFile.fileType == 'CSV'"
+										ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/csvdownload20.png" /> <img ng-if="additionnalAnalyseFile.fileType != 'CSV' && additionnalAnalyseFile.fileType !== 'PDF'"
+										ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/unknownTypedownload20.png" />
 								</div>
 								<div class="additionnalFileCell">{{additionnalAnalyseFile.name}}</div>
 								<div class="additionnalFileCell">{{additionnalAnalyseFile.readableSize}}</div>
 								<div class="additionnalFileCell">
 									<img ng-click="deleteAdditionalRequest(completeanalyse.id,additionnalAnalyseFile.name);$event.stopPropagation()" src="http://d2t2bnlh53lbhy.cloudfront.net/remove.png"
-										onmouseover="this.src='http://d2t2bnlh53lbhy.cloudfront.net/removeHigh.png';"
-										onmouseout="this.src='http://d2t2bnlh53lbhy.cloudfront.net/remove.png';">
-									</img>
+										onmouseover="this.src='http://d2t2bnlh53lbhy.cloudfront.net/removeHigh.png';" onmouseout="this.src='http://d2t2bnlh53lbhy.cloudfront.net/remove.png';"> </img>
 								</div>
 							</div>
 						</div>
@@ -222,14 +193,11 @@
 <div id="additionalAnalysisDialog" title="Create additional analysis">
 	<div id="createAdditionalContent">
 		<div>
-			<span class="ui-icon ui-icon-pencil" style="float:left; margin:0 7px 0px 0;"></span>
-			{{additionalAnalysisType}} requested, please define below option before generating results.
+			<span class="ui-icon ui-icon-pencil" style="float: left; margin: 0 7px 0px 0;"></span> {{additionalAnalysisType}} requested, please define below option before generating results.
 		</div>
-		<br/>
+		<br />
 		<div style="border-top: 1px dotted #5aa8e4; padding-left: 10px; padding-top: 5px;">
-			<span style="padding-top: 10px;"> Output file type : </span>
-			<label><input type="radio" ng-model="outputFileType" value="PDF">PDF</input></label>
-			<label><input type="radio" ng-model="outputFileType" value="CSV">CSV</input></label>
+			<span style="padding-top: 10px;"> Output file type : </span> <label><input type="radio" ng-model="outputFileType" value="PDF">PDF</input></label> <label><input type="radio" ng-model="outputFileType" value="CSV">CSV</input></label>
 		</div>
 	</div>
 </div>
@@ -240,31 +208,28 @@
 			<div id="topChartBar" class="shadowedText">
 				{{title}}
 				<div id="closebutton" ng-click="openGraphData(null)">
-					<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/close.png" alt="Next"/>
+					<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/close.png" alt="Next" />
 				</div>
 			</div>
-			<chart-element graphData="graphData" config="chartConfig"></chart-element> 
+			<chart-element graphData="graphData" config="chartConfig"></chart-element>
 		</div>
 	</div>
 </div>
 
 <div id="deletAdditionalConfirm" title="Delete additional analysis">
-	 <p>
-		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 0px 0;"></span>
-		Are you sure to definitely remove this additional analysis?
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0px 0;"></span> Are you sure to definitely remove this additional analysis?
 	</p>
 </div>
 
 <div id="deleteAllConfirmationDialog" title="Delete all running analyses">
-	 <p>
-		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 0px 0;"></span>
-		Are you sure to stop and remove all running analyses ?
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0px 0;"></span> Are you sure to stop and remove all running analyses ?
 	</p>
 </div>
 
 <div id="additionnalAnalysisSentDialog" title="Additionnal analysis requested">
-	 <p>
-		<span class="ui-icon ui-icon-transferthick-e-w" style="float:left; margin:0 7px 0px 0;"></span>
-		<b id="additionnalAnalysisMessage"><b>
+	<p>
+		<span class="ui-icon ui-icon-transferthick-e-w" style="float: left; margin: 0 7px 0px 0;"></span> <b id="additionnalAnalysisMessage"><b>
 	</p>
 </div>
