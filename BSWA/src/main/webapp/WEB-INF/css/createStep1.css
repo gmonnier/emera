@@ -116,7 +116,7 @@
 }
 
 .add-icon .st0{fill:#567C13;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-.add-icon .st1{fill:url('/img/addFile.svg#gradient-back');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+.add-icon .st1{fill:url('http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg#gradient-back');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
 .add-icon .st2{fill:#FFCE00;stroke:#6785A5;stroke-width:2;}
 .add-icon .st3{fill:#85A838;stroke:#6785A5;stroke-width:2;}
 
@@ -125,6 +125,6 @@
 }
 
 .open-load:hover .add-icon .st0{fill:#85A838;}
-.open-load:hover .add-icon .st1{fill:url('/img/addFile.svg#gradient-back-hover');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+.open-load:hover .add-icon .st1{fill:url('http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg#gradient-back-hover');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
 .open-load:hover .add-icon .st2 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}
 .open-load:hover .add-icon .st3 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}

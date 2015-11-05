@@ -66,7 +66,7 @@
 				<div class="panel-content">
 					<div class="open-load open-load-data add-left">
 						<svg class="add-icon">
-						   <use xlink:href="img/addFile.svg#add-file"></use>
+						   <use xlink:href="http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg#add-file"></use>
 						</svg>
 						<ul id="menuLoadData">
 							<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storeDataFilesList)]">Stored data files
@@ -90,10 +90,10 @@
 								<div class="column2"></div>
 								<div class="column3"></div>
 								<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in configuration.selectedDataFiles">
-									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
+									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}"/></div>
 									<div class="sizecell">{{selected.readableSize}}</div>
 									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeDataFile(selected)"><span><img src="img/remove.svg" alt="Delete"></span></div>
+									<div class="deletecell" ng-click="removeDataFile(selected)"><span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span></div>
 								</div>
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 				<div class="panel-content">
 					<div class="open-load open-load-lib add-left">
 						<svg class="add-icon">
-						   <use xlink:href="img/addFile.svg#add-file"></use>
+						   <use xlink:href="http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg#add-file"></use>
 						</svg>
 						<ul id="menuLoadLibrary">
 							<li ng-class="{true:'ui-state-disabled', false:''}[isEmpty(storeLibraryFilesList)]">Stored Libraries
@@ -126,10 +126,10 @@
 								<div class="column1"></div>
 								<div class="column2"></div>
 								<div class="filerow" ng-repeat="selected in configuration.selectedLibraries">
-									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'img/fileOrg/upload.png' || selected.origin == 'STORED' && 'img/fileOrg/stored.png' || 'img/fileOrg/basespace.png'}}"/></div>
+									<div class="propcell"><img ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}"/></div>
 									<div class="sizecell">{{selected.readableSize}}</div>
 									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeLibraryFile(selected)"><span><img src="img/remove.svg" alt="Delete"></span></div>
+									<div class="deletecell" ng-click="removeLibraryFile(selected)"><span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span></div>
 								</div>
 							</div>
 						</div>

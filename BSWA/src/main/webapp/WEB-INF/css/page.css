@@ -57,7 +57,7 @@ a {
   margin-top: 125px;
   border: none;
   transition: .3s ease-in-out;
-  background-image : url("/img/underline.png");
+  background-image : url("http://d2t2bnlh53lbhy.cloudfront.net/underline.png");
 }
 
 .select1{
@@ -220,25 +220,25 @@ ul.wtoolbar li{
 
 #buthome {
 	width: 100px;
-	background : url("/img/home.svg") no-repeat center center;
+	background : url("http://d2t2bnlh53lbhy.cloudfront.net/home.svg") no-repeat center center;
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but1 {
-	background-image : url("/img/create.svg");
+	background-image : url("http://d2t2bnlh53lbhy.cloudfront.net/create.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but2 {
-	background-image : url("/img/manageQueue.svg");
+	background-image : url("http://d2t2bnlh53lbhy.cloudfront.net/manageQueue.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but3 {
-	background-image: url("/img/net-config.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/net-config.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 	
