@@ -3,12 +3,13 @@ appControllers.controller('patternsCtrl', function ($scope, $http, PatternStorag
 	$scope.selectedPattern = null;
 	
 	$scope.init = function(){
-		$scope.createNewPattern = '';
+		$scope.newPatternValue = '';
+		$scope.newPatternLabel = '';
 	}
 	$scope.init();
 	
 	$scope.isCreateNewValid = function() {
-		return $scope.createNewPattern.length > 0;
+		return $scope.newPatternValue.length > 0;
 	}
   
 	var updatePatternList = function() {
@@ -44,7 +45,7 @@ appControllers.controller('patternsCtrl', function ($scope, $http, PatternStorag
 					$( this ).dialog( "close" );
 					
 					// Ask server to add selected pattern
-					var request = $http({method: 'POST', url: '/ws-resources/process/addPattern', data: $scope.createNewPattern});
+					var request = $http({method: 'POST', url: '/ws-resources/process/addPattern', data: $scope.newPatternValue});
 					request.success(function(data, status, headers, config) {
 						updatePatternList();
 						if(data) {

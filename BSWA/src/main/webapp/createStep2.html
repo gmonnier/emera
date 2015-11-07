@@ -99,7 +99,11 @@
 			<span>Paste here a pattern or define one. Use any A,T,G or C characters to define the outbounds subsequences. Use any other character to define the subsequence to be analysed.</span>
 		</div>
 		<div class="patterncreateContent">
-			<input ng-class="{true:'', false:'unvalid'}[isCreateNewValid()]" type="text" ng-model="createNewPattern"></input>
+			<div class="input-label">Pattern value</div>
+			<input ng-class="{true:'', false:'unvalid'}[isCreateNewValid()]" placeholder="e.g. ATGCXXXATGC" type="text" ng-model="newPatternValue"></input>
+			
+			<div class="input-label">Pattern alias</div>
+			<input type="text" placeholder="e.g. pattern name (optional)" ng-model="newPatternLabel"></input>
 		</div>
 		</p>
 	</div>
