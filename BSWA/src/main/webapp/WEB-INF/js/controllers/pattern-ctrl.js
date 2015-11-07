@@ -45,7 +45,7 @@ appControllers.controller('patternsCtrl', function ($scope, $http, PatternStorag
 					$( this ).dialog( "close" );
 					
 					// Ask server to add selected pattern
-					var request = $http({method: 'POST', url: '/ws-resources/process/addPattern', data: $scope.newPatternValue});
+					var request = $http({method: 'POST', url: '/ws-resources/process/addPattern', data: {"value": $scope.newPatternValue,"alias": $scope.newPatternLabel}});
 					request.success(function(data, status, headers, config) {
 						updatePatternList();
 						if(data) {
