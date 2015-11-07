@@ -61,7 +61,7 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 		String pathData = getConfig().getDataFilesRoot();
 		SystemCommand scmd = new SystemCommand();
 
-		LOG.debug("Extract storage files");
+		LOG.debug("Extract storage files into " + pathLib);
 		try {
 			File[] listLibs = scmd.listFilesOnly(pathLib);
 			if (listLibs != null) {
@@ -73,7 +73,7 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 				}
 				LOG.debug("Set Libraries list : " + listStoredLibraries);
 			} else {
-				LOG.error("Error while extracting list of libraries stored");
+				LOG.error("No stored data file extracted from " + pathLib);
 			}
 
 			File[] listData = scmd.listFilesOnly(pathData);
@@ -86,7 +86,7 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 				}
 				LOG.debug("Set Data list : " + listStoredData);
 			} else {
-				LOG.error("Error while extracting list of data stored");
+				LOG.warn("No stored data file extracted from " + pathData);
 			}
 		} catch (SecurityException e) {
 			LOG.error("Security Exception thrown when looking for stored files :", e);
