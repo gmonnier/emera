@@ -1,5 +1,10 @@
 package ws;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -7,19 +12,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import logger.Log4JLogger;
 import model.parameters.ExtractionPattern;
-import model.processconfig.ProcessConfiguration;
 
 import org.apache.logging.log4j.Logger;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import applicationconfig.ApplicationContextManager;
-import coreprocessing.AnalysisManager;
 import viewModel.ViewCreateProcessConfiguration;
 import ws.exceptions.ApplicationRequestException;
+import applicationconfig.ApplicationContextManager;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import coreprocessing.AnalysisManager;
 
 @Path("/ws-resources/process")
 public class WSAnalysisConfiguration {
@@ -44,8 +51,23 @@ public class WSAnalysisConfiguration {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ExtractionPattern postNewPatternJSON(String jsonPattern) {
 		LOG.debug("POST: Request to create new pattern with string " + jsonPattern);
-		ExtractionPattern newPat = new ExtractionPattern(jsonPattern);
-		boolean success = ApplicationContextManager.getInstance().requestAddPattern(newPat);
+		boolean success;
+		ExtractionPattern newPat = null;
+		JsonFactory factory = new JsonFactory();
+		ObjectMapper mapper = new ObjectMapper(factory);
+		TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};
+		HashMap<String, String> parsed;
+		try {
+			parsed = mapper.readValue(jsonPattern, typeRef);
+			
+			newPat = new ExtractionPattern(parsed.get("value"),parsed.get("alias"));
+			success = ApplicationContextManager.getInstance().requestAddPattern(newPat);
+		} catch (IOException e) {
+			LOG.error("Unable to parse JSON in postNewPatternJSON : jsonPattern = " + jsonPattern);
+			success = false;
+		}
+		
+		
 		if (success) {
 			LOG.info("new Pattern added successfully ");
 			ApplicationContextManager.getInstance().requestSetDefaultPattern(jsonPattern);

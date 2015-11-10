@@ -50,6 +50,18 @@
 			<artifactId>itextpdf</artifactId>
 			<version>5.4.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>com.gmo</groupId>
@@ -68,7 +80,6 @@
 			<artifactId>AWSInterface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
 
 	</dependencies>
 	

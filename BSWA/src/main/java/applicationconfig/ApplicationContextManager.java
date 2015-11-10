@@ -11,6 +11,7 @@ import model.parameters.ExtractionPattern;
 import org.apache.logging.log4j.Logger;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
+import configuration.jaxb.applicationcontext.Pattern;
 import configuration.jaxb.applicationcontext.PatternsStorage;
 import configuration.xmljaxb.AbstractConfigurationManager;
 
@@ -36,9 +37,9 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 			getConfig().setPatternsStorage(new PatternsStorage());
 		}
 
-		List<String> patterns = getConfig().getPatternsStorage().getPatternList();
+		List<Pattern> patterns = getConfig().getPatternsStorage().getPatternList();
 		for (int i = patterns.size() - 1; i >= 0; i--) {
-			ExtractionPattern pattern = new ExtractionPattern(patterns.get(i));
+			ExtractionPattern pattern = new ExtractionPattern(patterns.get(i).getValue(), patterns.get(i).getAlias());
 			if (!pattern.isInvalidPattern()) {
 				listPatterns.add(pattern);
 			} else {
@@ -115,7 +116,12 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 				}
 			}
 			listPatterns.add(pattern);
-			getConfig().getPatternsStorage().getPatternList().add(pattern.getExtractionSequence());
+			
+			Pattern pat = new Pattern();
+			pat.setAlias(pattern.getAlias());
+			pat.setValue(pattern.getExtractionSequence());
+			
+			getConfig().getPatternsStorage().getPatternList().add(pat);
 			LOG.info("Pattern added successfully to the storage list : patternStr = " + pattern.getExtractionSequence());
 			
 			// Don't forget to update the xml configuration file.

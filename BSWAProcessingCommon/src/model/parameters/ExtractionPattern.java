@@ -17,6 +17,8 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 	private boolean invalidPattern;
 
 	private String extractionSequence;
+	
+	private String alias;
 
 	private StringBuilder sb = new StringBuilder();
 
@@ -24,9 +26,10 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 	public ExtractionPattern() {
 	}
 
-	public ExtractionPattern(String extractionSequence) {
+	public ExtractionPattern(String extractionSequence, String alias) {
 
 		this.extractionSequence = extractionSequence;
+		this.alias = alias;
 		grnaSubSequenceLength = 0;
 		invalidPattern = false;
 		skippedCharCount = 0;
@@ -87,6 +90,14 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 		this.grnaSubSequenceLength = grnaSubSequenceLength;
 	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
 	@Override
 	public String toString() {
 		return "skippedCharCount = " + skippedCharCount + "   grnaSubSequenceLength = " + grnaSubSequenceLength;
@@ -102,13 +113,15 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 		sb.append(invalidPattern);
 		sb.append("#");
 		sb.append(extractionSequence);
+		sb.append("#");
+		sb.append(alias);
 		return sb.toString();
 	}
 
 	@Override
 	public void convertStringToObject(String input) throws StringSerializationException {
 		String[] splitted = input.split("#");
-		if (splitted == null || splitted.length != 4) {
+		if (splitted == null || splitted.length != 5) {
 			throw new StringSerializationException();
 		} else {
 			try {
@@ -116,6 +129,7 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 				this.grnaSubSequenceLength = Integer.parseInt(splitted[1]);
 				this.invalidPattern = Boolean.parseBoolean(splitted[2]);
 				this.extractionSequence = splitted[3];
+				this.alias = splitted[4];
 			} catch (NumberFormatException nfe) {
 				throw new StringSerializationException();
 			}
