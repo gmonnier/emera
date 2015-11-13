@@ -37,7 +37,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 			getConfig().setPatternsStorage(new PatternsStorage());
 		}
 
-		List<Pattern> patterns = getConfig().getPatternsStorage().getPatternList();
+		List<Pattern> patterns = getConfig().getPatternsStorage().getPatterns();
 		for (int i = patterns.size() - 1; i >= 0; i--) {
 			ExtractionPattern pattern = new ExtractionPattern(patterns.get(i).getValue(), patterns.get(i).getAlias());
 			if (!pattern.isInvalidPattern()) {
@@ -121,7 +121,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 			pat.setAlias(pattern.getAlias());
 			pat.setValue(pattern.getExtractionSequence());
 			
-			getConfig().getPatternsStorage().getPatternList().add(pat);
+			getConfig().getPatternsStorage().getPatterns().add(pat);
 			LOG.info("Pattern added successfully to the storage list : patternStr = " + pattern.getExtractionSequence());
 			
 			// Don't forget to update the xml configuration file.
@@ -149,7 +149,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 					getConfig().getPatternsStorage().setDefaultPatternIndex(0);
 				}
 				listPatterns.remove(i);
-				getConfig().getPatternsStorage().getPatternList().remove(i);
+				getConfig().getPatternsStorage().getPatterns().remove(i);
 				return true;
 			}
 		}
