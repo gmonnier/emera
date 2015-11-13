@@ -3,15 +3,6 @@
 	float: left;
 }
 
-#patternListEdit {
-	width: 80px;
-	min-width: 80px;
-	height:100px;
-	text-align:center;
-	vertical-align: middle;
-	position: absolute;
-}
-
 #selectablePattern .ui-selecting {
 	background: #AAD2FF;
 }
@@ -23,19 +14,14 @@
 
 #selectablePattern {
 	list-style-type: none;
-	margin: 0 0 0 80px;
 	padding: 0;
-	width: calc(100% - 60px);
+	margin: 0;
 }
 
 #selectablePattern li {
-	margin: 3px;
+	margin: 10px 5px;
 	padding: 0.4em;
 	font-size: 1.0em;
-}
-
-#patternListEdit img:hover{
-	cursor:pointer;
 }
 
 .infoCell {
@@ -130,4 +116,11 @@
 .desc2{
 	color: #333;
 	font-size:10px;
+}
+
+.edit-pattern-pic {
+	width: 20px;
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
 }

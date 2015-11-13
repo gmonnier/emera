@@ -38,12 +38,17 @@
 	<div id="selectionPattern">
 		<div class="acc storedacc">
 			<h3>
-				<a href="#">Stored extraction Patterns</a>
+				<a href="#">Stored extraction Patterns
+					<div style="position: absolute; right: 5px; top: 5px; font-size: 10px; color: rgb(100, 100, 100)">
+						<div style="display: inline;" class="tooltip">
+							<img class="edit-pattern-pic" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/edit.svg" alt="+" ng-click="openPatternCreationDial(); $event.stopPropagation();"> <span> <strong>Create and edit</strong><br />extractions patterns<img class="callout left high"
+								ng-src="http://d2t2bnlh53lbhy.cloudfront.net/calloutleft.gif" alt="+" />
+							</span>
+						</div>
+					</div>
+				</a>
 			</h3>
-			<div style="max-height: 180px; padding: 0 2.0em 0 0;">
-				<div id="patternListEdit">
-					<img alt="Edit" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/edit.png" ng-click="openPatternCreationDial()">
-				</div>
+			<div style="max-height: 180px; padding: 0;">
 				<ol id="selectablePattern">
 					<li class="selectPatItem" ng-class="{selectedPattern: pattern.extractionSequence.toUpperCase() === selectedPattern.extractionSequence.toUpperCase()}" ng-repeat="pattern in patterns" ng-click="select(pattern)" apply-effects>
 						<div>

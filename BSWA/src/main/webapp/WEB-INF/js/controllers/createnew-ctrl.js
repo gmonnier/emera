@@ -207,15 +207,6 @@ appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $
         }
     };
     
-    $scope.$on('$routeChangeSuccess', function() {
-        $('#nextlink').removeClass('nodisplay')
-    });
-    
-    $scope.$on('$routeChangeStart', function() {
-        $('#nextlink').addClass('nodisplay')
-    });
-    
-    
 	
 	// init upload lists
 	uploadService.clearLists();
