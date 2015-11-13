@@ -17,7 +17,7 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 	private boolean invalidPattern;
 
 	private String extractionSequence;
-	
+
 	private String alias;
 
 	private StringBuilder sb = new StringBuilder();
@@ -113,15 +113,17 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 		sb.append(invalidPattern);
 		sb.append("#");
 		sb.append(extractionSequence);
-		sb.append("#");
-		sb.append(alias);
+		if (alias != null) {
+			sb.append("#");
+			sb.append(alias);
+		}
 		return sb.toString();
 	}
 
 	@Override
 	public void convertStringToObject(String input) throws StringSerializationException {
 		String[] splitted = input.split("#");
-		if (splitted == null || splitted.length != 5) {
+		if (splitted == null || splitted.length < 4) {
 			throw new StringSerializationException();
 		} else {
 			try {
@@ -129,7 +131,9 @@ public class ExtractionPattern implements Serializable, StringSerializable {
 				this.grnaSubSequenceLength = Integer.parseInt(splitted[1]);
 				this.invalidPattern = Boolean.parseBoolean(splitted[2]);
 				this.extractionSequence = splitted[3];
-				this.alias = splitted[4];
+				if(splitted.length > 4) {
+					this.alias = splitted[4];
+				}
 			} catch (NumberFormatException nfe) {
 				throw new StringSerializationException();
 			}
