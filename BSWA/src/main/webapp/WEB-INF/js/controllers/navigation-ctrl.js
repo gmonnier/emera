@@ -39,6 +39,18 @@ app.directive('navDirective', function() {
 			$(window).scroll(function() {
 				stickyNav();
 			});
+			
+			// With the element initially hidden, we can show it slowly:
+			$(".toolbaraction").click(function() {
+				$("#ngViewFade").clearQueue();
+				$("#ngViewFade").stop();
+				$("#ngViewFade").hide();
+				$("#ngViewFade").fadeIn("slow", function() {
+				});
+			});
+
+			$("#loginDialog").hide();
+			$("#authenticationRequestDialog").hide();
 		});
 	};
 });
