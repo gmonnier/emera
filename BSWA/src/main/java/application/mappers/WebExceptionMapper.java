@@ -17,8 +17,7 @@ public class WebExceptionMapper implements ExceptionMapper<WebApplicationExcepti
 	private static Logger LOG = Log4JLogger.logger;
 
 	public Response toResponse(WebApplicationException ex) {
-		LOG.error("Bad request --> ");
-		LOG.error(ex.getMessage(), ex);
+		LOG.error(ex.getMessage());
 		return Response.status(400).entity("Bad request").type(MediaType.APPLICATION_JSON).build();
 	}
 	
