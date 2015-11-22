@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="WEB-INF/css/runningPan.css" />
 
-<script>
-	$("#deleteAllConfirmationDialog").hide();
-	$("#additionnalAnalysisSentDialog").hide();
-	$("#deletAdditionalConfirm").hide();
-	$("#additionalAnalysisDialog").hide();
-</script>
-<div id="analyseContent">
+<div id="analyseContent" running-page-load-directive>
 	<div id="runningtools">
 		<ul>
 			<li title="Stop all running analyses"><img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/analysemgt/stopAll.png" ng-click="stopAll();" /></li>

@@ -159,6 +159,15 @@ appControllers.controller('runningCtrl', function ($scope,$http, analysisMgtServ
 	}
 });
 
+app.directive('runningPageLoadDirective', function() {
+	return function(scope, element, attrs) {
+		$("#deleteAllConfirmationDialog").hide();
+		$("#additionnalAnalysisSentDialog").hide();
+		$("#deletAdditionalConfirm").hide();
+		$("#additionalAnalysisDialog").hide();
+	};
+});
+
 app.directive('postRunningRepeatDirective', function() {
 	return function(scope, element, attrs) {
 		if (scope.$last){
