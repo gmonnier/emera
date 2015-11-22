@@ -1,6 +1,5 @@
 .metadata
 .recommenders
-.settings
 
 /BaseSpaceSDKJersey2
 /PaulProject
@@ -8,6 +7,7 @@
 
 **/bin/**
 **/.settings
+**/build
 **/logs
 **/.classpath
 **/.project
