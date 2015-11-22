@@ -1,6 +1,8 @@
 package application.mappers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -15,9 +17,12 @@ public class WebExceptionMapper implements ExceptionMapper<WebApplicationExcepti
 	
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
+	
+    @Context
+    HttpServletRequest request;
 
 	public Response toResponse(WebApplicationException ex) {
-		LOG.error(ex.getMessage());
+		LOG.error("Error Accessing " + request.getRequestURI() + " : " + ex.getMessage());
 		return Response.status(400).entity("Bad request").type(MediaType.APPLICATION_JSON).build();
 	}
 	
