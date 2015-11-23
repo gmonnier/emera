@@ -35,3 +35,8 @@
 	background: url("/img/create_analysis/lookup.svg") no-repeat center
 		center;
 }
+
+#analyse-selection-content #but-create-split .analysis-illustration {
+	background: url("/img/create_analysis/split.svg") no-repeat center
+		center;
+}
