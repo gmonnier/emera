@@ -68,11 +68,11 @@ public class WebServerApp {
 		LOG.info("---------------------------------------------");
 
 		LOG.info("Application root : " + new File("").getAbsolutePath());
-		
+
 		logSystemProperties();
 
 		initConfigs();
-		
+
 		initConnectionMonitor();
 
 		initRMIServer();
@@ -93,9 +93,9 @@ public class WebServerApp {
 		Properties p = System.getProperties();
 		Enumeration<Object> keys = p.keys();
 		while (keys.hasMoreElements()) {
-		  String key = (String)keys.nextElement();
-		  String value = (String)p.get(key);
-		  LOG.info(key + ": " + value);
+			String key = (String) keys.nextElement();
+			String value = (String) p.get(key);
+			LOG.info(key + ": " + value);
 		}
 	}
 
@@ -142,12 +142,9 @@ public class WebServerApp {
 		ServletHolder rootServletHolder = new ServletHolder(ServletContainer.class);
 		rootServletHolder.setInitOrder(0);
 		LOG.debug("Register providers ");
-		rootServletHolder.setInitParameter(
-				"jersey.config.server.provider.classnames",
-				"org.glassfish.jersey.media.multipart.MultiPartFeature;" + WSBaseSpace.class.getCanonicalName() + ";" + WSDataStorage.class.getCanonicalName() + ";"
-						+ WSConnection.class.getCanonicalName() + ";" + WSAnalysisConfiguration.class.getCanonicalName() + ";" + WSAnalysisManagement.class.getCanonicalName() + ";"
-						+ WebExceptionMapper.class.getCanonicalName() + ";" + WSNetworkConfiguration.class.getCanonicalName() + ";" + WSAdditionalAnalysis.class.getCanonicalName() + ";"
-						+ EOFExceptionMapper.class.getCanonicalName());
+		rootServletHolder.setInitParameter("jersey.config.server.provider.classnames", "org.glassfish.jersey.media.multipart.MultiPartFeature;" + WebExceptionMapper.class.getCanonicalName() + ";" + EOFExceptionMapper.class.getCanonicalName());
+		rootServletHolder.setInitParameter("jersey.config.server.provider.packages","ws");
+
 		servletHandler.addServlet(rootServletHolder, "/*");
 		servletHandler.addFilter(new ConnectionFilter(), "/*", EnumSet.of(DispatcherType.REQUEST));
 
@@ -155,7 +152,7 @@ public class WebServerApp {
 		resource_handler.setDirectoriesListed(true);
 		resource_handler.setWelcomeFiles(new String[] { "index.html" });
 		resource_handler.setResourceBase("src/main/webapp");
-		
+
 		HandlerList handlers = new HandlerList();
 		handlers.setHandlers(new Handler[] { resource_handler, servletHandler });
 		jettyServer.setHandler(handlers);
