@@ -1,4 +1,4 @@
-appControllers.controller('createNewCtrl', function ($scope,$rootScope, $http, $location, uploadService, user) {
+appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http, $location, uploadService, user) {
 
 	var MAX_STEP = 2;
     $scope.currentCreateStep = 1;
