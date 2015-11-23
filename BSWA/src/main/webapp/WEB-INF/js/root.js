@@ -1,10 +1,14 @@
 app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/create', {
-        templateUrl: 'createNewPan.html',
+      when('/analysis-selection', {
+        templateUrl: 'analysisSelection.html',
         controller: 'createNewCtrl', public: true
       }).
+      when('/create', {
+          templateUrl: 'createNewPan.html',
+          controller: 'createNewCtrl', public: true
+        }).
       when('/running', {
         templateUrl: 'runningPan.html',
         controller: 'runningCtrl', public: true
