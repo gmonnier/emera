@@ -1,0 +1,28 @@
+#analyse-selection-content {
+	padding: 2em;
+}
+
+#analyse-selection-content ul {
+	list-style-type: none;
+}
+
+#analyse-selection-content li {
+	margin: 2em;
+}
+
+#analyse-selection-content .analysis-link {
+	display: inline-block;
+	width: 20%;
+	height: 150px;
+	background-color: white;
+	vertical-align: middle;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+}
+
+#analyse-selection-content .analysis-description {
+	padding-left: 2em;
+	text-align: center;
+	width: 20%;
+	display: inline-block;
+	vertical-align: middle;
+}

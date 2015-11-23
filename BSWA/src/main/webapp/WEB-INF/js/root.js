@@ -3,7 +3,7 @@ app.config(['$routeProvider',
     $routeProvider.
       when('/analysis-selection', {
         templateUrl: 'analysisSelection.html',
-        controller: 'createNewCtrl', public: true
+        controller: 'analysisSelectionCtrl', public: true
       }).
       when('/create', {
           templateUrl: 'createNewPan.html',
