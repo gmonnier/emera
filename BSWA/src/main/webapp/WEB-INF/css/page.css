@@ -259,10 +259,7 @@ ul.wtoolbar li{
 	-webkit-transition-duration:.2s;
 	transition-duration:.2s;
 	
-	-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-	
 	border: 1px solid #736f73;
 }
 .hvr-bounce-in:hover,.hvr-bounce-in:focus,.hvr-bounce-in:active{

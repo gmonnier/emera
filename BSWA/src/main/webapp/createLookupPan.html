@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="WEB-INF/css/createPan.css"/>
+<link rel="stylesheet" href="WEB-INF/css/createLookupPan.css"/>
 
 <script>
 	(function($) {
@@ -18,13 +18,13 @@
 
 <div ng-switch on="currentCreateStep">
 	<div ng-switch-when="1" >
-		<div ng-include="'createStep1.html'"/>
+		<div ng-include="'createLookupStep1.html'"/>
 	</div>
 	<div ng-switch-when="2" class="slideAnim">
-		<div ng-include="'createStep2.html'"/>
+		<div ng-include="'createLookupStep2.html'"/>
 	</div>
 	<div ng-switch-default class="slideAnim">
-		<div ng-include="'createStep1.html'"/>
+		<div ng-include="'createLookupStep1.html'"/>
 	</div>
 </div>
 
