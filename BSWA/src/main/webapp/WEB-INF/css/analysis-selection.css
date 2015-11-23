@@ -21,8 +21,8 @@
 
 #analyse-selection-content .analysis-description {
 	padding-left: 2em;
-	text-align: center;
-	width: 20%;
+	text-align: left;
+	width: 30%;
 	display: inline-block;
 	vertical-align: middle;
 }
