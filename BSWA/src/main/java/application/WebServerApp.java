@@ -2,6 +2,8 @@ package application;
 
 import java.io.File;
 import java.util.EnumSet;
+import java.util.Enumeration;
+import java.util.Properties;
 
 import javax.servlet.DispatcherType;
 
@@ -66,6 +68,8 @@ public class WebServerApp {
 		LOG.info("---------------------------------------------");
 
 		LOG.info("Application root : " + new File("").getAbsolutePath());
+		
+		logSystemProperties();
 
 		initConfigs();
 		
@@ -83,6 +87,16 @@ public class WebServerApp {
 
 		initJettyServer();
 
+	}
+
+	private static void logSystemProperties() {
+		Properties p = System.getProperties();
+		Enumeration<Object> keys = p.keys();
+		while (keys.hasMoreElements()) {
+		  String key = (String)keys.nextElement();
+		  String value = (String)p.get(key);
+		  LOG.info(key + ": " + value);
+		}
 	}
 
 	private static void initConnectionMonitor() {
