@@ -51,12 +51,6 @@
 		  elem.dispatchEvent(evt);
 		}
 	}
-	
-	// hide dialogs
-	$("#basespacedialog").hide();
-	$("#dialog-duplicate-warning").hide();
-	$("#dialog-file-exists").hide();
-	$("#dialog-error-sending-file").hide();
 </script>
 
 <div id="parameterscontainer">
@@ -150,24 +144,24 @@
 
 
 
-<div id="basespacedialog" title="Base space account files" ng-controller="bsModelCtrl" ng-include="'baseSpaceDialog.html'">
+<div id="basespacedialog" class="generic-dialog" title="Base space account files" ng-controller="bsModelCtrl" ng-include="'baseSpaceDialog.html'">
 </div>
 
-<div id="dialog-duplicate-warning" title="File already selected">
+<div id="dialog-duplicate-warning" class="generic-dialog" title="File already selected">
 	 <p>
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
 		File has already been selected. Duplicates are not allowed.
 	</p>
 </div>
 
-<div id="dialog-file-exists" title="File already exists in database">
+<div id="dialog-file-exists" class="generic-dialog" title="File already exists in database">
 	 <p>
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
 		File already exists in server storage location.
 	</p>
 </div>
 
-<div id="dialog-error-sending-file" title="An error occured while sending file to server">
+<div id="dialog-error-sending-file" class="generic-dialog" title="An error occured while sending file to server">
 	 <p>
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
 		An error occured while sending file to server.
