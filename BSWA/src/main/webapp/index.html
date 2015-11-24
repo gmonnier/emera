@@ -28,7 +28,7 @@
 
 		<nav class="nav" id="workingToolBar" ng-controller="navController" nav-directive>
 			<ul class="wtoolbar">
-				<li class="one" ng-click="menuClicked(1)"><a class="toolbaraction" href="#/home">
+				<li class="one" ng-click="menuClicked(1)"><a class="toolbaraction" href="#/">
 						<div class="buttondiv hvr-bounce-in" id="buthome"></div>
 				</a></li>
 				<li class="two" ng-click="menuClicked(2)"><a class="toolbaraction" href="#/analysis-selection">
@@ -91,6 +91,7 @@
 
 	<script src="WEB-INF/js/angular-touch.min.js"></script>
 	<script src="WEB-INF/js/angular-file-upload.min.js"></script>
+	<script src="WEB-INF/js/route-styles.js"></script>
 
 	<script type="text/javascript">
 		// List of all applications controllers
@@ -104,7 +105,7 @@
 
 		//inject angular file upload directives and services.
 
-		var app = angular.module('app', [ 'ngRoute', 'appControllers',
+		var app = angular.module('app', [ 'ngRoute', 'routeStyles', 'appControllers',
 				'appDirectives', 'appServices', 'ngAnimate',
 				'angularFileUpload', 'UserApp' ]);
 

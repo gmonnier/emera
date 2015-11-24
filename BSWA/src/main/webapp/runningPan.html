@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="WEB-INF/css/runningPan.css" />
-
 <div id="analyseContent" running-page-load-directive>
 	<div id="runningtools">
 		<ul>
@@ -184,18 +182,6 @@
 	</div>
 </div>
 
-<div id="additionalAnalysisDialog" title="Create additional analysis">
-	<div id="createAdditionalContent">
-		<div>
-			<span class="ui-icon ui-icon-pencil" style="float: left; margin: 0 7px 0px 0;"></span> {{additionalAnalysisType}} requested, please define below option before generating results.
-		</div>
-		<br />
-		<div style="border-top: 1px dotted #5aa8e4; padding-left: 10px; padding-top: 5px;">
-			<span style="padding-top: 10px;"> Output file type : </span> <label><input type="radio" ng-model="outputFileType" value="PDF">PDF</input></label> <label><input type="radio" ng-model="outputFileType" value="CSV">CSV</input></label>
-		</div>
-	</div>
-</div>
-
 <div class="overlay-report" ng-if="analyseDisplayedResult!==null">
 	<div id="reportDialog" title="Analysis report">
 		<div id="chartContent" ng-controller="reportDialogCtrl">
@@ -206,6 +192,18 @@
 				</div>
 			</div>
 			<chart-element graphData="graphData" config="chartConfig"></chart-element>
+		</div>
+	</div>
+</div>
+
+<div id="additionalAnalysisDialog" title="Create additional analysis">
+	<div id="createAdditionalContent">
+		<div>
+			<span class="ui-icon ui-icon-pencil" style="float: left; margin: 0 7px 0px 0;"></span> {{additionalAnalysisType}} requested, please define below option before generating results.
+		</div>
+		<br />
+		<div style="border-top: 1px dotted #5aa8e4; padding-left: 10px; padding-top: 5px;">
+			<span style="padding-top: 10px;"> Output file type : </span> <label><input type="radio" ng-model="outputFileType" value="PDF">PDF</input></label> <label><input type="radio" ng-model="outputFileType" value="CSV">CSV</input></label>
 		</div>
 	</div>
 </div>
