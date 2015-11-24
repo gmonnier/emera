@@ -269,15 +269,6 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 		scope: {},
 		link : function(scope) {
 			
-			// Animate next button
-			$("#nextlink").hover(function(){
-				 $("#nextlink").clearQueue();
-				 $("#nextlink").animate({width: "250px"}, 100);
-				 
-			}, function(){
-				$("#nextlink").animate({width: "200px"}, 100)
-			});
-			
 			scope.currentCreateStep = 1;
 			scope.nextClicked = function() {
 				scope.currentCreateStep++;
