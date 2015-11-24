@@ -106,7 +106,7 @@
 		//inject angular file upload directives and services.
 
 		var app = angular.module('app', [ 'ngRoute', 'routeStyles', 'appControllers',
-				'appDirectives', 'appServices', 'ngAnimate',
+				'appServices', 'ngAnimate',
 				'angularFileUpload', 'UserApp' ]);
 
 		app.run(function(user) {
@@ -154,6 +154,9 @@
 	<script src="WEB-INF/js/services/analysismgt-srvc.js"></script>
 	<script src="WEB-INF/js/services/patternStorage-srvc.js"></script>
 	<script src="WEB-INF/js/services/report-srvc.js"></script>
+	
+	<!-- Include application directives -->
+	<script src="WEB-INF/js/directives/next-link-dir.js"></script>
 
 	<script src="components/amcharts_3.13.3.free/amcharts/amcharts.js" type="text/javascript"></script>
 	<script src="components/amcharts_3.13.3.free/amcharts/serial.js" type="text/javascript"></script>

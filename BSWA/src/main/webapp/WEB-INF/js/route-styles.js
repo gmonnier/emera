@@ -1,8 +1,6 @@
 (function(){
 'use strict';
-
     angular.module('routeStyles', ['ngRoute'])
-    
         .directive('head', ['$rootScope','$compile','$interpolate',
             function($rootScope, $compile, $interpolate){
                 // this allows for support of custom interpolation symbols
