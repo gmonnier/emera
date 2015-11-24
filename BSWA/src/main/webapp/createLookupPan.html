@@ -1,39 +1,21 @@
-<link rel="stylesheet" href="WEB-INF/css/createLookupPan.css"/>
-
-<script>
-	(function($) {
-		// Animate next button
-		$("#nextlink").hover(function(){
-			 $("#nextlink").clearQueue();
-			 $("#nextlink").animate({width: "250px"}, 100);
-			 
-		}, function(){
-			$("#nextlink").animate({width: "200px"}, 100)
-		});
-		
-	})(jQuery);
-	
-	$("#dialog-unvalid-parameters").hide();
-</script>
+<link rel="stylesheet" href="WEB-INF/css/createLookupPan.css" />
 
 <div ng-switch on="currentCreateStep">
-	<div ng-switch-when="1" >
-		<div ng-include="'createLookupStep1.html'"/>
+	<div ng-switch-when="1">
+		<div ng-include="'createLookupStep1.html'" />
 	</div>
 	<div ng-switch-when="2" class="slideAnim">
-		<div ng-include="'createLookupStep2.html'"/>
+		<div ng-include="'createLookupStep2.html'" />
 	</div>
 	<div ng-switch-default class="slideAnim">
-		<div ng-include="'createLookupStep1.html'"/>
+		<div ng-include="'createLookupStep1.html'" />
 	</div>
 </div>
 
-<div id="nextlinkHolder" init-next-button/>
+<div id="nextlinkHolder" init-next-button />
 
-
-<div id="dialog-unvalid-parameters" title="Your selection is not valid">
-	 <p>
-		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
-		Your selection is not valid. Please check you choose both data and libraries files you want to process.
+<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose both data and libraries files you want to process.
 	</p>
 </div>

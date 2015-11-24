@@ -302,6 +302,10 @@ ul.wtoolbar li {
 	overflow-y: auto;
 }
 
+.generic-dialog{
+	display: none;
+}
+
 .shadowedText {
 	text-shadow: 0px 2px 3px #000;
 	color: white;
