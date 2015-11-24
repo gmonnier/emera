@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import viewModel.analyses.preprocessing.ViewPreProcessingConfiguration;
 
-@Path("/ws-resources/process")
+@Path("/ws-resources/preprocess")
 public class WSAnalysisPreProcessing {
 
 	// log4j logger - Main logger
