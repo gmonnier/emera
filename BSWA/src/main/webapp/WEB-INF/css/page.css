@@ -36,17 +36,17 @@ a {
 }
 
 .two:hover ~ #subSelectBar {
-	margin-left: calc(150px - ( 25% * 0.1)+ 2px);
+	margin-left: calc(150px + 2px - ( 25% * 0.1));
 	width: calc(25% * 1.2 + 2px);
 }
 
 .three:hover ~ #subSelectBar {
-	margin-left: calc(175px + 25% - ( 25% * 0.1)+ 4px);
+	margin-left: calc(175px + 25% + 4px - ( 25% * 0.1));
 	width: calc(25% * 1.2 + 2px);
 }
 
 .four:hover ~ #subSelectBar {
-	margin-left: calc(200px + 50% - ( 25% * 0.1)+ 6px);
+	margin-left: calc(200px + 50% + 6px - ( 25% * 0.1));
 	width: calc(25% * 1.2 + 2px);
 }
 
