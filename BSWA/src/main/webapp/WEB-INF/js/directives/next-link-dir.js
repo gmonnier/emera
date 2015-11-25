@@ -1,12 +1,14 @@
 app.directive('initNextButton', function($rootScope) {
 	return {
-		scope : {},
-		link : function(scope) {
+		scope : {
+			MAX_STEP: "@steps"
+		},
+		link : function(scope, element, attrs) {
 
 			scope.currentCreateStep = 1;
+			
 			scope.nextClicked = function() {
-				scope.currentCreateStep++;
-				$rootScope.$broadcast('nextStepClicked');
+				scope.$emit('nextStepClicked', scope.initNextButton);
 			};
 
 			scope.$on('$routeChangeSuccess', function() {

@@ -1,7 +1,4 @@
 appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http, $location, uploadService, user) {
-
-	var MAX_STEP = 2;
-    $scope.currentCreateStep = 1;
 	
 	$http({method: 'GET', url: '/ws-resources/datastorage/dataFiles'}).
     success(function(data, status, headers, config) {
@@ -38,20 +35,22 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 		return true;
 	}
 	
-	$scope.$on('nextStepClicked', function(evt, data) {
-		nextStep();
-	  });
-	
+    $scope.$on('nextStepClicked', function (evt, value) {
+        console.log(value);
+        nextStep();
+        $scope.variable = value;
+    });
+    
 	var nextStep = function() {
 		$scope.currentCreateStep = $scope.currentCreateStep + 1;
 		
-		if($scope.currentCreateStep > MAX_STEP) {
+		if($scope.currentCreateStep > $scope.MAX_STEP) {
 			if($scope.validatePatternSelection()) {
 				$scope.enqueueProcessing();
 			} else {
 				$scope.showDialog("#dialog-unvalid-pattern");
 			}
-			$scope.currentCreateStep = MAX_STEP;
+			$scope.currentCreateStep = $scope.MAX_STEP;
 		} else {
 			if(!$scope.validateFileSelection()) {
 				$scope.currentCreateStep = $scope.currentCreateStep - 1;

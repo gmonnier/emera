@@ -1,10 +1,51 @@
-<div id="analyse-split-content">
+<div id="analyse-split-content" init-accordions>
+	<div id="parameterscontainer">
+		<div id="filescontainer">
+			<div class="acc">
+				<h3>
+					<a href="#">Data files</a>
+				</h3>
+				<div class="panel-content">
+					<div class="open-load open-load-data add-left">
+						<svg class="add-icon">
+						   <use xlink:href="img/addFile.svg#add-file"></use>
+						</svg>
+						<ul id="menuLoadData">
+							<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+							<li onclick="selectFile('dataFileIn');">Load from my computer</li>
+						</ul>
+					</div>
+					<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(configuration.selectedDataFiles)]">
+						<p ng-if="isEmpty(configuration.selectedDataFiles)">No file selected, please select at least one data file to process.</p>
+						<div ng-if="!isEmpty(configuration.selectedDataFiles)">
+							<div class="fileTable">
+								<div class="column1"></div>
+								<div class="column2"></div>
+								<div class="column3"></div>
+								<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in configuration.selectedDataFiles">
+									<div class="propcell">
+										<img
+											ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}" />
+									</div>
+									<div class="sizecell">{{selected.readableSize}}</div>
+									<div class="valuecell">{{selected.name}}</div>
+									<div class="deletecell" ng-click="removeDataFile(selected)">
+										<span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	<div init-next-button />
+			<init-next-button steps="1"></init-next-button>
 
-	<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
-		<p>
-			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose both data and libraries files you want to process.
-		</p>
+			<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
+				<p>
+					<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose both data and libraries files you want to process.
+				</p>
+			</div>
+		</div>
 	</div>
 </div>
