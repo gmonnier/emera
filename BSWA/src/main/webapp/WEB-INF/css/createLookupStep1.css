@@ -13,6 +13,12 @@
 	width: 40%;
 }
 
+.acc {
+	margin: 10px;
+	margin-top: 20px;
+	white-space: no-wrap;
+}
+
 .add-left {
 	display: table-cell;
 	vertical-align: middle;
