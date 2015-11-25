@@ -24,14 +24,6 @@
 			$(".acc").addClass("shadowed");
 		})
 	})(jQuery);
-
-	$(function() {
-		$("#dialog-message-ok").hide();
-		$("#dialog-message-failed").hide();
-		$("#createPatternDialog").hide();
-		$("#dialog-pattern-creation-failed").hide();
-		$("#dialog-unvalid-pattern").hide();
-	});
 </script>
 
 <div ng-controller="patternsCtrl">
@@ -99,7 +91,7 @@
 		</div>
 	</div>
 
-	<div id="createPatternDialog" title="Create new pattern">
+	<div id="createPatternDialog" class="generic-dialog" title="Create new pattern">
 		<p>
 		<div style="padding-bottom: 15px;">
 			<span>Paste here a pattern or define one. Use any A,T,G or C characters to define the outbounds subsequences. Use any other character to define the subsequence to be analysed.</span>
@@ -116,26 +108,26 @@
 </div>
 
 
-<div id="dialog-unvalid-pattern" title="No pattern selected">
+<div id="dialog-unvalid-pattern" class="generic-dialog" title="No pattern selected">
 	<p>
 		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Please select a pattern before starting calculations.<br />
 	</p>
 </div>
 
-<div id="dialog-pattern-creation-failed" title="Pattern creation failed">
+<div id="dialog-pattern-creation-failed" class="generic-dialog" title="Pattern creation failed">
 	<p>
 		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> The pattern creation failed. Either it is an invalid sequence or it already exists in the database.<br />
 	</p>
 </div>
 
-<div id="dialog-message-ok" title="New analyse launched !">
+<div id="dialog-message-ok" class="generic-dialog" title="New analyse launched !">
 	<p>
 		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> A new analyse has successfully been added to the processing queue.<br /> <b style="color: red;"> <br /> {{uploadmessage}}
 		</b>
 	</p>
 </div>
 
-<div id="dialog-message-failed" title="Error while enqueue new analyse">
+<div id="dialog-message-failed" class="generic-dialog" title="Error while enqueue new analyse">
 	<p>
 		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> An error occured while sending this new analyse to the server.
 	</p>
