@@ -35,29 +35,22 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 		return true;
 	}
 	
-    $scope.$on('nextStepClicked', function (evt, value) {
-        console.log(value);
-        nextStep();
-        $scope.variable = value;
-    });
-    
-	var nextStep = function() {
-		$scope.currentCreateStep = $scope.currentCreateStep + 1;
-		
-		if($scope.currentCreateStep > $scope.MAX_STEP) {
+    $scope.$on('nextStepClicked', function (evt, directiveScope) {
+    	if((directiveScope.currentCreateStep+1) > directiveScope.MAX_STEP) {
 			if($scope.validatePatternSelection()) {
 				$scope.enqueueProcessing();
 			} else {
 				$scope.showDialog("#dialog-unvalid-pattern");
 			}
-			$scope.currentCreateStep = $scope.MAX_STEP;
 		} else {
 			if(!$scope.validateFileSelection()) {
-				$scope.currentCreateStep = $scope.currentCreateStep - 1;
 				$scope.showDialog("#dialog-unvalid-parameters");
+			} else {
+				directiveScope.currentCreateStep += 1;
+				$scope.stepValue = directiveScope.currentCreateStep;
 			}
 		}
-	}
+    });
 	
 	$scope.validateFileSelection = function() {
 		return $scope.configuration.selectedDataFiles.length > 0 && $scope.configuration.selectedLibraries.length > 0;

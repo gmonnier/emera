@@ -1,7 +1,4 @@
-<div ng-switch on="currentCreateStep" init-accordions>
-	<div ng-switch-when="1">
-		<div ng-include="'createLookupStep1.html'" />
-	</div>
+<div ng-switch on="stepValue" init-accordions>
 	<div ng-switch-when="2" class="slideAnim">
 		<div ng-include="'createLookupStep2.html'" />
 	</div>

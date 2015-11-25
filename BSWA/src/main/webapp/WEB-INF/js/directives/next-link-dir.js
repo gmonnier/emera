@@ -8,12 +8,8 @@ app.directive('initNextButton', function($rootScope) {
 			scope.currentCreateStep = 1;
 			
 			scope.nextClicked = function() {
-				scope.$emit('nextStepClicked', scope.initNextButton);
+				scope.$emit('nextStepClicked', scope);
 			};
-
-			scope.$on('$routeChangeSuccess', function() {
-				scope.currentCreateStep = 1;
-			});
 		},
 		templateUrl : '/templates/nextButton.html'
 	};
