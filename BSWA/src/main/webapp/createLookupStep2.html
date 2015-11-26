@@ -1,34 +1,9 @@
 <link rel="stylesheet" href="WEB-INF/css/createLookupStep2.css" />
 <link rel="stylesheet" href="WEB-INF/css/patternCreateDial.css" />
 
-<script type="text/javascript">
-	(function($) {
-		$(function() {
-			$(".default").accordion({
-				heightStyle : "content",
-				autoHeight : false,
-				clearStyle : true,
-				header : "h3",
-				collapsible : true
-			});
-			$(".storedacc").accordion({
-				heightStyle : "content",
-				autoHeight : false,
-				clearStyle : true,
-				header : "h3",
-				collapsible : true
-			});
-			$(".acc").css("margin", "10px");
-			$(".acc").css("margin-top", "20px");
-			$(".acc").css("white-space", "nowrap");
-			$(".acc").addClass("shadowed");
-		})
-	})(jQuery);
-</script>
-
-<div ng-controller="patternsCtrl">
+<div ng-controller="patternsCtrl" init-accordions>
 	<div id="selectionPattern">
-		<div class="acc storedacc">
+		<div class="acc shadowed">
 			<h3>
 				Stored extraction Patterns
 				<div style="position: absolute; right: 5px; top: 5px; font-size: 10px; color: rgb(100, 100, 100)">
@@ -51,7 +26,7 @@
 				</ol>
 			</div>
 		</div>
-		<div class="acc default">
+		<div class="acc shadowed">
 			<h3>
 				<a href="#">Pattern matching options</a>
 			</h3>
@@ -63,7 +38,7 @@
 			</div>
 		</div>
 
-		<div class="acc default">
+		<div class="acc shadowed">
 			<h3>
 				<a href="#">Pattern preview</a>
 			</h3>
