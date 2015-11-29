@@ -1,7 +1,7 @@
-app.controller('fileManagerController', function () {
-  this.title = 'Generic file manager';
-  this.storedFilesList = [];
-  this.selectedFiles = [];
+app.controller('fileManagerController', function() {
+	this.title = 'Generic file manager';
+	this.storedFilesList = [];
+	this.selectedFiles = [];
 }).directive('initAccordions', function() {
 	return function(scope, element, attrs) {
 		$('.acc').accordion({
@@ -11,7 +11,7 @@ app.controller('fileManagerController', function () {
 			header : "h3",
 			collapsible : true
 		});
-		
+
 		$("#menuLoadData").menu();
 		$("#menuLoadData").css('position', 'absolute');
 		$("#menuLoadData").css('z-index', '100');
@@ -24,7 +24,7 @@ app.controller('fileManagerController', function () {
 			$("#menuLoadData").hide();
 			$("#menuLoadData").width(0);
 		});
-		
+
 		$("#menuLoadLibrary").menu();
 		$("#menuLoadLibrary").css('position', 'absolute');
 		$("#menuLoadLibrary").css('z-index', '100');
