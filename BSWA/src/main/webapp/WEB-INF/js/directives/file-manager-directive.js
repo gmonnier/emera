@@ -1,4 +1,4 @@
-app.directive('initNextButton', function($rootScope) {
+app.directive('fileManager', function($rootScope) {
 	return {
 		scope : {
 			MAX_STEP: "@steps"
@@ -11,6 +11,6 @@ app.directive('initNextButton', function($rootScope) {
 				scope.$emit('nextStepClicked', scope);
 			};
 		},
-		templateUrl : '/templates/nextButton.html'
+		templateUrl : '/templates/next-step-panel-template.html'
 	};
 });
