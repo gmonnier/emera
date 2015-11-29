@@ -1,15 +1,4 @@
-<script type="text/javascript">
-	function selectFile(elemId) {
-		var elem = document.getElementById(elemId);
-		if (elem && document.createEvent) {
-			var evt = document.createEvent("MouseEvents");
-			evt.initEvent("click", true, false);
-			elem.dispatchEvent(evt);
-		}
-	}
-</script>
-
-<div class="acc shadowed" init-accordions>
+<div class="acc shadowed">
 	<h3>
 		<a href="#">{{ctrl.title}}</a>
 	</h3>
@@ -18,15 +7,15 @@
 			<svg class="add-icon">
 						   <use xlink:href="img/addFile.svg#add-file"></use>
 						</svg>
-			<ul id="menuLoadData">
+			<ul id="menuLoadData" >
 				<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storedFilesList)]">Stored data files
 					<ul class="storedmenu">
 						<li ng-repeat="file in storedFilesList" ng-click="addDataViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
 						</li>
 					</ul>
 				</li>
-				<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
-				<li onclick="selectFile('dataFileIn');" ng-if="ctrl.fileUploader">Load from my computer</li>
+				<li ng-if="ctrl.baseSpaceAllowed === true" 	ng-click="ctrl.openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+				<li ng-if="ctrl.fileUploader" 				ng-click="ctrl.selectFile('fileIn_{{ctrl.uid}}');" init-accordions>Load from my computer</li>
 			</ul>
 		</div>
 		<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(selectedFiles)]">
@@ -53,5 +42,8 @@
 	</div>
 </div>
 
+
+<div id="basespacedialog" class="generic-dialog" title="Base space account files" ng-controller="bsModelCtrl" ng-include="'baseSpaceDialog.html'"></div>
+
 <!-- Hidden input -- Files uploads -->
-<input class="nodisplay" id="dataFileIn" type="file" nv-file-select="" uploader="{{ctrl.fileUploader}}" />
+<input class="nodisplay" id="fileIn_{{ctrl.uid}}" type="file" nv-file-select="" uploader="{{ctrl.fileUploader}}" ng-if="ctrl.fileUploader" />
