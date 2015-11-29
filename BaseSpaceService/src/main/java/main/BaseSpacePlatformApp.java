@@ -36,7 +36,6 @@ public class BaseSpacePlatformApp {
 		LOG.info("---------------------------------------------");
 		LOG.info("Rmi Module --> request to start baseSpaceModel rmi interface server");
 		new RMIServer();
-		BaseSpacePlatformManager.getInstance().getBSUserModel().getListRunsCurrentUser();
 	}
 
 }
