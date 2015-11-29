@@ -2,6 +2,7 @@ app.controller('fileManagerController', function(uploadService) {
 
 	this.title = 'Generic file manager';
 	this.uid = 'generic';
+	this.localFileInputSelector = "file-input-" + this.uid;
 	this.storedFilesList = [];
 	this.selectedFiles = [];
 	this.fileUploader = uploadService.getDataUploader();
@@ -42,13 +43,20 @@ app.controller('fileManagerController', function(uploadService) {
 		$('.accrun .ui-state-focus').removeClass('ui-state-focus');
 	};
 
-	this.selectFile = function(elemId) {
-		var elem = document.getElementById(elemId);
+	this.selectFile = function() {
+		var elem = document.getElementById(this.localFileInputSelector);
 		if (elem && document.createEvent) {
 			var evt = document.createEvent("MouseEvents");
 			evt.initEvent("click", true, false);
 			elem.dispatchEvent(evt);
 		}
+	};
+	
+	this.isEmpty = function(list) {
+		if(list !== undefined){
+			return list.length == 0;
+		}
+		return true;
 	}
 
 }).directive('initAccordions', function() {
@@ -60,30 +68,6 @@ app.controller('fileManagerController', function(uploadService) {
 			header : "h3",
 			collapsible : true
 		});
-
-		$("#menuLoadData").menu();
-		$("#menuLoadData").css('position', 'absolute');
-		$("#menuLoadData").css('z-index', '100');
-		$("#menuLoadData").hide();
-
-		$(".open-load-data").hover(function(e) {
-			$("#menuLoadData").width(250);
-			$("#menuLoadData").show();
-		}, function() {
-			$("#menuLoadData").hide();
-			$("#menuLoadData").width(0);
-		});
-
-		$("#menuLoadLibrary").menu();
-		$("#menuLoadLibrary").css('position', 'absolute');
-		$("#menuLoadLibrary").css('z-index', '100');
-		$("#menuLoadLibrary").hide();
-		$(".open-load-lib").hover(function() {
-			$("#menuLoadLibrary").show();
-			$("#menuLoadLibrary").width(250);
-		}, function() {
-			$("#menuLoadLibrary").hide();
-			$("#menuLoadLibrary").width(0);
-		});
+		$(".menu-load-file").menu();
 	};
 });
