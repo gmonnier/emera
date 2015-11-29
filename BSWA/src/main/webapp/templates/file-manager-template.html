@@ -1,0 +1,43 @@
+<div class="acc shadowed" init-accordions>
+	<h3>
+		<a href="#">{{ctrl.title}}</a>
+	</h3>
+	<div class="panel-content">
+		<div class="open-load open-load-data add-left">
+			<svg class="add-icon">
+						   <use xlink:href="img/addFile.svg#add-file"></use>
+						</svg>
+			<ul id="menuLoadData">
+				<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storedFilesList)]">Stored data files
+					<ul class="storedmenu">
+						<li ng-repeat="file in storedFilesList" ng-click="addDataViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
+						</li>
+					</ul>
+				</li>
+				<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+				<li onclick="selectFile('dataFileIn');">Load from my computer</li>
+			</ul>
+		</div>
+		<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(selectedFiles)]">
+			<p ng-if="isEmpty(selectedFiles)">No file selected, please select at least one data file to process.</p>
+			<div ng-if="!isEmpty(selectedFiles)">
+				<div class="fileTable">
+					<div class="column1"></div>
+					<div class="column2"></div>
+					<div class="column3"></div>
+					<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in selectedFiles">
+						<div class="propcell">
+							<img
+								ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}" />
+						</div>
+						<div class="sizecell">{{selected.readableSize}}</div>
+						<div class="valuecell">{{selected.name}}</div>
+						<div class="deletecell" ng-click="removeDataFile(selected)">
+							<span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
