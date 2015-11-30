@@ -1,4 +1,4 @@
-app.controller('fileManagerController', function(uploadService) {
+app.controller('fileManagerController', function(uploadService, $rootScope, $scope) {
 
 	this.title = 'Generic file manager';
 	this.uid = 'generic';
@@ -33,9 +33,8 @@ app.controller('fileManagerController', function(uploadService) {
 				Ok : function() {
 					// emit event to ask bs-model-ctrl to add selected file to
 					// current model
-					$rootScope.$emit('addSelectedFile');
+					$rootScope.$emit('requestBaseSpaceDialogClose');
 					$(this).dialog("close");
-					$scope.$apply();
 				}
 			}
 		});
@@ -116,6 +115,13 @@ app.controller('fileManagerController', function(uploadService) {
 			}
 		});
 	};
+	
+	// Event listener when close with OK has been requested
+	var unbind = $rootScope.$on('addSelectedBaseSpaceFile', angular.bind(this, function(event, data){
+		this.addViewFile(data);
+		$scope.$apply();
+    }));
+	$scope.$on('$destroy', unbind);
 	
 }).directive('initAccordions', function() {
 	return function(scope, element, attrs) {

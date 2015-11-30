@@ -246,7 +246,7 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 			buttons: {
 				Ok: function() {
 					// emit event to ask bs-model-ctrl to add selected file to current model
-					$rootScope.$emit('addSelectedFile');
+					$rootScope.$emit('addSelectedBaseSpaceFile');
 					$( this ).dialog( "close" );
 					$scope.$apply();
 				}
