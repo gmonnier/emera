@@ -5,8 +5,19 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 	this.localFileInputSelector = "file-input-" + this.uid;
 	this.storedFilesList = [];
 	this.selectedFiles = [];
-	this.fileUploader = uploadService.getDataUploader();
 	this.baseSpaceAllowed = true;
+	
+	this.fileType = 'data';
+	if (this.fileType === 'library') {
+		this.fileUploader = uploadService.getDataUploader();
+		this.addToUploadListFunction = uploadService.addToUploadLibs;
+		this.removeFromUploadListFunction = uploadService.removeFromUploadLibs;
+	} else {
+		this.fileUploader = uploadService.getLibsUploader();
+		this.addToUploadListFunction = uploadService.addToUploadData;
+		this.removeFromUploadListFunction = uploadService.removeFromUploadData;
+	}
+
 
 	this.openBaseSpaceSelectionDial = function() {
 		// Open dialog
@@ -57,9 +68,8 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 	}
 	);
 	
-	this.fileUploader.onAfterAddingFile = angular.bind(this, function(fileItem) { 
-		// TODO Remove reference to upload DATA (too specific)
-		var success = uploadService.addToUploadData(fileItem, this.addViewFile); 
+	this.fileUploader.onAfterAddingFile = angular.bind(this, function(fileItem) {
+		var success = this.addToUploadListFunction(fileItem, this.addViewFile); 
 		if(!success){
 			this.fileUploader.removeFromQueue(fileItem);
 		}
@@ -85,12 +95,36 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 		}
 	};
 	
+	this.removeSelectedFile = function(viewfile) {
+		var index = this.getFileIndex(this.selectedFiles,viewfile);
+		if(index != -1) {
+			this.selectedFiles.splice(index, 1);
+			if(viewfile.origin === 'UPLOAD') {
+				// TODO Remove reference to upload DATA (too specific)
+				var success = uploadService.removeFromUploadData(viewfile);
+				if(!success) {
+					alert('impossible to remove file from upload list');
+				}
+			}
+		}
+	}
+	
 	this.isEmpty = function(list) {
 		if(list !== undefined){
 			return list.length == 0;
 		}
 		return true;
 	};
+	
+	this.getFileIndex = function (filelist, file) {
+		var arrayLength = filelist.length;
+		for (var i = 0; i < arrayLength; i++) {
+			if(filelist[i].id === file.id) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
 	
 	this.showDialog = function(dialogid, onok) {
