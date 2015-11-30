@@ -11,7 +11,7 @@
 				<div class="BSDialFileTable " style="width:100%;">
 						<div class="column1"></div>
 						<div class="column2"></div>
-						<div class="BSDialrow selectable" ng-class="{selected: runfile===selectedFile}" ng-repeat="runfile in run.listFilesData" ng-click="setSelectedBSResource(runfile)">
+						<div class="BSDialrow selectable" ng-class="{selected: runfile===selectedBaseSpaceFile}" ng-repeat="runfile in run.listFilesData" ng-click="setSelectedBSResource(runfile)">
 							<div class="BSDialValuecell">{{runfile.dateCreatedFormat}}</div>
 							<div class="BSDialPropcell">{{runfile.name}}</div>
 							<div class="BSDialSizecell">{{runfile.readableSize}}</div>

@@ -1,12 +1,12 @@
 appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceService) {
 	
-	$scope.selectedFile = null;
+	$scope.selectedBaseSpaceFile = null;
 	$scope.showAllRuns = false;
 	$scope.maxDisplayedRuns = 5;
 	$scope.userruns = []
 	
 	$scope.setSelectedBSResource = function(file) {
-		$scope.selectedFile = file;
+		$scope.selectedBaseSpaceFile = file;
 	}
 	
 	$scope.toggleShowRuns = function(){
@@ -36,8 +36,8 @@ appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceS
 	
 	// Event listener when close with OK has been requested
 	var unbind = $rootScope.$on('addSelectedFile', function(){
-		if($scope.selectedFile !== null) {
-			$scope.addDataViewFile($scope.selectedFile);
+		if($scope.selectedBaseSpaceFile !== null) {
+			$scope.addDataViewFile($scope.selectedBaseSpaceFile);
 		}
     });
 	$scope.$on('$destroy', unbind);
