@@ -35,9 +35,10 @@ appControllers.controller('bsModelCtrl', function ($scope,$rootScope, basespaceS
     });
 	
 	// Event listener when close with OK has been requested
-	var unbind = $rootScope.$on('requestBaseSpaceDialogClose', function(){
+	var unbind = $rootScope.$on('requestBaseSpaceDialogClose', function(event, fileManagerController){
 		if($scope.selectedBaseSpaceFile !== null) {
-			$rootScope.$emit('addSelectedBaseSpaceFile', $scope.selectedBaseSpaceFile);
+			fileManagerController.addViewFileAndApply($scope.selectedBaseSpaceFile);
+			//$rootScope.$emit('addSelectedBaseSpaceFile', $scope.selectedBaseSpaceFile);
 		}
     });
 	$scope.$on('$destroy', unbind);

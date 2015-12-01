@@ -1,103 +1,13 @@
 <link rel="stylesheet" href="WEB-INF/css/createLookupStep1.css" />
 
-<script type="text/javascript">
-	function selectFile(elemId) {
-		var elem = document.getElementById(elemId);
-		if (elem && document.createEvent) {
-			var evt = document.createEvent("MouseEvents");
-			evt.initEvent("click", true, false);
-			elem.dispatchEvent(evt);
-		}
-	}
-</script>
-
 <div id="analyse-lookup-content" >
 	<div id="parameterscontainer">
 		<div id="filescontainer">
-			<div class="acc shadowed">
-				<h3>
-					<a href="#">Data files</a>
-				</h3>
-				<div class="panel-content">
-					<div class="open-load open-load-data add-left">
-						<svg class="add-icon">
-						   <use xlink:href="img/addFile.svg#add-file"></use>
-						</svg>
-						<ul id="menuLoadData">
-							<li ng-class="{TRUE:'ui-state-disabled', false:''}[isEmpty(storeDataFilesList)]">Stored data files
-								<ul class="storedmenu">
-									<li ng-repeat="file in storeDataFilesList" ng-click="addDataViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span class="storedFileNameDisp">{{file.name}}</span>
-									</li>
-								</ul>
-							</li>
-							<li ng-click="openBaseSpaceSelectionDial()">Load from BaseSpace</li>
-							<li onclick="selectFile('dataFileIn');">Load from my computer</li>
-						</ul>
-					</div>
-					<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(configuration.selectedDataFiles)]">
-						<p ng-if="isEmpty(configuration.selectedDataFiles)">No file selected, please select at least one data file to process.</p>
-						<div ng-if="!isEmpty(configuration.selectedDataFiles)">
-							<div class="fileTable">
-								<div class="column1"></div>
-								<div class="column2"></div>
-								<div class="column3"></div>
-								<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in configuration.selectedDataFiles">
-									<div class="propcell">
-										<img
-											ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}" />
-									</div>
-									<div class="sizecell">{{selected.readableSize}}</div>
-									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeDataFile(selected)">
-										<span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		
+			<file-manager file-type="data" title="Data files" uid="data" bsallowed="true"></file-manager>
 
-			<div class="acc shadowed">
-				<h3>
-					<a href="#">Library files</a>
-				</h3>
-				<div class="panel-content">
-					<div class="open-load open-load-lib add-left">
-						<svg class="add-icon">
-						   <use xlink:href="img/addFile.svg#add-file"></use>
-						</svg>
-						<ul id="menuLoadLibrary">
-							<li ng-class="{true:'ui-state-disabled', false:''}[isEmpty(storeLibraryFilesList)]">Stored Libraries
-								<ul class="storedmenu">
-									<li ng-repeat="file in storeLibraryFilesList" ng-click="addLibraryViewFile(file)">{{file.name}}</li>
-								</ul>
-							</li>
-							<li onclick="selectFile('libraryFileIn');">Load from my computer</li>
-						</ul>
-					</div>
-					<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[isEmpty(configuration.selectedLibraries)]">
-						<p ng-if="isEmpty(configuration.selectedLibraries)">No library selected, please select at least one library file.</p>
-						<div ng-if="!isEmpty(configuration.selectedLibraries)">
-							<div class="fileTable">
-								<div class="column1"></div>
-								<div class="column2"></div>
-								<div class="filerow" ng-repeat="selected in configuration.selectedLibraries">
-									<div class="propcell">
-										<img
-											ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}" />
-									</div>
-									<div class="sizecell">{{selected.readableSize}}</div>
-									<div class="valuecell">{{selected.name}}</div>
-									<div class="deletecell" ng-click="removeLibraryFile(selected)">
-										<span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<file-manager file-type="library" title="Library files" uid="library" bsallowed="false"></file-manager>
+			
 		</div>
 
 		<div id="optionccontainer">
@@ -108,17 +18,6 @@
 				<div ng-include="'optionsContent.html'" init-accordions></div>
 			</div>
 		</div>
-	</div>
-
-
-
-
-	<div id="basespacedialog" class="generic-dialog" title="Base space account files" ng-controller="bsModelCtrl" ng-include="'baseSpaceDialog.html'"></div>
-
-	<div id="dialog-duplicate-warning" class="generic-dialog" title="File already selected">
-		<p>
-			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> File has already been selected. Duplicates are not allowed.
-		</p>
 	</div>
 
 	<div id="dialog-file-exists" class="generic-dialog" title="File already exists in database">
@@ -132,10 +31,5 @@
 			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> An error occured while sending file to server.
 		</p>
 	</div>
-
-
-	<!-- Hidden input -- Files uploads -->
-	<input class="nodisplay" id="dataFileIn" type="file" nv-file-select="" uploader="dataUploader" /> 
-	<input class="nodisplay" id="libraryFileIn" type="file" nv-file-select="" uploader="libUploader" />
 
 </div>

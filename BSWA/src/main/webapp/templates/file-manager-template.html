@@ -18,7 +18,7 @@
 								class="storedFileNameDisp">{{file.name}}</span></li>
 						</ul>
 					</li>
-					<li ng-if="ctrl.baseSpaceAllowed === true" ng-click="ctrl.openBaseSpaceSelectionDial()">Load from BaseSpace</li>
+					<li ng-if="ctrl.baseSpaceAllowed === 'true'" ng-click="ctrl.openBaseSpaceSelectionDial()">Load from BaseSpace</li>
 					<li ng-if="ctrl.fileUploader" ng-click="ctrl.selectFile();" init-accordions>Load from my computer</li>
 				</ul>
 			</div>

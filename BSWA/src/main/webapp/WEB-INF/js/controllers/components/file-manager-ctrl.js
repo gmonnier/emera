@@ -1,19 +1,17 @@
 app.controller('fileManagerController', function(uploadService, $rootScope, $scope) {
 
 	this.title = 'Generic file manager';
-	this.uid = 'generic';
+
 	this.localFileInputSelector = "file-input-" + this.uid;
 	this.storedFilesList = [];
 	this.selectedFiles = [];
-	this.baseSpaceAllowed = true;
-	
-	this.fileType = 'data';
+
 	if (this.fileType === 'library') {
-		this.fileUploader = uploadService.getDataUploader();
+		this.fileUploader = uploadService.getLibsUploader();
 		this.addToUploadListFunction = uploadService.addToUploadLibs;
 		this.removeFromUploadListFunction = uploadService.removeFromUploadLibs;
 	} else {
-		this.fileUploader = uploadService.getLibsUploader();
+		this.fileUploader = uploadService.getDataUploader();
 		this.addToUploadListFunction = uploadService.addToUploadData;
 		this.removeFromUploadListFunction = uploadService.removeFromUploadData;
 	}
@@ -21,7 +19,7 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 
 	this.openBaseSpaceSelectionDial = function() {
 		// Open dialog
-		$("#basespacedialog").dialog({
+		$("#basespacedialog").data('fileManager', this).dialog({
 			modal : true,
 			width : 700,
 			show : {
@@ -44,7 +42,8 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 				Ok : function() {
 					// emit event to ask bs-model-ctrl to add selected file to
 					// current model
-					$rootScope.$emit('requestBaseSpaceDialogClose');
+					var fileManagerCtrl = $(this).data('fileManager');
+					$rootScope.$emit('requestBaseSpaceDialogClose', fileManagerCtrl);
 					$(this).dialog("close");
 				}
 			}
@@ -67,6 +66,11 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 		}
 	}
 	);
+	
+	this.addViewFileAndApply = function(file) {
+		this.addViewFile(file);
+		$scope.$apply();
+	}
 	
 	this.fileUploader.onAfterAddingFile = angular.bind(this, function(fileItem) {
 		var success = this.addToUploadListFunction(fileItem, this.addViewFile); 
@@ -100,8 +104,7 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 		if(index != -1) {
 			this.selectedFiles.splice(index, 1);
 			if(viewfile.origin === 'UPLOAD') {
-				// TODO Remove reference to upload DATA (too specific)
-				var success = uploadService.removeFromUploadData(viewfile);
+				var success = uploadService.removeFromUploadListFunction(viewfile);
 				if(!success) {
 					alert('impossible to remove file from upload list');
 				}
@@ -149,13 +152,6 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 			}
 		});
 	};
-	
-	// Event listener when close with OK has been requested
-	var unbind = $rootScope.$on('addSelectedBaseSpaceFile', angular.bind(this, function(event, data){
-		this.addViewFile(data);
-		$scope.$apply();
-    }));
-	$scope.$on('$destroy', unbind);
 	
 }).directive('initAccordions', function() {
 	return function(scope, element, attrs) {
