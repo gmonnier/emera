@@ -1,10 +1,11 @@
 app.directive('fileManager', function($rootScope) {
 	return {
 		scope: {
-			fileType : "@fileType",
-			title : "@title",
-			uid : "@uid",
+			fileType : "@",
+			title : "@",
+			uid : "@",
 			baseSpaceAllowed: "@bsallowed",
+			selectedFiles: "="
 		},
 		templateUrl : '/templates/file-manager-template.html',
 	    controller: 'fileManagerController',
