@@ -8,8 +8,8 @@ app.directive('fileManager', function($rootScope) {
 			selectedFiles: "="
 		},
 		templateUrl : '/templates/file-manager-template.html',
+		controllerAs: 'ctrl',
 	    controller: 'fileManagerController',
-	    controllerAs: 'ctrl',
 	    bindToController: true
 	};
 });

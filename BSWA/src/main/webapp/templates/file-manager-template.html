@@ -12,9 +12,9 @@
 						   <use xlink:href="img/addFile.svg#add-file"></use>
 						</svg>
 				<ul class="menu-load-file">
-					<li ng-class="{'ui-state-disabled': ctrl.isEmpty(ctrl.storedFilesList)}">Stored {{ctrl.fileType}} files
-						<ul class="storedmenu">
-							<li ng-repeat="file in ctrl.storedFilesList" ng-click="ctrl.addDataViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span
+					<li ng-class="{'ui-state-disabled': ctrl.isEmpty(storedFilesList)}">Stored {{ctrl.fileType}} files
+						<ul>
+							<li ng-repeat="file in storedFilesList" ng-click="ctrl.addViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span
 								class="storedFileNameDisp">{{file.name}}</span></li>
 						</ul>
 					</li>
