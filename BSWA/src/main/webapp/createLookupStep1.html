@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="WEB-INF/css/createLookupStep1.css" />
 
-<div id="analyse-lookup-content" >
+<div id="analyse-lookup-content">
 	<div id="parameterscontainer">
 		<div id="filescontainer">
 		
-			<file-manager file-type="data" title="Data files" uid="data" bsallowed="true"></file-manager>
+			<file-manager file-type="data" title="Data files" uid="data" bsallowed="true" selected-files="configuration.selectedDataFiles" jquery-init></file-manager>
 
-			<file-manager file-type="library" title="Library files" uid="library" bsallowed="false"></file-manager>
+			<file-manager file-type="library" title="Library files" uid="library" bsallowed="false" selected-files="configuration.selectedLibraries"></file-manager>
 			
 		</div>
 
@@ -15,7 +15,13 @@
 				<h3>
 					<a href="#">Options</a>
 				</h3>
-				<div ng-include="'optionsContent.html'" init-accordions></div>
+				<div>
+					<ul style="list-style-type: none;">
+						<li style="padding: 5px;"><input type="checkbox" ng-model="configuration.outputAttributes.generateCSV">Generate CSV report</input></li>
+						<li style="padding: 5px;"><input type='checkbox' ng-model="configuration.outputAttributes.generatePDF">Generate PDF report</input></li>
+						<li style="padding: 5px;"><input type='checkbox' ng-model="configuration.outputAttributes.generateStatisticsOnUnfoundgRNA">Get statistics about unfound gRNA(s)</input></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

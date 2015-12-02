@@ -2,7 +2,7 @@
 
 <div class="file-manager">
 
-	<div class="acc shadowed">
+	<div id="test_id" class="acc shadowed">
 		<h3>
 			<a href="#">{{ctrl.title}}</a>
 		</h3>
@@ -12,14 +12,14 @@
 						   <use xlink:href="img/addFile.svg#add-file"></use>
 						</svg>
 				<ul class="menu-load-file">
-					<li ng-class="{'ui-state-disabled': ctrl.isEmpty(ctrl.storedFilesList)}">Stored data files
+					<li ng-class="{'ui-state-disabled': ctrl.isEmpty(ctrl.storedFilesList)}">Stored {{ctrl.fileType}} files
 						<ul class="storedmenu">
 							<li ng-repeat="file in ctrl.storedFilesList" ng-click="ctrl.addDataViewFile(file)"><span class="storedDateDisp">{{file.dateCreatedFormat}} </span> - <span class="storedSizeDisp">{{file.readableSize}}</span> - <span
 								class="storedFileNameDisp">{{file.name}}</span></li>
 						</ul>
 					</li>
 					<li ng-if="ctrl.baseSpaceAllowed === 'true'" ng-click="ctrl.openBaseSpaceSelectionDial()">Load from BaseSpace</li>
-					<li ng-if="ctrl.fileUploader" ng-click="ctrl.selectFile();" init-accordions>Load from my computer</li>
+					<li ng-if="ctrl.fileUploader" ng-click="ctrl.selectFile();">Load from my computer</li>
 				</ul>
 			</div>
 			
