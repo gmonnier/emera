@@ -1,4 +1,4 @@
-app.controller('fileManagerController', function(uploadService, $rootScope, $scope) {
+app.controller('fileManagerController', function(uploadService, $rootScope, $scope, $http) {
 
 	this.title = 'Generic file manager';
 	this.localFileInputSelector = "file-input-" + this.uid;
