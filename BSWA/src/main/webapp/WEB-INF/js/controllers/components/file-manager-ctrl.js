@@ -1,20 +1,32 @@
 app.controller('fileManagerController', function(uploadService, $rootScope, $scope) {
 
 	this.title = 'Generic file manager';
-
 	this.localFileInputSelector = "file-input-" + this.uid;
-	this.storedFilesList = [];
-	this.selectedFiles = [];
-
+	
+	// The following variable is binded via an attribute within the directive declaration
+	//this.selectedFiles = [];
+	
+	var storedFilesURL;
 	if (this.fileType === 'library') {
 		this.fileUploader = uploadService.getLibsUploader();
 		this.addToUploadListFunction = uploadService.addToUploadLibs;
 		this.removeFromUploadListFunction = uploadService.removeFromUploadLibs;
+		storedFilesURL = '/ws-resources/datastorage/libFiles';
 	} else {
 		this.fileUploader = uploadService.getDataUploader();
 		this.addToUploadListFunction = uploadService.addToUploadData;
 		this.removeFromUploadListFunction = uploadService.removeFromUploadData;
+		storedFilesURL = '/ws-resources/datastorage/dataFiles';
 	}
+	
+	// Init stored file list
+	$http({method: 'GET', url: '/ws-resources/datastorage/dataFiles'}).
+    success(function(data, status, headers, config) {
+        this.storedFilesList = data;
+    }).
+    error(function(data, status, headers, config) {
+    	this.storedFilesList = [];
+    });
 
 
 	this.openBaseSpaceSelectionDial = function() {
@@ -153,15 +165,4 @@ app.controller('fileManagerController', function(uploadService, $rootScope, $sco
 		});
 	};
 	
-}).directive('initAccordions', function() {
-	return function(scope, element, attrs) {
-		$('.acc').accordion({
-			heightStyle : "content",
-			autoHeight : false,
-			clearStyle : true,
-			header : "h3",
-			collapsible : true
-		});
-		$(".menu-load-file").menu();
-	};
 });
