@@ -102,13 +102,6 @@
 	min-width: 100px;
 }
 
-.column1 {
-  display: table-column;
-}
-.column2 {
-  display: table-column;
-}
-
 .add-icon{
     width: 80px;
     height: 80px;
