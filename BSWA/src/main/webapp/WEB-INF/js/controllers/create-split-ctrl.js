@@ -1,7 +1,14 @@
-appControllers.controller('createSplitCtrl', function($scope, $http,$location, uploadService, user) {
+appControllers.controller('createSplitCtrl', function($scope, $http,$location, uploadService, user, PatternStorageSrvc) {
 	
 	// init upload lists
     uploadService.clearLists();
+    
+    var updateSplitPatternList = function() {
+		PatternStorageSrvc.getAllSplitPatterns().then(function(splitPatternListVar) {
+			$scope.splitPatterns = splitPatternListVar;
+		});
+	};
+	updateSplitPatternList();
 
 	$http({
 		method : 'GET',
@@ -104,4 +111,15 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
         }
     };
 
+}).directive('applyEffects', function() {
+	return function(scope, element, attrs) {
+		if (scope.$last){
+			$( ".selectPatItem" ).click(function() {
+				$( ".patternPreview" ).clearQueue();
+				$( ".patternPreview" ).stop();
+				$( ".patternPreview" ).hide();
+				$( ".patternPreview" ).fadeIn( "slow", function() {});
+			});
+		}
+	};
 });

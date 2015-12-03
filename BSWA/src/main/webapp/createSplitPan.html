@@ -1,18 +1,33 @@
 <div id="analyse-split-content">
 	<div id="parameterscontainer">
-		<div id="filescontainer">
+		<file-manager title="Choose your input data" file-tye="data" uid="data" bsallowed="true" selected-files="configuration.selectedDataFiles" jquery-init></file-manager>
 
-			<file-manager title="Choose your input data" file-tye="data" uid="data" bsallowed="true" selected-files="configuration.selectedDataFiles" jquery-init></file-manager>
-
-			<next-step-panel steps="1"></next-step-panel>
-
-			<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
-				<p>
-					<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose both data and libraries files you want to process.
-				</p>
+		<div class="acc shadowed">
+			<h3>
+				Stored data splitter models
+				<div style="position: absolute; right: 5px; top: 5px; font-size: 10px; color: rgb(100, 100, 100)">
+					<div style="display: inline;" class="tooltip">
+						<img class="edit-pattern-pic" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/edit.svg" alt="+" ng-click="openPatternCreationDial(); $event.stopPropagation();"> <span> <strong>Create and edit</strong><br />extractions patterns<img
+							class="callout left high" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/calloutleft.gif" alt="+" />
+						</span>
+					</div>
+				</div>
+			</h3>
+			<div style="max-height: 180px; padding: 0;">
+				<ol id="selectablePattern">
+					<li class="selectPatItem" ng-repeat="splitPattern in splitPatterns" apply-effects>
+						<div>
+							<div class="grnaLengthinfo infoCell">Output name : {{splitPattern.outputName}}</div>
+							<div class="pattern-alias infoCell" ng-if="!isEmpty(splitPattern.alias)">{{splitPattern.alias}}</div>
+						</div>
+						<div class="grnaString">{{splitPattern.regexp}}</div>
+					</li>
+				</ol>
 			</div>
 		</div>
 	</div>
+
+	<next-step-panel steps="1"></next-step-panel>
 
 	<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
 		<p>
