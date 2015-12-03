@@ -2,7 +2,7 @@
 	<div id="parameterscontainer">
 		<div id="filescontainer">
 
-			<file-manager title="Choose your input data" file-tye="data" uid="data" bsallowed="true" jquery-init></file-manager>
+			<file-manager title="Choose your input data" file-tye="data" uid="data" bsallowed="true" selected-files="configuration.selectedDataFiles" jquery-init></file-manager>
 
 			<next-step-panel steps="1"></next-step-panel>
 
@@ -12,5 +12,11 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	
+	<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
+		<p>
+			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose at least one input to process.
+		</p>
 	</div>
 </div>
