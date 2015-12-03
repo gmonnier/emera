@@ -14,12 +14,15 @@ import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;
 import configuration.jaxb.applicationcontext.PatternsStorage;
 import configuration.xmljaxb.AbstractConfigurationManager;
+import coreprocessing.fastQReaderSplitter.DataSplitterModel;
 
 public class ApplicationContextManager extends AbstractConfigurationManager<ApplicationContext> {
 
 	private final static String contextFile = "conf/ApplicationContext.xml";
 
 	private final List<ExtractionPattern> listPatterns;
+	
+	private final List<DataSplitterModel> listSplitPatterns;
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -29,6 +32,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	private ApplicationContextManager() {
 		super(new File(contextFile), new ApplicationContext());
 		listPatterns = new ArrayList<ExtractionPattern>();
+		listSplitPatterns = new ArrayList<DataSplitterModel>();
 
 		// Init pattern list
 		if (getConfig().getPatternsStorage() == null) {
@@ -75,6 +79,10 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 
 	public List<ExtractionPattern> getListPatterns() {
 		return listPatterns;
+	}
+	
+	public List<DataSplitterModel> getListSplitPatterns() {
+		return listSplitPatterns;
 	}
 
 	/**

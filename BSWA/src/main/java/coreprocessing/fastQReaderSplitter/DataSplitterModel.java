@@ -18,6 +18,8 @@ public class DataSplitterModel {
 	
 	private String outputName;
 	
+	private String alias;
+	
 	private BufferedWriter writter;
 	
 	private int associatedSequencesCount;
@@ -25,6 +27,7 @@ public class DataSplitterModel {
 	public DataSplitterModel(String regexp, String outputFullPath) {
 		this.pattern = Pattern.compile(regexp);
 		this.outputName = outputFullPath;
+		this.alias = "";
 		this.associatedSequencesCount = 0;
 		try {
 			writter = new BufferedWriter(new FileWriter(outputFullPath));
@@ -61,4 +64,14 @@ public class DataSplitterModel {
 	public void incrementSequenceCount() {
 		associatedSequencesCount++;
 	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	
+	
 }
