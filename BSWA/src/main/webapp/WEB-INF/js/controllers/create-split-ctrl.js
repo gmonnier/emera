@@ -1,4 +1,4 @@
-appControllers.controller('createSplitCtrl', function($scope, $http, uploadService) {
+appControllers.controller('createSplitCtrl', function($scope, $http,$location, uploadService, user) {
 	
 	// init upload lists
     uploadService.clearLists();
@@ -25,9 +25,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http, uploadServi
     $scope.$on('nextStepClicked', function (evt, directiveScope) {
     	if((directiveScope.currentCreateStep+1) > directiveScope.MAX_STEP) {
 			if($scope.validateFileSelection()) {
-				alert("start new split analysis");
-				console.log($scope.configuration);
-				//$scope.enqueueProcessing();
+				$scope.enqueueProcessing();
 			} else {
 				$scope.showDialog("#dialog-unvalid-parameters");
 			}
@@ -94,5 +92,16 @@ appControllers.controller('createSplitCtrl', function($scope, $http, uploadServi
 			}
 		});
 	}
+	
+	// TODO refactor this method too (common with several controllers)
+	$scope.changeRoute = function(url, forceReload) {
+        $scope = $scope || angular.element(document).scope();
+        if(forceReload || $scope.$$phase) {
+            window.location = url;
+        } else {
+            $location.path(url);
+            $scope.$apply();
+        }
+    };
 
 });
