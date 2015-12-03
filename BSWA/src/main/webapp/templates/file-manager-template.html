@@ -1,5 +1,18 @@
 <link rel="stylesheet" href="WEB-INF/css/components/file-manager.css" />
 
+<script>
+	(function($) {
+		$(".menu-load-file").menu();
+		
+		$(this).find(".menu-load-file").show();
+		$(".open-load-data").hover(function(e) {
+			$(this).find(".menu-load-file").show();
+		}, function() {
+			$(this).find(".menu-load-file").hide();
+		});
+	})(jQuery);
+</script>
+
 <div class="file-manager">
 
 	<div id="test_id" class="acc shadowed">

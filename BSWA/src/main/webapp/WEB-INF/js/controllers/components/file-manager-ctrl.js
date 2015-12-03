@@ -45,7 +45,7 @@ app.controller('fileManagerController', function(uploadService, $rootScope,
 					},
 					hide : {
 						effect : 'fade',
-						duration : 1000
+						duration : 500
 					},
 					close : $(".accrun").accordion({
 						heightStyle : "content",

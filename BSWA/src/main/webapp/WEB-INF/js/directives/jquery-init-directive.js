@@ -11,7 +11,7 @@ app.directive('jqueryInit', function($timeout) {
 					header : "h3",
 					collapsible : true
 				});
-				$(".menu-load-file").menu();
+				
 			});
 		}
 	};

@@ -1,4 +1,7 @@
-appControllers.controller('createSplitCtrl', function($scope, $http) {
+appControllers.controller('createSplitCtrl', function($scope, $http, uploadService) {
+	
+	// init upload lists
+    uploadService.clearLists();
 
 	$http({
 		method : 'GET',

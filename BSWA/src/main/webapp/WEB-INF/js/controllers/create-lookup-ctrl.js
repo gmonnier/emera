@@ -1,22 +1,8 @@
 appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http, $location, uploadService, user) {
 	
-	$http({method: 'GET', url: '/ws-resources/datastorage/dataFiles'}).
-    success(function(data, status, headers, config) {
-        $scope.storeDataFilesList = data;
-    }).
-    error(function(data, status, headers, config) {
-		$scope.storeDataFilesList = [];
-    });
-	
-	// Init stored Libraries files
-	$http({method: 'GET', url: '/ws-resources/datastorage/libFiles'}).
-    success(function(data, status, headers, config) {
-        $scope.storeLibraryFilesList = data;
-    }).
-    error(function(data, status, headers, config) {
-		$scope.storeLibraryFilesList = [];
-    });
-	
+	// init upload lists
+    uploadService.clearLists();
+    
 	// Retrieve init processing configuration
 	$http({method: 'GET', url: '/ws-resources/process/confinit'}).
     success(function(data, status, headers, config) {
@@ -26,7 +12,6 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
     error(function(data, status, headers, config) {
 		$scope.configuration = null;
     });
-	
 	
 	$scope.isEmpty = function(list) {
 		if(list !== undefined){
@@ -58,58 +43,6 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 	
 	$scope.validatePatternSelection = function() {
 		return $scope.configuration.pattern !== null;
-	}
-	
-	$scope.addDataViewFile = function(file) {
-		if(file !== null) {
-			var ok = checkDuplicates($scope.configuration.selectedDataFiles,file);
-			if(ok) {
-				$scope.configuration.selectedDataFiles.push(file);
-				return true;
-			} else {
-				$scope.showDialog("#dialog-duplicate-warning" );
-				return false;
-			}
-		}
-	}
-	
-	$scope.addLibraryViewFile = function(file) {
-		if(file !== null) {
-			var ok = checkDuplicates($scope.configuration.selectedLibraries,file);
-			if(ok) {
-				$scope.configuration.selectedLibraries.push(file);
-				return true;
-			} else {
-				$scope.showDialog("#dialog-duplicate-warning" );
-				return false;
-			}
-		}
-	}
-	
-	$scope.removeDataFile = function(viewfile) {
-		var index = getFileIndex($scope.configuration.selectedDataFiles,viewfile);
-		if(index != -1) {
-			$scope.configuration.selectedDataFiles.splice(index, 1);
-			if(viewfile.origin === 'UPLOAD') {
-				var success = uploadService.removeFromUploadData(viewfile);
-				if(!success) {
-					alert('impossible to remove file from upload list');
-				}
-			}
-		}
-	}
-	
-	$scope.removeLibraryFile = function(viewfile) {
-		var index = getFileIndex($scope.configuration.selectedLibraries,viewfile);
-		if(index != -1) {
-			$scope.configuration.selectedLibraries.splice(index, 1);
-			if(viewfile.origin === 'UPLOAD') {
-				var success = uploadService.removeFromUploadLibs(viewfile);
-				if(!success) {
-					alert('impossible to remove file from upload list');
-				}
-			}
-		}
 	}
 	
 	$scope.enqueueProcessing = function() {
@@ -169,26 +102,6 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 		});
 	}
 	
-	function checkDuplicates(filelist, file) {
-		var arrayLength = filelist.length;
-		for (var i = 0; i < arrayLength; i++) {
-			if(filelist[i].id === file.id) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	function getFileIndex(filelist, file) {
-		var arrayLength = filelist.length;
-		for (var i = 0; i < arrayLength; i++) {
-			if(filelist[i].id === file.id) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
 	$scope.changeRoute = function(url, forceReload) {
         $scope = $scope || angular.element(document).scope();
         if(forceReload || $scope.$$phase) {
@@ -198,62 +111,5 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
             $scope.$apply();
         }
     };
-    
-	
-	// init upload lists
-	uploadService.clearLists();
-	$scope.dataUploader = uploadService.getDataUploader();
-	$scope.libUploader = uploadService.getLibsUploader();
-	$scope.dataUploader.onAfterAddingFile = function(fileItem) { 
-		var success = uploadService.addToUploadData(fileItem, $scope.addDataViewFile); 
-		if(!success){
-			$scope.dataUploader.removeFromQueue(fileItem);
-		}
-	};
-	$scope.libUploader.onAfterAddingFile = function(fileItem) { 
-		var success = uploadService.addToUploadLibs(fileItem, $scope.addLibraryViewFile); 
-		if(!success){
-			$scope.libUploader.removeFromQueue(fileItem);
-		}
-	};
-	
-
-	$scope.showList = function() {
-		uploadService.showList();
-	}
-
-	/*
-	* Open and init base space dialog.
-	*/
-	var closeAccordions = function() {
-		$(".accrun").accordion({  heightStyle: "content", autoHeight: false,clearStyle: true, active: false, header: "h3", collapsible: true });
-	};
-	
-	$scope.openBaseSpaceSelectionDial = function() {
-		// Open dialog
-		$("#basespacedialog").dialog({
-			modal: true,
-			width: 700,
-			show: {
-		        effect: 'fade',
-		        duration: 1000
-		    },
-		    hide: {
-		        effect: 'fade',
-		        duration: 1000
-		    },
-			close: closeAccordions(),
-			buttons: {
-				Ok: function() {
-					// emit event to ask bs-model-ctrl to add selected file to current model
-					$rootScope.$emit('addSelectedBaseSpaceFile');
-					$( this ).dialog( "close" );
-					$scope.$apply();
-				}
-			}
-		});
-		// clear selection and close accordions
-		$('.accrun .ui-state-focus').removeClass('ui-state-focus');
-	}
 
 });
