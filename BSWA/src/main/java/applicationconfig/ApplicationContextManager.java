@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;
 import configuration.jaxb.applicationcontext.PatternsStorage;
+import configuration.jaxb.applicationcontext.SplitPattern;
 import configuration.xmljaxb.AbstractConfigurationManager;
 import coreprocessing.fastQReaderSplitter.DataSplitterModel;
 
@@ -21,7 +22,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	private final static String contextFile = "conf/ApplicationContext.xml";
 
 	private final List<ExtractionPattern> listPatterns;
-	
+
 	private final List<DataSplitterModel> listSplitPatterns;
 
 	// log4j logger - Main logger
@@ -32,7 +33,6 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	private ApplicationContextManager() {
 		super(new File(contextFile), new ApplicationContext());
 		listPatterns = new ArrayList<ExtractionPattern>();
-		listSplitPatterns = new ArrayList<DataSplitterModel>();
 
 		// Init pattern list
 		if (getConfig().getPatternsStorage() == null) {
@@ -51,6 +51,17 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 				LOG.error("Invalid pattern received from configuration : " + patterns.get(i) + "   remove it from list");
 				patterns.remove(i);
 			}
+		}
+
+		listSplitPatterns = new ArrayList<DataSplitterModel>();
+		try {
+			List<SplitPattern> splitPatterns = getConfig().getSplitPatternsStorage().getSplitPatterns();
+			for (int i = splitPatterns.size() - 1; i >= 0; i--) {
+				DataSplitterModel splitPattern = new DataSplitterModel(splitPatterns.get(i).getValue(),splitPatterns.get(i).getOutputName(), splitPatterns.get(i).getAlias());
+				listSplitPatterns.add(splitPattern);
+			}
+		} catch (NullPointerException npe) {
+			LOG.warn("No split pattern in configuration yet.");
 		}
 	}
 
@@ -80,7 +91,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	public List<ExtractionPattern> getListPatterns() {
 		return listPatterns;
 	}
-	
+
 	public List<DataSplitterModel> getListSplitPatterns() {
 		return listSplitPatterns;
 	}
@@ -112,7 +123,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	 * @return true if pattern is valid and successfully added, false otherwise.
 	 */
 	public boolean requestAddPattern(ExtractionPattern pattern) {
-		
+
 		if (pattern.isInvalidPattern()) {
 			LOG.warn("Trying to add an invalid pattern. Abort : patternStr = " + pattern.getExtractionSequence());
 			return false;
@@ -124,17 +135,17 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 				}
 			}
 			listPatterns.add(pattern);
-			
+
 			Pattern pat = new Pattern();
 			pat.setAlias(pattern.getAlias());
 			pat.setValue(pattern.getExtractionSequence());
-			
+
 			getConfig().getPatternsStorage().getPatterns().add(pat);
 			LOG.info("Pattern added successfully to the storage list : patternStr = " + pattern.getExtractionSequence());
-			
+
 			// Don't forget to update the xml configuration file.
 			getWriter().marshalXMLFileExternalThread();
-			
+
 			return true;
 		}
 	}
@@ -168,7 +179,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 	public void updateDefaultPatternIndex(ExtractionPattern pattern) {
 		String patternSeq = pattern.getExtractionSequence();
 		for (int i = listPatterns.size() - 1; i >= 0; i--) {
-			if(patternSeq.equalsIgnoreCase(listPatterns.get(i).getExtractionSequence())){
+			if (patternSeq.equalsIgnoreCase(listPatterns.get(i).getExtractionSequence())) {
 				getConfig().getPatternsStorage().setDefaultPatternIndex(i);
 			}
 		}

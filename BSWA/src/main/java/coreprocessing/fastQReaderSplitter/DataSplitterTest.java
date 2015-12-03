@@ -51,8 +51,9 @@ public class DataSplitterTest {
 			};
 			
 			List<DataSplitterModel> models = new ArrayList<DataSplitterModel>();
-			models.add(new DataSplitterModel("\\A...GTAG", "/Users/gmonnie/Documents/emera_data/splitted/GTAGA.fastq"));
-			models.add(new DataSplitterModel("\\A...CAAT", "/Users/gmonnie/Documents/emera_data/splitted/CAATG.fastq"));
+			models.add(new DataSplitterModel("\\A...GTAG", "/Users/gmonnie/Documents/emera_data/splitted/GTAGA.fastq", ""));
+			models.add(new DataSplitterModel("\\A...CAAT", "/Users/gmonnie/Documents/emera_data/splitted/CAATG.fastq", ""));
+
 			DataReaderSplitter splitter = new DataReaderSplitter(input, models, listener);
 			try {
 				splitter.readAndSplit();

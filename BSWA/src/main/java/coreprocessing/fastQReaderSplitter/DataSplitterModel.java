@@ -24,16 +24,16 @@ public class DataSplitterModel {
 	
 	private int associatedSequencesCount;
 
-	public DataSplitterModel(String regexp, String outputFullPath) {
+	public DataSplitterModel(String regexp, String outputName, String alias) {
 		this.pattern = Pattern.compile(regexp);
-		this.outputName = outputFullPath;
-		this.alias = "";
+		this.outputName = outputName;
+		this.alias = alias;
 		this.associatedSequencesCount = 0;
-		try {
-			writter = new BufferedWriter(new FileWriter(outputFullPath));
+		/*try {
+			writter = new BufferedWriter(new FileWriter(outputName));
 		} catch (IOException e) {
-			LOG.error("Unable to create buffered writer for data splietter on : " + outputFullPath);
-		}
+			LOG.error("Unable to create buffered writer for data splitter on : " + outputName);
+		}*/
 	}
 
 	public Pattern getPattern() {

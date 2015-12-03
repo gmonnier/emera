@@ -6,3 +6,9 @@
 	width: 83%;
 	float: left;
 }
+
+.acc {
+	margin: 10px;
+	margin-top: 20px;
+	white-space: no-wrap;
+}
