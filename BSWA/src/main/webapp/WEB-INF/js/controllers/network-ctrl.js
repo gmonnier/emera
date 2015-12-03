@@ -124,11 +124,11 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 			width: 400,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 			Ok: function() {

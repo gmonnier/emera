@@ -114,11 +114,11 @@ appControllers.controller('runningCtrl', function ($scope,$http, analysisMgtServ
 			width: 520,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 			Cancel: function() {
@@ -141,11 +141,11 @@ appControllers.controller('runningCtrl', function ($scope,$http, analysisMgtServ
 			width: 520,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 			Ok: function() {

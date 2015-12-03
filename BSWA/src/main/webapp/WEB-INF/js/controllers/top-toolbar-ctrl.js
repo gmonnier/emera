@@ -19,11 +19,11 @@ appControllers.controller('topToolBarCtrl', function ($scope,$rootScope, $http, 
 			width: 400,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 			"Log in": function() {

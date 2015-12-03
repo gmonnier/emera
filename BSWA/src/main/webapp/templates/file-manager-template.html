@@ -38,7 +38,7 @@
 			
 			<!-- Summary panel of selected files -->
 			<div class="add-right" ng-class="{false:'align-top', true:'align-middle'}[ctrl.isEmpty(ctrl.selectedFiles)]">
-				<p ng-if="ctrl.isEmpty(ctrl.selectedFiles)">No file selected, please select at least one data file to process.</p>
+				<p class="no-select-message" ng-if="ctrl.isEmpty(ctrl.selectedFiles)">No file selected, please select at least one data file to process.</p>
 				<div ng-if="!ctrl.isEmpty(ctrl.selectedFiles)">
 					<div class="fileTable">
 						<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in ctrl.selectedFiles">

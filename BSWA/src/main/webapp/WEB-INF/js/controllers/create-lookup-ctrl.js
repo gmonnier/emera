@@ -85,11 +85,11 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 			width: 700,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 			Ok: function() {

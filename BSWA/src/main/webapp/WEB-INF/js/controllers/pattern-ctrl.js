@@ -34,11 +34,11 @@ appControllers.controller('patternsCtrl', function ($scope, $http, PatternStorag
 			width: 700,
 			show: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 		    hide: {
 		        effect: 'fade',
-		        duration: 1000
+		        duration: 500
 		    },
 			buttons: {
 				Ok: function() {
