@@ -6,7 +6,7 @@
 	margin-top: -30px;
 }
 
-.file-manager .menu-load-file ul{
+.file-manager .menu-load-file ul {
 	min-width: 550px;
 }
 
@@ -37,6 +37,7 @@
 	display: table;
 	margin-bottom: 10px;
 }
+
 .file-manager .filerow {
 	display: table-row;
 	height: 30px;
@@ -46,12 +47,12 @@
 	display: table-cell;
 	font-weight: bold;
 	vertical-align: middle;
-	
 }
+
 .file-manager .propcell img {
 	display: block;
-    margin-left: auto;
-    margin-right: auto
+	margin-left: auto;
+	margin-right: auto
 }
 
 .file-manager .valuecell {
@@ -60,10 +61,10 @@
 	vertical-align: middle;
 }
 
-.file-manager .sizecell{
+.file-manager .sizecell {
 	display: table-cell;
-	margin: 3px; 
-	padding: 0.4em; 
+	margin: 3px;
+	padding: 0.4em;
 	height: 18px;
 	font-size: 10px;
 	vertical-align: middle;
@@ -71,58 +72,58 @@
 }
 
 .file-manager .deletecell {
-  display: table-cell;
-  padding-left: 10px;
-  cursor:pointer;
-  vertical-align: middle;
-  padding-top:
+	display: table-cell;
+	padding-left: 10px;
+	cursor: pointer;
+	vertical-align: middle;
+	padding-top:
 }
 
 .file-manager .deletecell img {
 	display: block;
 	width: 15px;
 	height: 15px;
-    margin-left: auto;
-    margin-right: auto
+	margin-left: auto;
+	margin-right: auto
 }
 
 .file-manager .storedFileNameDisp {
-	font-weight:normal;
+	font-weight: normal;
 	font-size: 13px;
-	padding:2px;
-	padding-right:5px;
+	padding: 2px;
+	padding-right: 5px;
 }
 
 .file-manager .storedDateDisp {
 	color: #5785C6;
-	font-weight:normal;
-	padding:2px;
-	padding-left:5px;
+	font-weight: normal;
+	padding: 2px;
+	padding-left: 5px;
 }
 
 .file-manager .storedSizeDisp {
 	min-width: 100px;
 }
 
-.file-manager .add-icon{
-    width: 80px;
-    height: 80px;
+.file-manager .add-icon {
+	width: 80px;
+	height: 80px;
 }
 
 .file-manager .no-select-message {
 	color: grey;
 }
 
-.file-manager .add-icon .st0{fill:#567C13;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-.file-manager .add-icon .st1{fill:url('/img/addFile.svg#gradient-back');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-.file-manager .add-icon .st2{fill:#eeeeee;stroke:#6785A5;stroke-width:2;}
-.file-manager .add-icon .st3{fill:#85A838;stroke:#6785A5;stroke-width:2;}
+.file-manager .open-load:hover .add-icon{
+	background-image: url("/img/addFile_hov.svg");
+}
+
+.file-manager .add-icon {
+	background-image: url("/img/addFile.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
 
 .file-manager .open-load:hover {
 	cursor: pointer;
 }
-
-.file-manager .open-load:hover .add-icon .st0{fill:#85A838;}
-.file-manager .open-load:hover .add-icon .st1{fill:url('http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg#gradient-back-hover');stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-.file-manager .open-load:hover .add-icon .st2 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}
-.file-manager .open-load:hover .add-icon .st3 { fill: #FFFFFF; stroke: #6785A5; stroke-width: 2px;}
