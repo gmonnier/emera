@@ -115,11 +115,11 @@
 }
 
 .file-manager .open-load:hover .add-icon{
-	background-image: url("/img/addFile_hov.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/addFile_hov.svg");
 }
 
 .file-manager .add-icon {
-	background-image: url("/img/addFile.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg");
 	background-repeat: no-repeat;
 	background-position: center;
 }

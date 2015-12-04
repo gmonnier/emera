@@ -40,23 +40,23 @@
 }
 
 .next-icon {
-	background-image: url("/img/next_button.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/next_button.svg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 
 #nextlink:hover .next-icon {
-	background-image: url("/img/next_button_hov.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/next_button_hov.svg");
 }
 
 
 .start-icon {
-	background-image: url("/img/start_button.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/start_button.svg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 #nextlink:hover .start-icon {
-	background-image: url("/img/start_button_hov.svg");
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/start_button_hov.svg");
 }
