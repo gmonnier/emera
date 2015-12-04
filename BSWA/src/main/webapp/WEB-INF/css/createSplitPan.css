@@ -1,4 +1,4 @@
-#analyse-split-content{
+#analyse-split-content {
 	padding: 2em;
 }
 
@@ -7,8 +7,88 @@
 	float: left;
 }
 
-.acc {
+#analyse-split-content .acc {
 	margin: 10px;
 	margin-top: 20px;
 	white-space: no-wrap;
+}
+
+#analyse-split-content #selectionPattern {
+	width: 83%;
+	float: left;
+}
+
+#analyse-split-content #selectablePattern .ui-selecting {
+	background: #AAD2FF;
+}
+
+#analyse-split-content #selectablePattern .ui-selected {
+	background: #599BFF;
+	color: white;
+}
+
+#analyse-split-content #selectablePattern {
+	list-style-type: none;
+	padding: 0;
+	margin: 5px;
+}
+
+#analyse-split-content .pattern-doc {
+	margin: 10px 5px;
+	padding: 5px 5px;
+}
+
+#analyse-split-content .pattern-doc a {
+	color: #85a838;
+}
+
+#analyse-split-content #selectablePattern li {
+	margin: 10px 0;
+	padding: 0.4em;
+	font-size: 1.0em;
+}
+
+#analyse-split-content .infoCell {
+	border: 1px solid #dddddd;
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: bold;
+	width: 20%;
+	text-align: center;
+}
+
+#analyse-split-content .pattern-alias {
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+	background: #e5f7b2;
+}
+
+#analyse-split-content.grnaLengthinfo {
+	width: 120px;
+	min-width: 120px;
+	vertical-align: middle;
+}
+
+#analyse-split-content .split-pattern-string {
+	display: inline-block;
+	margin-top: 5px;
+	width: 50%;
+	text-align: center;
+}
+
+#analyse-split-content .selectPatItem {
+	overflow: hidden;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+#analyse-split-content .selectPatItem:hover {
+	cursor: pointer;
+	background: #AAD2FF;
+}
+
+#analyse-split-content .edit-pattern-pic {
+	width: 20px;
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
 }

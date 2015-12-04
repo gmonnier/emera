@@ -7,7 +7,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/create-split-analysis', {
 		templateUrl : 'createSplitPan.html',
 		controller : 'createSplitCtrl',
-		css: ['WEB-INF/css/createSplitPan.css', 'WEB-INF/css/baseSpaceDial.css', 'WEB-INF/css/patternCreateDial.css', 'WEB-INF/css/createLookupStep2.css'],
+		css: ['WEB-INF/css/createSplitPan.css', 'WEB-INF/css/baseSpaceDial.css', 'WEB-INF/css/patternCreateDial.css'],
 		public : true
 	}).when('/create-lookup-analysis', {
 		templateUrl : 'createLookupPan.html',

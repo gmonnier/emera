@@ -27,6 +27,7 @@
 .infoCell {
 	border: 1px solid #dddddd;
 	display: inline-block;
+	vertical-align: middle;
 	font-weight: bold;
 	text-align: center;
 }
