@@ -27,12 +27,39 @@
 			</div>
 		</div>
 	</div>
+	<div id="summary-container">	
+		<div class="acc shadowed">
+			<h3>
+				<a href="#">Split summary</a>
+			</h3>
+			<div id="accPrevContent">
+				<div class="patternPreview" ng-if="isEmpty(configuration.dataSplitterModel) || isEmpty(configuration.selectedDataFiles)">
+					<div class="prevRow">
+						<span class="prevCell seq" id="NoSeqDefined">Please select at least one splitter pattern and one input</span>
+					</div>
+				</div>
+				<div class="patternPreview" ng-if="selectedPattern">
+					<div class="prevRow">
+						<span class="prevCell seq" id="prevPrefix">{{selectedPattern.extractionSequence.substring(0, selectedPattern.skippedCharCount).toUpperCase(); }}</span> <span class="prevCell seq" id="prevSeq"><b
+							style="color: rgb(200, 20, 20); font-size: 18px; font-weight: bold;">{{selectedPattern.extractionSequence.substring(selectedPattern.skippedCharCount, selectedPattern.skippedCharCount + selectedPattern.grnaSubSequenceLength ).toUpperCase();
+								}}</b><b style="color: #FFB600; font-size: 18px; font-weight: bold;" ng-if="configuration.patternAttributes.checkForShifted">X</b></span> <span class="prevCell seq" id="prevSuffix">ATGCAAG...</span>
+					</div>
+					<div class="prevRow">
+						<span class="prevCell desc">prefix sequence</span> <span class="prevCell desc descHighligh">Extraction Seq.</span> <span class="prevCell desc">Ignored seq</span>
+					</div>
+					<div class="prevRow">
+						<span class="prevCell desc2">{{selectedPattern.skippedCharCount}} characters</span> <span class="prevCell desc2">{{selectedPattern.grnaSubSequenceLength}} characters</span> <span class="prevCell desc2"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<next-step-panel steps="1"></next-step-panel>
 
 	<div id="dialog-unvalid-parameters" class="generic-dialog" title="Your selection is not valid">
 		<p>
-			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose at least one input to process.
+			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Your selection is not valid. Please check you choose at least one input to process as well as one splitter pattern.
 		</p>
 	</div>
 

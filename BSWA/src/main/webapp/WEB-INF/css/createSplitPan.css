@@ -1,10 +1,21 @@
 #analyse-split-content {
 	padding: 2em;
+	display: table;
 }
 
 #analyse-split-content #parameterscontainer {
-	width: 83%;
-	float: left;
+	width: 50%;
+	display: table-cell;
+}
+
+#analyse-split-content #summary-container {
+	width: 30%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+#analyse-split-content #summary-container #accPrevContent {
+	padding: 50px 0;
 }
 
 #analyse-split-content .acc {
@@ -14,7 +25,7 @@
 }
 
 #analyse-split-content #selectionPattern {
-	width: 83%;
+	
 	float: left;
 }
 
@@ -92,3 +103,57 @@
 	position: relative;
 	top: -2px;
 }
+
+/*
+	----------------> Pattern preview styling
+*/
+#analyse-split-content #accPrevContent{
+	margin: 0;
+	padding: 0;
+	overflow:hidden;
+	position:relative;
+	height:100px;
+	background: rgb(228,239,192); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(228,239,192,1) 0%, rgba(171,189,115,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(228,239,192,1)), color-stop(100%,rgba(171,189,115,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', endColorstr='#abbd73',GradientType=0 ); /* IE6-9 */
+
+}
+
+#analyse-split-content .patternPreview{
+	text-align: center;
+	letter-spacing: 0.2em;
+	display:table; 
+	border-spacing: 8px 1px; 
+	margin: auto; 
+	margin-top: 30px;
+}
+
+#analyse-split-content .prevRow{
+	display: table-row;
+}
+
+#analyse-split-content .prevCell{
+	display: table-cell;
+}
+
+#analyse-split-content .seq {
+	text-shadow:#eee 0px 1px 0, #333 0 -1px 0;
+}
+
+#analyse-split-content #NoSeqDefined{
+	font-size: 22px;
+	color: #FF6A00; 
+}
+
+#analyse-split-content .selectedPattern {
+	background: #42A3FF; 
+	color: white;
+}
+/*
+	<---------------- Pattern preview styling
+*/

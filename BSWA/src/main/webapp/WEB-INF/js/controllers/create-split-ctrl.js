@@ -31,7 +31,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 	
     $scope.$on('nextStepClicked', function (evt, directiveScope) {
     	if((directiveScope.currentCreateStep+1) > directiveScope.MAX_STEP) {
-			if($scope.validateFileSelection()) {
+			if($scope.validateParameters()) {
 				$scope.enqueueProcessing();
 			} else {
 				$scope.showDialog("#dialog-unvalid-parameters");
@@ -72,8 +72,8 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 		});
 	}
     
-	$scope.validateFileSelection = function() {
-		return $scope.configuration.selectedDataFiles.length > 0;
+	$scope.validateParameters = function() {
+		return !($scope.isEmpty(configuration.dataSplitterModel) || $scope.isEmpty(configuration.selectedDataFiles));
 	}
     
     // TODO Refactor this method
@@ -110,6 +110,13 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
             $scope.$apply();
         }
     };
+    
+	$scope.isEmpty = function(list) {
+		if(list !== undefined){
+			return list.length == 0;
+		}
+		return true;
+	}
 
 }).directive('applyEffects', function() {
 	return function(scope, element, attrs) {

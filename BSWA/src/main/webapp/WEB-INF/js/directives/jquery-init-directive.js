@@ -6,12 +6,11 @@ app.directive('jqueryInit', function($timeout) {
 			$timeout(function() {
 				$('.acc').accordion({
 					heightStyle : "content",
-					autoHeight : false,
 					clearStyle : true,
 					header : "h3",
 					collapsible : true
 				});
-				
+
 			});
 		}
 	};
