@@ -11,6 +11,6 @@
 **/logs
 **/.classpath
 **/.project
-**/conf
+**/conf/*.xml
 **/target
 **/build/generated/**
