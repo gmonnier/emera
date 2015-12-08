@@ -18,7 +18,7 @@
 					Split patterns are defined following regular expressions rules. For more information, please refer to <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#sum">this documentation</a>.
 				</p>
 				<ol id="selectablePattern">
-					<li class="selectPatItem" ng-repeat="splitPattern in splitPatterns" apply-effects>
+					<li class="selectPatItem" ng-repeat="splitPattern in splitPatterns" ng-click="toggleSelect(splitPattern)" apply-effects>
 						<div class="pattern-alias infoCell" ng-if="!isEmpty(splitPattern.alias)">{{splitPattern.alias}}</div>
 						<div class="grnaLengthinfo infoCell">Output name : {{splitPattern.outputName}}</div>
 						<div class="split-pattern-string">{{splitPattern.regexp}}</div>
@@ -33,23 +33,18 @@
 				<a href="#">Split summary</a>
 			</h3>
 			<div id="accPrevContent">
-				<div class="patternPreview" ng-if="isEmpty(configuration.dataSplitterModel) || isEmpty(configuration.selectedDataFiles)">
+				<div class="patternPreview" ng-if="isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles)">
 					<div class="prevRow">
 						<span class="prevCell seq" id="NoSeqDefined">Please select at least one splitter pattern and one input</span>
 					</div>
 				</div>
-				<div class="patternPreview" ng-if="selectedPattern">
-					<div class="prevRow">
-						<span class="prevCell seq" id="prevPrefix">{{selectedPattern.extractionSequence.substring(0, selectedPattern.skippedCharCount).toUpperCase(); }}</span> <span class="prevCell seq" id="prevSeq"><b
-							style="color: rgb(200, 20, 20); font-size: 18px; font-weight: bold;">{{selectedPattern.extractionSequence.substring(selectedPattern.skippedCharCount, selectedPattern.skippedCharCount + selectedPattern.grnaSubSequenceLength ).toUpperCase();
-								}}</b><b style="color: #FFB600; font-size: 18px; font-weight: bold;" ng-if="configuration.patternAttributes.checkForShifted">X</b></span> <span class="prevCell seq" id="prevSuffix">ATGCAAG...</span>
-					</div>
-					<div class="prevRow">
-						<span class="prevCell desc">prefix sequence</span> <span class="prevCell desc descHighligh">Extraction Seq.</span> <span class="prevCell desc">Ignored seq</span>
-					</div>
-					<div class="prevRow">
-						<span class="prevCell desc2">{{selectedPattern.skippedCharCount}} characters</span> <span class="prevCell desc2">{{selectedPattern.grnaSubSequenceLength}} characters</span> <span class="prevCell desc2"></span>
-					</div>
+				<div class="patternPreview" ng-if="!(isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles))">
+					<ol id="selected-patterns-list">
+						<li ng-repeat="splitPattern in configuration.dataSplitterModels">
+							<img class="input-picture" src='img/fileOrg/stored.svg'/>
+							<span class="pattern-regex">{{splitPattern.outputName}}.fastq</span>
+						</li>
+					</ol>
 				</div>
 			</div>
 		</div>

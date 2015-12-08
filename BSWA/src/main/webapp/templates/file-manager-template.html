@@ -41,8 +41,7 @@
 					<div class="fileTable">
 						<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in ctrl.selectedFiles">
 							<div class="propcell">
-								<img
-									ng-src="{{selected.origin == 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.png' || selected.origin == 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.png'}}" />
+								<img ng-src="{{selected.origin === 'UPLOAD' && 'img/fileOrg/upload.svg' || selected.origin === 'STORED' && 'img/fileOrg/stored.svg' || 'img/fileOrg/basespace.svg'}}" />
 							</div>
 							<div class="sizecell">{{selected.readableSize}}</div>
 							<div class="valuecell">{{selected.name}}</div>

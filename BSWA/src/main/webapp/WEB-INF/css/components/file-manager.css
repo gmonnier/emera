@@ -51,8 +51,7 @@
 
 .file-manager .propcell img {
 	display: block;
-	margin-left: auto;
-	margin-right: auto
+	width: 25px;
 }
 
 .file-manager .valuecell {

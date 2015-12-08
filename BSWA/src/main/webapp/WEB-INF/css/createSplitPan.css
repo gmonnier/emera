@@ -125,7 +125,6 @@
 }
 
 #analyse-split-content .patternPreview{
-	text-align: center;
 	letter-spacing: 0.2em;
 	display:table; 
 	border-spacing: 8px 1px; 
@@ -133,26 +132,13 @@
 	margin-top: 30px;
 }
 
-#analyse-split-content .prevRow{
-	display: table-row;
+#analyse-split-content #selected-patterns-list {
+	list-style-type: none;
 }
 
-#analyse-split-content .prevCell{
-	display: table-cell;
-}
-
-#analyse-split-content .seq {
-	text-shadow:#eee 0px 1px 0, #333 0 -1px 0;
-}
-
-#analyse-split-content #NoSeqDefined{
-	font-size: 22px;
-	color: #FF6A00; 
-}
-
-#analyse-split-content .selectedPattern {
-	background: #42A3FF; 
-	color: white;
+#analyse-split-content #selected-patterns-list .input-picture {
+	width: 30px;
+	vertical-align: middle;
 }
 /*
 	<---------------- Pattern preview styling

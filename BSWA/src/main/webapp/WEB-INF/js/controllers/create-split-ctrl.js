@@ -39,6 +39,11 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 		}
     });
     
+	$scope.toggleSelect = function(splitpattern) {
+		console.log($scope.configuration);
+		$scope.configuration.dataSplitterModels.push(splitpattern);
+	}
+    
     $scope.enqueueProcessing = function() {
 		var userID = 'guest';
 		if(user.current.hasOwnProperty('user_id')) {
@@ -73,7 +78,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 	}
     
 	$scope.validateParameters = function() {
-		return !($scope.isEmpty(configuration.dataSplitterModel) || $scope.isEmpty(configuration.selectedDataFiles));
+		return !($scope.isEmpty(configuration.dataSplitterModels) || $scope.isEmpty(configuration.selectedDataFiles));
 	}
     
     // TODO Refactor this method

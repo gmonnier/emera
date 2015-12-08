@@ -20,12 +20,20 @@ public class ViewPreProcessingConfiguration {
 	// List of data files
 	private List<ViewFile> selectedDataFiles;
 	
-	private List<ViewDataSplitterModel> dataSplitterModel;
+	private List<ViewDataSplitterModel> dataSplitterModels;
 
 	public ViewPreProcessingConfiguration() {
-
+		dataSplitterModels = new ArrayList<ViewDataSplitterModel>();
 		selectedDataFiles = new ArrayList<ViewFile>();
 
+	}
+
+	public List<ViewDataSplitterModel> getDataSplitterModels() {
+		return dataSplitterModels;
+	}
+
+	public void setDataSplitterModels(List<ViewDataSplitterModel> dataSplitterModels) {
+		this.dataSplitterModels = dataSplitterModels;
 	}
 
 	public List<ViewFile> getSelectedDataFiles() {
@@ -34,14 +42,6 @@ public class ViewPreProcessingConfiguration {
 
 	public void setSelectedDataFiles(List<ViewFile> selectedDataFiles) {
 		this.selectedDataFiles = selectedDataFiles;
-	}
-
-	public List<ViewDataSplitterModel> getDataSplitterModel() {
-		return dataSplitterModel;
-	}
-
-	public void setDataSplitterModel(List<ViewDataSplitterModel> dataSplitterModel) {
-		this.dataSplitterModel = dataSplitterModel;
 	}
 
 	@Override
