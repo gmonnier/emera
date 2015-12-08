@@ -40,8 +40,18 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
     });
     
 	$scope.toggleSelect = function(splitpattern) {
-		console.log($scope.configuration);
-		$scope.configuration.dataSplitterModels.push(splitpattern);
+		var found = false;
+		for (i = $scope.configuration.dataSplitterModels.length-1; i >= 0; i--) {
+			var currentSplitter = $scope.configuration.dataSplitterModels[i];
+			if(currentSplitter.regexp === splitpattern.regexp) {
+				$scope.configuration.dataSplitterModels.splice(i, 1);
+				found = true;
+				break;
+			}
+		}
+		if(!found) {
+			$scope.configuration.dataSplitterModels.push(splitpattern);
+		}
 	}
     
     $scope.enqueueProcessing = function() {
