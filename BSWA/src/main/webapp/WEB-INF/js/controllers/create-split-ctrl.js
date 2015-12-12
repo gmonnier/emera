@@ -131,6 +131,17 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 			return list.length == 0;
 		}
 		return true;
+	};
+	
+	$scope.isSelected = function(splitPattern) {
+		if ($scope.configuration && !$scope.isEmpty($scope.configuration.dataSplitterModels)) {
+			for (var i = 0, len = $scope.configuration.dataSplitterModels.length; i < len; i++) {
+				if ($scope.configuration.dataSplitterModels[i].regexp === splitPattern.regexp) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }).directive('applyEffects', function() {
