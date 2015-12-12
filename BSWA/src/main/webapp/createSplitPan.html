@@ -33,12 +33,19 @@
 				<a href="#">Split summary</a>
 			</h3>
 			<div id="accPrevContent">
-				<div class="patternPreview" ng-if="isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles)">
+				<div class="patternPreview empty" ng-if="isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles)">
 					<div class="prevRow">
 						<span class="prevCell seq" id="NoSeqDefined">Please select at least one splitter pattern and one input</span>
 					</div>
 				</div>
-				<div class="patternPreview" ng-if="!(isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles))">
+				<div class="patternPreview non-empty" ng-if="!(isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles))">
+					<ol id="selected-patterns-list">
+						<li ng-repeat="inputFile in configuration.selectedDataFiles">
+							<img class="input-picture" src='img/fileOrg/stored.svg'/>
+							<span class="pattern-regex">{{inputFile.name}}</span>
+						</li>
+					</ol>
+					<div id="separator" width="100%" height="40px"></div>
 					<ol id="selected-patterns-list">
 						<li ng-repeat="splitPattern in configuration.dataSplitterModels">
 							<img class="input-picture" src='img/fileOrg/stored.svg'/>

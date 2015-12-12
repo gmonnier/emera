@@ -14,10 +14,6 @@
 	display: table-cell;
 }
 
-#analyse-split-content #summary-container #accPrevContent {
-	padding: 50px 0;
-}
-
 #analyse-split-content .acc {
 	margin: 10px;
 	margin-top: 20px;
@@ -25,7 +21,6 @@
 }
 
 #analyse-split-content #selectionPattern {
-	
 	float: left;
 }
 
@@ -117,7 +112,6 @@
 	padding: 0;
 	overflow:hidden;
 	position:relative;
-	height:100px;
 	background: rgb(228,239,192); /* Old browsers */
 	background: -moz-linear-gradient(top,  rgba(228,239,192,1) 0%, rgba(171,189,115,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(228,239,192,1)), color-stop(100%,rgba(171,189,115,1))); /* Chrome,Safari4+ */
@@ -134,7 +128,15 @@
 	display:table; 
 	border-spacing: 8px 1px; 
 	margin: auto; 
-	margin-top: 30px;
+	margin-top: 15px;
+}
+
+#analyse-split-content .patternPreview.empty {
+	padding: 50px 0;
+}
+
+#analyse-split-content .patternPreview.non-empty {
+	padding: 0;
 }
 
 #analyse-split-content #selected-patterns-list {
