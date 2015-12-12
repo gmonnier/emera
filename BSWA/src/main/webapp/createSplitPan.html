@@ -18,7 +18,7 @@
 					Split patterns are defined following regular expressions rules. For more information, please refer to <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#sum">this documentation</a>.
 				</p>
 				<ol id="selectablePattern">
-					<li class="selectPatItem" ng-repeat="splitPattern in splitPatterns" ng-click="toggleSelect(splitPattern)" apply-effects>
+					<li class="selectPatItem" ng-class="{selectedPattern: isSelected(splitPattern)}" ng-repeat="splitPattern in splitPatterns" ng-click="toggleSelect(splitPattern)" apply-effects>
 						<div class="pattern-alias infoCell" ng-if="!isEmpty(splitPattern.alias)">{{splitPattern.alias}}</div>
 						<div class="grnaLengthinfo infoCell">Output name : {{splitPattern.outputName}}</div>
 						<div class="split-pattern-string">{{splitPattern.regexp}}</div>
