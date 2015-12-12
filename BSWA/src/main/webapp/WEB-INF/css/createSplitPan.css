@@ -133,14 +133,28 @@
 
 #analyse-split-content .patternPreview.empty {
 	padding: 50px 0;
+	text-align: center;
 }
 
 #analyse-split-content .patternPreview.non-empty {
 	padding: 0;
 }
 
+#analyse-split-content #selected-input-list {
+	list-style-type: none;
+}
+
+#analyse-split-content #selected-input-list .input-picture {
+	width: 30px;
+	vertical-align: middle;
+}
+
 #analyse-split-content #selected-patterns-list {
 	list-style-type: none;
+	-webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    column-gap: 1em;
 }
 
 #analyse-split-content #selected-patterns-list .input-picture {
