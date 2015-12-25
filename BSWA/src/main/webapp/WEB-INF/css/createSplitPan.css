@@ -138,6 +138,11 @@
 
 #analyse-split-content .patternPreview.non-empty {
 	padding: 0;
+	text-align: center;
+}
+
+#analyse-split-content .patternPreview.non-empty .arrow-down {
+	height: 40px
 }
 
 #analyse-split-content #selected-input-list {
@@ -153,6 +158,10 @@
 	list-style-type: none;
 	-webkit-column-count: 2; /* Chrome, Safari, Opera */
     -moz-column-count: 2; /* Firefox */
+
+}
+
+#analyse-split-content #selected-patterns-list .two-columns{
     column-count: 2;
     column-gap: 1em;
 }

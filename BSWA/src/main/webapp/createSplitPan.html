@@ -45,8 +45,8 @@
 							<span class="pattern-regex">{{inputFile.name}}</span>
 						</li>
 					</ol>
-					<div id="separator" width="100%" height="40px"></div>
-					<ol id="selected-patterns-list">
+					<img class="arrow-down" ng-src="/img/create_analysis/arrow-down.svg"/>
+					<ol id="selected-patterns-list" ng-class="{two-columns: configuration.dataSplitterModels.length >== 2}">
 						<li ng-repeat="splitPattern in configuration.dataSplitterModels">
 							<img class="input-picture" src='img/fileOrg/stored.svg'/>
 							<span class="pattern-regex">{{splitPattern.outputName}}.fastq</span>
