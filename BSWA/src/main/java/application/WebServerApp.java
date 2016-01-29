@@ -134,7 +134,7 @@ public class WebServerApp {
 
 	private static void initJettyServer() throws Exception {
 
-		Server jettyServer = new Server(8081);
+		Server jettyServer = new Server(8082);
 
 		ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		servletHandler.setContextPath("/");
