@@ -23,6 +23,7 @@ $ npm install --global gulp
 $ npm install --save-dev gulp gulp-concat
 $ npm install --save-dev gulp gulp-concat
 $ npm install -D gulp-uglify
+$ npm install -D gulp-ng-annotate
 ```
 
 + Run ```gulp js``` command line to precompile js assets
