@@ -12,10 +12,10 @@ app.run(function(user) {
 		appId : '554d0317250f5'
 	});
 });
-Offline.on('up', function() {
+/*Offline.on('up', function() {
 	// similar behavior as an HTTP redirect
 	window.location.href = "/";
-});
+});*/
 /*
  * var run = function(){ var req = new XMLHttpRequest(); req.timeout = 5000;
  * req.open('GET', 'ws-resources/connection', true); req.send(); }
