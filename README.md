@@ -11,5 +11,18 @@ This project provide a highly scalable, fault tolerant system based on Amazon We
 Current status info
 ---------------------
 
-+ Yet, deployment on gilles-monnier.com:10
++ Yet, deployment on gilles-monnier.com:8082
 + Contact gilles_monnier@yahoo.fr for detailed info.
+
+Development tips
+---------------------
+
++ Installation of assets pipeline
+```
+$ npm install --global gulp
+$ npm install --save-dev gulp gulp-concat
+$ npm install --save-dev gulp gulp-concat
+$ npm install -D gulp-uglify
+```
+
++ Run ```gulp js``` command line to precompile js assets
