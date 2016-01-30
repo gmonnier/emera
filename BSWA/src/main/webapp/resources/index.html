@@ -94,70 +94,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-touch.js"></script>-->
 	
 	<script src="vendor/angular-file-upload.min.js"></script>
-	<script src="javascript/route-styles.js"></script>
 
-	<script type="text/javascript">
-		// List of all applications controllers
-		var appControllers = angular.module('appControllers', []);
-		// List of all applications directives
-		var directives = angular.module('appDirectives', []);
-		// List of all applications services
-		var services = angular.module('appServices', []);
-		//inject angular file upload directives and services.
-		var app = angular.module('app', [ 'ngRoute', 'routeStyles', 'appControllers',
-				'appServices', 'ngAnimate',
-				'angularFileUpload', 'UserApp' ]);
-		app.run(function(user) {
-			user.init({
-				appId : '554d0317250f5'
-			});
-		});
-		Offline.on('up', function() {
-			// similar behavior as an HTTP redirect
-			window.location.href = "/";
-		});
-		/*var run = function(){
-			var req = new XMLHttpRequest();
-			req.timeout = 5000;
-			req.open('GET', 'ws-resources/connection', true);
-			req.send();
-		}
-		setInterval(run, 3000);*/
-	</script>
-
-	<!-- Include angular routes -->
-	<script src="javascript/root.js"></script>
-	
-	<!-- Include application controllers -->
-	<script src="javascript/controllers/bs-model-ctrl.js"></script>
-	<script src="javascript/controllers/create-lookup-ctrl.js"></script>
-	<script src="javascript/controllers/create-split-ctrl.js"></script>
-	<script src="javascript/controllers/navigation-ctrl.js"></script>	
-	<script src="javascript/controllers/network-ctrl.js"></script>
-	<script src="javascript/controllers/pattern-ctrl.js"></script>	
-	<script src="javascript/controllers/reportdialog-ctrl.js"></script>
-	<script src="javascript/controllers/running-ctrl.js"></script>
-	<script src="javascript/controllers/running-info-ctrl.js"></script>
-	<script src="javascript/controllers/top-toolbar-ctrl.js"></script>
-	
-	<!--  Include components controllers -->
-	<script src="javascript/controllers/components/file-manager-ctrl.js"></script>
+	<script src="javascript/angular-app-compiled.js"></script>
 		
 	<!-- Authentication management -->
 	<script src="https://app.userapp.io/js/userapp.client.js"></script>
 	<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
-
-	<!-- Include application services -->
-	<script src="javascript/services/upload-srvc.js"></script>
-	<script src="javascript/services/basespace-srvc.js"></script>
-	<script src="javascript/services/analysismgt-srvc.js"></script>
-	<script src="javascript/services/patternStorage-srvc.js"></script>
-	<script src="javascript/services/report-srvc.js"></script>
-	
-	<!-- Include application directives -->
-	<script src="javascript/directives/file-manager-directive.js"></script>
-	<script src="javascript/directives/jquery-init-directive.js"></script>
-	<script src="javascript/directives/next-step-panel-directive.js"></script>
 
 	<script src="vendor/amcharts_3.13.3.free/amcharts/amcharts.js"></script>
 	<script src="vendor/amcharts_3.13.3.free/amcharts/serial.js" ></script>
