@@ -151,7 +151,7 @@ public class WebServerApp {
 		ResourceHandler resource_handler = new ResourceHandler();
 		resource_handler.setDirectoriesListed(true);
 		resource_handler.setWelcomeFiles(new String[] { "index.html" });
-		resource_handler.setResourceBase("src/main/webapp");
+		resource_handler.setResourceBase("src/main/webapp/resources");
 
 		HandlerList handlers = new HandlerList();
 		handlers.setHandlers(new Handler[] { resource_handler, servletHandler });
