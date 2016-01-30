@@ -6,6 +6,7 @@
 /BSWAClientProcessor/Delivery
 
 **/bin/**
+**/node_modules
 **/.settings
 **/build
 **/logs
