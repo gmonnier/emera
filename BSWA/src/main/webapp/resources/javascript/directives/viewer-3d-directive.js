@@ -23,7 +23,9 @@ app.directive('viewerMap', function($rootScope) {
 
 					// create a WebGL renderer, camera
 					// and a scene
-					renderer = new THREE.WebGLRenderer();
+				    renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+				    renderer.setClearColor(0xffffff, 0);
+				      
 					camera =
 					  new THREE.PerspectiveCamera(
 					    VIEW_ANGLE,
@@ -80,6 +82,10 @@ app.directive('viewerMap', function($rootScope) {
 
 					// attach the render-supplied DOM element
 					element.append(renderer.domElement);
+					
+				    var currentControls = new THREE.OrbitControls(camera);
+				    currentControls.noPan = true;
+				    currentControls.addEventListener('change', _scene.render);
 			      
 				},
 	
