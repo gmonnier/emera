@@ -2,27 +2,20 @@ app.directive('viewerMap', function($rootScope) {
 	return {
 		link : function(scope, element, attrs) {
 			
-			var renderer, camera, scene, particleLight, cameraLight;
+			var renderer, camera, scene, sphere, clouds;
 			
 			var _scene = {
 				
 				buildScene: function() {
 					// set the scene size
-					var WIDTH = 400,
-					  HEIGHT = 300;
+					var WIDTH = 800,
+					  HEIGHT = 600;
 
 					// set some camera attributes
 					var VIEW_ANGLE = 45,
 					  ASPECT = WIDTH / HEIGHT,
 					  NEAR = 0.1,
 					  FAR = 10000;
-
-					// get the DOM element to attach to
-					// - assume we've got jQuery to hand
-					
-
-					// create a WebGL renderer, camera
-					// and a scene
 				    renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 				    renderer.setClearColor(0xffffff, 0);
 				      
@@ -33,49 +26,43 @@ app.directive('viewerMap', function($rootScope) {
 					    NEAR,
 					    FAR);
 
+					camera.position.z = 1.5;
+					
 					scene = new THREE.Scene();
 
 					// add the camera to the scene
 					scene.add(camera);
 					
-					cameraLight = _scene.generateLight();
-					scene.add(cameraLight);
+					//cameraLight = _scene.generateLight();
+					//scene.add(cameraLight);
+					scene.add(new THREE.AmbientLight(0x333333));
+
+					var light = new THREE.DirectionalLight(0xffffff, 1);
+					light.position.set(5,3,5);
+					scene.add(light);
+				
+
+					sphere = new THREE.Mesh(
+							  new THREE.SphereGeometry(0.5, 32, 32),
+							  new THREE.MeshPhongMaterial({
+							    map: THREE.ImageUtils.loadTexture('img/network/map/test.jpg'),
+							    bumpMap: THREE.ImageUtils.loadTexture('img/network/map/bump.jpg'),
+							    bumpScale:   0.005,
+							    specularMap: THREE.ImageUtils.loadTexture('img/network/map/water.png'),
+							    specular: '#333333'      })
+							);
 					
-					particleLight = new THREE.Mesh(new THREE.SphereBufferGeometry(4, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
-				    scene.add(particleLight);
-				    var pointLight = new THREE.PointLight(0x55ff55, 2, 800);
-				    particleLight.add(pointLight);
-
-					// the camera starts at 0,0,0
-					// so pull it back
-					camera.position.z = 300;
-					
-					// set up the sphere vars
-					var radius = 50,
-					    segments = 16,
-					    rings = 16;
-
-					var material = new THREE.MeshPhongMaterial({
-			            "color": '#ffffff',
-			            "specular": "#777777",
-			            "shininess": "100",
-			            "shading": THREE.SmoothShading,
-			            metal: true
-			          });
-					// create a new mesh with
-					// sphere geometry - we will cover
-					// the sphereMaterial next!
-					var sphere = new THREE.Mesh(
-
-					  new THREE.SphereGeometry(
-					    radius,
-					    segments,
-					    rings),
-
-					    material);
+					clouds = new THREE.Mesh(
+							  new THREE.SphereGeometry(0.503, 32, 32),
+							  new THREE.MeshPhongMaterial({
+							    map: THREE.ImageUtils.loadTexture('img/network/map/clouds.png'),
+							    transparent: true
+							  })
+							);
 
 					// add the sphere to the scene
 					scene.add(sphere);
+					scene.add(clouds);
 
 					// start the renderer
 					renderer.setSize(WIDTH, HEIGHT);
@@ -104,14 +91,9 @@ app.directive('viewerMap', function($rootScope) {
 	
 			    render: function () {
 			      if (renderer) {
-	
-			        var timer = Date.now() * 0.00025;
-			        particleLight.position.x = Math.sin(timer * 7) * 300;
-			        particleLight.position.y = Math.cos(timer * 5) * 400;
-			        particleLight.position.z = Math.cos(timer * 3) * 300;
-	
-			        // Set light following camera direction
-			        cameraLight.position.copy(camera.position);
+			    	sphere.rotation.y += 0.0005;
+			  		clouds.rotation.y += 0.0006;		
+			  		
 			        renderer.render(scene, camera);
 	
 			      }
