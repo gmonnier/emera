@@ -6,44 +6,11 @@ app.directive('viewerMap', function($rootScope) {
 			var mouse = new THREE.Vector2();
 			var INTERSECTED;
 			var locationMeshes = [];
+			var texturesMap = {};
 			
 			var WIDTH = 800,
 			  HEIGHT = 600;
 			
-			var _utility = {
-					 showAxis: function (length) {
-					      var axes = new THREE.Object3D();
-		
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(length, 0, 0), 0xFF0000, false)); // +X
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(-length, 0, 0), 0xFF0000, true)); // -X
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, length, 0), 0x00FF00, false)); // +Y
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -length, 0), 0x00FF00, true)); // -Y
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, length), 0x0000FF, false)); // +Z
-					      axes.add(_utility.buildAxis(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, -length), 0x0000FF, true)); // -Z
-		
-					      return axes;
-					    },
-		
-					    buildAxis: function (src, dst, colorHex, dashed) {
-					      var geom = new THREE.Geometry(),
-					        mat;
-		
-					      if (dashed) {
-					        mat = new THREE.LineDashedMaterial({linewidth: 3, color: colorHex, dashSize: 3, gapSize: 3});
-					      } else {
-					        mat = new THREE.LineBasicMaterial({linewidth: 3, color: colorHex});
-					      }
-		
-					      geom.vertices.push(src.clone());
-					      geom.vertices.push(dst.clone());
-					      geom.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
-		
-					      var axis = new THREE.Line(geom, mat, THREE.LinePieces);
-		
-					      return axis;
-		
-					    }
-				};
 			
 			var _scene = {
 				
@@ -79,27 +46,8 @@ app.directive('viewerMap', function($rootScope) {
 					scene.add(light);
 				
 
-					sphere = new THREE.Mesh(
-							  new THREE.SphereGeometry(0.5, 32, 32),
-							  new THREE.MeshPhongMaterial({
-							    map: THREE.ImageUtils.loadTexture('img/network/map/test.jpg'),
-							    bumpMap: THREE.ImageUtils.loadTexture('img/network/map/bump.jpg'),
-							    bumpScale:   0.005,
-							    specularMap: THREE.ImageUtils.loadTexture('img/network/map/water.png'),
-							    specular: '#333333'      })
-							);
-					
-					clouds = new THREE.Mesh(
-							  new THREE.SphereGeometry(0.503, 32, 32),
-							  new THREE.MeshPhongMaterial({
-							    map: THREE.ImageUtils.loadTexture('img/network/map/clouds.png'),
-							    transparent: true
-							  })
-							);
-
-					// add the sphere to the scene
-					scene.add(sphere);
-					scene.add(clouds);
+					// Build earth
+					_scene.buildEarth();
 					
 
 					// start the renderer
@@ -114,10 +62,52 @@ app.directive('viewerMap', function($rootScope) {
 					controls = new THREE.OrbitControls(camera);
 					controls.noPan = true;
 					
-					scene.add(_utility.showAxis(50));
-					
 					window.addEventListener( 'resize', _scene.onWindowResize, false );
 					
+				},
+				
+				buildEarth: function(){
+					
+					texturesMap['maintexture'] = texturesMap['maintexture'] == null ? THREE.ImageUtils.loadTexture('img/network/map/test.jpg') : texturesMap['maintexture'];
+					texturesMap['bump'] = texturesMap['bump'] == null ? THREE.ImageUtils.loadTexture('img/network/map/bump.jpg') : texturesMap['bump'];
+					texturesMap['water'] = texturesMap['water'] == null ? THREE.ImageUtils.loadTexture('img/network/map/water.png') : texturesMap['water'];
+					texturesMap['clouds'] = texturesMap['clouds'] == null ? THREE.ImageUtils.loadTexture('img/network/map/clouds.png') : texturesMap['clouds'];
+					
+					if(sphere == null || clouds == null) {
+						sphere = new THREE.Mesh(
+								  new THREE.SphereGeometry(0.5, 32, 32),
+								  new THREE.MeshPhongMaterial({
+								    map: texturesMap['maintexture'],
+								    bumpMap: texturesMap['bump'],
+								    bumpScale:   0.005,
+								    specularMap: texturesMap['water'],
+								    specular: '#333333'      })
+								);
+						
+						clouds = new THREE.Mesh(
+								  new THREE.SphereGeometry(0.503, 32, 32),
+								  new THREE.MeshPhongMaterial({
+								    map: texturesMap['clouds'],
+								    transparent: true
+								  })
+								);
+	
+						// add the sphere to the scene
+						scene.add(sphere);
+						scene.add(clouds);
+					} else {
+						//only update material
+						sphere.material = new THREE.MeshPhongMaterial({
+						    map: THREE.ImageUtils.loadTexture('img/network/map/test.jpg'),
+						    bumpMap: THREE.ImageUtils.loadTexture('img/network/map/bump.jpg'),
+						    bumpScale:   0.005,
+						    specularMap: THREE.ImageUtils.loadTexture('img/network/map/water.png'),
+						    specular: '#333333'      });
+						clouds.material = new THREE.MeshPhongMaterial({
+						    map: THREE.ImageUtils.loadTexture('img/network/map/clouds.png'),
+						    transparent: true
+						  });
+					}
 				},
 				
 				onWindowResize: function() {
@@ -140,9 +130,8 @@ app.directive('viewerMap', function($rootScope) {
 				generateLocation: function(scene, locationData) {
 					 var locmaterial = new THREE.MeshPhongMaterial({
 				            "color": '#55ff55',
-				            "specular": "#111111",
-				            "shininess": "50",
-				            "emissive": '#55ff55',
+				            //"shininess": "100",
+				            //"emissive": '#55ff55',
 				            "shading": THREE.SmoothShading
 				          });
 					 
@@ -157,13 +146,11 @@ app.directive('viewerMap', function($rootScope) {
 				    location.position.y = cartesianPosition.y;
 				    location.position.z = cartesianPosition.z;
 				    
-				    var locationLight = new THREE.PointLight(0x55ff55, 2, 100);
-				    location.add(locationLight);
+				   
+				    location.add(new THREE.PointLight(0x55ff55, 2, 100));
 				    
 				    location.userData = locationData;
 				    locationMeshes.push(location);
-				    
-				    scene.add(location);
 				},
 	
 			    render: function () {
@@ -204,9 +191,6 @@ app.directive('viewerMap', function($rootScope) {
 			    // convert the positions from a lat, lon to a position on a sphere.
 			    latLongToVector3: function(latitude, longitude, radius) {
 			    	
-			    	console.log('latitude = ' + latitude);
-			    	console.log('longitude = ' + longitude)
-			    	
 			        var latrad = (latitude) * Math.PI / 180;
 			        var lonrad = (longitude) * Math.PI / 180;
 			        
@@ -228,6 +212,8 @@ app.directive('viewerMap', function($rootScope) {
 				if(scope.mapData !== null) {
 					var mapData = scope.mapData;
 					var latlong = scope.latlong;
+					
+					_scene.buildEarth();
 					
 					for (var i = 0; i < locationMeshes.length; i++) {
 						scene.remove( locationMeshes[i] );
