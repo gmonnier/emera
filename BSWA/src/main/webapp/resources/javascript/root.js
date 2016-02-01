@@ -23,8 +23,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'html/networkConfigPan.html',
 		controller : 'networkCtrl',
 		css: ['css/configPan.css',
-		      'vendor/ammap_3.13.3.free/ammap/ammap.css',
-		      'vendor/Three.js'],
+		      'vendor/ammap_3.13.3.free/ammap/ammap.css'],
 		public : true
 	}).when('/', {
 		templateUrl : 'html/homePan.html',

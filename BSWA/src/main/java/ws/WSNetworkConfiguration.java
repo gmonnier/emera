@@ -23,12 +23,6 @@ public class WSNetworkConfiguration {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public ViewNetworkConfig retrieveNetworkConfigJSON() {
-		return new ViewNetworkConfig();
-	}
-	
 	@DELETE
 	@Path("{clientID}")
 	@Produces(MediaType.APPLICATION_JSON)

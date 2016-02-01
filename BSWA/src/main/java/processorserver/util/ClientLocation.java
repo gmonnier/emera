@@ -21,6 +21,17 @@ public class ClientLocation {
 		longitude = 0.0;
 		externalIP = "";
 	}
+	
+	private ClientLocation(String externalIP, String cityName, double latitude, double longitude){
+		this.externalIP = externalIP;
+		this.cityName = cityName;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
+	public static ClientLocation stubLocation(String externalIP, String cityName, double latitude, double longitude) {
+		return new ClientLocation(externalIP, cityName, latitude, longitude);
+	}
 
 	public void setCityName(String name) {
 		this.cityName = name;

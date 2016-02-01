@@ -149,6 +149,23 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 	};
 });
 
+app.directive('mapWindow',
+	 function () {
+	       return function (scope, element, attrs) {
+	        	$('.show-earth').click(function() {
+	        		$('#viewer-3d-section').fadeIn(1000);
+	        		$('#viewer-3d-container').bind('click', function(event){
+	        			event.stopPropagation();
+	        		});
+	        		
+	        		$('#viewer-3d-section').bind('click', function(){
+	        			$(this).hide();
+	        			$(this).unbind('click');
+	        		})
+	        	});
+	    }
+	}) ;
+
 app.directive('mapElement',
  function () {
        return {
@@ -156,7 +173,7 @@ app.directive('mapElement',
         replace:true,
         template: '<div id="mapdiv" style="width: 100%; height: 400px;"><div class="loadingChart shadowedText">Loading map...</div></div>',
         link: function (scope, element, attrs) {
-
+        	
             var map = false;
 
             var initMap = function() {
