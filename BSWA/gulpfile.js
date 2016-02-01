@@ -4,6 +4,10 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 
+function handleError(err) {
+  console.log(err.toString());
+}
+
 gulp.task('clean', function () {
     return gulp.src('src/main/webapp/resources/javascript/**/*-compiled.js', {read: false})
     .pipe(clean());
@@ -15,6 +19,7 @@ gulp.task('js', ['clean'], function () {
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('.'))
+    .on('error', handleError);
 })
 
 // Watch task - Eclude precompiled assets
