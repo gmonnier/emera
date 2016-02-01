@@ -79,6 +79,15 @@
 	height	: 500px;
 }
 
-.viewer-3d-container {
-	text-align: center;
+.feather-show {
+	padding: 30px;
+	cursor: pointer;
+}
+
+#viewer-3d-section {
+	display: none;
+}
+
+#viewer-3d-container canvas{
+	max-width: 100%;
 }

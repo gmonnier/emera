@@ -21,21 +21,19 @@ app.directive('viewerMap', function($rootScope) {
 					  ASPECT = WIDTH / HEIGHT,
 					  NEAR = 0.1,
 					  FAR = 10000;
-				    renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-				    renderer.setClearColor( 0xcccccc, 0);
+				    renderer = new THREE.WebGLRenderer({antialias: true});
 				      
-					camera =
-					  new THREE.PerspectiveCamera(
+					camera = new THREE.PerspectiveCamera(
 					    VIEW_ANGLE,
 					    ASPECT,
 					    NEAR,
 					    FAR);
-
-					camera.position.z = 1.5;
+					camera.position.z = 150;
 					
+					controls = new THREE.OrbitControls(camera);
+					controls.addEventListener( 'change', _scene.render );
 					
 					scene = new THREE.Scene();
-
 					// add the camera to the scene
 					scene.add(camera);
 					
@@ -59,8 +57,6 @@ app.directive('viewerMap', function($rootScope) {
 					element.append(renderer.domElement);
 					$('canvas').mousemove( _scene.onMouseMove);
 					
-					controls = new THREE.OrbitControls(camera);
-					controls.noPan = true;
 					
 					window.addEventListener( 'resize', _scene.onWindowResize, false );
 					
@@ -75,7 +71,7 @@ app.directive('viewerMap', function($rootScope) {
 					
 					if(sphere == null || clouds == null) {
 						sphere = new THREE.Mesh(
-								  new THREE.SphereGeometry(0.5, 32, 32),
+								  new THREE.SphereGeometry(50, 32, 32),
 								  new THREE.MeshPhongMaterial({
 								    map: texturesMap['maintexture'],
 								    bumpMap: texturesMap['bump'],
@@ -85,7 +81,7 @@ app.directive('viewerMap', function($rootScope) {
 								);
 						
 						clouds = new THREE.Mesh(
-								  new THREE.SphereGeometry(0.503, 32, 32),
+								  new THREE.SphereGeometry(51, 32, 32),
 								  new THREE.MeshPhongMaterial({
 								    map: texturesMap['clouds'],
 								    transparent: true
@@ -100,7 +96,7 @@ app.directive('viewerMap', function($rootScope) {
 						sphere.material = new THREE.MeshPhongMaterial({
 						    map: THREE.ImageUtils.loadTexture('img/network/map/test.jpg'),
 						    bumpMap: THREE.ImageUtils.loadTexture('img/network/map/bump.jpg'),
-						    bumpScale:   0.005,
+						    bumpScale:   0.5,
 						    specularMap: THREE.ImageUtils.loadTexture('img/network/map/water.png'),
 						    specular: '#333333'      });
 						clouds.material = new THREE.MeshPhongMaterial({
@@ -128,7 +124,7 @@ app.directive('viewerMap', function($rootScope) {
 				},
 				
 				generateLocation: function(scene, locationData) {
-					 var locmaterial = new THREE.MeshPhongMaterial({
+					var locmaterial = new THREE.MeshPhongMaterial({
 				            "color": '#55ff55',
 				            //"shininess": "100",
 				            //"emissive": '#55ff55',
@@ -136,18 +132,19 @@ app.directive('viewerMap', function($rootScope) {
 				          });
 					 
 					var location = new THREE.Mesh(
-							  new THREE.SphereGeometry(0.01, 15, 15),
+							  new THREE.SphereGeometry(1, 15, 15),
 							  locmaterial
 							);
 				    
-				    var cartesianPosition = _scene.latLongToVector3(locationData.latitude,locationData.longitude,0.51);
+				    var cartesianPosition = _scene.latLongToVector3(locationData.latitude,locationData.longitude,51);
 				    
 				    location.position.x = cartesianPosition.x;
 				    location.position.y = cartesianPosition.y;
 				    location.position.z = cartesianPosition.z;
-				    
 				   
-				    location.add(new THREE.PointLight(0x55ff55, 2, 100));
+				    var locationLight = new THREE.PointLight(0x55ff55, 1.0, 100);
+				    locationLight.name = 'light';
+				    location.add(locationLight);
 				    
 				    location.userData = locationData;
 				    locationMeshes.push(location);
@@ -156,7 +153,7 @@ app.directive('viewerMap', function($rootScope) {
 			    render: function () {
 			      if (renderer) {
 			    	  
-			    	//sphere.rotation.y += 0.0005;
+			    	sphere.rotation.y += 0.0002;
 			  		clouds.rotation.y += 0.0003;	
 			  	
 			  		
@@ -171,10 +168,19 @@ app.directive('viewerMap', function($rootScope) {
 							INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
 							INTERSECTED.material.emissive.setHex( 0xff0000 );
 							
-							console.log(INTERSECTED.userData);
+							var associatedLight = INTERSECTED.getObjectByName ('light');
+							associatedLight.color.setHex( 0xff0000 );
+							associatedLight.intensity = 2.0;
+							
 						}
 					} else {
-						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+						if ( INTERSECTED ) {
+							INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+							var associatedLight = INTERSECTED.getObjectByName ('light');
+							associatedLight.color.setHex( 0x55ff55);
+							associatedLight.intensity =1.0;
+						}
+						
 						INTERSECTED = null;
 					}
 			  		
