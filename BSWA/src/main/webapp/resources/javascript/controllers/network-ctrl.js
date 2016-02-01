@@ -154,6 +154,14 @@ app.directive('mapWindow',
 	       return function (scope, element, attrs) {
 	        	$('.feather-show').click(function() {
 	        		$('#viewer-3d-section').fadeIn(1000);
+	        		$('#viewer-3d-container').bind('click', function(event){
+	        			event.stopPropagation();
+	        		});
+	        		
+	        		$('#viewer-3d-section').bind('click', function(){
+	        			$(this).hide();
+	        			$(this).unbind('click');
+	        		})
 	        	});
 	    }
 	}) ;

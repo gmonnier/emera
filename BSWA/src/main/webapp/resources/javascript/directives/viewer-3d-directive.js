@@ -71,7 +71,7 @@ app.directive('viewerMap', function($rootScope) {
 					
 					if(sphere == null || clouds == null) {
 						sphere = new THREE.Mesh(
-								  new THREE.SphereGeometry(50, 32, 32),
+								  new THREE.SphereGeometry(50, 64, 64),
 								  new THREE.MeshPhongMaterial({
 								    map: texturesMap['maintexture'],
 								    bumpMap: texturesMap['bump'],
@@ -81,7 +81,7 @@ app.directive('viewerMap', function($rootScope) {
 								);
 						
 						clouds = new THREE.Mesh(
-								  new THREE.SphereGeometry(51, 32, 32),
+								  new THREE.SphereGeometry(51, 64, 64),
 								  new THREE.MeshPhongMaterial({
 								    map: texturesMap['clouds'],
 								    transparent: true
@@ -153,7 +153,7 @@ app.directive('viewerMap', function($rootScope) {
 			    render: function () {
 			      if (renderer) {
 			    	  
-			    	sphere.rotation.y += 0.0002;
+			    	//sphere.rotation.y += 0.0002;
 			  		clouds.rotation.y += 0.0003;	
 			  	
 			  		
