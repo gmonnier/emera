@@ -123,16 +123,23 @@ app.directive('viewerMap', function($rootScope) {
 					mouse.y = - ( relY / HEIGHT ) * 2 + 1;
 				},
 				
-				generateLocation: function(scene, locationData) {
+				generateLocation: function(scene, locationData, isServer) {
+					
+					var color = '#55ff55';
+					var size = 1;
+					if(isServer) {
+						size *= 1.5;
+						color = '#ffff55';
+					}
 					var locmaterial = new THREE.MeshPhongMaterial({
-				            "color": '#55ff55',
+				            "color": color,
 				            //"shininess": "100",
 				            //"emissive": '#55ff55',
 				            "shading": THREE.SmoothShading
 				          });
 					 
 					var location = new THREE.Mesh(
-							  new THREE.SphereGeometry(1, 15, 15),
+							  new THREE.SphereGeometry(size, 15, 15),
 							  locmaterial
 							);
 				    
@@ -142,7 +149,7 @@ app.directive('viewerMap', function($rootScope) {
 				    location.position.y = cartesianPosition.y;
 				    location.position.z = cartesianPosition.z;
 				   
-				    var locationLight = new THREE.PointLight(0x55ff55, 1.0, 100);
+				    var locationLight = new THREE.PointLight(color, 1.0, 100);
 				    locationLight.name = 'light';
 				    location.add(locationLight);
 				    
@@ -235,7 +242,7 @@ app.directive('viewerMap', function($rootScope) {
 							name: dataItem.name
 						}
 						
-						_scene.generateLocation(scene,locationData);
+						_scene.generateLocation(scene,locationData, i == 0);
 					}
 					
 					for (var i = 0; i < locationMeshes.length; i++) {

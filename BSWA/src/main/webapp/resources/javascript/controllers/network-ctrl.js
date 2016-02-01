@@ -152,7 +152,7 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 app.directive('mapWindow',
 	 function () {
 	       return function (scope, element, attrs) {
-	        	$('.feather-show').click(function() {
+	        	$('.show-earth').click(function() {
 	        		$('#viewer-3d-section').fadeIn(1000);
 	        		$('#viewer-3d-container').bind('click', function(event){
 	        			event.stopPropagation();
