@@ -21,9 +21,11 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 			var newMapData = [];
 			
 			// add the server
-			if(data.thisServer !== 'undefined' && data.thisServer.location !== 'undefined' && data.thisServer.location !== null && data.thisServer.location.latitude != 0) {
-				$scope.latlong["Server"] = {"latitude": data.thisServer.location.latitude , "longitude": data.thisServer.location.longitude};
-				newMapData[0] = {"code": "Server","name": data.thisServer.location.cityName,"value": 1.5,"color": "#56ED38", "ID": data.thisServer.IP};
+			
+			if(data.thisServer !== 'undefined' && serverLoc !== 'undefined' && data.thisServer.location !== null && data.thisServer.location.latitude != 0) {
+				var serverLoc = data.thisServer.location;
+				$scope.latlong["Server"] = {"latitude": serverLoc.latitude , "longitude": serverLoc.longitude};
+				newMapData[0] = {"code": "Server","name": serverLoc.cityName || serverLoc.countryName,"value": 1.5,"color": "#56ED38", "ID": data.thisServer.IP};
 			}
 			
 			for (i = 0; i < $scope.netresources.length; i++) {
