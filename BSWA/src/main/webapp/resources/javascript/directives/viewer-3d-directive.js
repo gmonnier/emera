@@ -8,8 +8,8 @@ app.directive('viewerMap', function($rootScope) {
 			var locationMeshes = [];
 			var texturesMap = {};
 			
-			var WIDTH = 800,
-			  HEIGHT = 600;
+			var WIDTH = window.innerWidth - 160;
+			var HEIGHT = window.innerHeight - 160;
 			
 			
 			var _scene = {
