@@ -63,10 +63,13 @@ app.directive('viewerMap', function($rootScope) {
 				},
 				
 				buildEarth: function(){
-					texturesMap['maintexture'] = texturesMap['maintexture'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/test.jpg') : texturesMap['maintexture'];
-					texturesMap['bump'] = texturesMap['bump'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/bump.jpg') : texturesMap['bump'];
-					texturesMap['water'] = texturesMap['water'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/water.png') : texturesMap['water'];
-					texturesMap['clouds'] = texturesMap['clouds'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/clouds.png') : texturesMap['clouds'];
+					
+					var loader = new THREE.TextureLoader();
+					loader.crossOrigin = '';
+					texturesMap['maintexture'] = texturesMap['maintexture'] == null ? loader.load('http://d2t2bnlh53lbhy.cloudfront.net/network/map/test.jpg') : texturesMap['maintexture'];
+					texturesMap['bump'] = texturesMap['bump'] == null ? loader.load('http://d2t2bnlh53lbhy.cloudfront.net/network/map/bump.jpg') : texturesMap['bump'];
+					texturesMap['water'] = texturesMap['water'] == null ? loader.load('http://d2t2bnlh53lbhy.cloudfront.net/network/map/water.png') : texturesMap['water'];
+					texturesMap['clouds'] = texturesMap['clouds'] == null ? loader.load('http://d2t2bnlh53lbhy.cloudfront.net/network/map/clouds.png') : texturesMap['clouds'];
 					
 					if(sphere == null || clouds == null) {
 						sphere = new THREE.Mesh(
