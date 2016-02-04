@@ -64,10 +64,10 @@ app.directive('viewerMap', function($rootScope) {
 				
 				buildEarth: function(){
 					
-					texturesMap['maintexture'] = texturesMap['maintexture'] == null ? THREE.ImageUtils.loadTexture('img/network/map/test.jpg') : texturesMap['maintexture'];
-					texturesMap['bump'] = texturesMap['bump'] == null ? THREE.ImageUtils.loadTexture('img/network/map/bump.jpg') : texturesMap['bump'];
-					texturesMap['water'] = texturesMap['water'] == null ? THREE.ImageUtils.loadTexture('img/network/map/water.png') : texturesMap['water'];
-					texturesMap['clouds'] = texturesMap['clouds'] == null ? THREE.ImageUtils.loadTexture('img/network/map/clouds.png') : texturesMap['clouds'];
+					texturesMap['maintexture'] = texturesMap['maintexture'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/test.jpg') : texturesMap['maintexture'];
+					texturesMap['bump'] = texturesMap['bump'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/bump.jpg') : texturesMap['bump'];
+					texturesMap['water'] = texturesMap['water'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/water.png') : texturesMap['water'];
+					texturesMap['clouds'] = texturesMap['clouds'] == null ? THREE.ImageUtils.loadTexture('http://d2t2bnlh53lbhy.cloudfront.net/network/map/clouds.png') : texturesMap['clouds'];
 					
 					if(sphere == null || clouds == null) {
 						sphere = new THREE.Mesh(
@@ -94,13 +94,13 @@ app.directive('viewerMap', function($rootScope) {
 					} else {
 						//only update material
 						sphere.material = new THREE.MeshPhongMaterial({
-						    map: THREE.ImageUtils.loadTexture('img/network/map/test.jpg'),
-						    bumpMap: THREE.ImageUtils.loadTexture('img/network/map/bump.jpg'),
+						    map: texturesMap['maintexture'],
+						    bumpMap: texturesMap['bump'],
 						    bumpScale:   0.5,
-						    specularMap: THREE.ImageUtils.loadTexture('img/network/map/water.png'),
+						    specularMap: texturesMap['water'],
 						    specular: '#333333'      });
 						clouds.material = new THREE.MeshPhongMaterial({
-						    map: THREE.ImageUtils.loadTexture('img/network/map/clouds.png'),
+						    map: texturesMap['clouds'],
 						    transparent: true
 						  });
 					}

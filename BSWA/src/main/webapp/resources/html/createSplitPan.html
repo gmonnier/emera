@@ -41,14 +41,14 @@
 				<div class="patternPreview non-empty" ng-if="!(isEmpty(configuration.dataSplitterModels) || isEmpty(configuration.selectedDataFiles))">
 					<ol id="selected-input-list">
 						<li ng-repeat="inputFile in configuration.selectedDataFiles">
-							<img class="input-picture" src='img/fileOrg/stored.svg'/>
+							<img class="input-picture" src='http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.svg'/>
 							<span class="pattern-regex">{{inputFile.name}}</span>
 						</li>
 					</ol>
-					<img class="arrow-down" ng-src="/img/create_analysis/arrow-down.svg"/>
+					<img class="arrow-down" ng-src="http://d2t2bnlh53lbhy.cloudfront.net//create_analysis/arrow-down.svg"/>
 					<ol id="selected-patterns-list" ng-class="{two-columns: configuration.dataSplitterModels.length >== 2}">
 						<li ng-repeat="splitPattern in configuration.dataSplitterModels">
-							<img class="input-picture" src='img/fileOrg/stored.svg'/>
+							<img class="input-picture" src='http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.svg'/>
 							<span class="pattern-regex">{{splitPattern.outputName}}.fastq</span>
 						</li>
 					</ol>
