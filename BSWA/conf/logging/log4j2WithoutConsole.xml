@@ -8,7 +8,7 @@
 		<RollingFile name="basicFile" fileName="${basic_file}"
 			filePattern="logs/Previous/${sys:app.name}-prev-%i.log.gz">
 			<PatternLayout>
-				<pattern>%d{HH:mm:ss.SSS} %-5level [%-25class{1}] %-4L %-25M -
+				<pattern>%d{dd MMM yyyy HH:mm:ss.SSS} %-5level [%-25class{1}] %-4L %-25M -
 					%msg%xEx%n
 				</pattern>
 			</PatternLayout>
@@ -21,7 +21,7 @@
 		<RollingFile name="connectionsFile" fileName="${connections_file}"
 			filePattern="logs/Previous/${sys:app.name}_connections-prev-%i.log.gz">
 			<PatternLayout>
-				<pattern>%d{HH:mm:ss.SSS} %-5level [%-25class{1}] %-4L %-25M -
+				<pattern>%d{dd MMM yyyy HH:mm:ss.SSS} %-5level [%-25class{1}] %-4L %-25M -
 					%msg%xEx%n
 				</pattern>
 			</PatternLayout>
