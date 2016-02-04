@@ -31,7 +31,9 @@ app.directive('viewerMap', function($rootScope) {
 					camera.position.z = 150;
 					
 					controls = new THREE.OrbitControls(camera);
-					controls.addEventListener( 'change', _scene.render );
+					controls.noZoom = true;
+					controls.noPan = true;
+					//controls.addEventListener( 'change', _scene.render );
 					
 					scene = new THREE.Scene();
 					// add the camera to the scene
