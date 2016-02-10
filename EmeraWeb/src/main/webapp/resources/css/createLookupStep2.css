@@ -1,0 +1,128 @@
+#selectionPattern {
+	width: 83%;
+	float: left;
+}
+
+#selectablePattern .ui-selecting {
+	background: #AAD2FF;
+}
+
+#selectablePattern .ui-selected {
+	background: #599BFF;
+	color: white;
+}
+
+#selectablePattern {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+#selectablePattern li {
+	margin: 10px 5px;
+	padding: 0.4em;
+	font-size: 1.0em;
+}
+
+.infoCell {
+	border: 1px solid #dddddd;
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: bold;
+	text-align: center;
+}
+
+.pattern-alias {
+	padding-left: 0.7em;
+	padding-right: 0.7em;
+	background: rgba(200,250,70,0.5);
+}
+
+.grnaLengthinfo{
+	width : 120px;
+	min-width: 120px;
+	vertical-align: middle
+}
+
+.grnaString {
+	border-top: 1px dotted #5aa8e4;
+	margin-top: 5px;
+}
+
+#accPrevContent{
+	margin: 0;
+	padding: 0;
+	overflow:hidden;
+	position:relative;
+	height:100px;
+	background: rgb(228,239,192); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(228,239,192,1) 0%, rgba(171,189,115,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(228,239,192,1)), color-stop(100%,rgba(171,189,115,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(228,239,192,1) 0%,rgba(171,189,115,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4efc0', endColorstr='#abbd73',GradientType=0 ); /* IE6-9 */
+
+}
+
+.patternPreview{
+	text-align: center;
+	letter-spacing: 0.2em;
+	display:table; 
+	border-spacing: 8px 1px; 
+	margin: auto; 
+	margin-top: 30px;
+}
+
+.prevRow{
+	display: table-row;
+}
+
+.prevCell{
+	display: table-cell;
+}
+
+.seq {
+	text-shadow:#eee 0px 1px 0, #333 0 -1px 0;
+}
+
+#NoSeqDefined{
+	font-size: 22px;
+	color: #FF6A00; 
+}
+
+.selectedPattern {
+	background: #42A3FF; 
+	color: white;
+}
+
+.selectPatItem {
+	overflow: hidden;
+	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.selectPatItem:hover{
+	cursor : pointer;
+	background: #AAD2FF;
+}
+
+.desc
+{
+	margin-left: 2px;
+	margin-right: 2px;
+	border-top: 2px groove white;
+	color: #333;
+}
+
+.desc2{
+	color: #333;
+	font-size:10px;
+}
+
+.edit-pattern-pic {
+	width: 20px;
+	vertical-align: middle;
+	position: relative;
+	top: -2px;
+}

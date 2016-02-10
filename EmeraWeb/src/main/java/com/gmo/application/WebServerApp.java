@@ -1,14 +1,10 @@
 package com.gmo.application;
 
-import java.io.File;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.servlet.DispatcherType;
-
-import logger.JavaStyleLogger;
-import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
@@ -19,7 +15,13 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-import systemUtil.SystemCommand;
+import com.gmo.application.connectionsMonitor.ConnectionsMonitor;
+import com.gmo.application.filters.ConnectionFilter;
+import com.gmo.application.mappers.EOFExceptionMapper;
+import com.gmo.application.mappers.WebExceptionMapper;
+import com.gmo.logger.JavaStyleLogger;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
 
 public class WebServerApp {
 
@@ -46,24 +48,12 @@ public class WebServerApp {
 	public static void main(String[] args) throws Exception {
 
 		LOG.info("---------------------------------------------");
-		LOG.info("--------START BSWebApp APPLICATION----------");
+		LOG.info("--------START Emera Web APPLICATION----------");
 		LOG.info("---------------------------------------------");
 
 		logSystemProperties();
 
-		initConfigs();
-
 		initConnectionMonitor();
-
-		initRMIServer();
-
-		initReportExtraction();
-
-		initProcessorServer();
-
-		initBaseSpaceModel();
-
-		initAWSModel();
 
 		initJettyServer();
 

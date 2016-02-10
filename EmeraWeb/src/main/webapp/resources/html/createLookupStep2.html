@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="css/createLookupStep2.css" />
+<link rel="stylesheet" href="css/patternCreateDial.css" />
+
+<div ng-controller="patternsCtrl" jquery-init>
+	<div id="selectionPattern">
+		<div class="acc shadowed">
+			<h3>
+				Stored extraction Patterns
+				<div style="position: absolute; right: 5px; top: 5px; font-size: 10px; color: rgb(100, 100, 100)">
+					<div style="display: inline;" class="tooltip">
+						<img class="edit-pattern-pic" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/edit.svg" alt="+" ng-click="openPatternCreationDial(); $event.stopPropagation();"> <span> <strong>Create and edit</strong><br />extractions patterns<img
+							class="callout left high" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/calloutleft.gif" alt="+" />
+						</span>
+					</div>
+				</div>
+			</h3>
+			<div style="max-height: 180px; padding: 0;">
+				<ol id="selectablePattern">
+					<li class="selectPatItem" ng-class="{selectedPattern: pattern.extractionSequence.toUpperCase() === selectedPattern.extractionSequence.toUpperCase()}" ng-repeat="pattern in patterns" ng-click="select(pattern)" apply-effects>
+						<div>
+							<div class="grnaLengthinfo infoCell">Seq. length : {{pattern.grnaSubSequenceLength}}</div>
+							<div class="pattern-alias infoCell" ng-if="!isEmpty(pattern.alias)">{{pattern.alias}}</div>
+						</div>
+						<div class="grnaString">{{pattern.extractionSequence}}</div>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="acc shadowed">
+			<h3>
+				<a href="#">Pattern matching options</a>
+			</h3>
+			<div>
+				<ul style="list-style-type: none;">
+					<li style="padding: 5px;"><input type="checkbox" ng-model="configuration.patternAttributes.allowOneMismatch">Allow one character mismatch</input></li>
+					<li style="padding: 5px;"><input type='checkbox' ng-model="configuration.patternAttributes.checkForShifted">Check for shifted sequences (1 character)</input></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="acc shadowed">
+			<h3>
+				<a href="#">Pattern preview</a>
+			</h3>
+			<div id="accPrevContent">
+				<div class="patternPreview" ng-if="!selectedPattern">
+					<div class="prevRow">
+						<span class="prevCell seq" id="NoSeqDefined">Please create or select a pattern for data extraction.</span>
+					</div>
+				</div>
+				<div class="patternPreview" ng-if="selectedPattern">
+					<div class="prevRow">
+						<span class="prevCell seq" id="prevPrefix">{{selectedPattern.extractionSequence.substring(0, selectedPattern.skippedCharCount).toUpperCase(); }}</span> <span class="prevCell seq" id="prevSeq"><b
+							style="color: rgb(200, 20, 20); font-size: 18px; font-weight: bold;">{{selectedPattern.extractionSequence.substring(selectedPattern.skippedCharCount, selectedPattern.skippedCharCount + selectedPattern.grnaSubSequenceLength ).toUpperCase();
+								}}</b><b style="color: #FFB600; font-size: 18px; font-weight: bold;" ng-if="configuration.patternAttributes.checkForShifted">X</b></span> <span class="prevCell seq" id="prevSuffix">ATGCAAG...</span>
+					</div>
+					<div class="prevRow">
+						<span class="prevCell desc">prefix sequence</span> <span class="prevCell desc descHighligh">Extraction Seq.</span> <span class="prevCell desc">Ignored seq</span>
+					</div>
+					<div class="prevRow">
+						<span class="prevCell desc2">{{selectedPattern.skippedCharCount}} characters</span> <span class="prevCell desc2">{{selectedPattern.grnaSubSequenceLength}} characters</span> <span class="prevCell desc2"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="createPatternDialog" class="generic-dialog" title="Create new pattern">
+		<p>
+		<div style="padding-bottom: 15px;">
+			<span>Paste here a pattern or define one. Use any A,T,G or C characters to define the outbounds subsequences. Use any other character to define the subsequence to be analysed.</span>
+		</div>
+		<div class="patterncreateContent">
+			<div class="input-label">Pattern value</div>
+			<input ng-class="{true:'', false:'unvalid'}[isCreateNewValid()]" placeholder="e.g. ATGCXXXATGC" type="text" ng-model="newPatternValue"></input>
+
+			<div class="input-label">Pattern alias</div>
+			<input type="text" placeholder="e.g. pattern name (optional)" ng-model="newPatternLabel"></input>
+		</div>
+		</p>
+	</div>
+</div>
+
+
+<div id="dialog-unvalid-pattern" class="generic-dialog" title="No pattern selected">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> Please select a pattern before starting calculations.<br />
+	</p>
+</div>
+
+<div id="dialog-pattern-creation-failed" class="generic-dialog" title="Pattern creation failed">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> The pattern creation failed. Either it is an invalid sequence or it already exists in the database.<br />
+	</p>
+</div>
+
+<div id="dialog-message-ok" class="generic-dialog" title="New analyse launched !">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> A new analyse has successfully been added to the processing queue.<br /> <b style="color: red;"> <br /> {{uploadmessage}}
+		</b>
+	</p>
+</div>
+
+<div id="dialog-message-failed" class="generic-dialog" title="Error while enqueue new analyse">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span> An error occured while sending this new analyse to the server.
+	</p>
+</div>

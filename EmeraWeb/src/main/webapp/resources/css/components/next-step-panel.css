@@ -1,0 +1,62 @@
+#nextlink-content {
+	text-align: center;
+	height: 100%;
+	background: rgb(216, 234, 175);
+	background: #fff;
+	cursor: pointer;
+	display: table;
+	width: 100%;
+}
+
+#nextlink-content p {
+	margin: 0;
+}
+
+#nextlink {
+	float: right;
+	position: fixed;
+	right: 0;
+	top: 100px;
+	width: 200px;
+	bottom: 0;
+	-webkit-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+}
+
+.button-next {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.action-button {
+	height: 80px;
+}
+
+.icon-label {
+	color: white;
+	font-size: 20px;
+	text-shadow: 0 2px 3px #000;
+}
+
+.next-icon {
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/next_button.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+#nextlink:hover .next-icon {
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/next_button_hov.svg");
+}
+
+
+.start-icon {
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/start_button.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#nextlink:hover .start-icon {
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/start_button_hov.svg");
+}

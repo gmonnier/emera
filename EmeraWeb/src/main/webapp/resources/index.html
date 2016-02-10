@@ -1,2 +1,115 @@
-<h1>Hello World Webapp</h1>
-<a href="/hello">Hello Servlet</a>
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+<meta charset="utf-8">
+<title>Emera web platform</title>
+<link rel="stylesheet" href="css/page.css" />
+<link rel="stylesheet" href="vendor/jquery-ui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="css/overload-jquery-ui.css">
+<link rel="stylesheet" href="css/offline-default.css">
+<link rel="stylesheet" href="vendor/css3-animate-it-master/css/animations.css" />
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Maven+Pro" />
+</head>
+
+<body>
+
+	<div id="content">
+		<header id="topToolBar" ng-controller="topToolBarCtrl">
+			<div id="topToolBarLogo">
+				<img ng-src="http://d2t2bnlh53lbhy.cloudfront.net/logotop.svg" height="60px" alt="logo" />
+			</div>
+
+			<div id="authContent">
+				<img style="vertical-align: middle" ng-src="{{user.authenticated && 'http://d2t2bnlh53lbhy.cloudfront.net/user_auth/user.png' || 'http://d2t2bnlh53lbhy.cloudfront.net/user_auth/guest.png'}}" alt="logo" /> <span ng-show="!user.authenticated" ng-click="showLoginDial()"><b class="connectionInfo">Connected
+						as guest </b><img style="vertical-align: middle" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/user_auth/arrowR.png" /> <b class="loginLink">Log in</b></span> <span ng-show="user.authenticated"><b class="connectionInfo">{{ user.first_name }} {{ user.last_name }} </b><img
+					style="vertical-align: middle" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/user_auth/arrowR.png" /> <a class="loginLink" href="#" ua-logout>Log Out</a></span>
+			</div>
+		</header>
+
+		<nav class="nav" id="workingToolBar" ng-controller="navController" nav-directive>
+			<ul class="wtoolbar">
+				<li class="one" ng-click="menuClicked(1)"><a class="toolbaraction" href="#/">
+						<div class="buttondiv hvr-bounce-in" id="buthome"></div>
+				</a></li>
+				<li class="two" ng-click="menuClicked(2)"><a class="toolbaraction" href="#/analysis-selection">
+						<div class="buttondiv hvr-bounce-in" id="but1">
+							<p>Create new analysis</p>
+						</div>
+				</a></li>
+				<li class="three" ng-click="menuClicked(3)"><a class="toolbaraction" href="#/running">
+						<div class="buttondiv hvr-bounce-in" id="but2">
+							<p>Manage analyses</p>
+						</div>
+				</a></li>
+				<li class="four" ng-click="menuClicked(4)"><a class="toolbaraction" href="#/config">
+						<div class="buttondiv hvr-bounce-in" id="but3">
+							<p>Network Configuration</p>
+						</div>
+				</a></li>
+				<hr id="subSelectBar" class="select1" />
+			</ul>
+		</nav>
+
+		<div id="workingPan">
+			<div id="ngViewFade">
+				<div ng-view></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="loginDialog" title="Enter your credentials">
+		<p>
+			<span class="ui-icon ui-icon-locked" style="float: left; margin: 0 7px 50px 0;"></span> Enter your Emera user account credentials.
+
+		</p>
+		<img style="vertical-align: middle; float: left; padding-top: 5px" ng-src="http://d2t2bnlh53lbhy.cloudfront.net/user_auth/user.png" alt="logo" />
+		<form id="loginForm" style="text-align: center;" ua-login>
+			<input name="login" placeholder="Username" type="text"> 
+			<input name="password" placeholder="Password" type="password">
+			<input type="submit" value="Submit" style="display:none">
+			<p ng-show="error" style="color: rgb(150, 0, 0)">{{ error.message }}</p>
+		</form>
+	</div>
+	<div id="authenticationRequestDialog" title="Authentication required">
+		<p>
+			<span class="ui-icon ui-icon-locked" style="float: left; margin: 0 7px 50px 0;"></span> Authentication required to perform this task. Please login first.
+		</p>
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="vendor/offline.min.js"></script>
+	
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-touch.min.js"></script>-->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-touch.js"></script>
+	
+	<script src="vendor/angular-file-upload.min.js"></script>
+
+	<script src="javascript/angular-app-compiled.js"></script>
+		
+	<!-- Authentication management -->
+	<script src="https://app.userapp.io/js/userapp.client.js"></script>
+	<script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+
+	<script src="vendor/amcharts_3.13.3.free/amcharts/amcharts.js"></script>
+	<script src="vendor/amcharts_3.13.3.free/amcharts/serial.js" ></script>
+
+	<script src="vendor/ammap_3.13.3.free/ammap/ammap.js"></script>
+	<script src="vendor/ammap_3.13.3.free/ammap/maps/js/worldLow.js"></script>
+	<script src="vendor/ammap_3.13.3.free/ammap/themes/black.js"></script>
+	<script src="vendor/css3-animate-it-master/js/css3-animate-it.js"></script>
+	
+	<script src="vendor/Three/Three.min.js"></script>
+	<script src="vendor/Three/OrbitControls.js"></script>
+</body>
+</html>
