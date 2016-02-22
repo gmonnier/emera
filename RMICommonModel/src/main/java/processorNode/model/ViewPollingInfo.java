@@ -8,15 +8,15 @@ public class ViewPollingInfo {
 
 	private ViewNetworkConfig networkConfig;
 	
-	private List<Analysis> runningAnalysis;
+	private List<ViewAnalysis> runningAnalysis;
 	
-	private List<Analysis> processedAnalysis;
+	private List<ViewAnalysis> processedAnalysis;
 
 	private ViewPollingInfo(){
 		// Needed for deserialization
 	}
 	
-	public ViewPollingInfo(ViewNetworkConfig networkCOnfig, List<Analysis> runningAnalysis,  List<Analysis> processedAnalysis) {
+	public ViewPollingInfo(ViewNetworkConfig networkCOnfig, List<ViewAnalysis> runningAnalysis,  List<ViewAnalysis> processedAnalysis) {
 		super();
 		this.networkConfig = networkCOnfig;
 		this.runningAnalysis = runningAnalysis;
@@ -31,19 +31,19 @@ public class ViewPollingInfo {
 		this.networkConfig = networkCOnfig;
 	}
 
-	public List<Analysis> getRunningAnalysis() {
+	public List<ViewAnalysis> getRunningAnalysis() {
 		return runningAnalysis;
 	}
 
-	public void setRunningAnalysis(List<Analysis> runningAnalysis) {
+	public void setRunningAnalysis(List<ViewAnalysis> runningAnalysis) {
 		this.runningAnalysis = runningAnalysis;
 	}
 
-	public List<Analysis> getProcessedAnalysis() {
+	public List<ViewAnalysis> getProcessedAnalysis() {
 		return processedAnalysis;
 	}
 
-	public void setProcessedAnalysis(List<Analysis> processedAnalysis) {
+	public void setProcessedAnalysis(List<ViewAnalysis> processedAnalysis) {
 		this.processedAnalysis = processedAnalysis;
 	}
 }

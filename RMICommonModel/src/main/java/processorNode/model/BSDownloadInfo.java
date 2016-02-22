@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import basespaceService.model.FastQFile;
 
-import com.gmo.logger.Log4JLogger;
-
 @XmlRootElement
 public class BSDownloadInfo {
 
