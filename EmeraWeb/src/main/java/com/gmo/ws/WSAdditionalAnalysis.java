@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.ViewCompareAnalysisParam;
-import processorNode.model.ViewFile;
+import processorNode.viewmodel.ViewCompareAnalysisParam;
+import processorNode.viewmodel.ViewFile;
 
 import com.gmo.logger.Log4JLogger;
 

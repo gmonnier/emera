@@ -1,4 +1,4 @@
-package processorNode.model.analyses.preprocessing;
+package processorNode.viewmodel.analyses.preprocessing;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.analyses.preprocessing.ViewPreProcessingConfiguration;
+import processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 
 import com.gmo.logger.Log4JLogger;
 

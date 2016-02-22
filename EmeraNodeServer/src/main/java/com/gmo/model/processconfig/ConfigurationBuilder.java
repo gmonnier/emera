@@ -4,9 +4,9 @@ import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.ViewCreateProcessConfiguration;
-import processorNode.model.ViewFile;
-import processorNode.model.ViewFileOrigin;
+import processorNode.viewmodel.ViewCreateProcessConfiguration;
+import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.ViewFileOrigin;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analyses.FileUploadListener;

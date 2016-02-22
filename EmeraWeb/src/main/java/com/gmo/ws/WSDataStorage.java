@@ -21,10 +21,11 @@ import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import processorNode.model.ViewFile;
-import processorNode.model.analyses.preprocessing.ViewDataSplitterModel;
+import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 
 @Path("/ws-resources/datastorage")
 public class WSDataStorage extends Application {
@@ -37,16 +38,8 @@ public class WSDataStorage extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ViewFile> getdataStoredJSON() {
 		LOG.info("Retrieve stored input data files");
+		return NodeManager.getInstance().getNodeRMIClient().getListStoredData();
 
-		
-		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredData();
-		List<ViewFile> listView = new ArrayList<ViewFile>();
-
-		for (Iterator<ModelFileStored> iterator = input.iterator(); iterator.hasNext();) {
-			ModelFileStored inputFile = (ModelFileStored) iterator.next();
-			listView.add(new ViewFile(inputFile));
-		}
-		return listView;
 	}
 
 	@GET
@@ -54,15 +47,7 @@ public class WSDataStorage extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ViewFile> getLibrariesStoredJSON() {
 		LOG.info("Retrieve stored input libraries files");
-
-		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredLibraries();
-		List<ViewFile> listView = new ArrayList<ViewFile>();
-
-		for (Iterator<ModelFileStored> iterator = input.iterator(); iterator.hasNext();) {
-			ModelFileStored inputFile = (ModelFileStored) iterator.next();
-			listView.add(new ViewFile(inputFile));
-		}
-		return listView;
+		return NodeManager.getInstance().getNodeRMIClient().getListStoredLibraries();
 	}
 
 	@GET
@@ -72,13 +57,13 @@ public class WSDataStorage extends Application {
 		LOG.info("Retrieve stored patterns");
 		return ApplicationContextManager.getInstance().getListPatterns();
 	}
-	
+
 	@GET
 	@Path("splitPatterns")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ViewDataSplitterModel> getSplitPatternsJSON() {
 		LOG.info("Retrieve stored split patterns");
-		
+
 		List<DataSplitterModel> input = ApplicationContextManager.getInstance().getListSplitPatterns();
 		List<ViewDataSplitterModel> listView = new ArrayList<ViewDataSplitterModel>();
 

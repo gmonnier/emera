@@ -15,7 +15,7 @@ import model.parameters.ExtractionPattern;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.ViewCreateProcessConfiguration;
+import processorNode.viewmodel.ViewCreateProcessConfiguration;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;

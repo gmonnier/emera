@@ -2,8 +2,8 @@ package com.gmo.externalInterfaces.modelconverters;
 
 import com.gmo.model.processconfig.files.ModelFileStored;
 
-import processorNode.model.ViewFile;
-import processorNode.model.ViewFileOrigin;
+import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.ViewFileOrigin;
 
 public class ViewFileBuilder implements IViewModelBuilder<ViewFile, ModelFileStored> {
 

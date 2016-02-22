@@ -1,4 +1,4 @@
-package processorNode.model.report;
+package processorNode.viewmodel.report;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,25 +4,23 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
 import processorNode.interfaces.IProcessorNode;
-import basespaceService.interfaces.IBaseSpaceModel;
-import basespaceService.model.FastQFile;
-import basespaceService.model.UserInfo;
-import basespaceService.model.UserRun;
+import processorNode.viewmodel.ViewFile;
 
 import com.gmo.logger.Log4JLogger;
 
-public class NodeRMIClient {
-	
+public class NodeRMIClient implements IProcessorNode{
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
 	private IProcessorNode rmiNodeClient;
-	
+
 	private boolean connectionOk;
 
 	public NodeRMIClient() {
@@ -41,19 +39,6 @@ public class NodeRMIClient {
 		}
 	}
 	
-	public List<UserRun> requestListCurrentUserRuns() {
-		if (rmiNodeClient != null) {
-			try {
-				return rmiNodeClient.requestNodeProcessorClientRemove(clientID)
-			} catch (RemoteException e) {
-				LOG.error("RemoteException ", e);
-			}
-		}
-		return null;
-	}
-	
-
-
 	public boolean isConnectionOk() {
 		return connectionOk;
 	}
@@ -61,4 +46,40 @@ public class NodeRMIClient {
 	public void setConnectionOk(boolean connectionOk) {
 		this.connectionOk = connectionOk;
 	}
+
+	@Override
+	public void requestNodeProcessorClientRemove(String clientID) {
+		if (rmiNodeClient != null) {
+			try {
+				rmiNodeClient.requestNodeProcessorClientRemove(clientID);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+	}
+	
+	@Override
+	public List<ViewFile> getListStoredData() {
+		if (rmiNodeClient != null) {
+			try {
+				return rmiNodeClient.getListStoredData();
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+		return new ArrayList<ViewFile>();
+	}
+
+	@Override
+	public List<ViewFile> getListStoredLibraries() {
+		if (rmiNodeClient != null) {
+			try {
+				return rmiNodeClient.getListStoredLibraries();
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+		return new ArrayList<ViewFile>();
+	}
+
 }

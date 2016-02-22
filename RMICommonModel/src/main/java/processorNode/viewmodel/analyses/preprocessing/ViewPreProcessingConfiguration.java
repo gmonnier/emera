@@ -1,4 +1,4 @@
-package processorNode.model.analyses.preprocessing;
+package processorNode.viewmodel.analyses.preprocessing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.ViewFile;
+import processorNode.viewmodel.ViewFile;
 
 import com.gmo.logger.Log4JLogger;
 

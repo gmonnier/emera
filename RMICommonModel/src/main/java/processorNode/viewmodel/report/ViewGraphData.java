@@ -1,4 +1,4 @@
-package processorNode.model.report;
+package processorNode.viewmodel.report;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

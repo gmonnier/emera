@@ -1,4 +1,4 @@
-package processorNode.model;
+package processorNode.viewmodel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

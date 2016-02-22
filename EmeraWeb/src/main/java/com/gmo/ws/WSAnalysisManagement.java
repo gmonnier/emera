@@ -19,10 +19,10 @@ import model.genelibrary.ReferenceGene;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.StatusChangeRequest;
-import processorNode.model.ViewPollingInfo;
-import processorNode.model.network.ViewNetworkConfig;
-import processorNode.model.report.ViewReportGraphData;
+import processorNode.viewmodel.StatusChangeRequest;
+import processorNode.viewmodel.ViewPollingInfo;
+import processorNode.viewmodel.network.ViewNetworkConfig;
+import processorNode.viewmodel.report.ViewReportGraphData;
 
 import com.gmo.logger.Log4JLogger;
 

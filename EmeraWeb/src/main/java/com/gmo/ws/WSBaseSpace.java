@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.model.ViewUserRun;
+import processorNode.viewmodel.ViewUserRun;
 import basespaceService.model.UserInfo;
 import basespaceService.model.UserRun;
 

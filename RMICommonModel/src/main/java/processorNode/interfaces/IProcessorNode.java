@@ -4,10 +4,14 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import processorNode.model.ViewFile;
+import processorNode.viewmodel.ViewFile;
 
 public interface IProcessorNode extends Remote {
 
-	public List<ViewFile> requestNodeProcessorClientRemove(String clientID) throws RemoteException;
+	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException;
+	
+	public List<ViewFile> getListStoredData() throws RemoteException;
+	
+	public List<ViewFile> getListStoredLibraries() throws RemoteException;
 
 }

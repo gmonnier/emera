@@ -1,8 +1,8 @@
-package processorNode.model;
+package processorNode.viewmodel;
 
 import java.util.List;
 
-import processorNode.model.network.ViewNetworkConfig;
+import processorNode.viewmodel.network.ViewNetworkConfig;
 
 public class ViewPollingInfo {
 

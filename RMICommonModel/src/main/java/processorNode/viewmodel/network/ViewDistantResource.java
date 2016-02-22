@@ -1,4 +1,4 @@
-package processorNode.model.network;
+package processorNode.viewmodel.network;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
