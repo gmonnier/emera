@@ -1,7 +1,5 @@
 package rmiImplementations;
 
-import interfaces.IBaseSpaceModel;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -12,6 +10,7 @@ import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
+import basespaceService.interfaces.IBaseSpaceModel;
 import rmiconfig.SecurityPolicy;
 
 public class RMIServer implements Runnable {

@@ -1,4 +1,4 @@
-package viewModel;
+package processorNode.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,7 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.logging.log4j.Logger;
 
 import basespaceService.model.FastQFile;
-import logger.Log4JLogger;
+
+import com.gmo.logger.Log4JLogger;
 
 @XmlRootElement
 public class BSDownloadInfo {

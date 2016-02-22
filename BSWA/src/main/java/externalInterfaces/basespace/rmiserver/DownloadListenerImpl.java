@@ -1,7 +1,5 @@
 package externalInterfaces.basespace.rmiserver;
 
-import interfaces.IDownloadListener;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.NoSuchElementException;
@@ -13,7 +11,8 @@ import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
+import basespaceService.interfaces.IDownloadListener;
+import basespaceService.model.FastQFile;
 import applicationconfig.StorageConfigurationManager;
 import coreprocessing.AnalysisManager;
 import coreprocessing.Analysis;

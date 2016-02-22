@@ -1,43 +1,31 @@
-package viewModel;
+package basespaceService.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import basespaceService.model.FastQFile;
-import basespaceService.model.UserRun;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class ViewUserRun {
-
+@XmlRootElement
+public class UserRun implements Serializable {
+	
 	private String name;
 	private String id;
 	private String status;
 	private Date dateCreated;
+	private String dateCreatedFormat;
 	private long totalSize;
 	
-	private List<ViewFile> listFilesData;
+	private List<FastQFile> listFilesData;
 	
 	private final static DateFormat df = new SimpleDateFormat("dd-MM-yyyy  HH:mm");
 	
-	private ViewUserRun() {
-	}
-			
 	// Needed for JAXB JSON encoder
-	public ViewUserRun(UserRun inputRun) {
-		name = inputRun.getName();
-		id = inputRun.getId();
-		status = inputRun.getStatus();
-		dateCreated = inputRun.getDateCreated();
-		totalSize = inputRun.getTotalSize();
-		
-		listFilesData = new ArrayList<ViewFile>();
-		for (Iterator<FastQFile> iterator = inputRun.getListFilesData().iterator(); iterator.hasNext();) {
-			FastQFile fastQFile = (FastQFile) iterator.next();
-			listFilesData.add(new ViewFile(fastQFile));
-		}
+	public UserRun() {
+		listFilesData = new ArrayList<FastQFile>();
 	}
 
 	public String getName() {
@@ -70,14 +58,15 @@ public class ViewUserRun {
 
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+		this.dateCreatedFormat = df.format(dateCreated);
 	}
 
 	public String getDateCreatedFormat() {
-		return df.format(dateCreated);
+		return dateCreatedFormat;
 	}
-	
-	public void setDateCreatedFormat(String dateFormatted) {
-		// JAXB Requirement
+
+	public void setDateCreatedFormat(String dateCreatedFormat) {
+		this.dateCreatedFormat = dateCreatedFormat;
 	}
 
 	public void setTotalSize(long totalSize) {
@@ -88,11 +77,12 @@ public class ViewUserRun {
 		return totalSize;
 	}
 
-	public List<ViewFile> getListFilesData() {
+	public List<FastQFile> getListFilesData() {
 		return listFilesData;
 	}
 
-	public void setListFilesData(List<ViewFile> listFilesData) {
+	public void setListFilesData(List<FastQFile> listFilesData) {
 		this.listFilesData = listFilesData;
 	}
+
 }

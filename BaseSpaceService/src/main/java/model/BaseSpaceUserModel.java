@@ -8,9 +8,9 @@ import main.BaseSpacePlatformManager;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import basespaceService.model.FastQFile;
+import basespaceService.model.UserInfo;
+import basespaceService.model.UserRun;
 
 import com.illumina.basespace.ApiClient;
 import com.illumina.basespace.entity.FileCompact;

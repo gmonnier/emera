@@ -1,7 +1,5 @@
 package com.gmo.externalinterfaces.basespace.rmiclient;
 
-import interfaces.IBaseSpaceModel;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -10,9 +8,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import basespaceService.interfaces.IBaseSpaceModel;
+import basespaceService.model.FastQFile;
+import basespaceService.model.UserInfo;
+import basespaceService.model.UserRun;
 
 import com.gmo.logger.Log4JLogger;
 

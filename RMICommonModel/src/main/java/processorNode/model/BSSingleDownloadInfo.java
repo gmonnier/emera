@@ -1,4 +1,4 @@
-package viewModel;
+package processorNode.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

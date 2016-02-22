@@ -1,7 +1,5 @@
 package com.gmo.externalinterfaces.basespace.rmiserver;
 
-import interfaces.IDownloadListener;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -11,6 +9,7 @@ import java.security.Policy;
 import org.apache.logging.log4j.Logger;
 
 import rmiconfig.SecurityPolicy;
+import basespaceService.interfaces.IDownloadListener;
 
 import com.gmo.logger.Log4JLogger;
 

@@ -1,14 +1,13 @@
 package com.gmo.externalinterfaces.basespace.rmiserver;
 
-import interfaces.IDownloadListener;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
+import basespaceService.interfaces.IDownloadListener;
+import basespaceService.model.FastQFile;
 
 import com.gmo.logger.Log4JLogger;
 

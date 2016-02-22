@@ -14,8 +14,8 @@ import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import basespaceService.model.UserInfo;
+import basespaceService.model.UserRun;
 import externalInterfaces.basespace.BaseSpaceModelManager;
 import viewModel.ViewUserRun;
 

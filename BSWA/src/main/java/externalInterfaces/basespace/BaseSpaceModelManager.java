@@ -9,9 +9,9 @@ import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import basespaceService.model.FastQFile;
+import basespaceService.model.UserInfo;
+import basespaceService.model.UserRun;
 import externalInterfaces.basespace.rmiclient.BaseSpaceRMIClient;
 
 public class BaseSpaceModelManager {

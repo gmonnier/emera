@@ -19,11 +19,12 @@ import model.genelibrary.ReferenceGene;
 
 import org.apache.logging.log4j.Logger;
 
+import processorNode.model.StatusChangeRequest;
+import processorNode.model.ViewPollingInfo;
+import processorNode.model.network.ViewNetworkConfig;
+import processorNode.model.report.ViewReportGraphData;
+
 import com.gmo.logger.Log4JLogger;
-import com.gmo.viewmodel.StatusChangeRequest;
-import com.gmo.viewmodel.ViewPollingInfo;
-import com.gmo.viewmodel.network.ViewNetworkConfig;
-import com.gmo.viewmodel.report.ViewReportGraphData;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {

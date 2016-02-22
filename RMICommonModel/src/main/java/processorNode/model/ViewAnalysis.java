@@ -1,4 +1,4 @@
-package coreprocessing;
+package processorNode.model;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -22,7 +22,6 @@ import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.model.FastQFile;
 import processorserver.IDistantResource;
 import reports.Report;
 import viewModel.BSDownloadInfo;
@@ -30,22 +29,18 @@ import viewModel.ViewCreateProcessConfiguration;
 import viewModel.ViewFile;
 import viewModel.ViewFileOrigin;
 import applicationconfig.StorageConfigurationManager;
+import basespaceService.model.FastQFile;
+import coreprocessing.AnalysisManager;
+import coreprocessing.AnalysisWorker;
+import coreprocessing.IAnalysisProcessingListener;
 import coreprocessing.analysismerger.AnalysisMerger;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import externalInterfaces.basespace.BaseSpaceModelManager;
 
-public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
-
-	/**
-	 * InstantiateExecutor service for this . This service is used to start
-	 * worker threads on data analysis.
-	 */
-	private final ExecutorService dataAnalysisService = Executors.newSingleThreadExecutor();
+public class ViewAnalysis implements FileUploadListener {
 
 	private int progress;
-
-	private List<IDistantResource> assignedResources;
 
 	private BSDownloadInfo downloadInfo;
 
@@ -439,4 +434,3 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 			additionalAnalyses.remove(deleted);
 		}
 	}
-}

@@ -1,4 +1,4 @@
-package viewModel;
+package processorNode.model;
 
 import java.io.File;
 import java.io.Serializable;
@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import basespaceService.model.FastQFile;
-import model.processconfig.files.ModelFileStored;
 
 @XmlRootElement
 public class ViewFile implements Serializable {

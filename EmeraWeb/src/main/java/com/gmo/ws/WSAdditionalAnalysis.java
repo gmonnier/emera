@@ -17,9 +17,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.Logger;
 
+import processorNode.model.ViewCompareAnalysisParam;
+import processorNode.model.ViewFile;
+
 import com.gmo.logger.Log4JLogger;
-import com.gmo.viewmodel.ViewCompareAnalysisParam;
-import com.gmo.viewmodel.ViewFile;
 
 @Path("/ws-resources/additional")
 public class WSAdditionalAnalysis {

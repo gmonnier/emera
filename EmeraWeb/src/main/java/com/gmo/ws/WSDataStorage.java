@@ -21,9 +21,10 @@ import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import processorNode.model.ViewFile;
+import processorNode.model.analyses.preprocessing.ViewDataSplitterModel;
+
 import com.gmo.logger.Log4JLogger;
-import com.gmo.viewmodel.ViewFile;
-import com.gmo.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 @Path("/ws-resources/datastorage")
 public class WSDataStorage extends Application {

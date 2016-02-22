@@ -15,11 +15,12 @@ import model.parameters.ExtractionPattern;
 
 import org.apache.logging.log4j.Logger;
 
+import processorNode.model.ViewCreateProcessConfiguration;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.ws.exceptions.ApplicationRequestException;
 
 @Path("/ws-resources/process")
