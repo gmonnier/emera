@@ -31,21 +31,15 @@ public class ViewFile implements Serializable {
 	private ViewFile() {
 		fileType = OutputFileType.UNKNOWN;
 	}
-
-	/**
-	 * Create a viewFIle retrieved from the storage location.
-	 * 
-	 * @param inputFile
-	 *            input stored file
-	 */
-	public ViewFile(ModelFileStored inputFile) {
-		this.name = inputFile.getName();
-		this.origin = ViewFileOrigin.STORED;
-		// Not really creation date - Linux does not support creation time stamp
-		this.dateCreated = inputFile.getLastModified().getTime();
-		this.id = inputFile.getId();
-		this.size = inputFile.getSize();
-
+	
+	public ViewFile(ViewFileOrigin origin, String name, String id, long dateCreated, long size) {
+		super();
+		this.origin = origin;
+		this.name = name;
+		this.id = id;
+		this.dateCreated = dateCreated;
+		this.size = size;
+		
 		extractFileTypeFromName();
 	}
 

@@ -38,6 +38,7 @@ public class WSDataStorage extends Application {
 	public List<ViewFile> getdataStoredJSON() {
 		LOG.info("Retrieve stored input data files");
 
+		
 		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredData();
 		List<ViewFile> listView = new ArrayList<ViewFile>();
 
