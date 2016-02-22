@@ -1,6 +1,8 @@
 Emera - DNA Sequences analysis platform
 ====================
 
+<img src="https://cloud.githubusercontent.com/assets/11952499/13207451/544a2f2c-d8c3-11e5-821c-9512e11ee8ad.png" width="350"> 
+
 Purpose of the platform
 ---------------------
 
