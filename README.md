@@ -14,6 +14,11 @@ Current status info
 + Yet, deployment on [Emera](http://www.gilles-monnier.com:8082)
 + Contact gilles_monnier@yahoo.fr for detailed info.
 
+High level architecture
+---------------------
+
+![highleveldiagramm](https://cloud.githubusercontent.com/assets/11952499/13207296/afd79926-d8c1-11e5-8110-e8e0bbbf3a1e.png)
+
 Development setup
 ---------------------
 
