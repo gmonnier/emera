@@ -26,19 +26,19 @@ public class EOFExceptionMapper implements ExceptionMapper<IOException> {
 	private static Logger LOG = Log4JLogger.logger;
 
 	public Response toResponse(IOException ex) {
-		
+
 		LOG.error("EOF exception catch on " + request.getContentType());
 		String analyseID = request.getParameter("analyseid");
 
-		if(analyseID != null) {
+		/* TODO if (analyseID != null) {
 			try {
 				LOG.debug("Request to change status to UPLOAD_ERROR for " + analyseID);
 				AnalysisManager.getInstance().getRunningAnalysis(analyseID).setStatus(AnalysisStatus.UPLOAD_ERROR);
-			} catch(NoSuchAnalysisException e) {
+			} catch (NoSuchAnalysisException e) {
 				LOG.error("No analysis with given ID -> " + analyseID);
 			}
-		}
-		
+		}*/
+
 		LOG.error("EOF exception catch while uploading file! --> Cancel uploading");
 		return Response.status(500).build();
 	}

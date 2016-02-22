@@ -85,7 +85,7 @@ public class WebServerApp {
 		rootServletHolder.setInitOrder(0);
 		LOG.debug("Register providers ");
 		rootServletHolder.setInitParameter("jersey.config.server.provider.classnames", "org.glassfish.jersey.media.multipart.MultiPartFeature;" + WebExceptionMapper.class.getCanonicalName() + ";" + EOFExceptionMapper.class.getCanonicalName());
-		rootServletHolder.setInitParameter("jersey.config.server.provider.packages", "ws");
+		rootServletHolder.setInitParameter("jersey.config.server.provider.packages", "com.gmo.ws");
 
 		servletHandler.addServlet(rootServletHolder, "/*");
 		servletHandler.addFilter(new ConnectionFilter(), "/*", EnumSet.of(DispatcherType.REQUEST));
