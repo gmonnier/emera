@@ -2,8 +2,6 @@ package com.gmo.ws;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,20 +11,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import logger.Log4JLogger;
 import model.parameters.ExtractionPattern;
 
 import org.apache.logging.log4j.Logger;
 
-import viewModel.ViewCreateProcessConfiguration;
-import ws.exceptions.ApplicationRequestException;
-import applicationconfig.ApplicationContextManager;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import coreprocessing.AnalysisManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.ws.exceptions.ApplicationRequestException;
 
 @Path("/ws-resources/process")
 public class WSAnalysisConfiguration {

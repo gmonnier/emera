@@ -15,16 +15,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import logger.Log4JLogger;
-import model.analyses.NoSuchAnalysisException;
-
 import org.apache.logging.log4j.Logger;
 
-import reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseAnalysis;
-import viewModel.ViewCompareAnalysisParam;
-import viewModel.ViewFile;
-import coreprocessing.Analysis;
-import coreprocessing.AnalysisManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.viewmodel.ViewCompareAnalysisParam;
+import com.gmo.viewmodel.ViewFile;
 
 @Path("/ws-resources/additional")
 public class WSAdditionalAnalysis {

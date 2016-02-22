@@ -15,22 +15,15 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.logging.log4j.Logger;
-
 import model.parameters.ExtractionPattern;
-import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import viewModel.ViewFile;
-import viewModel.analyses.preprocessing.ViewDataSplitterModel;
-import applicationconfig.ApplicationContextManager;
-import applicationconfig.StorageConfigurationManager;
-import applicationconfig.UploadWorker;
-import coreprocessing.AnalysisManager;
-import coreprocessing.fastQReaderSplitter.DataSplitterModel;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.viewmodel.ViewFile;
+import com.gmo.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 @Path("/ws-resources/datastorage")
 public class WSDataStorage extends Application {

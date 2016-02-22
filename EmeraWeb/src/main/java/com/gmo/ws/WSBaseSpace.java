@@ -16,6 +16,7 @@ import basespaceObjects.UserRun;
 
 import com.gmo.externalinterfaces.basespace.BaseSpaceModelManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.viewmodel.ViewUserRun;
 
 /**
  * Root resource (exposed at "myresource" path)

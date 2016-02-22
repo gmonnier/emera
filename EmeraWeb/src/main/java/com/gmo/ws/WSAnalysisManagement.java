@@ -1,7 +1,6 @@
 package com.gmo.ws;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,23 +15,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import logger.Log4JLogger;
-import model.analyses.NoSuchAnalysisException;
 import model.genelibrary.ReferenceGene;
 
 import org.apache.logging.log4j.Logger;
 
-import reports.Report;
-import reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseAnalysis;
-import viewModel.StatusChangeRequest;
-import viewModel.ViewCompareAnalysisParam;
-import viewModel.ViewFile;
-import viewModel.ViewPollingInfo;
-import viewModel.network.ViewNetworkConfig;
-import viewModel.report.ViewReportGraphData;
-import applicationconfig.ApplicationContextManager;
-import coreprocessing.Analysis;
-import coreprocessing.AnalysisManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.viewmodel.StatusChangeRequest;
+import com.gmo.viewmodel.ViewPollingInfo;
+import com.gmo.viewmodel.network.ViewNetworkConfig;
+import com.gmo.viewmodel.report.ViewReportGraphData;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {
