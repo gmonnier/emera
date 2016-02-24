@@ -3,13 +3,13 @@ package main;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
 import model.BaseSpaceUserModel;
 
 import org.apache.logging.log4j.Logger;
 
 import basespaceService.model.FastQFile;
 
+import com.gmo.logger.Log4JLogger;
 import com.illumina.basespace.ApiClient;
 import com.illumina.basespace.ApiClientManager;
 

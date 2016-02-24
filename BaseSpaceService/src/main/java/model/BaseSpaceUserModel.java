@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import logger.Log4JLogger;
 import main.BaseSpacePlatformManager;
 
 import org.apache.logging.log4j.Logger;
@@ -12,6 +11,7 @@ import basespaceService.model.FastQFile;
 import basespaceService.model.UserInfo;
 import basespaceService.model.UserRun;
 
+import com.gmo.logger.Log4JLogger;
 import com.illumina.basespace.ApiClient;
 import com.illumina.basespace.entity.FileCompact;
 import com.illumina.basespace.entity.RunCompact;

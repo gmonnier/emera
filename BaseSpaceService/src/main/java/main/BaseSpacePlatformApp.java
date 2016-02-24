@@ -1,12 +1,12 @@
 package main;
 
-import logger.JavaStyleLogger;
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import rmiImplementations.RMIServer;
-import systemUtil.SystemCommand;
+
+import com.gmo.logger.JavaStyleLogger;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
 
 public class BaseSpacePlatformApp {
 

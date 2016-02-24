@@ -6,12 +6,12 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.Policy;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.interfaces.IBaseSpaceModel;
 import rmiconfig.SecurityPolicy;
+import basespaceService.interfaces.IBaseSpaceModel;
+
+import com.gmo.logger.Log4JLogger;
 
 public class RMIServer implements Runnable {
 

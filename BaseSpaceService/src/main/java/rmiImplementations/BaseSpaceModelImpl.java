@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import logger.Log4JLogger;
 import main.BaseSpacePlatformManager;
 
 import org.apache.logging.log4j.Logger;
@@ -13,6 +12,8 @@ import basespaceService.interfaces.IBaseSpaceModel;
 import basespaceService.model.FastQFile;
 import basespaceService.model.UserInfo;
 import basespaceService.model.UserRun;
+
+import com.gmo.logger.Log4JLogger;
 
 public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpaceModel {
 
