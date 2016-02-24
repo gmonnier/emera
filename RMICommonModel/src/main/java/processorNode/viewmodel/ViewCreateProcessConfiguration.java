@@ -5,13 +5,12 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import model.parameters.ExtractionPattern;
-import model.parameters.OutputAttributes;
-import model.parameters.PatternAttributes;
-
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.parameters.ExtractionPattern;
+import com.gmo.model.parameters.OutputAttributes;
+import com.gmo.model.parameters.PatternAttributes;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 

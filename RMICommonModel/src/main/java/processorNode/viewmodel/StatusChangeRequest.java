@@ -2,6 +2,8 @@ package processorNode.viewmodel;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.gmo.model.analysis.AnalysisStatus;
+
 @XmlRootElement
 public class StatusChangeRequest {
 

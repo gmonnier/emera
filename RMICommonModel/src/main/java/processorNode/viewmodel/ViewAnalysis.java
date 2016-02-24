@@ -8,35 +8,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import logger.Log4JLogger;
-import model.analyses.AnalysisStatus;
-import model.analyses.FileUploadListener;
-import model.data.ChunkResult;
-import model.genelibrary.GeneLibrary;
-import model.processconfig.ConfigurationBuilder;
-import model.processconfig.ProcessConfiguration;
-import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
-import processorserver.IDistantResource;
-import reports.Report;
-import viewModel.BSDownloadInfo;
-import viewModel.ViewCreateProcessConfiguration;
-import viewModel.ViewFile;
-import viewModel.ViewFileOrigin;
-import applicationconfig.StorageConfigurationManager;
 import basespaceService.model.FastQFile;
-import coreprocessing.AnalysisManager;
-import coreprocessing.AnalysisWorker;
-import coreprocessing.IAnalysisProcessingListener;
-import coreprocessing.analysismerger.AnalysisMerger;
-import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
-import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
-import externalInterfaces.basespace.BaseSpaceModelManager;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.data.ChunkResult;
+import com.gmo.model.genelibrary.GeneLibrary;
 
 public class ViewAnalysis implements FileUploadListener {
 

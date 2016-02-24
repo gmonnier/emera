@@ -9,10 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
-import awsinterfaceManager.AWSInterfaceManager;
-import client.ClientStatus;
-
-import com.amazonaws.services.ec2.model.Instance;
+import com.gmo.client.ClientStatus;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.network.location.ClientLocation;
 

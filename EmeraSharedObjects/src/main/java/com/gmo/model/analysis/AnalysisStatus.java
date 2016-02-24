@@ -1,4 +1,4 @@
-package com.gmo.model.analyses;
+package com.gmo.model.analysis;
 
 import javax.xml.bind.annotation.XmlEnum;
 
