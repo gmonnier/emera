@@ -23,7 +23,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 
 	private final List<ExtractionPattern> listPatterns;
 
-	private final List<ViewDataSplitterModel> listSplitPatterns;
+	private final List<ViewDataSplitterModel> listViewSplitPatterns;
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -53,12 +53,12 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 			}
 		}
 
-		listSplitPatterns = new ArrayList<ViewDataSplitterModel>();
+		listViewSplitPatterns = new ArrayList<ViewDataSplitterModel>();
 		try {
 			List<SplitPattern> splitPatterns = getConfig().getSplitPatternsStorage().getSplitPatterns();
 			for (int i = splitPatterns.size() - 1; i >= 0; i--) {
-				ViewDataSplitterModel splitPattern = new ViewDataSplitterModel(splitPatterns.get(i).getValue(),splitPatterns.get(i).getOutputName(), splitPatterns.get(i).getAlias());
-				listSplitPatterns.add(splitPattern);
+				ViewDataSplitterModel viewSplitPattern = new ViewDataSplitterModel(splitPatterns.get(i).getValue(),splitPatterns.get(i).getOutputName(), splitPatterns.get(i).getAlias());
+				listViewSplitPatterns.add(viewSplitPattern);
 			}
 		} catch (NullPointerException npe) {
 			LOG.warn("No split pattern in configuration yet.");
@@ -92,8 +92,8 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 		return listPatterns;
 	}
 
-	public List<ViewDataSplitterModel> getListSplitPatterns() {
-		return listSplitPatterns;
+	public List<ViewDataSplitterModel> getListViewSplitPatterns() {
+		return listViewSplitPatterns;
 	}
 
 	/**

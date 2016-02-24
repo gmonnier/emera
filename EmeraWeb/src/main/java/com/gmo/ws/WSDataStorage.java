@@ -22,6 +22,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import processorNode.viewmodel.ViewFile;
 import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.parameters.ExtractionPattern;
 import com.gmo.nodes.NodeManager;
@@ -62,15 +63,8 @@ public class WSDataStorage extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ViewDataSplitterModel> getSplitPatternsJSON() {
 		LOG.info("Retrieve stored split patterns");
-
-		List<DataSplitterModel> input = ApplicationContextManager.getInstance().getListSplitPatterns();
-		List<ViewDataSplitterModel> listView = new ArrayList<ViewDataSplitterModel>();
-
-		for (Iterator<DataSplitterModel> iterator = input.iterator(); iterator.hasNext();) {
-			DataSplitterModel splitterPattern = (DataSplitterModel) iterator.next();
-			listView.add(new ViewDataSplitterModel(splitterPattern));
-		}
-		return listView;
+		List<ViewDataSplitterModel> listViewSplitPattern = ApplicationContextManager.getInstance().getListViewSplitPatterns();
+		return listViewSplitPattern;
 	}
 
 	@POST
