@@ -30,6 +30,7 @@ import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.processconfig.ConfigurationBuilder;
 import com.gmo.model.processconfig.ProcessConfiguration;
 import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.reports.Report;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
 
