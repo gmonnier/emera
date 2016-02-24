@@ -7,15 +7,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 
-import model.processconfig.ProcessConfiguration;
-import model.processconfig.files.ModelFileStored;
-
 import org.apache.logging.log4j.Logger;
-
-import reports.Report;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.genelibrary.GeneLibrary;
+import com.gmo.model.processconfig.ProcessConfiguration;
+import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.reports.Report;
 
 public class ReportReader {
 	

@@ -11,6 +11,7 @@ import processorNode.viewmodel.ViewCreateProcessConfiguration;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.NoSuchAnalysisException;
+import com.gmo.reports.comparators.analyses.CompletionDateAnalysisComparator;
 
 public class AnalysisManager {
 

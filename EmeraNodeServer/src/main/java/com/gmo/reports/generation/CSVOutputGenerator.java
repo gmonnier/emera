@@ -11,11 +11,10 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
-import reports.Report;
-import reports.UnfoundStartSeqMap;
-
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.reports.Report;
+import com.gmo.reports.UnfoundStartSeqMap;
 
 public class CSVOutputGenerator {
 

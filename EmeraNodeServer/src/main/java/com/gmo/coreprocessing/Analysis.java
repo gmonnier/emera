@@ -19,6 +19,7 @@ import processorNode.viewmodel.ViewFile;
 import processorNode.viewmodel.ViewFileOrigin;
 import basespaceService.model.FastQFile;
 
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.analysismerger.AnalysisMerger;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
@@ -30,6 +31,7 @@ import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.processconfig.ConfigurationBuilder;
 import com.gmo.model.processconfig.ProcessConfiguration;
 import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.processorserver.IDistantResource;
 import com.gmo.reports.Report;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {

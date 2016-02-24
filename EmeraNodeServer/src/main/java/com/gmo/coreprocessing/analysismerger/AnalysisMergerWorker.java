@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.data.ChunkResult;
+import com.gmo.reports.Report;
 
 public class AnalysisMergerWorker implements Runnable {
 

@@ -9,12 +9,11 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import model.processconfig.files.ModelFileStored;
-
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.processconfig.files.ModelFileStored;
 import com.gmo.systemUtil.SystemCommand;
 
 import configuration.jaxb.storageconfig.StorageConfiguration;

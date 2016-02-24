@@ -4,21 +4,18 @@ import java.io.File;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import model.analyses.AnalysisStatus;
-import model.processconfig.ConfigurationBuilder;
-
 import org.apache.logging.log4j.Logger;
 
-import reports.Report;
-import reports.generation.ReportWriter;
-import viewModel.ViewCreateProcessConfiguration;
-import viewModel.ViewFile;
-import applicationconfig.ApplicationContextManager;
+import processorNode.viewmodel.ViewCreateProcessConfiguration;
+import processorNode.viewmodel.ViewFile;
 
+import com.gmo.coreprocessing.Analysis;
+import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
-
-import coreprocessing.Analysis;
-import coreprocessing.AnalysisManager;
+import com.gmo.model.analysis.AnalysisStatus;
+import com.gmo.model.processconfig.ConfigurationBuilder;
+import com.gmo.reports.Report;
+import com.gmo.reports.generation.ReportWriter;
 
 public class AnalysisExtractor implements Runnable {
 

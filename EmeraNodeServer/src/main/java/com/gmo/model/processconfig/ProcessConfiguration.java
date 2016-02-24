@@ -8,7 +8,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analyses.FileUploadListener;
+import com.gmo.model.parameters.OutputAttributes;
+import com.gmo.model.parameters.PartialProcessConfiguration;
+import com.gmo.model.parameters.PatternAttributes;
 import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.util.StringSerializable;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 

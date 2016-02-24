@@ -8,6 +8,7 @@ import processorNode.viewmodel.ViewCreateProcessConfiguration;
 import processorNode.viewmodel.ViewFile;
 import processorNode.viewmodel.ViewFileOrigin;
 
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analyses.FileUploadListener;
 import com.gmo.model.processconfig.files.ModelFileStored;

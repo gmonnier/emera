@@ -12,6 +12,7 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.NoSuchAnalysisException;
 import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.processconfig.ProcessConfiguration;
+import com.gmo.processorserver.ProcessorServerManager;
 
 public class AnalysisWorker implements Runnable {
 

@@ -9,6 +9,8 @@ import com.gmo.coreprocessing.IAnalysisProcessingListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.data.ChunkResult;
+import com.gmo.reports.Report;
+import com.gmo.reports.generation.ReportWriter;
 
 public class AnalysisMerger implements IMergerInfo {
 

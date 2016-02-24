@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import processorNode.interfaces.IProcessorNode;
 import processorNode.viewmodel.ViewFile;
 
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.externalInterfaces.modelconverters.ViewFileBuilder;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.processconfig.files.ModelFileStored;
