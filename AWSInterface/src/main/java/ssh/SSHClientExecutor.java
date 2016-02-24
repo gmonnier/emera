@@ -5,10 +5,9 @@ import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.logger.Log4JLogger;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;

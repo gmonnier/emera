@@ -1,17 +1,14 @@
 package awsinterfaceManager;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
 import ssh.SSHClientExecutor;
 
-import com.jcraft.jsch.JSchException;
+import com.gmo.logger.Log4JLogger;
 
 public class AWSWatcherManager implements IAWSInstanceStateChanged {
 

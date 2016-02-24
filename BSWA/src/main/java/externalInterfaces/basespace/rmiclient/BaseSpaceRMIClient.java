@@ -12,7 +12,8 @@ import basespaceService.interfaces.IBaseSpaceModel;
 import basespaceService.model.FastQFile;
 import basespaceService.model.UserInfo;
 import basespaceService.model.UserRun;
-import logger.Log4JLogger;
+
+import com.gmo.logger.Log4JLogger;
 
 public class BaseSpaceRMIClient {
 	

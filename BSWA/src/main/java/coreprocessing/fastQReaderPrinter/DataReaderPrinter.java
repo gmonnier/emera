@@ -1,15 +1,15 @@
 package coreprocessing.fastQReaderPrinter;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import logger.Log4JLogger;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import coreprocessing.fastQReaderDispatcher.ReadDispatchException;

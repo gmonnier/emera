@@ -2,7 +2,7 @@ package viewModel.network;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import processorserver.util.ClientLocation;
+import com.gmo.network.location.ClientLocation;
 
 @XmlRootElement
 public class ViewDistantResource {

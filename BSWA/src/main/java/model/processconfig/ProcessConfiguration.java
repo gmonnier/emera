@@ -4,21 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import model.analyses.FileUploadListener;
+import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import util.StringSerializable;
-import util.StringSerializationException;
-import logger.Log4JLogger;
-import model.analyses.FileUploadListener;
-import model.parameters.ExtractionPattern;
-import model.parameters.OutputAttributes;
-import model.parameters.PartialProcessConfiguration;
-import model.parameters.PatternAttributes;
-import model.processconfig.files.ModelFileStored;
 import applicationconfig.ApplicationContextManager;
 import applicationconfig.NoSuchPatternException;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.parameters.OutputAttributes;
+import com.gmo.model.parameters.PartialProcessConfiguration;
+import com.gmo.model.parameters.PatternAttributes;
+import com.gmo.util.StringSerializable;
+
 import configuration.jaxb.applicationcontext.ApplicationContext;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {

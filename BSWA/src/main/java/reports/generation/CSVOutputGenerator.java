@@ -9,13 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import logger.Log4JLogger;
-import model.genelibrary.ReferenceGene;
-
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
 import reports.UnfoundStartSeqMap;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.genelibrary.ReferenceGene;
 
 public class CSVOutputGenerator {
 

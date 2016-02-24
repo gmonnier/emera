@@ -4,15 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.processconfig.files.ModelFileStored;
+
 import org.apache.logging.log4j.Logger;
 
-import systemUtil.SystemCommand;
-import logger.JavaStyleLogger;
-import logger.Log4JLogger;
-import model.processconfig.files.ModelFileStored;
+import com.gmo.logger.JavaStyleLogger;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
+
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import coreprocessing.fastQReaderDispatcher.ReadDispatchException;
-import coreprocessing.fastQReaderPrinter.DataReaderPrinter;
 
 public class DataSplitterTest {
 	

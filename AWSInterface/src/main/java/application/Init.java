@@ -1,11 +1,11 @@
 package application;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import ssh.SSHClientExecutor;
-import systemUtil.SystemCommand;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
 
 public class Init {
 

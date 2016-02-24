@@ -2,9 +2,8 @@ package application.connectionsMonitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import processorserver.util.ClientLocation;
+import com.gmo.network.location.ClientLocation;
 
 public class ConnectionInfo {
 

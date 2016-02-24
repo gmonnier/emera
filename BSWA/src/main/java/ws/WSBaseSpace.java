@@ -1,7 +1,6 @@
 package ws;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -10,14 +9,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
+import viewModel.ViewUserRun;
 import basespaceService.model.UserInfo;
 import basespaceService.model.UserRun;
+
+import com.gmo.logger.Log4JLogger;
+
 import externalInterfaces.basespace.BaseSpaceModelManager;
-import viewModel.ViewUserRun;
 
 /**
  * Root resource (exposed at "myresource" path)

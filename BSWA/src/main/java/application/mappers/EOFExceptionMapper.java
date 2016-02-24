@@ -1,25 +1,20 @@
 package application.mappers;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import logger.Log4JLogger;
 import model.analyses.AnalysisStatus;
 import model.analyses.NoSuchAnalysisException;
 
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jetty.io.EofException;
+
+import com.gmo.logger.Log4JLogger;
 
 import coreprocessing.AnalysisManager;
 

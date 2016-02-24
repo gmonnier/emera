@@ -7,19 +7,17 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
-
-import client.ClientStatus;
-
-import com.amazonaws.services.ec2.model.Instance;
 
 import processorserver.IDistantResource;
 import processorserver.IResource;
 import processorserver.ProcessorServerManager;
-import processorserver.util.ClientLocation;
 import awsinterfaceManager.AWSInterfaceManager;
+
+import com.amazonaws.services.ec2.model.Instance;
+import com.gmo.client.ClientStatus;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.network.location.ClientLocation;
 
 @XmlRootElement
 public class ViewNetworkConfig {

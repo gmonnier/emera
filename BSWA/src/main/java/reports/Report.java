@@ -8,16 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlTransient;
-
-import logger.Log4JLogger;
-import model.genelibrary.GeneLibrary;
 import model.processconfig.ProcessConfiguration;
 
 import org.apache.logging.log4j.Logger;
 
 import reports.comparators.genes.OccurenceComparator;
 import reports.generation.OutputWriterListener;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.genelibrary.GeneLibrary;
+
 import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 
 public class Report implements OutputWriterListener, Serializable {

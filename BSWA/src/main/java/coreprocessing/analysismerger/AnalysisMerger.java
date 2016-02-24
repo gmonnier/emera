@@ -7,11 +7,10 @@ import org.apache.logging.log4j.Logger;
 
 import reports.Report;
 import reports.generation.ReportWriter;
-import logger.Log4JLogger;
-import model.data.ChunkResult;
-import model.data.DataChunk;
-import model.genelibrary.GeneLibrary;
-import model.processconfig.ProcessConfiguration;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.data.ChunkResult;
+
 import coreprocessing.IAnalysisProcessingListener;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 

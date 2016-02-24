@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-import logger.Log4JLogger;
-import model.data.DataChunk;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.data.DataChunk;
 
 public class ChunkQueueBuffer {
 

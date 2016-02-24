@@ -1,15 +1,13 @@
 package reports.generation;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-
-import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
 import applicationconfig.ApplicationContextManager;
+
+import com.gmo.logger.Log4JLogger;
 
 public class ReportWriter implements Runnable {
 

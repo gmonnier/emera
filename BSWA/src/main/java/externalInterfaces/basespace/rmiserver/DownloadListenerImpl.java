@@ -4,18 +4,20 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.NoSuchElementException;
 
-import logger.Log4JLogger;
 import model.analyses.AnalysisStatus;
 import model.analyses.NoSuchAnalysisException;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
+import applicationconfig.StorageConfigurationManager;
 import basespaceService.interfaces.IDownloadListener;
 import basespaceService.model.FastQFile;
-import applicationconfig.StorageConfigurationManager;
-import coreprocessing.AnalysisManager;
+
+import com.gmo.logger.Log4JLogger;
+
 import coreprocessing.Analysis;
+import coreprocessing.AnalysisManager;
 
 public class DownloadListenerImpl extends UnicastRemoteObject implements IDownloadListener {
 

@@ -2,11 +2,9 @@ package coreprocessing;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
 
-import logger.Log4JLogger;
 import model.analyses.NoSuchAnalysisException;
 
 import org.apache.logging.log4j.Logger;
@@ -14,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import reports.comparators.analyses.CompletionDateAnalysisComparator;
 import viewModel.ViewCreateProcessConfiguration;
 import applicationconfig.ApplicationContextManager;
+
+import com.gmo.logger.Log4JLogger;
 
 public class AnalysisManager {
 

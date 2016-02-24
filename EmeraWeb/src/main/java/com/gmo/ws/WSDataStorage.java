@@ -15,8 +15,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import model.parameters.ExtractionPattern;
-
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -25,6 +23,7 @@ import processorNode.viewmodel.ViewFile;
 import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.parameters.ExtractionPattern;
 import com.gmo.nodes.NodeManager;
 
 @Path("/ws-resources/datastorage")

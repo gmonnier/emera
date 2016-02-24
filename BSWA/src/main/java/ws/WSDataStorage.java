@@ -15,8 +15,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import logger.Log4JLogger;
-import model.parameters.ExtractionPattern;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
@@ -28,6 +26,10 @@ import viewModel.analyses.preprocessing.ViewDataSplitterModel;
 import applicationconfig.ApplicationContextManager;
 import applicationconfig.StorageConfigurationManager;
 import applicationconfig.UploadWorker;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.parameters.ExtractionPattern;
+
 import coreprocessing.AnalysisManager;
 import coreprocessing.fastQReaderSplitter.DataSplitterModel;
 

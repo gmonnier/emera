@@ -1,7 +1,6 @@
 package ws;
 
 import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -9,13 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import awsinterfaceManager.AWSInterfaceManager;
 import processorserver.ProcessorServerManager;
-import viewModel.network.ViewNetworkConfig;
+import awsinterfaceManager.AWSInterfaceManager;
+
+import com.gmo.logger.Log4JLogger;
 
 @Path("/ws-resources/netconfig")
 public class WSNetworkConfiguration {

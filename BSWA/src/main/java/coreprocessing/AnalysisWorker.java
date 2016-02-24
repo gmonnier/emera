@@ -1,13 +1,15 @@
 package coreprocessing;
 
-import logger.Log4JLogger;
 import model.analyses.NoSuchAnalysisException;
-import model.genelibrary.GeneLibrary;
 import model.processconfig.ProcessConfiguration;
 
 import org.apache.logging.log4j.Logger;
 
 import processorserver.ProcessorServerManager;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.model.genelibrary.GeneLibrary;
+
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;

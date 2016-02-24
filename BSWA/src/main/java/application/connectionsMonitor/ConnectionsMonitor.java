@@ -9,11 +9,10 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import processorserver.util.LocationLookup;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.network.location.LocationLookup;
 
 public class ConnectionsMonitor {
 
