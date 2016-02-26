@@ -2,8 +2,6 @@ package com.gmo.ws;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import awsinterfaceManager.AWSInterfaceManager;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 
 @Path("/ws-resources/netconfig")
 public class WSNetworkConfiguration {
@@ -25,7 +26,7 @@ public class WSNetworkConfiguration {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response requestClientShutdownJSON(@PathParam("clientID") String clientID) {
 		LOG.debug("Request to remove distant resource with ID " + clientID);
-		ProcessorServerManager.getInstance().requestClientRemove(clientID);
+		NodeManager.getInstance().getNodeRMIClient().requestNodeProcessorClientRemove(clientID);
 		return Response.status(200).build();
 	}
 	
