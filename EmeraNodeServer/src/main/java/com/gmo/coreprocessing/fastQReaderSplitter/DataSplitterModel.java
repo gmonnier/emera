@@ -18,8 +18,6 @@ public class DataSplitterModel {
 	
 	private String alias;
 	
-	private BufferedWriter writter;
-	
 	private int associatedSequencesCount;
 
 	public DataSplitterModel(String regexp, String outputName, String alias) {
@@ -27,11 +25,6 @@ public class DataSplitterModel {
 		this.outputName = outputName;
 		this.alias = alias;
 		this.associatedSequencesCount = 0;
-		/*try {
-			writter = new BufferedWriter(new FileWriter(outputName));
-		} catch (IOException e) {
-			LOG.error("Unable to create buffered writer for data splitter on : " + outputName);
-		}*/
 	}
 
 	public Pattern getPattern() {
@@ -40,10 +33,6 @@ public class DataSplitterModel {
 
 	public String getOutputName() {
 		return outputName;
-	}
-	
-	public BufferedWriter getWritter() {
-		return writter;
 	}
 
 	public int getAssociatedSequencesCount() {

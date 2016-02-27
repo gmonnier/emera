@@ -3,15 +3,18 @@ package com.gmo.coreprocessing.fastQReaderSplitter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ReadDispatchException;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
 
 public class DataReaderSplitter {
 	
@@ -49,6 +52,8 @@ public class DataReaderSplitter {
 	public void readAndSplit() throws ReadDispatchException, InterruptedException {
 
 		LOG.info("Enter reading and splitting fastq input");
+		
+		Map<String, BufferedWriter> writters = new HashMap<String, BufferedWriter>();
 
 		int totalCount = 0;
 		int ignoredLinesCount = 0;
@@ -64,8 +69,12 @@ public class DataReaderSplitter {
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
 				for (int i = 0; i < splitModel.size(); i++) {
-					splitModel.get(i).getWritter().write(line);
-					splitModel.get(i).getWritter().newLine();
+					String outputName = splitModel.get(i).getOutputName();
+					BufferedWriter writter = new BufferedWriter(new FileWriter(outputName));
+					writters.put(outputName, writter);
+					// Writte first line
+					writter.write(line);
+					writter.newLine();
 				}
 				
 				totalByteReads += line.length();
@@ -85,13 +94,14 @@ public class DataReaderSplitter {
 						}
 					}
 					
-					if(modelFound != null && modelFound.getWritter() != null) {
+					BufferedWriter writter = writters.get(modelFound.getOutputName());
+					if(modelFound != null && writter != null) {
 						totalByteReads += line.length();
-						modelFound.getWritter().write(line);
-						modelFound.getWritter().newLine();
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
-						totalByteReads += skipAndWriteLine(reader, modelFound.getWritter());
+						writter.write(line);
+						writter.newLine();
+						totalByteReads += skipAndWriteLine(reader, writter);
+						totalByteReads += skipAndWriteLine(reader, writter);
+						totalByteReads += skipAndWriteLine(reader, writter);
 					} else {
 						ignoredLinesCount++;
 						totalByteReads += line.length();

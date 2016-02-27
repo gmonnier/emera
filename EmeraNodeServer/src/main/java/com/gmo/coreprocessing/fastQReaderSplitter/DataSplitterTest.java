@@ -10,7 +10,7 @@ import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ReadDispatchException;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.systemUtil.SystemCommand;
 
 public class DataSplitterTest {
