@@ -11,8 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import model.parameters.ExtractionPattern;
-
 import org.apache.logging.log4j.Logger;
 
 import processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -20,7 +18,9 @@ import processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.processconfiguration.ExtractionPattern;
 import com.gmo.ws.exceptions.ApplicationRequestException;
 
 @Path("/ws-resources/process")

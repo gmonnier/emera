@@ -5,6 +5,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
 import processorNode.viewmodel.ViewCreateProcessConfiguration;
 import processorNode.viewmodel.ViewFile;
@@ -13,7 +14,6 @@ import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.AnalysisStatus;
-import com.gmo.model.processconfig.ConfigurationBuilder;
 import com.gmo.reports.Report;
 import com.gmo.reports.generation.ReportWriter;
 

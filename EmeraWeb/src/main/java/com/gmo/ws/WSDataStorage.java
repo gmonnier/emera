@@ -22,6 +22,7 @@ import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.model.processconfiguration.ExtractionPattern;
 import com.gmo.nodes.NodeManager;
 

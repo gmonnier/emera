@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.util.FileUploadListener;
+import com.gmo.util.NoSuchPatternException;
 import com.gmo.util.StringSerializable;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {
@@ -24,23 +26,23 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
-	public ProcessConfiguration(FileUploadListener uploadListener) {
+	public ProcessConfiguration(FileUploadListener uploadListener, DefaultConfigurationProvider defaultConfigProvider) {
 		
 		this.uploadListener = uploadListener;
 		
 		selectedLibraries = new ArrayList<ModelFileStored>();
 		selectedDataFiles = new ArrayList<ModelFileStored>();
 		
-		ApplicationContext defaultConfig = ApplicationContextManager.getInstance().getConfig();
-		
 		try {
-			pattern = ApplicationContextManager.getInstance().getDefaultExtractionPattern();
+			pattern = defaultConfigProvider.getDefaultExtractionPattern();
 		} catch (NoSuchPatternException e) {
 			LOG.error("No default pattern available");
 		}
 		
-		patternAttributes = new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
-		outputAttributes = new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());
+		patternAttributes = defaultConfigProvider.getDefaultPatternAttribute(); 
+		//new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
+		outputAttributes = defaultConfigProvider.getDefaultOutputAttributes(); 
+		//new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());
 	}
 
 	public List<ModelFileStored> getSelectedLibraries() {

@@ -1,4 +1,4 @@
-package com.gmo.model.analyses;
+package com.gmo.util;
 
 import com.gmo.model.inputs.ModelFileStored;
 

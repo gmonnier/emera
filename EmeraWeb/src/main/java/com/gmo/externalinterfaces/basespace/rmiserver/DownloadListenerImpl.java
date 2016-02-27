@@ -12,6 +12,7 @@ import basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.AnalysisStatus;
 import com.gmo.model.analysis.NoSuchAnalysisException;
+import com.gmo.model.inputs.ModelFileStored;
 
 public class DownloadListenerImpl extends UnicastRemoteObject implements IDownloadListener {
 

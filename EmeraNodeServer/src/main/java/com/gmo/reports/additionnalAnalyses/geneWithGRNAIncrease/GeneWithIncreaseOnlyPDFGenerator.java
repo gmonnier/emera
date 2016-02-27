@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.fileGenerator.pdf.GenericPDFGenerator;
 import com.gmo.fileGenerator.pdf.util.PDFPageSize;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.reports.Report;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import com.gmo.reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseReport;

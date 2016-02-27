@@ -11,6 +11,7 @@ import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.processconfiguration.ExtractionPattern;
+import com.gmo.util.NoSuchPatternException;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;

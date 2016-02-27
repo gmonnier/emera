@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.processconfig.ProcessConfiguration;
+import com.gmo.model.processconfiguration.ProcessConfiguration;
 import com.gmo.reports.comparators.genes.OccurenceComparator;
 import com.gmo.reports.generation.OutputWriterListener;
 

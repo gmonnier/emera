@@ -15,8 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import model.genelibrary.ReferenceGene;
-
 import org.apache.logging.log4j.Logger;
 
 import processorNode.viewmodel.StatusChangeRequest;
@@ -24,7 +22,10 @@ import processorNode.viewmodel.ViewPollingInfo;
 import processorNode.viewmodel.network.ViewNetworkConfig;
 import processorNode.viewmodel.report.ViewReportGraphData;
 
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.analysis.NoSuchAnalysisException;
+import com.gmo.model.genelibrary.ReferenceGene;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {

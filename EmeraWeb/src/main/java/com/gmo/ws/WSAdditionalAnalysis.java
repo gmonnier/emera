@@ -21,6 +21,7 @@ import processorNode.viewmodel.ViewCompareAnalysisParam;
 import processorNode.viewmodel.ViewFile;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.model.analysis.NoSuchAnalysisException;
 
 @Path("/ws-resources/additional")
 public class WSAdditionalAnalysis {
