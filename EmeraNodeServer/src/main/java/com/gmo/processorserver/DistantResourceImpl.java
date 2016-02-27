@@ -10,7 +10,7 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.NoSuchAnalysisException;
 import com.gmo.model.data.DataChunk;
 import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.processconfig.ProcessConfiguration;
+import com.gmo.model.processconfiguration.ProcessConfiguration;
 import com.gmo.network.location.ClientLocation;
 import com.gmo.network.location.LocationLookup;
 import com.gmo.network.network_Server.ExtendedSocket;

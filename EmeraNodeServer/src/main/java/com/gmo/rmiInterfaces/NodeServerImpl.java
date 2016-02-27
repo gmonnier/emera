@@ -13,7 +13,7 @@ import processorNode.viewmodel.ViewFile;
 
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.modelconverters.FileStoredConverter;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {

@@ -20,22 +20,27 @@ public class ProcessConfigurationConverter implements IViewModelConverter<ViewCr
 
 	@Override
 	public ViewCreateProcessConfiguration buildViewModelObject(ProcessConfiguration dataConfigurations) {
+		
 		LOG.debug("Build view configuration from model configuration object");
-		ViewCreateProcessConfiguration = new ViewCreateProcessConfiguration();
+		ViewCreateProcessConfiguration viewConf = new ViewCreateProcessConfiguration();
 
 		viewConf.setOutputAttributes(dataConfigurations.getOutputAttributes());
 		viewConf.setPatternAttributes(dataConfigurations.getPatternAttributes());
 		viewConf.setPattern(dataConfigurations.getPattern());
+		
+		FileStoredConverter fileConverter = new FileStoredConverter();
 
 		// Init list of data files that are already stored in the server
-		for (ModelFileStored modelFile : conf.getSelectedDataFiles()) {
-			viewConf.getSelectedDataFiles().add(new ViewFile(modelFile));
+		for (ModelFileStored modelFile : dataConfigurations.getSelectedDataFiles()) {
+			viewConf.getSelectedDataFiles().add(fileConverter.buildViewModelObject(modelFile));
 		}
 
 		// Init list of libraries files that are already stored in the server
-		for (ModelFileStored modelFile : conf.getSelectedLibraries()) {
-			viewConf.getSelectedLibraries().add(new ViewFile(modelFile));
+		for (ModelFileStored modelFile : dataConfigurations.getSelectedLibraries()) {
+			viewConf.getSelectedDataFiles().add(fileConverter.buildViewModelObject(modelFile));
 		}
+		
+		return viewConf;
 	}
 
 	@Override
@@ -66,5 +71,7 @@ public class ProcessConfigurationConverter implements IViewModelConverter<ViewCr
 				}
 			}
 		}
+		
+		return dataConfiguration;
 	}
 }

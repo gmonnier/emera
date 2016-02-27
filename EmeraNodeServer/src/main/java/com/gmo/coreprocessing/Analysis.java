@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
 import processorNode.viewmodel.BSDownloadInfo;
 import processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -28,9 +29,8 @@ import com.gmo.model.analyses.FileUploadListener;
 import com.gmo.model.analysis.AnalysisStatus;
 import com.gmo.model.data.ChunkResult;
 import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.processconfig.ConfigurationBuilder;
-import com.gmo.model.processconfig.ProcessConfiguration;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.model.processconfiguration.ProcessConfiguration;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.reports.Report;
 
