@@ -27,12 +27,6 @@ public class ViewDataSplitterModel {
 		this.alias = alias;
 	}
 
-	public ViewDataSplitterModel(DataSplitterModel splitterPattern) {
-		this.regexp = splitterPattern.getPattern().toString();
-		this.outputName = splitterPattern.getOutputName();
-		this.alias = splitterPattern.getAlias();
-	}
-
 	public String getRegexp() {
 		return regexp;
 	}

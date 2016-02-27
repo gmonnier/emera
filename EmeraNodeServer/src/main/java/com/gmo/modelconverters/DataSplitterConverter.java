@@ -1,0 +1,26 @@
+package com.gmo.modelconverters;
+
+import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
+
+import com.gmo.coreprocessing.fastQReaderSplitter.DataSplitterModel;
+
+public class DataSplitterConverter implements IViewModelConverter<ViewDataSplitterModel, DataSplitterModel> {
+
+	@Override
+	public ViewDataSplitterModel buildViewModelObject(DataSplitterModel splitterModel) {
+
+		ViewDataSplitterModel viewModel = new ViewDataSplitterModel();
+
+		viewModel.setRegexp(splitterModel.getPattern().toString());
+		viewModel.setOutputName(splitterModel.getOutputName());
+		viewModel.setAlias(splitterModel.getAlias());
+
+		return viewModel;
+	}
+
+	@Override
+	public DataSplitterModel buildDataModelObject(ViewDataSplitterModel input) throws UnsupportedOperationException {
+		throw new UnsupportedOperationException();
+	}
+
+}

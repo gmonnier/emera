@@ -1,6 +1,5 @@
 package com.gmo.coreprocessing.fastQReaderSplitter;
 
-import java.io.BufferedWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
