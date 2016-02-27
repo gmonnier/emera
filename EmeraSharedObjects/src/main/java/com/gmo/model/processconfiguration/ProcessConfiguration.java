@@ -1,24 +1,14 @@
-package model.processconfig;
+package com.gmo.model.processconfiguration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.analyses.FileUploadListener;
-import model.processconfig.files.ModelFileStored;
-
 import org.apache.logging.log4j.Logger;
 
-import applicationconfig.ApplicationContextManager;
-import applicationconfig.NoSuchPatternException;
-
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfiguration.OutputAttributes;
-import com.gmo.model.processconfiguration.PartialProcessConfiguration;
-import com.gmo.model.processconfiguration.PatternAttributes;
+import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.util.StringSerializable;
-
-import configuration.jaxb.applicationcontext.ApplicationContext;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {
 	
@@ -33,9 +23,6 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
-	
-	private ProcessConfiguration() {
-	}
 	
 	public ProcessConfiguration(FileUploadListener uploadListener) {
 		

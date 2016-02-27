@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.parameters.ExtractionPattern;
+import com.gmo.model.processconfiguration.ExtractionPattern;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;

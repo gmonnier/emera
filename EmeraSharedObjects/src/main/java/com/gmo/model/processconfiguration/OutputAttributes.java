@@ -1,4 +1,4 @@
-package com.gmo.model.parameters;
+package com.gmo.model.processconfiguration;
 
 import java.io.Serializable;
 

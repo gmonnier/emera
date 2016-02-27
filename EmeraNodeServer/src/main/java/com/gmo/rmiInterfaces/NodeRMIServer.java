@@ -1,4 +1,4 @@
-package com.gmo.externalInterfaces;
+package com.gmo.rmiInterfaces;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

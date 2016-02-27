@@ -28,7 +28,7 @@ import applicationconfig.StorageConfigurationManager;
 import applicationconfig.UploadWorker;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.parameters.ExtractionPattern;
+import com.gmo.model.processconfiguration.ExtractionPattern;
 
 import coreprocessing.AnalysisManager;
 import coreprocessing.fastQReaderSplitter.DataSplitterModel;

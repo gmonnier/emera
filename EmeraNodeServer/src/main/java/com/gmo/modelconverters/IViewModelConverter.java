@@ -1,7 +1,9 @@
-package com.gmo.externalInterfaces.modelconverters;
+package com.gmo.modelconverters;
 
-public interface IViewModelBuilder<VIEW,MODEL> {
+public interface IViewModelConverter<VIEW,MODEL> {
 
 	public VIEW buildViewModelObject(MODEL input);
+	
+	public MODEL buildDataModelObject(VIEW input);
 	
 }

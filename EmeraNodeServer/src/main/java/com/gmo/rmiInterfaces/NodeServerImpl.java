@@ -1,4 +1,4 @@
-package com.gmo.externalInterfaces;
+package com.gmo.rmiInterfaces;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,9 +12,9 @@ import processorNode.interfaces.IProcessorNode;
 import processorNode.viewmodel.ViewFile;
 
 import com.gmo.configuration.StorageConfigurationManager;
-import com.gmo.externalInterfaces.modelconverters.ViewFileBuilder;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.modelconverters.FileStoredConverter;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 
@@ -35,7 +35,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	public List<ViewFile> getListStoredData() throws RemoteException {
 		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredData();
 		List<ViewFile> listView = new ArrayList<ViewFile>();
-		ViewFileBuilder viewBuilder = new ViewFileBuilder();
+		FileStoredConverter viewBuilder = new FileStoredConverter();
 
 		for (Iterator<ModelFileStored> iterator = input.iterator(); iterator.hasNext();) {
 			ModelFileStored inputFile = (ModelFileStored) iterator.next();
@@ -48,7 +48,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	public List<ViewFile> getListStoredLibraries() throws RemoteException {
 		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredLibraries();
 		List<ViewFile> listView = new ArrayList<ViewFile>();
-		ViewFileBuilder viewBuilder = new ViewFileBuilder();
+		FileStoredConverter viewBuilder = new FileStoredConverter();
 
 		for (Iterator<ModelFileStored> iterator = input.iterator(); iterator.hasNext();) {
 			ModelFileStored inputFile = (ModelFileStored) iterator.next();

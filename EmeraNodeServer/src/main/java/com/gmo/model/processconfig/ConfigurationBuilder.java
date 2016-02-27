@@ -11,7 +11,8 @@ import processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analyses.FileUploadListener;
-import com.gmo.model.processconfig.files.ModelFileStored;
+import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.model.processconfiguration.ProcessConfiguration;
 
 public class ConfigurationBuilder {
 

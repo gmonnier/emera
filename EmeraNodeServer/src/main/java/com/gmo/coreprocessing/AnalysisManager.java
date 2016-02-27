@@ -65,6 +65,7 @@ public class AnalysisManager {
 	}
 
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration processConfig, String userID) {
+		
 		// Update storage of default values for next analysisconfigurations
 		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(processConfig.getPatternAttributes().isAllowOneMismatch());
 		ApplicationContextManager.getInstance().getConfig().setAllowShifting(processConfig.getPatternAttributes().isCheckForShifted());
