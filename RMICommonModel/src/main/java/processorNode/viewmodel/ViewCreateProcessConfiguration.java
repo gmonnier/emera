@@ -7,12 +7,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
+import processorNode.viewmodel.defaultproviders.DefaultConfigurationProvider;
+
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.processconfiguration.ExtractionPattern;
 import com.gmo.model.processconfiguration.OutputAttributes;
 import com.gmo.model.processconfiguration.PatternAttributes;
-
-import configuration.jaxb.applicationcontext.ApplicationContext;
+import com.gmo.util.NoSuchPatternException;
 
 @XmlRootElement
 public class ViewCreateProcessConfiguration {
@@ -35,20 +36,28 @@ public class ViewCreateProcessConfiguration {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public ViewCreateProcessConfiguration() {
+	public ViewCreateProcessConfiguration(DefaultConfigurationProvider defaultConfig) {
 
 		selectedLibraries = new ArrayList<ViewFile>();
 		selectedDataFiles = new ArrayList<ViewFile>();
 
-		ApplicationContext defaultConfig = ApplicationContextManager.getInstance().getConfig();
+		//ApplicationContext defaultConfig = ApplicationContextManager.getInstance().getConfig();
 
-		try {
+		/*try {
 			pattern = ApplicationContextManager.getInstance().getDefaultExtractionPattern();
 		} catch (NoSuchPatternException e) {
 			LOG.warn("No default pattern available");
 		}
 		patternAttributes = new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
-		outputAttributes = new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());
+		outputAttributes = new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());*/
+		try {
+			pattern = defaultConfig.getDefaultExtractionPattern();
+		} catch (NoSuchPatternException e) {
+			LOG.warn("No default pattern available");
+		}
+		patternAttributes = defaultConfig.getDefaultPatternAttribute();
+		outputAttributes = defaultConfig.getDefaultOutputAttributes();
+		
 	}
 
 	public ExtractionPattern getPattern() {

@@ -1,5 +1,8 @@
-package com.gmo.model.processconfiguration;
+package processorNode.viewmodel.defaultproviders;
 
+import com.gmo.model.processconfiguration.ExtractionPattern;
+import com.gmo.model.processconfiguration.OutputAttributes;
+import com.gmo.model.processconfiguration.PatternAttributes;
 import com.gmo.util.NoSuchPatternException;
 
 public interface DefaultConfigurationProvider {

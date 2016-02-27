@@ -26,23 +26,13 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
-	public ProcessConfiguration(FileUploadListener uploadListener, DefaultConfigurationProvider defaultConfigProvider) {
+	public ProcessConfiguration(FileUploadListener uploadListener) {
 		
 		this.uploadListener = uploadListener;
 		
 		selectedLibraries = new ArrayList<ModelFileStored>();
 		selectedDataFiles = new ArrayList<ModelFileStored>();
 		
-		try {
-			pattern = defaultConfigProvider.getDefaultExtractionPattern();
-		} catch (NoSuchPatternException e) {
-			LOG.error("No default pattern available");
-		}
-		
-		patternAttributes = defaultConfigProvider.getDefaultPatternAttribute(); 
-		//new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
-		outputAttributes = defaultConfigProvider.getDefaultOutputAttributes(); 
-		//new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());
 	}
 
 	public List<ModelFileStored> getSelectedLibraries() {
