@@ -11,9 +11,9 @@ import model.processconfig.files.ModelFileStored;
 import org.apache.logging.log4j.Logger;
 
 import applicationconfig.StorageConfigurationManager;
-import basespaceService.interfaces.IDownloadListener;
-import basespaceService.model.FastQFile;
 
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
 
 import coreprocessing.Analysis;

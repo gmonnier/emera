@@ -15,9 +15,9 @@ import processorserver.ProcessorServerManager;
 import awsinterfaceManager.AWSEC2InterfaceManager;
 
 import com.amazonaws.services.ec2.model.Instance;
-import com.gmo.client.ClientStatus;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.network.location.ClientLocation;
+import com.gmo.sharedobjects.client.ClientStatus;
 
 @XmlRootElement
 public class ViewNetworkConfig {

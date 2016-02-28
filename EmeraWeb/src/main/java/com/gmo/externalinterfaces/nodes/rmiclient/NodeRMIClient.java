@@ -9,13 +9,12 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.interfaces.IProcessorNode;
-import processorNode.viewmodel.ViewAnalysis;
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.ViewPollingInfo;
-import processorNode.viewmodel.network.ViewNetworkConfig;
-
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.viewmodel.ViewAnalysis;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 
 public class NodeRMIClient implements IProcessorNode{
 

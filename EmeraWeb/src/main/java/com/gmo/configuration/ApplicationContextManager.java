@@ -6,12 +6,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
-
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfiguration.ExtractionPattern;
-import com.gmo.util.NoSuchPatternException;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.util.NoSuchPatternException;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;

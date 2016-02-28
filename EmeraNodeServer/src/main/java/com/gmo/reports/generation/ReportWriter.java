@@ -5,7 +5,7 @@ import java.io.File;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.reports.Report;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class ReportWriter implements Runnable {
 

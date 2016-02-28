@@ -2,7 +2,7 @@ package reports.comparators.genes;
 
 import java.util.Comparator;
 
-import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class SequenceComparator implements Comparator<ReferenceGene> {
 	@Override

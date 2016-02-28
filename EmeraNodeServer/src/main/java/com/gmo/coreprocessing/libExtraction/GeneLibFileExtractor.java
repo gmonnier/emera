@@ -11,9 +11,9 @@ import java.util.Set;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.genelibrary.ReferenceGene;
-import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class GeneLibFileExtractor {
 

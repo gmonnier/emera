@@ -8,10 +8,9 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
-import rmiconfig.SecurityPolicy;
-import basespaceService.interfaces.IBaseSpaceModel;
-
+import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.rmiconfig.SecurityPolicy;
 
 public class RMIServer implements Runnable {
 

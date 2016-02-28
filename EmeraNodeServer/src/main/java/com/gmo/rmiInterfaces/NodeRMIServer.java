@@ -8,10 +8,9 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.interfaces.IProcessorNode;
-import rmiconfig.SecurityPolicy;
-
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.rmiconfig.SecurityPolicy;
 
 public class NodeRMIServer implements Runnable {
 

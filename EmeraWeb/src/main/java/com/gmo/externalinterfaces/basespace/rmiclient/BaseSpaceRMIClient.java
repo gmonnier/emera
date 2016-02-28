@@ -8,11 +8,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.interfaces.IBaseSpaceModel;
-import basespaceService.model.FastQFile;
-import basespaceService.model.UserInfo;
-import basespaceService.model.UserRun;
-
+import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.basespaceService.model.UserInfo;
+import com.gmo.basespaceService.model.UserRun;
 import com.gmo.logger.Log4JLogger;
 
 public class BaseSpaceRMIClient {

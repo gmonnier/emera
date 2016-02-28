@@ -10,7 +10,7 @@ import model.processconfig.files.ModelFileStored;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.DataChunk;
+import com.gmo.sharedobjects.model.data.DataChunk;
 
 public class DataReaderDispatcher {
 

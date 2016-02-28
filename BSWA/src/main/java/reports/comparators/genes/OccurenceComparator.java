@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import reports.Report;
 
-import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class OccurenceComparator implements Comparator<ReferenceGene> {
 

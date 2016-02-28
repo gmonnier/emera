@@ -11,9 +11,9 @@ import applicationconfig.ApplicationContextManager;
 import applicationconfig.NoSuchPatternException;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfiguration.ExtractionPattern;
-import com.gmo.model.processconfiguration.OutputAttributes;
-import com.gmo.model.processconfiguration.PatternAttributes;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
+import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 

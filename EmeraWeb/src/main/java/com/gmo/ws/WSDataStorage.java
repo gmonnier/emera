@@ -17,14 +17,13 @@ import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
-
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.processconfiguration.ExtractionPattern;
 import com.gmo.nodes.NodeManager;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 
 @Path("/ws-resources/datastorage")
 public class WSDataStorage extends Application {

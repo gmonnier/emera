@@ -15,7 +15,7 @@ import reports.Report;
 import reports.UnfoundStartSeqMap;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class CSVOutputGenerator {
 

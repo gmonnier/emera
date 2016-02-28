@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.NoSuchAnalysisException;
-import com.gmo.util.StringSerializationException;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+import com.gmo.sharedobjects.util.StringSerializationException;
 
 public class ErrorDispatcher {
 

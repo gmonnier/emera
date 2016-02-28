@@ -1,6 +1,6 @@
 package com.gmo.reports.additionnalAnalyses;
 
-import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class ReferenceGeneAndDataCouple {
 

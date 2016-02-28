@@ -7,8 +7,7 @@ import java.rmi.registry.Registry;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.interfaces.IDownloadListener;
-
+import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.logger.Log4JLogger;
 
 public class RMIDownloadNotifClient {

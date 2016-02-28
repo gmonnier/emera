@@ -9,20 +9,19 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.OutputFileType;
-import processorNode.viewmodel.ViewFile;
-
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.ReferenceGene;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.reports.Report;
+import com.gmo.processorNode.viewmodel.OutputFileType;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneData;
 import com.gmo.reports.additionnalAnalyses.common.AdditionnalAnalysisListener;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyCSVGenerator;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyPDFGenerator;
 import com.gmo.reports.extraction.AnalysisExtractor;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAnalysisListener {
 

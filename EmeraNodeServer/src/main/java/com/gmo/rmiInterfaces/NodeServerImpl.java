@@ -8,16 +8,15 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.interfaces.IProcessorNode;
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.ViewPollingInfo;
-import processorNode.viewmodel.network.ViewNetworkConfig;
-
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.modelconverters.FileStoredConverter;
+import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 

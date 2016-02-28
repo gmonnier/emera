@@ -5,15 +5,14 @@ import java.io.File;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
-import processorNode.viewmodel.ViewCreateProcessConfiguration;
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.analyses.standard.ViewAnalysis;
-
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.AnalysisStatus;
-import com.gmo.model.reports.Report;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
+import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class AnalysisFileExtractor extends AnalysisExtractor {
 	

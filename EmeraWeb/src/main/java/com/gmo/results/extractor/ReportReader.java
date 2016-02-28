@@ -10,10 +10,10 @@ import java.util.Date;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.processconfiguration.ProcessConfiguration;
-import com.gmo.model.reports.Report;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class ReportReader {
 	

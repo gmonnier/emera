@@ -9,7 +9,7 @@ import reports.Report;
 import reports.generation.ReportWriter;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.data.ChunkResult;
 
 import coreprocessing.IAnalysisProcessingListener;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;

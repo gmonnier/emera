@@ -12,9 +12,9 @@ import javax.ws.rs.core.MediaType;
 import org.apache.logging.log4j.Logger;
 
 import viewModel.ViewUserRun;
-import basespaceService.model.UserInfo;
-import basespaceService.model.UserRun;
 
+import com.gmo.basespaceService.model.UserInfo;
+import com.gmo.basespaceService.model.UserRun;
 import com.gmo.logger.Log4JLogger;
 
 import externalInterfaces.basespace.BaseSpaceModelManager;

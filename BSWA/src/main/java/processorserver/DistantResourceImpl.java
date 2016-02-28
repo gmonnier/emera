@@ -5,13 +5,13 @@ import model.processconfig.ProcessConfiguration;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.client.ClientStatus;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.DataChunk;
-import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.network.location.ClientLocation;
 import com.gmo.network.location.LocationLookup;
 import com.gmo.network.network_Server.ExtendedSocket;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.DataChunk;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 import coreprocessing.Analysis;
 import coreprocessing.AnalysisManager;

@@ -12,9 +12,9 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.ReferenceGene;
-import com.gmo.model.reports.Report;
-import com.gmo.model.reports.UnfoundStartSeqMap;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.reports.Report;
+import com.gmo.sharedobjects.model.reports.UnfoundStartSeqMap;
 
 public class CSVOutputGenerator {
 

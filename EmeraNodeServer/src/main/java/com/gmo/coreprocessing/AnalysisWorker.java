@@ -9,10 +9,10 @@ import com.gmo.coreprocessing.fastQReaderDispatcher.ReadDispatchException;
 import com.gmo.coreprocessing.libExtraction.GeneLibFileExtractor;
 import com.gmo.coreprocessing.libExtraction.LibraryExtractionException;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.NoSuchAnalysisException;
-import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.processconfiguration.ProcessConfiguration;
 import com.gmo.processorserver.ProcessorServerManager;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
 public class AnalysisWorker implements Runnable {
 

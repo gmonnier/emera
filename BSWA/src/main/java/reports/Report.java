@@ -16,7 +16,7 @@ import reports.comparators.genes.OccurenceComparator;
 import reports.generation.OutputWriterListener;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 

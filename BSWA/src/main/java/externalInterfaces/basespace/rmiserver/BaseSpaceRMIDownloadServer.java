@@ -8,10 +8,9 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
-import rmiconfig.SecurityPolicy;
-import basespaceService.interfaces.IDownloadListener;
-
+import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.rmiconfig.SecurityPolicy;
 
 public class BaseSpaceRMIDownloadServer implements Runnable {
 

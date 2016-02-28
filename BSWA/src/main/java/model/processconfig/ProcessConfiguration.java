@@ -13,10 +13,10 @@ import applicationconfig.ApplicationContextManager;
 import applicationconfig.NoSuchPatternException;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfiguration.OutputAttributes;
-import com.gmo.model.processconfiguration.PartialProcessConfiguration;
-import com.gmo.model.processconfiguration.PatternAttributes;
-import com.gmo.util.StringSerializable;
+import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
+import com.gmo.sharedobjects.model.processconfiguration.PartialProcessConfiguration;
+import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
+import com.gmo.sharedobjects.util.StringSerializable;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 

@@ -1,8 +1,7 @@
 package com.gmo.modelconverters;
 
-import processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
-
 import com.gmo.coreprocessing.fastQReaderSplitter.DataSplitterModel;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 
 public class DataSplitterConverter implements IViewModelConverter<ViewDataSplitterModel, DataSplitterModel> {
 

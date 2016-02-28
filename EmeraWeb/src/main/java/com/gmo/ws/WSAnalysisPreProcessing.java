@@ -10,9 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
-
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 
 @Path("/ws-resources/preprocess")
 public class WSAnalysisPreProcessing {

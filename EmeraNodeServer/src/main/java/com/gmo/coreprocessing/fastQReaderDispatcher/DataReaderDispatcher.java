@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.DataChunk;
-import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.data.DataChunk;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class DataReaderDispatcher {
 

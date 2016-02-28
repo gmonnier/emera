@@ -7,7 +7,7 @@ import model.analyses.NoSuchAnalysisException;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.util.StringSerializationException;
+import com.gmo.sharedobjects.util.StringSerializationException;
 
 import coreprocessing.Analysis;
 import coreprocessing.AnalysisManager;

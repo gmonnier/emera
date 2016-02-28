@@ -11,12 +11,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.ViewUserRun;
-import basespaceService.model.UserInfo;
-import basespaceService.model.UserRun;
-
+import com.gmo.basespaceService.model.UserInfo;
+import com.gmo.basespaceService.model.UserRun;
 import com.gmo.externalinterfaces.basespace.BaseSpaceModelManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewUserRun;
 
 /**
  * Root resource (exposed at "myresource" path)

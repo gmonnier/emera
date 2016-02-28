@@ -8,8 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.model.FastQFile;
-
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
 
 @XmlRootElement

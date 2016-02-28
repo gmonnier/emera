@@ -14,26 +14,25 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
-import processorNode.viewmodel.BSDownloadInfo;
-import processorNode.viewmodel.ViewCreateProcessConfiguration;
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.ViewFileOrigin;
-import basespaceService.model.FastQFile;
-
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.analysismerger.AnalysisMerger;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.AnalysisStatus;
-import com.gmo.model.data.ChunkResult;
-import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.processconfiguration.ProcessConfiguration;
-import com.gmo.model.reports.Report;
+import com.gmo.processorNode.viewmodel.BSDownloadInfo;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorserver.IDistantResource;
-import com.gmo.util.FileUploadListener;
+import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
+import com.gmo.sharedobjects.model.reports.Report;
+import com.gmo.sharedobjects.util.FileUploadListener;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
 

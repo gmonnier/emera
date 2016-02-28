@@ -6,13 +6,12 @@ import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceService.interfaces.IDownloadListener;
-import basespaceService.model.FastQFile;
-
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.AnalysisStatus;
-import com.gmo.model.analysis.NoSuchAnalysisException;
-import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class DownloadListenerImpl extends UnicastRemoteObject implements IDownloadListener {
 

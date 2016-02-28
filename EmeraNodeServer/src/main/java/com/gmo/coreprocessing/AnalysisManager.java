@@ -7,11 +7,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.ViewCreateProcessConfiguration;
-
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.NoSuchAnalysisException;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.reports.comparators.analyses.CompletionDateAnalysisComparator;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 public class AnalysisManager {
 

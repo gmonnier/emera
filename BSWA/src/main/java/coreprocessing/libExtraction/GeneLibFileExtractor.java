@@ -13,8 +13,8 @@ import model.processconfig.files.ModelFileStored;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
-import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class GeneLibFileExtractor {
 

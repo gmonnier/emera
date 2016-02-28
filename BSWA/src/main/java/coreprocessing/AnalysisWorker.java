@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import processorserver.ProcessorServerManager;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;

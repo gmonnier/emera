@@ -1,9 +1,8 @@
 package com.gmo.modelconverters;
 
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.ViewFileOrigin;
-
-import com.gmo.model.inputs.ModelFileStored;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class FileStoredConverter implements IViewModelConverter<ViewFile, ModelFileStored> {
 

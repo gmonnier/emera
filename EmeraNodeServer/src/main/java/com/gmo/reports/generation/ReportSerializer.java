@@ -12,8 +12,8 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.reports.Report;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class ReportSerializer {
 

@@ -26,11 +26,11 @@ import viewModel.ViewCreateProcessConfiguration;
 import viewModel.ViewFile;
 import viewModel.ViewFileOrigin;
 import applicationconfig.StorageConfigurationManager;
-import basespaceService.model.FastQFile;
 
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.ChunkResult;
-import com.gmo.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 import coreprocessing.analysismerger.AnalysisMerger;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;

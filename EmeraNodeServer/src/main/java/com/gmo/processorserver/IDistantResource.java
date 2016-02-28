@@ -1,7 +1,7 @@
 package com.gmo.processorserver;
 
-import com.gmo.client.ClientStatus;
-import com.gmo.model.data.DataChunk;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.DataChunk;
 
 public interface IDistantResource extends IResource {
 

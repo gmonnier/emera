@@ -19,8 +19,8 @@ import reports.UnfoundStartSeqMap;
 
 import com.gmo.fileGenerator.pdf.util.PDFPageSize;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.ReferenceGene;
-import com.gmo.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.ui.lookAndFeel.Colors;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;

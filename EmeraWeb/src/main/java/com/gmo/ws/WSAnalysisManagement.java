@@ -17,17 +17,16 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.StatusChangeRequest;
-import processorNode.viewmodel.ViewPollingInfo;
-import processorNode.viewmodel.report.ViewReportGraphData;
-
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.NoSuchAnalysisException;
-import com.gmo.model.genelibrary.ReferenceGene;
-import com.gmo.model.reports.Report;
 import com.gmo.nodes.NodeManager;
+import com.gmo.processorNode.viewmodel.StatusChangeRequest;
+import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.report.ViewReportGraphData;
 import com.gmo.results.ResultsManager;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.reports.Report;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {

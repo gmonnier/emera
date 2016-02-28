@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 
 import coreprocessing.AnalysisManager;
 

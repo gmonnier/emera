@@ -6,11 +6,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.analyses.standard.ViewAnalysis;
-import processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
-
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analysis.NoSuchAnalysisException;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
+import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 public class ResultsManager {
 

@@ -4,14 +4,13 @@ import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
-import processorNode.viewmodel.ViewCreateProcessConfiguration;
-import processorNode.viewmodel.ViewFile;
-import processorNode.viewmodel.ViewFileOrigin;
-
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.inputs.ModelFileStored;
-import com.gmo.model.processconfiguration.ProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
 public class ProcessConfigurationConverter implements IViewModelConverter<ViewCreateProcessConfiguration, ProcessConfiguration> {
 

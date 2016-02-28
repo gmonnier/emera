@@ -12,15 +12,15 @@ import org.apache.logging.log4j.Logger;
 
 import applicationconfig.ServerProcessorContextManager;
 
-import com.gmo.client.ClientStatus;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.data.ChunkResult;
 import com.gmo.network.network_Server.BaseServer;
 import com.gmo.network.network_Server.ExtendedSocket;
 import com.gmo.network.network_Server.INetworkServerInfoListener;
 import com.gmo.network.network_Server.ServerEvent;
 import com.gmo.network.network_Server.ServerListener;
-import com.gmo.util.StringSerializationException;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.util.StringSerializationException;
 
 import coreprocessing.Analysis;
 import coreprocessing.AnalysisManager;

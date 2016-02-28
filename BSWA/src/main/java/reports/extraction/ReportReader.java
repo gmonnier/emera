@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import reports.Report;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 public class ReportReader {
 	
