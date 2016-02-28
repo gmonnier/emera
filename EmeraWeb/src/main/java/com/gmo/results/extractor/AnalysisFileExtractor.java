@@ -13,6 +13,7 @@ import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.AnalysisStatus;
 import com.gmo.model.reports.Report;
+import com.gmo.results.ResultsManager;
 
 public class AnalysisFileExtractor extends AnalysisExtractor {
 	
@@ -78,14 +79,11 @@ public class AnalysisFileExtractor extends AnalysisExtractor {
 							analysisDone.setLaunchDate(report.getStartDate());
 							analysisDone.setCompletionDate(report.getEndDate());
 							analysisDone.setReport(report);
-
-							ViewCreateProcessConfiguration viewConfig = new ViewCreateProcessConfiguration();
-							ConfigurationBuilder.initViewConfigurationFromModel(report.getAnalyseConfig(), viewConfig);
-							analysisDone.setConfiguration(viewConfig);
+							analysisDone.setViewConfiguration(report.getAnalyseConfig());
 
 							extractAdditionnalAnalyses(analysisDone, new File(analyseDir, ADDITIONAL_ANALYSIS_DIR));
 
-							AnalysisManager.getInstance().analyseFinished(analysisDone);
+							ResultsManager.getInstance().addProcessedAnalysis(analysisDone);
 
 						} catch (Throwable ex) {
 							LOG.error("Unable to deserialize Report file", ex);
@@ -103,14 +101,14 @@ public class AnalysisFileExtractor extends AnalysisExtractor {
 		if (additionalAnalysesDirectory.exists()) {
 			File[] listAdditional = additionalAnalysesDirectory.listFiles();
 			if (listAdditional == null || listAdditional.length == 0) {
-				LOG.debug("No additional analyses found for " + analysisDone.getAnalysisID() + " in " + additionalAnalysesDirectory.getAbsolutePath());
+				LOG.debug("No additional analyses found for " + analysisDone.getId() + " in " + additionalAnalysesDirectory.getAbsolutePath());
 			} else {
 				for (int i = 0; i < listAdditional.length; i++) {
 					analysisDone.getAdditionalAnalyses().add(new ViewFile(listAdditional[i]));
 				}
 			}
 		} else {
-			LOG.debug("No additional analyses found for " + analysisDone.getAnalysisID());
+			LOG.debug("No additional analyses found for " + analysisDone.getId());
 		}
 	}
 

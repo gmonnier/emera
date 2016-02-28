@@ -42,8 +42,6 @@ public class Report implements Serializable {
 
 	private String userID;
 
-	private List<File> outputReportFiles;
-
 	private Report() {
 	}
 
@@ -53,7 +51,6 @@ public class Report implements Serializable {
 		this.startDate = startDate;
 		this.userID = userID;
 		this.analyseID = analyseID;
-		this.outputReportFiles = Collections.synchronizedList(new ArrayList<File>());
 		this.uncorrespondingEntry = new HashMap<String, UnfoundStartSeqMap>();
 		this.library = new GeneLibrary();
 	}

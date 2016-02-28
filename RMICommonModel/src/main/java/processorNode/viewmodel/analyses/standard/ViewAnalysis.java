@@ -89,4 +89,14 @@ public class ViewAnalysis {
 		this.report = report;
 	}
 
+	public ViewCreateProcessConfiguration getViewConfiguration() {
+		return viewConfiguration;
+	}
+
+	public void setViewConfiguration(ViewCreateProcessConfiguration viewConfiguration) {
+		this.viewConfiguration = viewConfiguration;
+	}
+	
+	
+
 }

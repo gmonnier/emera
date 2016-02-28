@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.util.FileUploadListener;
-import com.gmo.util.NoSuchPatternException;
 import com.gmo.util.StringSerializable;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {

@@ -1,11 +1,13 @@
 package com.gmo.results;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
 import processorNode.viewmodel.analyses.standard.ViewAnalysis;
+import processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.NoSuchAnalysisException;
@@ -54,6 +56,12 @@ public class ResultsManager {
 			}
 		}
 		throw new NoSuchAnalysisException();
+	}
+
+	public void addProcessedAnalysis(ViewAnalysis analysis) {
+		LOG.debug("Analysis detected as done. analysisID = " + analysis.getId());
+		processedAnalysis.add(analysis);
+		Collections.sort(processedAnalysis, new CompletionDateAnalysisComparator());
 	}
 
 }
