@@ -10,4 +10,5 @@ public interface IResource {
 	
 	// Retrieve the location of this client
 	public ClientLocation getLocation();
+	
 }

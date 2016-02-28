@@ -14,7 +14,7 @@ import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.AnalysisStatus;
-import com.gmo.reports.Report;
+import com.gmo.model.reports.Report;
 import com.gmo.reports.generation.ReportWriter;
 
 public class AnalysisExtractor implements Runnable {

@@ -19,8 +19,6 @@ public class ConnectionsMonitor {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.connectionlogger;
 
-	private ConnectionsMonitor instance;
-
 	private Map<String, ConnectionInfo> connectionsInfo;
 
 	private List<Pattern> noMonitoringPathsPatterns;

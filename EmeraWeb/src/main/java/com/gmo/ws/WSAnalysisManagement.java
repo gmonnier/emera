@@ -19,13 +19,15 @@ import org.apache.logging.log4j.Logger;
 
 import processorNode.viewmodel.StatusChangeRequest;
 import processorNode.viewmodel.ViewPollingInfo;
-import processorNode.viewmodel.network.ViewNetworkConfig;
 import processorNode.viewmodel.report.ViewReportGraphData;
 
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.NoSuchAnalysisException;
 import com.gmo.model.genelibrary.ReferenceGene;
+import com.gmo.model.reports.Report;
+import com.gmo.nodes.NodeManager;
+import com.gmo.results.ResultsManager;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {
@@ -41,7 +43,7 @@ public class WSAnalysisManagement {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public ViewPollingInfo retrieveApplicationsInfoJSON(@PathParam("user_id") String userID) {
-		return new ViewPollingInfo(new ViewNetworkConfig(userID), AnalysisManager.getInstance().getUserRunningAnalysis(userID), AnalysisManager.getInstance().getUserProcessedAnalysis(userID));
+		return NodeManager.getInstance().getNodeRMIClient().getViewPollingInfo(userID);
 	}
 
 	@Path("report/{id}")
@@ -51,8 +53,9 @@ public class WSAnalysisManagement {
 		LOG.debug("Request for ReportGraphData for analyse : " + analyseID);
 		ViewReportGraphData graphData = new ViewReportGraphData();
 
+		
 		try {
-			Report report = AnalysisManager.getInstance().getProcessedAnalysis(analyseID).getReport();
+			Report report = ResultsManager.getInstance().getProcessedAnalysis(analyseID).getReport();
 			List<ReferenceGene> lib = report.getLibrary().getGenes();
 			for (int i = 0; i < lib.size(); i++) {
 				ReferenceGene grna = lib.get(i);

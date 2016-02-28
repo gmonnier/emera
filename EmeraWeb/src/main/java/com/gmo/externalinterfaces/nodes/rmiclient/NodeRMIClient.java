@@ -10,7 +10,10 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import processorNode.interfaces.IProcessorNode;
+import processorNode.viewmodel.ViewAnalysis;
 import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.ViewPollingInfo;
+import processorNode.viewmodel.network.ViewNetworkConfig;
 
 import com.gmo.logger.Log4JLogger;
 
@@ -80,6 +83,17 @@ public class NodeRMIClient implements IProcessorNode{
 			}
 		}
 		return new ArrayList<ViewFile>();
+	}
+
+	public ViewPollingInfo getViewPollingInfo(String userID) {
+		if (rmiNodeClient != null) {
+			try {
+				return rmiNodeClient.getViewPollingInfo(userID);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+		return new ViewPollingInfo(new ViewNetworkConfig(), new ArrayList<ViewAnalysis>(), new ArrayList<ViewAnalysis>());
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.gmo.reports;
+package com.gmo.model.reports;
 
 import java.io.File;
 import java.io.Serializable;
@@ -10,14 +10,12 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.processconfiguration.ProcessConfiguration;
-import com.gmo.reports.comparators.genes.OccurenceComparator;
-import com.gmo.reports.generation.OutputWriterListener;
+import com.gmo.model.reports.comparators.OccurenceComparator;
 
-public class Report implements OutputWriterListener, Serializable {
+public class Report implements Serializable {
 
 	private transient static Logger LOG = Log4JLogger.logger;
 
@@ -41,12 +39,12 @@ public class Report implements OutputWriterListener, Serializable {
 	private int chunkSize;
 
 	private String analyseID;
-	
+
 	private String userID;
 
 	private List<File> outputReportFiles;
-	
-	private Report(){
+
+	private Report() {
 	}
 
 	public Report(ProcessConfiguration analyseConfig, long startDate, String analyseID, String userID) {
@@ -55,15 +53,16 @@ public class Report implements OutputWriterListener, Serializable {
 		this.startDate = startDate;
 		this.userID = userID;
 		this.analyseID = analyseID;
-		this.outputReportFiles = new ArrayList<>();
-
-		uncorrespondingEntry = new HashMap<String, UnfoundStartSeqMap>();
-		outputReportFiles = Collections.synchronizedList(new ArrayList<File>());
-		library = new GeneLibrary();
-
-		chunkSize = DataReaderDispatcher.CHUNK_SIZE;
+		this.outputReportFiles = Collections.synchronizedList(new ArrayList<File>());
+		this.uncorrespondingEntry = new HashMap<String, UnfoundStartSeqMap>();
+		this.library = new GeneLibrary();
 	}
-	
+
+	public Report(ProcessConfiguration analyseConfig, long startDate, String analyseID, String userID, int chunksize) {
+		this.chunkSize = chunksize;
+		new Report(analyseConfig, startDate, analyseID, userID);
+	}
+
 	public void finalizeReport() {
 		// Sort the library by occurences
 		Collections.sort(library.getGenes(), new OccurenceComparator(this));
@@ -199,30 +198,9 @@ public class Report implements OutputWriterListener, Serializable {
 			return "Unknown";
 		}
 	}
-	
+
 	public void setProcessingTimeFormatted(String processTimeFormetted) {
 		// Only for serialization
 	}
 
-
-	@Override
-	public void pdfOutputGenerationFailed() {
-		LOG.error("Unable to add pdf file to output file list");
-	}
-
-	@Override
-	public void csvOutputGenerationFailed() {
-		LOG.error("Unable to add csv file to output file list");
-	}
-
-	@Override
-	public void pdfOutputGenerationSucceeded(File result) {
-		outputReportFiles.add(result);
-	}
-
-	@Override
-	public void csvOutputGenerationSucceeded(File result) {
-		outputReportFiles.add(result);
-	}
 }
-

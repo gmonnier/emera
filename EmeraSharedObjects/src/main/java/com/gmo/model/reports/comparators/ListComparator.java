@@ -1,8 +1,8 @@
-package com.gmo.reports.comparators.genes;
+package com.gmo.model.reports.comparators;
 
 import java.util.Comparator;
 
-import com.gmo.reports.UnfoundStartSeqMap;
+import com.gmo.model.reports.UnfoundStartSeqMap;
 
 public class ListComparator implements Comparator<UnfoundStartSeqMap> {
 

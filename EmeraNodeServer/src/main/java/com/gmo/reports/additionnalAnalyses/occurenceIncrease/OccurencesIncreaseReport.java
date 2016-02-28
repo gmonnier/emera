@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.gmo.reports.Report;
+import com.gmo.model.reports.Report;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import com.gmo.reports.additionnalAnalyses.common.GeneNameComparator;
 import com.gmo.reports.additionnalAnalyses.common.OccurenceGrowthComparator;

@@ -10,8 +10,11 @@ import org.apache.logging.log4j.Logger;
 
 import processorNode.interfaces.IProcessorNode;
 import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.ViewPollingInfo;
+import processorNode.viewmodel.network.ViewNetworkConfig;
 
 import com.gmo.configuration.StorageConfigurationManager;
+import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.modelconverters.FileStoredConverter;
@@ -55,6 +58,11 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 			listView.add(viewBuilder.buildViewModelObject(inputFile));
 		}
 		return listView;	
+	}
+
+	@Override
+	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException {
+		return new ViewPollingInfo(new ViewNetworkConfig(userID), AnalysisManager.getInstance().getUserRunningAnalysis(userID), AnalysisManager.getInstance().getUserProcessedAnalysis(userID));
 	}
 	
 }

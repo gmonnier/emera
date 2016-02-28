@@ -1,4 +1,4 @@
-package com.gmo.reports.comparators.genes;
+package com.gmo.model.reports.comparators;
 
 import java.util.Comparator;
 

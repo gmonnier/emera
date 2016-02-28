@@ -50,13 +50,15 @@ public class ViewCreateProcessConfiguration {
 		}
 		patternAttributes = new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
 		outputAttributes = new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());*/
-		try {
-			pattern = defaultConfig.getDefaultExtractionPattern();
-		} catch (NoSuchPatternException e) {
-			LOG.warn("No default pattern available");
+		if(defaultConfig != null) {
+			try {
+				pattern = defaultConfig.getDefaultExtractionPattern();
+			} catch (NoSuchPatternException e) {
+				LOG.warn("No default pattern available");
+			}
+			patternAttributes = defaultConfig.getDefaultPatternAttribute();
+			outputAttributes = defaultConfig.getDefaultOutputAttributes();
 		}
-		patternAttributes = defaultConfig.getDefaultPatternAttribute();
-		outputAttributes = defaultConfig.getDefaultOutputAttributes();
 		
 	}
 

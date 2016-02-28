@@ -23,16 +23,17 @@ import basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.analysismerger.AnalysisMerger;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
+import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.model.analyses.FileUploadListener;
 import com.gmo.model.analysis.AnalysisStatus;
 import com.gmo.model.data.ChunkResult;
 import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.model.processconfiguration.ProcessConfiguration;
+import com.gmo.model.reports.Report;
 import com.gmo.processorserver.IDistantResource;
-import com.gmo.reports.Report;
+import com.gmo.util.FileUploadListener;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
 
@@ -196,7 +197,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 
 		else if (newstatus == AnalysisStatus.READY_FOR_PROCESSING) {
 			LOG.debug("Analysis " + id + " switch to Ready for processing. Start buffer and dispatcher");
-			report = new Report(processConfiguration, launchDate, id, userid);
+			report = new Report(processConfiguration, launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
 
 			merger = new AnalysisMerger(report, buffer, this);
 			// Start new reader in separate pool thread (manage by thread pool

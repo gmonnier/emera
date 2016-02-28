@@ -17,8 +17,6 @@ public class AnalysisManager {
 
 	private List<Analysis> runningAnalysis;
 
-	private List<Analysis> processedAnalysis;
-
 	private static class AnalysisManagerHolder {
 		public final static AnalysisManager instance = new AnalysisManager();
 	}
@@ -29,7 +27,6 @@ public class AnalysisManager {
 	private AnalysisManager() {
 		LOG.info("Instantiate Analyse manager");
 		runningAnalysis = new ArrayList<Analysis>();
-		processedAnalysis = new ArrayList<Analysis>();
 	}
 
 	public static synchronized AnalysisManager getInstance() {
@@ -46,22 +43,8 @@ public class AnalysisManager {
 		return runningUsersList;
 	}
 
-	public List<Analysis> getUserProcessedAnalysis(String userID) {
-		List<Analysis> processedUsersList = new ArrayList<>();
-		for (Analysis analysis : processedAnalysis) {
-			if (analysis.getUserid().equals(userID)) {
-				processedUsersList.add(analysis);
-			}
-		}
-		return processedUsersList;
-	}
-
 	public List<Analysis> getAllRunningAnalysis() {
 		return runningAnalysis;
-	}
-
-	public List<Analysis> getAllProcessedAnalysis() {
-		return processedAnalysis;
 	}
 
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration processConfig, String userID) {
@@ -129,18 +112,6 @@ public class AnalysisManager {
 			throw new NoSuchAnalysisException();
 		}
 		for (Analysis analysis : runningAnalysis) {
-			if (analysis.getId().equals(id)) {
-				return analysis;
-			}
-		}
-		throw new NoSuchAnalysisException();
-	}
-
-	public Analysis getProcessedAnalysis(String id) throws NoSuchAnalysisException {
-		if (id == null || id.isEmpty()) {
-			throw new NoSuchAnalysisException();
-		}
-		for (Analysis analysis : processedAnalysis) {
 			if (analysis.getId().equals(id)) {
 				return analysis;
 			}

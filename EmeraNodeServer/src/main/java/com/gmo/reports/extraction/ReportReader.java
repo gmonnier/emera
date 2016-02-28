@@ -13,7 +13,7 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.model.genelibrary.GeneLibrary;
 import com.gmo.model.inputs.ModelFileStored;
 import com.gmo.model.processconfiguration.ProcessConfiguration;
-import com.gmo.reports.Report;
+import com.gmo.model.reports.Report;
 
 public class ReportReader {
 	

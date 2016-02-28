@@ -1,4 +1,4 @@
-package com.gmo.reports;
+package com.gmo.model.reports;
 
 import java.io.Serializable;
 import java.util.HashMap;
