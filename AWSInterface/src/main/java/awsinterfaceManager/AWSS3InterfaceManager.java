@@ -47,5 +47,9 @@ public class AWSS3InterfaceManager {
 		return AWSS3InterfaceManagerHolder.instance;
 	}
 
+	public boolean isBucketValid(String bucketName) {
+		return s3Client.doesBucketExist(bucketName);
+	}
+
 	
 }
