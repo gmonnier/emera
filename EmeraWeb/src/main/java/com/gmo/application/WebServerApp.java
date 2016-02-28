@@ -52,6 +52,8 @@ public class WebServerApp {
 		LOG.info("---------------------------------------------");
 
 		logSystemProperties();
+		
+		initReportExtraction();
 
 		initConnectionMonitor();
 
@@ -72,6 +74,11 @@ public class WebServerApp {
 	private static void initConnectionMonitor() {
 		LOG.debug("Init connections monitor");
 		ConnectionsMonitor.getInstance();
+	}
+	
+	private static void initReportExtraction() {
+		LOG.debug("Extract stored analyses results");
+		new AnalysisExtractor();
 	}
 
 	private static void initJettyServer() throws Exception {

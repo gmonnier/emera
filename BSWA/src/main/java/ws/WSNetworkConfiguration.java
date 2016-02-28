@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.Logger;
 
 import processorserver.ProcessorServerManager;
-import awsinterfaceManager.AWSInterfaceManager;
+import awsinterfaceManager.AWSEC2InterfaceManager;
 
 import com.gmo.logger.Log4JLogger;
 
@@ -35,7 +35,7 @@ public class WSNetworkConfiguration {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response requestClientStartAllAWSResourcesJSON() {
 		LOG.debug("Request to start all AWS resources");
-		AWSInterfaceManager.getInstance().startAllInstances();
+		AWSEC2InterfaceManager.getInstance().startAllInstances();
 		return Response.status(200).build();
 	}
 	
@@ -44,7 +44,7 @@ public class WSNetworkConfiguration {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response requestClientStopAllAWSResourcesJSON() {
 		LOG.debug("Request to stop all AWS resources");
-		AWSInterfaceManager.getInstance().stopAllInstances();
+		AWSEC2InterfaceManager.getInstance().stopAllInstances();
 		return Response.status(200).build();
 	}
 	

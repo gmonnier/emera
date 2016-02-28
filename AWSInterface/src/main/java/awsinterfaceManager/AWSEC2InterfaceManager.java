@@ -21,7 +21,7 @@ import com.gmo.logger.Log4JLogger;
 
 import configuration.AWSContextManager;
 
-public class AWSInterfaceManager {
+public class AWSEC2InterfaceManager {
 
 	private AmazonEC2Client ec2Client;
 
@@ -34,13 +34,13 @@ public class AWSInterfaceManager {
 	private boolean initialized;
 
 	private static class AnalysisManagerHolder {
-		public final static AWSInterfaceManager instance = new AWSInterfaceManager();
+		public final static AWSEC2InterfaceManager instance = new AWSEC2InterfaceManager();
 	}
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	private AWSInterfaceManager() {
+	private AWSEC2InterfaceManager() {
 		LOG.info("Instantiate AWS Interface manager");
 		System.setProperty("aws.accessKeyId", AWSContextManager.getInstance().getConfig().getAwsAccessKeyID());
 		System.setProperty("aws.secretKey", AWSContextManager.getInstance().getConfig().getAwsSecretAccessKey());
@@ -59,7 +59,7 @@ public class AWSInterfaceManager {
 		
 	}
 
-	public static synchronized AWSInterfaceManager getInstance() {
+	public static synchronized AWSEC2InterfaceManager getInstance() {
 		return AnalysisManagerHolder.instance;
 	}
 

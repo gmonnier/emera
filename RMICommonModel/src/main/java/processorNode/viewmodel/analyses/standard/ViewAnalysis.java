@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.gmo.model.analysis.AnalysisStatus;
+import com.gmo.model.reports.Report;
+
 import processorNode.viewmodel.ViewCreateProcessConfiguration;
 
 
@@ -22,6 +25,19 @@ public class ViewAnalysis {
 	
 	private final static DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	
+	private AnalysisStatus status;
+	
+	// Associated report
+	private Report report;
+	
+	public long getLaunchDate() {
+		return launchDate;
+	}
+
+	public void setLaunchDate(long laundDate) {
+		this.launchDate = laundDate;
+	}
+
 	public String getLaunchDateFormat() {
 		return df.format(new Date(launchDate));
 	}
@@ -55,6 +71,22 @@ public class ViewAnalysis {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+	
+	public AnalysisStatus getStatus() {
+		return status;
+	}
+
+	public synchronized void setStatus(AnalysisStatus newstatus) {
+		this.status = newstatus;
+	}
+	
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
 	}
 
 }

@@ -43,7 +43,7 @@ public class AWSWatcherManager implements IAWSInstanceStateChanged {
 		
 		if(state.equals("running")) {
 			
-			String publicIp = AWSInterfaceManager.getInstance().getInstanceWithID(instID).getPublicIpAddress();
+			String publicIp = AWSEC2InterfaceManager.getInstance().getInstanceWithID(instID).getPublicIpAddress();
 			SSHClientExecutor sshClient = new SSHClientExecutor(publicIp);
 			sshClient.startRemoteClient();
 		}

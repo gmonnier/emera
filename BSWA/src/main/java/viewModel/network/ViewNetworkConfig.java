@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import processorserver.IDistantResource;
 import processorserver.IResource;
 import processorserver.ProcessorServerManager;
-import awsinterfaceManager.AWSInterfaceManager;
+import awsinterfaceManager.AWSEC2InterfaceManager;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.gmo.client.ClientStatus;
@@ -44,7 +44,7 @@ public class ViewNetworkConfig {
 		Map<String, IDistantResource> listRes = ProcessorServerManager.getInstance().getMapResourcesConnected();
 		resources = new ArrayList<>(listRes.size());
 		
-		List<Instance> listInstances = AWSInterfaceManager.getInstance().getAllInstances();
+		List<Instance> listInstances = AWSEC2InterfaceManager.getInstance().getAllInstances();
 		awsInstances = new ArrayList<>(listInstances.size());
 
 		if (userID.equals("guest")) {

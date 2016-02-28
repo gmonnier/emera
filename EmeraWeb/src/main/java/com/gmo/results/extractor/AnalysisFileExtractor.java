@@ -1,57 +1,47 @@
-package com.gmo.reports.extraction;
+package com.gmo.results.extractor;
 
 import java.io.File;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
 import processorNode.viewmodel.ViewCreateProcessConfiguration;
 import processorNode.viewmodel.ViewFile;
+import processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
-import com.gmo.coreprocessing.Analysis;
-import com.gmo.coreprocessing.AnalysisManager;
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.model.analysis.AnalysisStatus;
 import com.gmo.model.reports.Report;
-import com.gmo.reports.generation.ReportWriter;
 
-public class AnalysisExtractor implements Runnable {
-
+public class AnalysisFileExtractor extends AnalysisExtractor {
+	
 	private static Logger LOG = Log4JLogger.logger;
 
-	public final static String ADDITIONAL_ANALYSIS_DIR = "Additional";
-
-	private File analysesDirectoryRoot;
-
-	private static final Executor fileExtractorService = Executors.newSingleThreadExecutor();
-
-	public AnalysisExtractor() {
-		analysesDirectoryRoot = new File(ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation());
-
-		if (!analysesDirectoryRoot.exists()) {
-			LOG.warn("Analyses storage directory does not exists, abort analyses extractions");
-		} else {
-			fileExtractorService.execute(this);
-		}
+	@Override
+	public boolean isRootValid() {
+		return new File(analysesDirectoryRoot).exists();
+	}
+	
+	@Override
+	protected String getResultsRoot() {
+		return ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
 	}
 
 	@Override
-	public void run() {
-
-		File[] listUsersDir = analysesDirectoryRoot.listFiles();
+	protected void extractAnalyses() {
+		File[] listUsersDir = new File(analysesDirectoryRoot).listFiles();
 		if (listUsersDir == null) {
-			LOG.warn("No users directory, exits extractor thread.");
+			LOG.warn("No users results repository, exits extractor thread.");
 			return;
 		}
-		
+
 		for (int k = 0; k < listUsersDir.length; k++) {
 
 			if (!listUsersDir[k].isDirectory()) {
 				continue;
 			}
-			
+
 			String userID = listUsersDir[k].getName();
 			File[] listAnalysisDir = listUsersDir[k].listFiles();
 
@@ -69,7 +59,7 @@ public class AnalysisExtractor implements Runnable {
 					File reportSerialized = null;
 					if (listFiles != null) {
 						for (int j = 0; j < listFiles.length; j++) {
-							if (listFiles[j].getName().equals(ReportWriter.REPORT_FILENAME)) {
+							if (listFiles[j].getName().equals(REPORT_FILENAME)) {
 								reportSerialized = listFiles[j];
 							}
 						}
@@ -81,7 +71,7 @@ public class AnalysisExtractor implements Runnable {
 
 							Report report = ReportReader.extractReport(reportSerialized, userID);
 
-							Analysis analysisDone = new Analysis();
+							ViewAnalysis analysisDone = new ViewAnalysis();
 							analysisDone.setId(analyseID);
 							analysisDone.setUserid(userID);
 							analysisDone.setStatus(AnalysisStatus.DONE);
@@ -106,10 +96,9 @@ public class AnalysisExtractor implements Runnable {
 				}
 			}
 		}
-
 	}
 
-	private void extractAdditionnalAnalyses(Analysis analysisDone, File additionalAnalysesDirectory) {
+	private void extractAdditionnalAnalyses(ViewAnalysis analysisDone, File additionalAnalysesDirectory) {
 		LOG.debug(additionalAnalysesDirectory.getAbsolutePath());
 		if (additionalAnalysesDirectory.exists()) {
 			File[] listAdditional = additionalAnalysesDirectory.listFiles();

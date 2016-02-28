@@ -39,9 +39,9 @@ public class AWSInstancesStateWatcher implements Runnable {
 
 		while (!mapExpectedStates.isEmpty()) {
 
-			AWSInterfaceManager.getInstance().updateInstances();
+			AWSEC2InterfaceManager.getInstance().updateInstances();
 
-			List<Instance> listInstances = AWSInterfaceManager.getInstance().getAllInstances();
+			List<Instance> listInstances = AWSEC2InterfaceManager.getInstance().getAllInstances();
 			for (Iterator<Instance> iterator = listInstances.iterator(); iterator.hasNext();) {
 				Instance instance = (Instance) iterator.next();
 				if (mapExpectedStates.get(instance.getInstanceId()) != null) {

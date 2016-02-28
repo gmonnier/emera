@@ -24,7 +24,7 @@ import application.mappers.EOFExceptionMapper;
 import application.mappers.WebExceptionMapper;
 import applicationconfig.ApplicationContextManager;
 import applicationconfig.StorageConfigurationManager;
-import awsinterfaceManager.AWSInterfaceManager;
+import awsinterfaceManager.AWSEC2InterfaceManager;
 
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
@@ -100,7 +100,7 @@ public class WebServerApp {
 
 	private static void initAWSModel() {
 		LOG.debug("Init Amazon Web Services Interface");
-		AWSInterfaceManager.getInstance();
+		AWSEC2InterfaceManager.getInstance();
 	}
 
 	private static void initReportExtraction() {

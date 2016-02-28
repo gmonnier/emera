@@ -1,4 +1,4 @@
-package com.gmo.reports.extraction;
+package com.gmo.results.extractor;
 
 import java.io.BufferedReader;
 import java.io.File;

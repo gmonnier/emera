@@ -2,6 +2,7 @@ package processorNode.viewmodel;
 
 import java.util.List;
 
+import processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import processorNode.viewmodel.network.ViewNetworkConfig;
 
 public class ViewPollingInfo {

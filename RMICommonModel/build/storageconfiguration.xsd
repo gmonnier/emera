@@ -9,6 +9,7 @@
 			<xs:sequence>
 				<xs:element name="DataFilesRoot" type="xs:string" />
 				<xs:element name="LibrariesFilesRoot" type="xs:string" />
+				<xs:element name="analysisResultsLocation" type="xs:string" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
