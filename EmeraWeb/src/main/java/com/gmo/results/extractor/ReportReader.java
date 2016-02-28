@@ -5,18 +5,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
 
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
-import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
 
 public class ReportReader {
-	
+
 	private static Logger LOG = Log4JLogger.logger;
 
 	public static Report extractReport(File input, String userID) throws Throwable {
@@ -40,7 +39,7 @@ public class ReportReader {
 			lib.convertStringToObject(libSer);
 
 			String configSer = reader.readLine();
-			ProcessConfiguration config = new ProcessConfiguration(null);
+			ViewCreateProcessConfiguration config = new ViewCreateProcessConfiguration(null);
 			config.convertStringToObject(configSer);
 
 			String dataFilesSer = reader.readLine();
@@ -50,10 +49,10 @@ public class ReportReader {
 				for (int j = 0; j < splitted.length; j++) {
 					String mfsSer = splitted[j];
 					String[] splitted2 = mfsSer.split("#");
-					ModelFileStored mfs = new ModelFileStored(new File(splitted2[2]));
-					mfs.setId(splitted2[0]);
-					mfs.setLastModified(new Date(Long.parseLong(splitted2[3])));
-					config.addToData(mfs);
+					ViewFile dataFile = new ViewFile(new File(splitted2[2]));
+					dataFile.setId(splitted2[0]);
+					dataFile.setLastModified(Long.parseLong(splitted2[3]));
+					config.getSelectedDataFiles().add(dataFile);
 				}
 			}
 
@@ -64,15 +63,15 @@ public class ReportReader {
 				for (int j = 0; j < splitted.length; j++) {
 					String mfsSer = splitted[j];
 					String[] splitted2 = mfsSer.split("#");
-					ModelFileStored mfs = new ModelFileStored(new File(splitted2[2]));
-					mfs.setId(splitted2[0]);
-					mfs.setLastModified(new Date(Long.parseLong(splitted2[3])));
-					config.addToLibraries(mfs);
+					ViewFile libFile = new ViewFile(new File(splitted2[2]));
+					libFile.setId(splitted2[0]);
+					libFile.setLastModified(Long.parseLong(splitted2[3]));
+					config.getSelectedLibraries().add(libFile);
 				}
 			}
 
 			ret = new Report(config, startDate, analyseID, userID);
-			
+
 			String occurencesSer = reader.readLine();
 			splitted = occurencesSer.split("##");
 			if (splitted != null) {
@@ -84,14 +83,12 @@ public class ReportReader {
 				LOG.error("No occurences found for this repoert!");
 			}
 
-			
 			ret.setEndDate(endDate);
 			ret.setTotalLineProcessed(lineProcessed);
 			ret.setTotalOccurencesFound(totaloccurencesfound);
 			ret.setTotalChunksProcessed(totalchunksProcessed);
 			ret.setChunkSize(chunkSize);
 			ret.setLibrary(lib);
-			
 
 		} catch (Throwable e) {
 			throw e;
@@ -106,5 +103,5 @@ public class ReportReader {
 		return ret;
 
 	}
-	
+
 }

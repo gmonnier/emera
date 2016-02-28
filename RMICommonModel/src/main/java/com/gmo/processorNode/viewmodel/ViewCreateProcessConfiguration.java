@@ -1,5 +1,6 @@
 package com.gmo.processorNode.viewmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
 import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
 import com.gmo.sharedobjects.util.NoSuchPatternException;
+import com.gmo.sharedobjects.util.StringSerializable;
+import com.gmo.sharedobjects.util.StringSerializationException;
 
 @XmlRootElement
-public class ViewCreateProcessConfiguration {
+public class ViewCreateProcessConfiguration implements Serializable, StringSerializable {
 
 	// The selected extraction pattern
 	private ExtractionPattern pattern;
@@ -34,21 +37,14 @@ public class ViewCreateProcessConfiguration {
 	
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
+	
+	private StringBuilder sb = new StringBuilder();
 
 	public ViewCreateProcessConfiguration(DefaultConfigurationProvider defaultConfig) {
 
 		selectedLibraries = new ArrayList<ViewFile>();
 		selectedDataFiles = new ArrayList<ViewFile>();
-
-		//ApplicationContext defaultConfig = ApplicationContextManager.getInstance().getConfig();
-
-		/*try {
-			pattern = ApplicationContextManager.getInstance().getDefaultExtractionPattern();
-		} catch (NoSuchPatternException e) {
-			LOG.warn("No default pattern available");
-		}
-		patternAttributes = new PatternAttributes(defaultConfig.isAllowCharacterError(), defaultConfig.isAllowShifting());
-		outputAttributes = new OutputAttributes(defaultConfig.isGenerateCSVOutput(), defaultConfig.isGeneratePDFOutput(), defaultConfig.isCheckForUnfoundEntries());*/
+		
 		if(defaultConfig != null) {
 			try {
 				pattern = defaultConfig.getDefaultExtractionPattern();
@@ -105,6 +101,34 @@ public class ViewCreateProcessConfiguration {
 	public String toString() {
 		return "ProcessConfiguration [pattern=" + pattern + ", patternAttributes=" + patternAttributes + ", outputAttributes=" + outputAttributes + ", selectedLibraries=" + selectedLibraries
 				+ ", selectedDataFiles=" + selectedDataFiles + "]";
+	}
+
+	@Override
+	public String getObjectAsString() {
+		sb.setLength(0);
+		sb.append(pattern.getObjectAsString());
+		sb.append("##");
+		sb.append(patternAttributes.getObjectAsString());
+		sb.append("##");
+		sb.append(outputAttributes.getObjectAsString());
+		return sb.toString();
+	}
+
+	@Override
+	public void convertStringToObject(String input) throws StringSerializationException {
+		String[] splitted = input.split("##");
+		if (splitted == null || splitted.length != 3) {
+			throw new StringSerializationException();
+		} else {
+			this.pattern = new ExtractionPattern();
+			this.pattern.convertStringToObject(splitted[0]);
+
+			this.patternAttributes = new PatternAttributes();
+			this.patternAttributes.convertStringToObject(splitted[1]);
+
+			this.outputAttributes = new OutputAttributes();
+			this.outputAttributes.convertStringToObject(splitted[2]);
+		}
 	}
 
 }

@@ -1,15 +1,24 @@
 package com.gmo.processorNode.viewmodel.analyses.standard;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.reports.Report;
 
 
 public class ViewAnalysis {
+	
+	private static Logger LOG = Log4JLogger.logger;
 	
 	private String id;
 	
@@ -26,8 +35,14 @@ public class ViewAnalysis {
 	
 	private AnalysisStatus status;
 	
+	private List<ViewFile> additionalAnalyses;
+	
 	// Associated report
 	private Report report;
+	
+	public ViewAnalysis() {
+		this.additionalAnalyses = new ArrayList<>();
+	}
 	
 	public long getLaunchDate() {
 		return launchDate;
@@ -96,6 +111,37 @@ public class ViewAnalysis {
 		this.viewConfiguration = viewConfiguration;
 	}
 	
+	public List<ViewFile> getAdditionalAnalyses() {
+		return additionalAnalyses;
+	}
+
+	public void setAdditionalAnalyses(List<ViewFile> additionalAnalyses) {
+		this.additionalAnalyses = additionalAnalyses;
+	}
 	
+	public void deleteAdditionalReport(String filename) {
+
+		ViewFile deleted = null;
+		for (ViewFile vf : additionalAnalyses) {
+			if (vf.getName().equals(filename)) {
+				File result = new File(vf.getId());
+				if (!result.exists()) {
+					LOG.debug("File does not exists. Unable to delete " + filename);
+					deleted = vf;
+				} else {
+					boolean success = result.delete();
+					if (success) {
+						deleted = vf;
+					} else {
+						LOG.warn("No file was deleted.");
+					}
+					break;
+				}
+			}
+		}
+		if (deleted != null) {
+			additionalAnalyses.remove(deleted);
+		}
+	}
 
 }

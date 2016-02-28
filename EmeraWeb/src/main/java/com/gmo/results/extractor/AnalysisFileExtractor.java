@@ -3,11 +3,9 @@ package com.gmo.results.extractor;
 import java.io.File;
 
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;

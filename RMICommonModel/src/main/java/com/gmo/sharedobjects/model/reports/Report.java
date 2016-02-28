@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.comparators.OccurenceComparator;
@@ -22,7 +23,7 @@ public class Report implements Serializable {
 
 	private Map<String, UnfoundStartSeqMap> uncorrespondingEntry;
 
-	private ProcessConfiguration analyseConfig;
+	private ViewCreateProcessConfiguration analyseConfig;
 
 	private long totalLineProcessed = 0;
 	// Number of input lines containing one gRNA
@@ -42,7 +43,7 @@ public class Report implements Serializable {
 	private Report() {
 	}
 
-	public Report(ProcessConfiguration analyseConfig, long startDate, String analyseID, String userID) {
+	public Report(ViewCreateProcessConfiguration analyseConfig, long startDate, String analyseID, String userID) {
 		this.analyseConfig = analyseConfig;
 		this.occurencesFound = new HashMap<String, Integer>();
 		this.startDate = startDate;
@@ -52,7 +53,7 @@ public class Report implements Serializable {
 		this.library = new GeneLibrary();
 	}
 
-	public Report(ProcessConfiguration analyseConfig, long startDate, String analyseID, String userID, int chunksize) {
+	public Report(ViewCreateProcessConfiguration analyseConfig, long startDate, String analyseID, String userID, int chunksize) {
 		this.chunkSize = chunksize;
 		new Report(analyseConfig, startDate, analyseID, userID);
 	}
@@ -62,11 +63,11 @@ public class Report implements Serializable {
 		Collections.sort(library.getGenes(), new OccurenceComparator(this));
 	}
 
-	public ProcessConfiguration getAnalyseConfig() {
+	public ViewCreateProcessConfiguration getAnalyseConfig() {
 		return analyseConfig;
 	}
 
-	public void setAnalyseConfig(ProcessConfiguration analyseConfig) {
+	public void setAnalyseConfig(ViewCreateProcessConfiguration analyseConfig) {
 		this.analyseConfig = analyseConfig;
 	}
 

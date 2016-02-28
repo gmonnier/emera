@@ -413,29 +413,4 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		}
 		return sb.toString();
 	}
-
-	public void deleteAdditionalReport(String filename) {
-
-		ViewFile deleted = null;
-		for (ViewFile vf : additionalAnalyses) {
-			if (vf.getName().equals(filename)) {
-				File result = new File(vf.getId());
-				if (!result.exists()) {
-					LOG.debug("File does not exists. Unable to delete " + filename);
-					deleted = vf;
-				} else {
-					boolean success = result.delete();
-					if (success) {
-						deleted = vf;
-					} else {
-						LOG.warn("No file was deleted.");
-					}
-					break;
-				}
-			}
-		}
-		if (deleted != null) {
-			additionalAnalyses.remove(deleted);
-		}
-	}
 }

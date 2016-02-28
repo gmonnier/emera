@@ -24,6 +24,8 @@ public class ViewFile implements Serializable {
 
 	private long dateCreated;
 
+	private long lastModified;
+
 	private long size;
 
 	private final static DateFormat df = new SimpleDateFormat("dd-MM-yyyy  HH:mm");
@@ -31,7 +33,7 @@ public class ViewFile implements Serializable {
 	private ViewFile() {
 		fileType = OutputFileType.UNKNOWN;
 	}
-	
+
 	public ViewFile(ViewFileOrigin origin, String name, String id, long dateCreated, long size) {
 		super();
 		this.origin = origin;
@@ -39,7 +41,7 @@ public class ViewFile implements Serializable {
 		this.id = id;
 		this.dateCreated = dateCreated;
 		this.size = size;
-		
+
 		extractFileTypeFromName();
 	}
 
@@ -55,7 +57,7 @@ public class ViewFile implements Serializable {
 		this.dateCreated = inputFile.getDateCreated().getTime();
 		this.id = inputFile.getId();
 		this.size = inputFile.getSize();
-		
+
 		extractFileTypeFromName();
 	}
 
@@ -72,7 +74,7 @@ public class ViewFile implements Serializable {
 		this.dateCreated = inputFile.lastModified();
 		this.id = inputFile.getAbsolutePath();
 		this.size = inputFile.length();
-		
+
 		extractFileTypeFromName();
 	}
 
@@ -101,6 +103,14 @@ public class ViewFile implements Serializable {
 	}
 
 	public void setDateCreatedFormat(String dateCreated) {
+	}
+
+	public long getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(long lastModified) {
+		this.lastModified = lastModified;
 	}
 
 	public String getName() {
@@ -161,6 +171,6 @@ public class ViewFile implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ViewFile [origin=" + origin + ", name=" + name + ", id=" + id + ", dateCreated=" + dateCreated + "]";
+		return "ViewFile [origin=" + origin + ", name=" + name + ", id=" + id + ", dateCreated=" + dateCreated + ", dateModified=" + lastModified + "]";
 	}
 }
