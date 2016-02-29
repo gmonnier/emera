@@ -1,5 +1,11 @@
 package com.gmo.rmiInterfaces;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -19,6 +25,10 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.modelconverters.FileStoredConverter;
 import com.gmo.network.location.ClientLocation;
+import com.gmo.network.rmiutil.RMIInputStream;
+import com.gmo.network.rmiutil.RMIInputStreamImpl;
+import com.gmo.network.rmiutil.RMIOutputStream;
+import com.gmo.network.rmiutil.RMIOutputStreamImpl;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -37,7 +47,9 @@ import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	final public static int BUF_SIZE = 1024 * 64;
+
 	private final static Logger LOG = Log4JLogger.logger;
 
 	public NodeServerImpl() throws RemoteException {
@@ -46,9 +58,9 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException {
-		
+
 	}
-	
+
 	@Override
 	public List<ViewFile> getListStoredData() throws RemoteException {
 		List<ModelFileStored> input = StorageConfigurationManager.getInstance().getListStoredData();
@@ -59,7 +71,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 			ModelFileStored inputFile = (ModelFileStored) iterator.next();
 			listView.add(viewBuilder.buildViewModelObject(inputFile));
 		}
-		return listView;	
+		return listView;
 	}
 
 	@Override
@@ -72,32 +84,32 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 			ModelFileStored inputFile = (ModelFileStored) iterator.next();
 			listView.add(viewBuilder.buildViewModelObject(inputFile));
 		}
-		return listView;	
+		return listView;
 	}
 
 	@Override
 	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException {
-		
+
 		IResource server = ProcessorServerManager.getInstance().getServerResource();
 		ViewDistantResource thisServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
-		
+
 		Map<String, IDistantResource> listRes = ProcessorServerManager.getInstance().getMapResourcesConnected();
 		List<ViewDistantResource> resources = new ArrayList<>(listRes.size());
-		
+
 		List<Instance> listInstances = AWSEC2InterfaceManager.getInstance().getAllInstances();
 		List<ViewAWSInstance> awsInstances = new ArrayList<>(listInstances.size());
 
 		if (userID.equals("guest")) {
 			// Stub resources
-			ViewDistantResource res = new ViewDistantResource("ID 1", "Resource name", ClientStatus.IDLE.toString() , ClientLocation.stubLocation("163.168.80.10", "Irvine", 33.6694, -117.8231));
+			ViewDistantResource res = new ViewDistantResource("ID 1", "Resource name", ClientStatus.IDLE.toString(), ClientLocation.stubLocation("163.168.80.10", "Irvine", 33.6694, -117.8231));
 			resources.add(res);
-			ViewDistantResource res2 = new ViewDistantResource("ID 2", "Resource name 2", ClientStatus.IDLE.toString() , ClientLocation.stubLocation("184.168.85.3", "Zurich", 47.3667, 8.5500));
+			ViewDistantResource res2 = new ViewDistantResource("ID 2", "Resource name 2", ClientStatus.IDLE.toString(), ClientLocation.stubLocation("184.168.85.3", "Zurich", 47.3667, 8.5500));
 			resources.add(res2);
-			ViewDistantResource res3 = new ViewDistantResource("ID 3", "Resource name 3", ClientStatus.PROCESSING.toString() , ClientLocation.stubLocation("183.143.7.31", "Farnay", 45.4942, 4.5986));
+			ViewDistantResource res3 = new ViewDistantResource("ID 3", "Resource name 3", ClientStatus.PROCESSING.toString(), ClientLocation.stubLocation("183.143.7.31", "Farnay", 45.4942, 4.5986));
 			resources.add(res3);
-			ViewDistantResource res4 = new ViewDistantResource("ID 4", "Resource name 4", ClientStatus.PROCESSING.toString() , ClientLocation.stubLocation("145.143.7.31", "Baltimore", 39.2833, -76.6167));
+			ViewDistantResource res4 = new ViewDistantResource("ID 4", "Resource name 4", ClientStatus.PROCESSING.toString(), ClientLocation.stubLocation("145.143.7.31", "Baltimore", 39.2833, -76.6167));
 			resources.add(res4);
-			ViewDistantResource res5 = new ViewDistantResource("ID 5", "Resource name 5", ClientStatus.RETRIEVING_DATA.toString() , ClientLocation.stubLocation("145.143.7.31", "San Francisco", 37.7833, -122.4167));
+			ViewDistantResource res5 = new ViewDistantResource("ID 5", "Resource name 5", ClientStatus.RETRIEVING_DATA.toString(), ClientLocation.stubLocation("145.143.7.31", "San Francisco", 37.7833, -122.4167));
 			resources.add(res5);
 		} else {
 			Iterator<Map.Entry<String, IDistantResource>> it = listRes.entrySet().iterator();
@@ -114,29 +126,29 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 			}
 		}
 		ViewNetworkConfig viewNetConfig = new ViewNetworkConfig(thisServer, resources, awsInstances);
-		
+
 		List<Analysis> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
 		List<ViewAnalysis> usersViewAnalysis = new ArrayList<ViewAnalysis>();
-		
+
 		AnalysisConverter analysisConverter = new AnalysisConverter();
 		for (Iterator<Analysis> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
 			Analysis analysis = (Analysis) iterator.next();
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
 		}
-		
+
 		return new ViewPollingInfo(viewNetConfig, usersViewAnalysis, null);
 	}
 
 	@Override
 	public void stopAllAnalyses(String userID) throws RemoteException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -144,5 +156,32 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	// --------- File transfert --------
+
+	public OutputStream getOutputStream(File f) throws IOException {
+		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(f)));
+	}
+
+	public InputStream getInputStream(File f) throws IOException {
+		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
+	}
+
+	public void upload(File src, File dest) throws IOException {
+		copy(new FileInputStream(src), getOutputStream(dest));
+	}
+
+	public void download(File src, File dest) throws IOException {
+		copy(getInputStream(src), new FileOutputStream(dest));
+	}
+
+	private void copy(InputStream in, OutputStream out) throws IOException {
+		byte[] b = new byte[BUF_SIZE];
+		int len;
+		while ((len = in.read(b)) >= 0) {
+			out.write(b, 0, len);
+		}
+		in.close();
+		out.close();
+	}
 }

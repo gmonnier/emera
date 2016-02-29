@@ -489,9 +489,8 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 			occCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			occCell.setBackgroundColor(baseBackgroundCellColorImportant);
 			tableInfo.addCell(occCell);
-			
-			PdfPCell occCell2 = new PdfPCell(new Paragraph(Long.toString(report.getTotalOccurencesFound()) + "  ("
-					+ formatSansExpo(100.0 * report.getTotalOccurencesFound() / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
+
+			PdfPCell occCell2 = new PdfPCell(new Paragraph(Long.toString(report.getTotalOccurencesFound()) + "  (" + formatSansExpo(100.0 * report.getTotalOccurencesFound() / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
 			occCell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			occCell2.setBackgroundColor(baseBackgroundCellColorImportant);
 			tableInfo.addCell(occCell2);
@@ -503,8 +502,7 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 			tableInfo.addCell(occNotFoundCell);
 
 			long unfoundOccurence = report.getTotalLineProcessed() - report.getTotalOccurencesFound();
-			PdfPCell occNotFoundCell2 = new PdfPCell(new Paragraph(unfoundOccurence + "  ("
-					+ formatSansExpo(100.0 * unfoundOccurence / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
+			PdfPCell occNotFoundCell2 = new PdfPCell(new Paragraph(unfoundOccurence + "  (" + formatSansExpo(100.0 * unfoundOccurence / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
 			occNotFoundCell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			occNotFoundCell2.setBackgroundColor(baseBackgroundCellColorImportant);
 			tableInfo.addCell(occNotFoundCell2);
