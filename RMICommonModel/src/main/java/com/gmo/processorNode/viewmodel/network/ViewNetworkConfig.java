@@ -30,8 +30,11 @@ public class ViewNetworkConfig {
 		
 	}
 
-	public ViewNetworkConfig(String userID) {
+	public ViewNetworkConfig(ViewDistantResource thisServer, List<ViewDistantResource> resources, List<ViewAWSInstance> awsInstances) {
 
+		this.thisServer = thisServer;
+		this.resources = resources;
+		this.awsInstances = awsInstances;
 		IResource server = ProcessorServerManager.getInstance().getServerResource();
 		thisServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
 		

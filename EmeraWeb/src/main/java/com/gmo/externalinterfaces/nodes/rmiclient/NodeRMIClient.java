@@ -10,12 +10,14 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
+import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 
 public class NodeRMIClient implements IProcessorNode {
@@ -90,7 +92,8 @@ public class NodeRMIClient implements IProcessorNode {
 	public ViewPollingInfo getViewPollingInfo(String userID) {
 		if (rmiNodeClient != null) {
 			try {
-				return rmiNodeClient.getViewPollingInfo(userID);
+				ViewPollingInfo pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
+				pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
