@@ -26,6 +26,8 @@ import com.gmo.results.extractor.AnalysisFileExtractor;
 import com.gmo.results.extractor.AnalysisS3Extractor;
 import com.gmo.systemUtil.SystemCommand;
 
+import configuration.AWSContextManager;
+
 public class WebServerApp {
 
 	// Application logging.
@@ -56,9 +58,11 @@ public class WebServerApp {
 
 		logSystemProperties();
 
-		initReportExtraction();
+		initConfigs();
 
 		initConnectionMonitor();
+
+		initReportExtraction();
 
 		initJettyServer();
 
@@ -72,6 +76,11 @@ public class WebServerApp {
 			String value = (String) p.get(key);
 			LOG.info(key + ": " + value);
 		}
+	}
+
+	private static void initConfigs() {
+		ApplicationContextManager.getInstance().getConfig();
+		AWSContextManager.getInstance().getConfig();
 	}
 
 	private static void initConnectionMonitor() {
@@ -100,7 +109,7 @@ public class WebServerApp {
 
 	private static void initJettyServer() throws Exception {
 
-		Server jettyServer = new Server(8082);
+		Server jettyServer = new Server(ApplicationContextManager.getInstance().getConfig().getWebServerPort());
 
 		ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		servletHandler.setContextPath("/");

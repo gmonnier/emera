@@ -124,11 +124,12 @@ public class NodeRMIClient implements IProcessorNode {
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) {
 		if (rmiNodeClient != null) {
 			try {
-				rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID);
+				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
 		}
+		return null;
 	}
 
 }
