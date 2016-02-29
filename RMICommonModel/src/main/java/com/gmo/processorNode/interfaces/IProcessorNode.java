@@ -4,8 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 
 public interface IProcessorNode extends Remote {
 
@@ -15,7 +17,14 @@ public interface IProcessorNode extends Remote {
 	
 	public List<ViewFile> getListStoredLibraries() throws RemoteException;
 	
-	// ------ Analyzes management -----
+	// ------ Analyses management -----
 
 	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException;
+	
+	public void stopAllAnalyses(String userID) throws RemoteException;
+	
+	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException;
+	
+	public void enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) throws RemoteException;
+	
 }

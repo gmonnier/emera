@@ -9,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
+import com.gmo.processorNode.viewmodel.defaultproviders.DefaultConfigurationProvider;
 import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
+import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
 import com.gmo.sharedobjects.util.NoSuchPatternException;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
@@ -17,7 +20,7 @@ import configuration.jaxb.applicationcontext.Pattern;
 import configuration.jaxb.applicationcontext.PatternsStorage;
 import configuration.jaxb.applicationcontext.SplitPattern;
 
-public class ApplicationContextManager extends AbstractConfigurationManager<ApplicationContext> {
+public class ApplicationContextManager extends AbstractConfigurationManager<ApplicationContext> implements DefaultConfigurationProvider {
 
 	private final static String contextFile = "conf/ApplicationContext.xml";
 
@@ -183,6 +186,16 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 				getConfig().getPatternsStorage().setDefaultPatternIndex(i);
 			}
 		}
+	}
+
+	@Override
+	public PatternAttributes getDefaultPatternAttribute() {
+		return new PatternAttributes(getConfig().isAllowCharacterError(), getConfig().isAllowShifting());
+	}
+
+	@Override
+	public OutputAttributes getDefaultOutputAttributes() {
+		return new OutputAttributes(getConfig().isGenerateCSVOutput(), getConfig().isGeneratePDFOutput(), getConfig().isCheckForUnfoundEntries());
 	}
 
 }

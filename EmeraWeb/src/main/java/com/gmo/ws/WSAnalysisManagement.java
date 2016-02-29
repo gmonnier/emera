@@ -52,7 +52,6 @@ public class WSAnalysisManagement {
 		LOG.debug("Request for ReportGraphData for analyse : " + analyseID);
 		ViewReportGraphData graphData = new ViewReportGraphData();
 
-		
 		try {
 			Report report = ResultsManager.getInstance().getProcessedAnalysis(analyseID).getReport();
 			List<ReferenceGene> lib = report.getLibrary().getGenes();
@@ -70,7 +69,7 @@ public class WSAnalysisManagement {
 	@GET
 	@Path("report/{id}/csv")
 	@Produces(TEXT_CSV)
-	public Response getCSVAnalyseResultFile(@PathParam("id") String analyseID,  @QueryParam("user_ID") String userID) {
+	public Response getCSVAnalyseResultFile(@PathParam("id") String analyseID, @QueryParam("user_ID") String userID) {
 
 		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
 
@@ -111,8 +110,8 @@ public class WSAnalysisManagement {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response requestStopAllAnalysesJSON(@QueryParam("user_id") String userID) {
-		LOG.info("Request all analysis to be stopped for user : " +userID);
-		AnalysisManager.getInstance().stopAllAnalyses(userID);
+		LOG.info("Request all analysis to be stopped for user : " + userID);
+		NodeManager.getInstance().getNodeRMIClient().stopAllAnalyses(userID);
 		return Response.status(200).build();
 	}
 
@@ -122,14 +121,8 @@ public class WSAnalysisManagement {
 	public Response requestStatusChanged(StatusChangeRequest jsonStatusReq) {
 		String id = jsonStatusReq.getAnalyseId();
 		LOG.info("Request to change status for analyse ID " + id + " to " + jsonStatusReq);
-		try {
-			AnalysisManager.getInstance().getRunningAnalysis(id).setStatus(jsonStatusReq.getNewStatus());
-			return Response.status(200).build();
-		} catch (NoSuchAnalysisException e) {
-			LOG.error("Request to change status on unexisting analysis ID");
-			return Response.status(500).build();
-		}
-
+		NodeManager.getInstance().getNodeRMIClient().requestRunningAnalysisChangeStatus(id, jsonStatusReq.getNewStatus());
+		return Response.status(200).build();
 	}
 
 }

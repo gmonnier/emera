@@ -20,6 +20,8 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewCompareAnalysisParam;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
+import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 @Path("/ws-resources/additional")
@@ -40,7 +42,7 @@ public class WSAdditionalAnalysis {
 		LOG.debug("Request for additional analysis download for analyse " + analyseId + " on file index " + name);
 		List<ViewFile> viewFiles;
 		try {
-			viewFiles = AnalysisManager.getInstance().getProcessedAnalysis(analyseId).getAdditionalAnalyses();
+			viewFiles = ResultsManager.getInstance().getProcessedAnalysis(analyseId).getAdditionalAnalyses();
 
 			for (Iterator<ViewFile> iterator = viewFiles.iterator(); iterator.hasNext();) {
 				ViewFile viewFile = (ViewFile) iterator.next();
@@ -72,7 +74,7 @@ public class WSAdditionalAnalysis {
 
 		LOG.debug("Request for additional analysis to be deleted " + analyseId + " - file name : " + filename);
 		try {
-			AnalysisManager.getInstance().getProcessedAnalysis(analyseId).deleteAdditionalReport(filename);
+			ResultsManager.getInstance().getProcessedAnalysis(analyseId).deleteAdditionalReport(filename);
 			return Response.status(200).build();
 		} catch (Throwable e) {
 			LOG.error("No analysis found with ID " + analyseId, e);
@@ -88,8 +90,8 @@ public class WSAdditionalAnalysis {
 
 		LOG.info("Request to perform analysis comparison between " + compareParam.getAnalysisID1() + " and " + compareParam.getAnalysisID2() + " to output type :" + compareParam.getOutputFileType());
 		try {
-			Analysis anRef = AnalysisManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID1());
-			Analysis anComp = AnalysisManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID2());
+			ViewAnalysis anRef = ResultsManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID1());
+			ViewAnalysis anComp = ResultsManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID2());
 			new OccurencesIncreaseAnalysis(anRef, anComp, compareParam.getOutputFileType());
 			return Response.status(200).build();
 		} catch (NoSuchAnalysisException e) {

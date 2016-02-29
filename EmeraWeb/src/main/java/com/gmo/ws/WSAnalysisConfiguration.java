@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.ws.exceptions.ApplicationRequestException;
@@ -35,7 +36,7 @@ public class WSAnalysisConfiguration {
 	public String postNewProcessJSON(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
 		LOG.debug("POST: enqueue requested for new analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
-		String id = AnalysisManager.getInstance().enqueueNewAnalysis(jsonConfig, userID);
+		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID);
 		LOG.info("new Analysis enqueued with ID " + id);
 		return id;
 	}
@@ -76,6 +77,6 @@ public class WSAnalysisConfiguration {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public ViewCreateProcessConfiguration retrieveDefaultConfigurationJSON() {
-		return new ViewCreateProcessConfiguration();
+		return new ViewCreateProcessConfiguration(ApplicationContextManager.getInstance());
 	}
 }
