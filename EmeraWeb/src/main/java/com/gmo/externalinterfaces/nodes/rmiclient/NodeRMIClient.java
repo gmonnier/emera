@@ -11,12 +11,12 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
-import com.gmo.processorNode.viewmodel.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 
-public class NodeRMIClient implements IProcessorNode{
+public class NodeRMIClient implements IProcessorNode {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -40,7 +40,7 @@ public class NodeRMIClient implements IProcessorNode{
 			LOG.error("NotBoundException " + e);
 		}
 	}
-	
+
 	public boolean isConnectionOk() {
 		return connectionOk;
 	}
@@ -59,7 +59,7 @@ public class NodeRMIClient implements IProcessorNode{
 			}
 		}
 	}
-	
+
 	@Override
 	public List<ViewFile> getListStoredData() {
 		if (rmiNodeClient != null) {

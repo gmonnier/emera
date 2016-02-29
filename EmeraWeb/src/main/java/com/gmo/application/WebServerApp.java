@@ -19,8 +19,11 @@ import com.gmo.application.connectionsMonitor.ConnectionsMonitor;
 import com.gmo.application.filters.ConnectionFilter;
 import com.gmo.application.mappers.EOFExceptionMapper;
 import com.gmo.application.mappers.WebExceptionMapper;
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.results.extractor.AnalysisFileExtractor;
+import com.gmo.results.extractor.AnalysisS3Extractor;
 import com.gmo.systemUtil.SystemCommand;
 
 public class WebServerApp {
@@ -52,7 +55,7 @@ public class WebServerApp {
 		LOG.info("---------------------------------------------");
 
 		logSystemProperties();
-		
+
 		initReportExtraction();
 
 		initConnectionMonitor();
@@ -75,10 +78,24 @@ public class WebServerApp {
 		LOG.debug("Init connections monitor");
 		ConnectionsMonitor.getInstance();
 	}
-	
+
 	private static void initReportExtraction() {
 		LOG.debug("Extract stored analyses results");
-		new AnalysisExtractor();
+		switch (ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType()) {
+		case LOCAL: {
+			LOG.error("Local File Analysis Extractor defined -> Start extraction");
+			new AnalysisFileExtractor();
+			break;
+		}
+		case S_3: {
+			LOG.error("Amazon S3 Analysis Extractor defined -> Start extraction");
+			new AnalysisS3Extractor();
+			break;
+		}
+		default: {
+			LOG.error("Unknown results location type");
+		}
+		}
 	}
 
 	private static void initJettyServer() throws Exception {

@@ -1,6 +1,5 @@
 package com.gmo.results.extractor;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
