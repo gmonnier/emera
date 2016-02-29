@@ -1,6 +1,8 @@
 package com.gmo.results.extractor;
 
 import java.io.File;
+import java.io.InputStream;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +11,7 @@ import awsinterfaceManager.AWSS3InterfaceManager;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
@@ -22,7 +25,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 	public boolean isRootValid() {
 		return AWSS3InterfaceManager.getInstance().isBucketValid(analysesDirectoryRoot);
 	}
-	
+
 	@Override
 	protected String getResultsRoot() {
 		return ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
@@ -30,84 +33,77 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 	@Override
 	protected void extractAnalyses() {
-		File[] listUsersDir = new File(analysesDirectoryRoot).listFiles();
-		if (listUsersDir == null) {
+
+		List<String> userRepositories = AWSS3InterfaceManager.getInstance().listUsersRepositories(analysesDirectoryRoot);
+		if (userRepositories.isEmpty()) {
 			LOG.warn("No users results repository, exits extractor thread.");
 			return;
 		}
 
-		for (int k = 0; k < listUsersDir.length; k++) {
+		for (int k = 0; k < userRepositories.size(); k++) {
 
-			if (!listUsersDir[k].isDirectory()) {
-				continue;
+			String userID = userRepositories.get(k);
+			List<String> listAnalysisDir = AWSS3InterfaceManager.getInstance().listDirectories(analysesDirectoryRoot, userID);
+
+			if (listAnalysisDir.isEmpty()) {
+				LOG.warn("Analyses results directory for user " + userID + " is empty, exits extractor thread.");
 			}
 
-			String userID = listUsersDir[k].getName();
-			File[] listAnalysisDir = listUsersDir[k].listFiles();
+			LOG.warn("Extracting analyses for user " + userID);
 
-			if (listAnalysisDir == null) {
-				LOG.warn("Analyses directory is empty, exits extractor thread.");
-			}
+			for (int i = 0; i < listAnalysisDir.size(); i++) {
 
-			for (int i = 0; i < listAnalysisDir.length; i++) {
-				File analyseDir = listAnalysisDir[i];
-				if (analyseDir.isDirectory()) {
+				String analysePath = listAnalysisDir.get(i);
+				LOG.warn("\tExtracting analysis " + analysePath);
 
-					String analyseID = analyseDir.getName();
-					LOG.debug("Extract new analyse with ID " + analyseID);
-					File[] listFiles = analyseDir.listFiles();
-					File reportSerialized = null;
-					if (listFiles != null) {
-						for (int j = 0; j < listFiles.length; j++) {
-							if (listFiles[j].getName().equals(REPORT_FILENAME)) {
-								reportSerialized = listFiles[j];
-							}
-						}
-					}
+				String[] path = analysePath.split("/");
+				String analyseID = path[path.length - 1];
 
-					if (reportSerialized != null) {
+				List<Object[]> listFiles = AWSS3InterfaceManager.getInstance().listFiles(analysesDirectoryRoot, analysePath);
 
-						try {
+				String reportSerialized = analysePath + REPORT_FILENAME;
+				InputStream reportStream = AWSS3InterfaceManager.getInstance().getObjectInputStream(analysesDirectoryRoot, reportSerialized);
 
-							Report report = ReportReader.extractReport(reportSerialized, userID);
+				try {
 
-							ViewAnalysis analysisDone = new ViewAnalysis();
-							analysisDone.setId(analyseID);
-							analysisDone.setUserid(userID);
-							analysisDone.setStatus(AnalysisStatus.DONE);
-							analysisDone.setLaunchDate(report.getStartDate());
-							analysisDone.setCompletionDate(report.getEndDate());
-							analysisDone.setReport(report);
-							analysisDone.setViewConfiguration(report.getAnalyseConfig());
+					Report report = ReportReader.extractReport(reportStream, userID);
 
-							extractAdditionnalAnalyses(analysisDone, new File(analyseDir, ADDITIONAL_ANALYSIS_DIR));
+					ViewAnalysis analysisDone = new ViewAnalysis();
+					analysisDone.setId(analyseID);
+					analysisDone.setUserid(userID);
+					analysisDone.setStatus(AnalysisStatus.DONE);
+					analysisDone.setLaunchDate(report.getStartDate());
+					analysisDone.setCompletionDate(report.getEndDate());
+					analysisDone.setReport(report);
+					analysisDone.setViewConfiguration(report.getAnalyseConfig());
 
-							ResultsManager.getInstance().addProcessedAnalysis(analysisDone);
+					extractAdditionnalAnalyses(analysisDone, analysePath);
 
-						} catch (Throwable ex) {
-							LOG.error("Unable to deserialize Report file", ex);
-						}
-					} else {
-						LOG.warn("No serialized report found in " + analyseDir.getAbsolutePath());
-					}
+					ResultsManager.getInstance().addProcessedAnalysis(analysisDone);
+
+				} catch (Throwable ex) {
+					LOG.error("Unable to deserialize Report file", ex);
 				}
+
 			}
 		}
 	}
 
-	private void extractAdditionnalAnalyses(ViewAnalysis analysisDone, File additionalAnalysesDirectory) {
-		LOG.debug(additionalAnalysesDirectory.getAbsolutePath());
-		if (additionalAnalysesDirectory.exists()) {
-			File[] listAdditional = additionalAnalysesDirectory.listFiles();
-			if (listAdditional == null || listAdditional.length == 0) {
-				LOG.debug("No additional analyses found for " + analysisDone.getId() + " in " + additionalAnalysesDirectory.getAbsolutePath());
-			} else {
-				for (int i = 0; i < listAdditional.length; i++) {
-					analysisDone.getAdditionalAnalyses().add(new ViewFile(listAdditional[i]));
-				}
-			}
+	private void extractAdditionnalAnalyses(ViewAnalysis analysisDone, String analysisPath) {
+
+		String additionnalPath = analysisPath + ADDITIONAL_ANALYSIS_DIR;
+
+		List<Object[]> listAdditionnalFiles = AWSS3InterfaceManager.getInstance().listFiles(analysesDirectoryRoot, additionnalPath);
+
+		if (listAdditionnalFiles.isEmpty()) {
+			LOG.debug("No additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
 		} else {
-			LOG.debug("No additional analyses found for " + analysisDone.getId());
+			for (int i = 0; i < listAdditionnalFiles.size(); i++) {
+				Object[] fileData = listAdditionnalFiles.get(i);
+				String[] filePath = fileData[0].toString().split("/");
+				String name = filePath[filePath.length - 1];
+				analysisDone.getAdditionalAnalyses().add(new ViewFile(ViewFileOrigin.STORED, name, fileData[0].toString(), (long) fileData[2], (long) fileData[1]));
+			}
 		}
 	}
 

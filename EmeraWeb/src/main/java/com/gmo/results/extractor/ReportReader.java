@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.Logger;
@@ -18,13 +19,13 @@ public class ReportReader {
 
 	private static Logger LOG = Log4JLogger.logger;
 
-	public static Report extractReport(File input, String userID) throws Throwable {
+	public static Report extractReport(InputStream reportStream, String userID) throws Throwable {
 
 		BufferedReader reader = null;
 		Report ret;
 
 		try {
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(input), "UTF8"));
+			reader = new BufferedReader(new InputStreamReader(reportStream, "UTF8"));
 
 			String analyseID = reader.readLine();
 			long startDate = Long.parseLong(reader.readLine());

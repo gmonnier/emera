@@ -1,22 +1,20 @@
 package awsinterfaceManager;
 
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
-import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.Reservation;
-import com.amazonaws.services.ec2.model.StartInstancesRequest;
-import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.gmo.logger.Log4JLogger;
 
 import configuration.AWSContextManager;
@@ -39,7 +37,7 @@ public class AWSS3InterfaceManager {
 		System.setProperty("aws.secretKey", AWSContextManager.getInstance().getConfig().getAwsSecretAccessKey());
 
 		this.s3Client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain());
-		s3Client.setRegion(Region.getRegion(Regions.US_WEST_2));
+		s3Client.setRegion(Region.getRegion(Regions.US_EAST_1));
 
 	}
 
@@ -51,5 +49,58 @@ public class AWSS3InterfaceManager {
 		return s3Client.doesBucketExist(bucketName);
 	}
 
-	
+	public List<String> listUsersRepositories(String bucketName) {
+		LOG.debug("List S3 Users results directories");
+
+		List<String> usersRepositories = new ArrayList<String>();
+		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName).withDelimiter("/");
+		ObjectListing objectListing;
+
+		do {
+			objectListing = s3Client.listObjects(listObjectsRequest);
+			listObjectsRequest.setMarker(objectListing.getNextMarker());
+			usersRepositories.addAll(objectListing.getCommonPrefixes());
+		} while (objectListing.isTruncated());
+
+		return usersRepositories;
+	}
+
+	public List<String> listDirectories(String bucketName, String prefix) {
+
+		List<String> directories = new ArrayList<String>();
+		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix).withDelimiter("/");
+		ObjectListing objectListing;
+
+		do {
+			objectListing = s3Client.listObjects(listObjectsRequest);
+			listObjectsRequest.setMarker(objectListing.getNextMarker());
+			directories.addAll(objectListing.getCommonPrefixes());
+		} while (objectListing.isTruncated());
+
+		return directories;
+
+	}
+
+	public List<Object[]> listFiles(String bucketName, String prefix) {
+		List<Object[]> files = new ArrayList<Object[]>();
+		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix).withDelimiter("/");
+		ObjectListing objectListing;
+
+		do {
+			objectListing = s3Client.listObjects(listObjectsRequest);
+			for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+				LOG.debug("\t\t--- " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
+				files.add(new Object[]{objectSummary.getKey(), objectSummary.getSize(), objectSummary.getLastModified().getTime()});
+			}
+			listObjectsRequest.setMarker(objectListing.getNextMarker());
+		} while (objectListing.isTruncated());
+
+		return files;
+	}
+
+	public InputStream getObjectInputStream(String bucketName, String key) {
+		S3Object object = s3Client.getObject(new GetObjectRequest(bucketName, key));
+		return object.getObjectContent();
+	}
+
 }

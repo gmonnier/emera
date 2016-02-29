@@ -1,6 +1,7 @@
 package com.gmo.results.extractor;
 
 import java.io.File;
+import java.io.FileInputStream;
 
 import org.apache.logging.log4j.Logger;
 
@@ -67,7 +68,7 @@ public class AnalysisFileExtractor extends AnalysisExtractor {
 
 						try {
 
-							Report report = ReportReader.extractReport(reportSerialized, userID);
+							Report report = ReportReader.extractReport(new FileInputStream(reportSerialized), userID);
 
 							ViewAnalysis analysisDone = new ViewAnalysis();
 							analysisDone.setId(analyseID);

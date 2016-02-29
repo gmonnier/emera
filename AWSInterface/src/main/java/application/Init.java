@@ -1,8 +1,10 @@
 package application;
 
+import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 
-import ssh.SSHClientExecutor;
+import awsinterfaceManager.AWSS3InterfaceManager;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.systemUtil.SystemCommand;
@@ -28,20 +30,15 @@ public class Init {
 	private static Logger LOG = Log4JLogger.logger;
 
 	public static void main(String[] args) {
-		
+
 		LOG.info("---------------------------------------------");
 		LOG.info("--------- START AWS Interface ---------------");
 		LOG.info("---------------------------------------------");
 
-		new SSHClientExecutor("54.186.77.247").startRemoteClient();
+		String analysesDirectoryRoot = "emera-results";
+
+		List<String> userRepositories = AWSS3InterfaceManager.getInstance().listUsersRepositories(analysesDirectoryRoot);
 		
-		while(true) {
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
 	}
 }

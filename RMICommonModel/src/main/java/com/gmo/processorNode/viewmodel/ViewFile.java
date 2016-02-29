@@ -74,7 +74,6 @@ public class ViewFile implements Serializable {
 		this.dateCreated = inputFile.lastModified();
 		this.id = inputFile.getAbsolutePath();
 		this.size = inputFile.length();
-
 		extractFileTypeFromName();
 	}
 
