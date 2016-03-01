@@ -13,7 +13,7 @@ This project provide a highly scalable, fault tolerant system based on Amazon We
 Current status info
 ---------------------
 
-+ Yet, deployment on [Emera](http://www.gilles-monnier.com:8082)
++ Yet, deployment on [Emera](http://www.gilles-monnier.com:8082) Emiting on port 8082. Be sure your firewall allow connections to this port.
 + Contact gilles_monnier@yahoo.fr for detailed info.
 
 High level architecture
