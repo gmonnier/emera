@@ -11,6 +11,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
@@ -24,6 +26,7 @@ import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.RMIFileTransfertUtil;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.ws.exceptions.NodeStorageException;
 
 public class NodeRMIClient implements IProcessorNode {
@@ -141,22 +144,6 @@ public class NodeRMIClient implements IProcessorNode {
 		return null;
 	}
 
-	public void uploadDataFile(String fileName, InputStream uploadedInputStream, String analyseid) throws NodeStorageException, IOException {
-		if (rmiNodeClient != null) {
-			try {
-				OutputStream outputStream = getOutputStream(fileName, InputType.DATA);
-
-				if (outputStream != null) {
-					new RMIFileTransfertUtil().copy(uploadedInputStream, outputStream);
-				} else {
-					throw new NodeStorageException();
-				}
-			} catch (RemoteException e) {
-				LOG.error("RemoteException " + e);
-			}
-		}
-	}
-
 	@Override
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException {
 		if (rmiNodeClient != null) {
@@ -171,8 +158,35 @@ public class NodeRMIClient implements IProcessorNode {
 
 	@Override
 	public InputStream getInputStream(File f) throws IOException {
-		// TODO Auto-generated method stub
+		if (rmiNodeClient != null) {
+			try {
+				return rmiNodeClient.getInputStream(f);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
 		return null;
+	}
+	
+	public void uploadFileToNodeServer(InputType inputType, String fileName, InputStream uploadedInputStream, String analyseid) throws NodeStorageException, IOException {
+		if (rmiNodeClient != null) {
+			try {
+				OutputStream outputStream = getOutputStream(fileName, inputType);
+
+				if (outputStream != null) {
+					new RMIFileTransfertUtil().copy(uploadedInputStream, outputStream);
+					rmiNodeClient.uploadToNodeServerDone(InputType inputType, String analyseid, String fileName);
+				} else {
+					throw new NodeStorageException();
+				}
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+		
+		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(outputFile.getAbsolutePath());
+		AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToData(modelUploaded);
+		return Response.status(200).build();
 	}
 
 }

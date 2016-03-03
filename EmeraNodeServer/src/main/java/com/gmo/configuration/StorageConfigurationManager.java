@@ -12,7 +12,9 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.coreprocessing.libExtraction.LibraryExtractionException;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.systemUtil.SystemCommand;
 
@@ -90,29 +92,35 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 		}
 
 	}
-	
+
 	/**
 	 * Get a resource with its absolute path
+	 * 
 	 * @param absoluteFilePath
 	 * @return
 	 * @throws NoSuchElementException
 	 */
-	public ModelFileStored getWithPath(String absoluteFilePath) throws NoSuchElementException {
-		
-		File paramFile = new File(absoluteFilePath);
-		for (Iterator<ModelFileStored> iterator = listStoredData.iterator(); iterator.hasNext();) {
+	public ModelFileStored getWithPath(InputType type, String fileName) throws NoSuchElementException {
+
+		List<ModelFileStored> listFiles;
+		switch (type) {
+		case DATA: {
+			listFiles = listStoredData;
+			break;
+		}
+		case LIBRARY: {
+			listFiles = listStoredLibraries;
+			break;
+		}
+		}
+
+		for (Iterator<ModelFileStored> iterator = listFiles.iterator(); iterator.hasNext();) {
 			ModelFileStored modelFileStored = (ModelFileStored) iterator.next();
-			if (paramFile.getAbsolutePath().equals(modelFileStored.getSystemFile().getAbsolutePath())) {
+			if (fileName.equalsIgnoreCase(modelFileStored.getSystemFile().getName())) {
 				return modelFileStored;
 			}
 		}
-		for (Iterator<ModelFileStored> iterator = listStoredLibraries.iterator(); iterator.hasNext();) {
-			ModelFileStored modelFileStored = (ModelFileStored) iterator.next();
-			if (paramFile.getAbsolutePath().equals(modelFileStored.getSystemFile().getAbsolutePath())) {
-				return modelFileStored;
-			}
-		}
-		
+
 		throw new NoSuchElementException();
 	}
 
@@ -129,7 +137,7 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 				return modelFileStored;
 			}
 		}
-		
+
 		throw new NoSuchElementException();
 	}
 

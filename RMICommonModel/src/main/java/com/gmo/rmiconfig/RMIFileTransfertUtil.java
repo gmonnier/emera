@@ -13,7 +13,7 @@ import com.gmo.network.rmiutil.RMIOutputStream;
 import com.gmo.network.rmiutil.RMIOutputStreamImpl;
 
 public class RMIFileTransfertUtil {
-	
+
 	final public static int BUF_SIZE = 1024 * 64;
 
 	// --------- File transfert --------
@@ -29,7 +29,7 @@ public class RMIFileTransfertUtil {
 	public void upload(File src, File dest) throws IOException {
 		copy(new FileInputStream(src), getOutputStream(dest));
 	}
-	
+
 	public void upload(InputStream src, File dest) throws IOException {
 		copy(src, getOutputStream(dest));
 	}
@@ -37,19 +37,24 @@ public class RMIFileTransfertUtil {
 	public void download(File src, File dest) throws IOException {
 		copy(getInputStream(src), new FileOutputStream(dest));
 	}
-	
+
 	public void download(File src, OutputStream dest) throws IOException {
 		copy(getInputStream(src), dest);
 	}
 
 	public void copy(InputStream in, OutputStream out) throws IOException {
-		byte[] b = new byte[BUF_SIZE];
-		int len;
-		while ((len = in.read(b)) >= 0) {
-			out.write(b, 0, len);
+		try {
+			byte[] b = new byte[BUF_SIZE];
+			int len;
+			while ((len = in.read(b)) >= 0) {
+				out.write(b, 0, len);
+			}
+		} catch (IOException ioe) {
+			throw ioe;
+		} finally {
+			in.close();
+			out.close();
 		}
-		in.close();
-		out.close();
 	}
-	
+
 }
