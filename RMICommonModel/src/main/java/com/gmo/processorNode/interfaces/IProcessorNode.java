@@ -1,5 +1,9 @@
 package com.gmo.processorNode.interfaces;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -8,6 +12,7 @@ import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.inputs.InputType;
 
 public interface IProcessorNode extends Remote {
 
@@ -26,5 +31,10 @@ public interface IProcessorNode extends Remote {
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException;
 
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) throws RemoteException;
+
+	// ------- File transfert ------
+	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException;
+
+	public InputStream getInputStream(File f) throws IOException;
 
 }

@@ -42,13 +42,12 @@ import com.gmo.processorserver.IResource;
 import com.gmo.processorserver.ProcessorServerManager;
 import com.gmo.sharedobjects.client.ClientStatus;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 
 	private static final long serialVersionUID = 1L;
-
-	final public static int BUF_SIZE = 1024 * 64;
 
 	private final static Logger LOG = Log4JLogger.logger;
 
@@ -157,31 +156,37 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 		return null;
 	}
 
-	// --------- File transfert --------
+	// ---------- File Transfert ---------
 
-	public OutputStream getOutputStream(File f) throws IOException {
-		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(f)));
+	@Override
+	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException {
+
+		String uploadedFileLocationRoot;
+		switch (inputType) {
+		case DATA: {
+			uploadedFileLocationRoot = StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot();
+			break;
+		}
+		case LIBRARY: {
+			uploadedFileLocationRoot = StorageConfigurationManager.getInstance().getConfig().getLibrariesFilesRoot();
+			break;
+		}
+		default: {
+			uploadedFileLocationRoot = StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot();
+		}
+		}
+		String uploadedFileLocation = uploadedFileLocationRoot + File.pathSeparator + fileName;
+
+		if (new File(uploadedFileLocation).exists()) {
+			return null;
+		}
+
+		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(uploadedFileLocation)));
 	}
 
+	@Override
 	public InputStream getInputStream(File f) throws IOException {
 		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
 	}
 
-	public void upload(File src, File dest) throws IOException {
-		copy(new FileInputStream(src), getOutputStream(dest));
-	}
-
-	public void download(File src, File dest) throws IOException {
-		copy(getInputStream(src), new FileOutputStream(dest));
-	}
-
-	private void copy(InputStream in, OutputStream out) throws IOException {
-		byte[] b = new byte[BUF_SIZE];
-		int len;
-		while ((len = in.read(b)) >= 0) {
-			out.write(b, 0, len);
-		}
-		in.close();
-		out.close();
-	}
 }
