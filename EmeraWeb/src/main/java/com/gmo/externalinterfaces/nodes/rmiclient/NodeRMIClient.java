@@ -167,7 +167,18 @@ public class NodeRMIClient implements IProcessorNode {
 		}
 		return null;
 	}
-	
+
+	@Override
+	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) {
+		if (rmiNodeClient != null) {
+			try {
+				rmiNodeClient.uploadToNodeServerDone(inputType, analyseid, fileName);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+	}
+
 	public void uploadFileToNodeServer(InputType inputType, String fileName, InputStream uploadedInputStream, String analyseid) throws NodeStorageException, IOException {
 		if (rmiNodeClient != null) {
 			try {
@@ -175,7 +186,7 @@ public class NodeRMIClient implements IProcessorNode {
 
 				if (outputStream != null) {
 					new RMIFileTransfertUtil().copy(uploadedInputStream, outputStream);
-					rmiNodeClient.uploadToNodeServerDone(InputType inputType, String analyseid, String fileName);
+					rmiNodeClient.uploadToNodeServerDone(inputType, analyseid, fileName);
 				} else {
 					throw new NodeStorageException();
 				}
@@ -183,10 +194,6 @@ public class NodeRMIClient implements IProcessorNode {
 				LOG.error("RemoteException " + e);
 			}
 		}
-		
-		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(outputFile.getAbsolutePath());
-		AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToData(modelUploaded);
-		return Response.status(200).build();
 	}
 
 }

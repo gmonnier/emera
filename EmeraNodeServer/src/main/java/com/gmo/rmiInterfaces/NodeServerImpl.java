@@ -42,6 +42,7 @@ import com.gmo.processorserver.IResource;
 import com.gmo.processorserver.ProcessorServerManager;
 import com.gmo.sharedobjects.client.ClientStatus;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
@@ -136,6 +137,30 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 		}
 
 		return new ViewPollingInfo(viewNetConfig, usersViewAnalysis, null);
+	}
+
+	@Override
+	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException {
+
+		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(inputType, fileName);
+
+		switch (inputType) {
+		case DATA: {
+			try {
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToData(modelUploaded);
+			} catch (NoSuchAnalysisException e) {
+				LOG.error("Unable to add " + modelUploaded + " to data of " + analyseid);
+			}
+		}
+		case LIBRARY: {
+			try {
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToLibraries(modelUploaded);
+			} catch (NoSuchAnalysisException e) {
+				LOG.error("Unable to add " + modelUploaded + " to libraries of " + analyseid);
+			}
+		}
+		}
+
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.gmo.sharedobjects.model.inputs;
 
-public enum InputType {
+import java.io.Serializable;
+
+public enum InputType implements Serializable{
 	LIBRARY,
 	DATA
 }

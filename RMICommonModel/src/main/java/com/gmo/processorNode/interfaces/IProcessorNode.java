@@ -31,6 +31,8 @@ public interface IProcessorNode extends Remote {
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException;
 
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) throws RemoteException;
+	
+	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException;
 
 	// ------- File transfert ------
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException;
