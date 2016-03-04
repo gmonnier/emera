@@ -247,8 +247,57 @@ class DefaultApiClient implements ApiClient {
 	}
 
 	@Override
-	public void transfert(final com.illumina.basespace.entity.File file, OutputStream target, DownloadListener listener) {
+	public void transfert(final com.illumina.basespace.entity.File file, OutputStream targetStream, DownloadListener listener) {
 
+		long timeinit = System.currentTimeMillis();
+		// InputStream in = null;
+		GZIPInputStream gzipin = null;
+		long progress = 0;
+		try {
+			final int CHUNK_SIZE = 4096;
+			ProgressInputStream unzipStr = new ProgressInputStream(getFileInputStream(file));
+			gzipin = new GZIPInputStream(unzipStr);
+
+			byte[] outputByte = new byte[CHUNK_SIZE];
+			int bytesRead = 0;
+			while (!cancelAllDownloads && (bytesRead = gzipin.read(outputByte, 0, CHUNK_SIZE)) != -1) {
+				targetStream.write(outputByte, 0, bytesRead);
+				progress = unzipStr.getProgress();
+				if (listener != null) {
+					DownloadEvent evt = new DownloadEvent(file, progress, file.getSize());
+					listener.progress(evt);
+				}
+			}
+			targetStream.close();
+			gzipin.close();
+			targetStream = null;
+			gzipin = null;
+			if (listener != null)
+				listener.complete(new DownloadEvent(file, progress, file.getSize()));
+		} catch (BaseSpaceException bs) {
+			throw bs;
+		} catch (Throwable t) {
+			throw new RuntimeException("Error during file download", t);
+		} finally {
+			try {
+				if (gzipin != null)
+					gzipin.close();
+			} catch (Throwable t) {
+			}
+			try {
+				if (targetStream != null)
+					targetStream.close();
+			} catch (Throwable t) {
+			}
+			if (cancelAllDownloads) {
+				if (listener != null)
+					listener.canceled(new DownloadEvent(file, progress, file.getSize()));
+				// reinit cancel value
+				cancelAllDownloads = false;
+			}
+		}
+
+		System.out.println((System.currentTimeMillis() - timeinit) / 1000);
 	}
 
 	@Override
