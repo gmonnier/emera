@@ -11,7 +11,7 @@ public interface IDownloadListener extends Remote {
 
 	public void downloadFailed(String analyseID, FastQFile inputFile) throws RemoteException;
 	
-	public void downloadSuccess(String analyseID, FastQFile inputFIle, String outputFIlePath) throws RemoteException;
+	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputFilePath) throws RemoteException;
 	
 	public void downloadProgress(int percentage,String analyseID, FastQFile inputFile) throws RemoteException;
 	
