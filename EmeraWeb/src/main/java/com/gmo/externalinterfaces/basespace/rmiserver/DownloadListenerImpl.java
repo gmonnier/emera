@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
@@ -32,6 +33,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	public void downloadFailed(String analyseID, FastQFile inputFile) throws RemoteException {
 		LOG.debug("Server side Download failed received for " + inputFile.getName());
 		try {
+			NodeManager.getInstance().getNodeRMIClient().requestRunningAnalysisChangeStatus(analyseID, newStatus);
 			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 			analysis.setStatus(AnalysisStatus.UPLOAD_ERROR);
 			analysis.getDownloadInfo().downloadDone(inputFile);
@@ -68,6 +70,12 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 		} catch (NoSuchAnalysisException e) {
 			LOG.debug("No analysis found with id " + analyseID);
 		}
+	}
+
+	@Override
+	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
