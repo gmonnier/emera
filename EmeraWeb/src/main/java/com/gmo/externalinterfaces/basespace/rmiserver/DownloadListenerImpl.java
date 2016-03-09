@@ -45,6 +45,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputFilePath) throws RemoteException {
 		LOG.debug("Server side Download success received for " + inputFile.getName());
+		NodeManager.getInstance().getNodeRMIClient().requestDownloadSuccessNotification(analyseID, inputFile, outputFilePath);
 		// Update the storage model to retrieve new file recently downloaded
 		// from BS
 		StorageConfigurationManager.getInstance().updateModel();
@@ -65,6 +66,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
 		LOG.debug("Server side Download success received for " + inputFile.getName());
+		NodeManager.getInstance().getNodeRMIClient().requestDownloadSuccessNotification(analyseID, inputFile);
 		// Update the storage model to retrieve new file recently downloaded
 		// from BS
 		StorageConfigurationManager.getInstance().updateModel();

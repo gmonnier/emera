@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
@@ -233,6 +234,25 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 		try {
 			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 			runningAnalysis.getDownloadInfo().update(inputFile, percentage);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to find analysis with ID" + analyseID);
+		}
+	}
+
+	@Override
+	public void requestDownloadSuccessNotification(String analyseID, FastQFile inputFile, String outputFileName) throws RemoteException {
+		Analysis runningAnalysis;
+		try {
+			StorageConfigurationManager.getInstance().updateModel();
+			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
+
+			try {
+				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputFileName);
+				runningAnalysis.getProcessConfiguration().addToData(mfs);
+				runningAnalysis.getDownloadInfo().downloadDone(inputFile);
+			} catch (NoSuchElementException nse) {
+				LOG.error("No Model File stored element found with path " + outputFileName + " of type : " + InputType.DATA);
+			}
 		} catch (NoSuchAnalysisException e) {
 			LOG.error("Unable to find analysis with ID" + analyseID);
 		}
