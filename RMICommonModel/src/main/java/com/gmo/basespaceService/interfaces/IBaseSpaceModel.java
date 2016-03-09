@@ -14,6 +14,6 @@ public interface IBaseSpaceModel extends Remote {
 	
 	public UserInfo getUserInfo() throws RemoteException;
 	
-	public void requestDownload(String path, FastQFile file, String analyseID) throws RemoteException;
+	public void requestDownload(String fileName, FastQFile file, String analyseID) throws RemoteException;
 
 }

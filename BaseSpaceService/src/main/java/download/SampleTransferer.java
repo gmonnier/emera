@@ -28,11 +28,14 @@ public class SampleTransferer implements Runnable, DownloadListener {
 
 	private String analyseID;
 
+	private String outputName;
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public SampleTransferer(FastQFile fastqfile, OutputStream outputStream, ApiClient clientBS, String analyseID) {
+	public SampleTransferer(FastQFile fastqfile, String outputName, OutputStream outputStream, ApiClient clientBS, String analyseID) {
 		this.outputStream = outputStream;
+		this.outputName = outputName;
 		this.clientBS = clientBS;
 		this.fastqfile = fastqfile;
 		this.analyseID = analyseID;
@@ -95,7 +98,7 @@ public class SampleTransferer implements Runnable, DownloadListener {
 	public void complete(DownloadEvent evt) {
 		try {
 			LOG.error("Download complete " + fastqfile + " for analyse " + analyseID);
-			listener.downloadSuccess(analyseID, fastqfile);
+			listener.downloadSuccess(analyseID, fastqfile, outputName);
 		} catch (RemoteException e) {
 			LOG.error("Unable to send to server that download failed : ", e);
 		}

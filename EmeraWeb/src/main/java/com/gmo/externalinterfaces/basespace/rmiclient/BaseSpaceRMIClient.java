@@ -61,12 +61,11 @@ public class BaseSpaceRMIClient {
 		return null;
 	}
 	
-	public void requestStartNewDownload(String analyseID,String uploadDirectory, FastQFile fastqRequest) {
+	public void requestStartNewDownload(String analyseID, FastQFile fastqRequest) {
 		if (rmiBSModel != null) {
 			try {
 				String fileName = fastqRequest.getName().replaceAll(".gz", "");
-				String path = uploadDirectory + "/" + fileName;
-				rmiBSModel.requestDownload(path, fastqRequest, analyseID);
+				rmiBSModel.requestDownload(fileName, fastqRequest, analyseID);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
