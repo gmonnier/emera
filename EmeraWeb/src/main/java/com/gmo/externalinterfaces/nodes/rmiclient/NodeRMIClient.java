@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -190,6 +191,16 @@ public class NodeRMIClient implements IProcessorNode {
 				} else {
 					throw new NodeStorageException();
 				}
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+	}
+
+	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) {
+		if (rmiNodeClient != null) {
+			try {
+				rmiNodeClient.requestDownloadDoneNotification(analyseID, inputFile);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}

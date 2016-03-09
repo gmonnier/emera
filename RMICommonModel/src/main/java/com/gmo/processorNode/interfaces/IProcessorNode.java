@@ -8,6 +8,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
@@ -38,5 +39,8 @@ public interface IProcessorNode extends Remote {
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException;
 
 	public InputStream getInputStream(File f) throws IOException;
+
+	// ------- Transfert Notifications ------
+	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) throws RemoteException;
 
 }

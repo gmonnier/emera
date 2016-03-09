@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import awsinterfaceManager.AWSEC2InterfaceManager;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
@@ -212,6 +213,18 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	@Override
 	public InputStream getInputStream(File f) throws IOException {
 		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
+	}
+
+	@Override
+	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) throws RemoteException {
+		Analysis runningAnalysis;
+		try {
+			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
+			runningAnalysis.getDownloadInfo().downloadDone(inputFile);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to find analysis with ID" + analyseID);
+		}
+
 	}
 
 }

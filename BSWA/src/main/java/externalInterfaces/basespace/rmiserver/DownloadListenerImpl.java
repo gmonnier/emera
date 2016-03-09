@@ -76,4 +76,10 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 		}
 	}
 
+	@Override
+	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
