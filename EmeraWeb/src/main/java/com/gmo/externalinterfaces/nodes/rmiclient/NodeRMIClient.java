@@ -197,10 +197,22 @@ public class NodeRMIClient implements IProcessorNode {
 		}
 	}
 
+	@Override
 	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) {
 		if (rmiNodeClient != null) {
 			try {
 				rmiNodeClient.requestDownloadDoneNotification(analyseID, inputFile);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+	}
+
+	@Override
+	public void requestDownloadProgressNotification(int percentage, String analyseID, FastQFile inputFile) {
+		if (rmiNodeClient != null) {
+			try {
+				rmiNodeClient.requestDownloadProgressNotification(percentage, analyseID, inputFile);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}

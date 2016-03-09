@@ -39,12 +39,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadProgress(int percentage, String analyseID, FastQFile inputFile) throws RemoteException {
 		LOG.debug("Server side Download progress received : " + percentage + " % for " + inputFile.getName());
-		try {
-			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-			analysis.getDownloadInfo().update(inputFile, percentage);
-		} catch (NoSuchAnalysisException e) {
-			LOG.debug("No analysis found with id " + analyseID);
-		}
+		NodeManager.getInstance().getNodeRMIClient().requestDownloadProgressNotification(percentage, analyseID, inputFile);
 	}
 
 	@Override

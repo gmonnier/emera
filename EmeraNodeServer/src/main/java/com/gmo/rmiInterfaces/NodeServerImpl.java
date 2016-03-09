@@ -227,4 +227,15 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	}
 
+	@Override
+	public void requestDownloadProgressNotification(int percentage, String analyseID, FastQFile inputFile) throws RemoteException {
+		Analysis runningAnalysis;
+		try {
+			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
+			runningAnalysis.getDownloadInfo().update(inputFile, percentage);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to find analysis with ID" + analyseID);
+		}
+	}
+
 }
