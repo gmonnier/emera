@@ -23,7 +23,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	public DownloadListenerImpl() throws RemoteException {
 		super();
 	}
-	
+
 	@Override
 	public void applicationCrashed() throws RemoteException {
 		LOG.debug("Application crashed ");
@@ -32,12 +32,8 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadFailed(String analyseID, FastQFile inputFile) throws RemoteException {
 		LOG.debug("Server side Download failed received for " + inputFile.getName());
-		try {
-			NodeManager.getInstance().getNodeRMIClient().requestRunningAnalysisChangeStatus(analyseID, AnalysisStatus.UPLOAD_ERROR);
-			NodeManager.getInstance().getNodeRMIClient().requestDownloadDoneNotification(analyseID, inputFile);
-		} catch (NoSuchAnalysisException e) {
-			LOG.debug("No analysis found with id " + analyseID);
-		}
+		NodeManager.getInstance().getNodeRMIClient().requestRunningAnalysisChangeStatus(analyseID, AnalysisStatus.UPLOAD_ERROR);
+		NodeManager.getInstance().getNodeRMIClient().requestDownloadDoneNotification(analyseID, inputFile);
 	}
 
 	@Override
@@ -54,7 +50,8 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputFilePath) throws RemoteException {
 		LOG.debug("Server side Download success received for " + inputFile.getName());
-		// Update the storage model to retrieve new file recently downloaded from BS
+		// Update the storage model to retrieve new file recently downloaded
+		// from BS
 		StorageConfigurationManager.getInstance().updateModel();
 		try {
 			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
@@ -62,7 +59,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(outputFilePath);
 				analysis.getProcessConfiguration().addToData(mfs);
 				analysis.getDownloadInfo().downloadDone(inputFile);
-			} catch(NoSuchElementException nse) {
+			} catch (NoSuchElementException nse) {
 				LOG.debug("No element found with path " + outputFilePath);
 			}
 		} catch (NoSuchAnalysisException e) {
@@ -73,7 +70,8 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	@Override
 	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
 		LOG.debug("Server side Download success received for " + inputFile.getName());
-		// Update the storage model to retrieve new file recently downloaded from BS
+		// Update the storage model to retrieve new file recently downloaded
+		// from BS
 		StorageConfigurationManager.getInstance().updateModel();
 		try {
 			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
@@ -81,7 +79,7 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(outputFilePath);
 				analysis.getProcessConfiguration().addToData(mfs);
 				analysis.getDownloadInfo().downloadDone(inputFile);
-			} catch(NoSuchElementException nse) {
+			} catch (NoSuchElementException nse) {
 				LOG.debug("No element found with path " + outputFilePath);
 			}
 		} catch (NoSuchAnalysisException e) {
