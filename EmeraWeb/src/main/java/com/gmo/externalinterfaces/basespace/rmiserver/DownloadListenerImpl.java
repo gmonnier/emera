@@ -43,45 +43,8 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 	}
 
 	@Override
-	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputFilePath) throws RemoteException {
+	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputFileName) throws RemoteException {
 		LOG.debug("Server side Download success received for " + inputFile.getName());
-		NodeManager.getInstance().getNodeRMIClient().requestDownloadSuccessNotification(analyseID, inputFile, outputFilePath);
-		// Update the storage model to retrieve new file recently downloaded
-		// from BS
-		StorageConfigurationManager.getInstance().updateModel();
-		try {
-			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-			try {
-				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(outputFilePath);
-				analysis.getProcessConfiguration().addToData(mfs);
-				analysis.getDownloadInfo().downloadDone(inputFile);
-			} catch (NoSuchElementException nse) {
-				LOG.debug("No element found with path " + outputFilePath);
-			}
-		} catch (NoSuchAnalysisException e) {
-			LOG.debug("No analysis found with id " + analyseID);
-		}
+		NodeManager.getInstance().getNodeRMIClient().requestDownloadSuccessNotification(analyseID, inputFile, outputFileName);
 	}
-
-	@Override
-	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
-		LOG.debug("Server side Download success received for " + inputFile.getName());
-		NodeManager.getInstance().getNodeRMIClient().requestDownloadSuccessNotification(analyseID, inputFile);
-		// Update the storage model to retrieve new file recently downloaded
-		// from BS
-		StorageConfigurationManager.getInstance().updateModel();
-		try {
-			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-			try {
-				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(outputFilePath);
-				analysis.getProcessConfiguration().addToData(mfs);
-				analysis.getDownloadInfo().downloadDone(inputFile);
-			} catch (NoSuchElementException nse) {
-				LOG.debug("No element found with path " + outputFilePath);
-			}
-		} catch (NoSuchAnalysisException e) {
-			LOG.debug("No analysis found with id " + analyseID);
-		}
-	}
-
 }
