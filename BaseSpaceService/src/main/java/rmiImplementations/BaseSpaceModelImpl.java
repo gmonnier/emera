@@ -39,6 +39,8 @@ public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpac
 	@Override
 	public void requestDownload(String fileName, FastQFile file, String analyseID) throws RemoteException {
 		LOG.info("Request to downoad " + fileName + " to : " + fileName + "     for analyse : " + analyseID);
+		
+		Need to figure out how to provide the output stream here!!
 		BaseSpacePlatformManager.getInstance().requestNewDownload(fileName, file, analyseID);
 	}
 
