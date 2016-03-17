@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.List;
 
 import reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
-import fileGenerator.csv.GenericCSVGenerator;
+
+import com.gmo.fileGenerator.csv.GenericCSVGenerator;
 
 public class OccurenceIncreaseCSVGenerator extends GenericCSVGenerator {
 

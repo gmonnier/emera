@@ -8,7 +8,8 @@ import java.util.List;
 
 import reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseReport;
-import fileGenerator.csv.GenericCSVGenerator;
+
+import com.gmo.fileGenerator.csv.GenericCSVGenerator;
 
 public class GeneWithIncreaseOnlyCSVGenerator extends GenericCSVGenerator {
 

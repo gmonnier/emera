@@ -8,12 +8,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import logger.Log4JLogger;
-import model.genelibrary.GeneLibrary;
-import model.genelibrary.ReferenceGene;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class GeneLibFileExtractor {
 

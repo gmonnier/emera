@@ -4,15 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceStateChange;
-import com.amazonaws.util.StringUtils;
+import com.gmo.logger.Log4JLogger;
 
 public class AWSInstancesStateWatcher implements Runnable {
 
@@ -44,9 +39,9 @@ public class AWSInstancesStateWatcher implements Runnable {
 
 		while (!mapExpectedStates.isEmpty()) {
 
-			AWSInterfaceManager.getInstance().updateInstances();
+			AWSEC2InterfaceManager.getInstance().updateInstances();
 
-			List<Instance> listInstances = AWSInterfaceManager.getInstance().getAllInstances();
+			List<Instance> listInstances = AWSEC2InterfaceManager.getInstance().getAllInstances();
 			for (Iterator<Instance> iterator = listInstances.iterator(); iterator.hasNext();) {
 				Instance instance = (Instance) iterator.next();
 				if (mapExpectedStates.get(instance.getInstanceId()) != null) {

@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserRun;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.basespaceService.model.UserRun;
 
 public class ViewUserRun {
 

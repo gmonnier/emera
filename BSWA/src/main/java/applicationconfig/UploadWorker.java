@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 
 public class UploadWorker implements Runnable {
 

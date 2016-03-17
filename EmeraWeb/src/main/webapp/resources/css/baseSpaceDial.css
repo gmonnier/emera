@@ -1,0 +1,61 @@
+.selected { background: #42A3FF; color: white; }
+.selected { list-style-type: none; margin: 0; padding: 0; width: 100%;}
+
+.header-date {
+	color: gray;
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
+
+.show-prev-container img {
+	vertical-align: middle;
+}
+
+.show-prev-container {
+	text-align: center;
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 1.1em;
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+}
+
+.show-prev-container:hover {
+	cursor : pointer;
+	background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(241,241,241,0.5) 50%,rgba(225,225,225,0.5) 51%,rgba(246,246,246,0.5) 100%); /* W3C */
+}
+
+.selectable:hover{
+	cursor : pointer;
+	background: #A3C9FF;
+}
+
+.BSDialFileTable {
+	letter-spacing: 0.1em;
+	display: table;
+	margin-bottom: 10px;
+}
+.BSDialrow {
+	display: table-row;
+}
+
+.BSDialPropcell {
+	display: table-cell;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.BSDialValuecell {
+	display: table-cell;
+	margin: 3px; 
+	padding: 0.4em; 
+	height: 18px;
+	vertical-align: middle;
+}
+
+.BSDialSizecell{
+	display: table-cell;
+	margin: 3px; 
+	padding: 0.4em; 
+	height: 18px;
+	font-size: 10px;
+	vertical-align: middle;
+}

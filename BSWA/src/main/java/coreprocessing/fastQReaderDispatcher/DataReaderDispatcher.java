@@ -5,14 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import logger.Log4JLogger;
-import model.data.DataChunk;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import processorserver.ProcessorServerManager;
-import coreprocessing.IAnalysisProcessingListener;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.data.DataChunk;
 
 public class DataReaderDispatcher {
 

@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.basespaceService.model.UserInfo;
+import com.gmo.basespaceService.model.UserRun;
+import com.gmo.logger.Log4JLogger;
+
 import externalInterfaces.basespace.rmiclient.BaseSpaceRMIClient;
 
 public class BaseSpaceModelManager {

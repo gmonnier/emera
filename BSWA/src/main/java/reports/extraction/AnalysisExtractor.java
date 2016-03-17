@@ -1,25 +1,24 @@
 package reports.extraction;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
 import model.analyses.AnalysisStatus;
 import model.processconfig.ConfigurationBuilder;
 
 import org.apache.logging.log4j.Logger;
 
-import coreprocessing.Analysis;
-import coreprocessing.AnalysisManager;
 import reports.Report;
 import reports.generation.ReportWriter;
 import viewModel.ViewCreateProcessConfiguration;
 import viewModel.ViewFile;
 import applicationconfig.ApplicationContextManager;
+
+import com.gmo.logger.Log4JLogger;
+
+import coreprocessing.Analysis;
+import coreprocessing.AnalysisManager;
 
 public class AnalysisExtractor implements Runnable {
 

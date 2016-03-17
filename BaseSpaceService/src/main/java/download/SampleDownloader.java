@@ -2,14 +2,13 @@ package download;
 
 import java.rmi.RemoteException;
 
-import interfaces.IDownloadListener;
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import rmiImplementations.clients.RMIDownloadNotifClient;
-import basespaceObjects.FastQFile;
 
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.logger.Log4JLogger;
 import com.illumina.basespace.ApiClient;
 import com.illumina.basespace.auth.ResourceForbiddenException;
 import com.illumina.basespace.entity.File;

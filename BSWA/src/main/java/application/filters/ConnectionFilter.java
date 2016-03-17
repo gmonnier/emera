@@ -9,12 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.servlet.FilterHolder;
 
 import application.connectionsMonitor.ConnectionsMonitor;
+
+import com.gmo.logger.Log4JLogger;
 
 public class ConnectionFilter extends FilterHolder {
 	

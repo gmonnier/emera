@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import logger.Log4JLogger;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.logger.Log4JLogger;
 
 @XmlRootElement
 public class BSDownloadInfo {

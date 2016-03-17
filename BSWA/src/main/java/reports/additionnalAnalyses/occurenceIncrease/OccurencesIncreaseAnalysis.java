@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import logger.Log4JLogger;
-import model.genelibrary.ReferenceGene;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
@@ -23,6 +21,10 @@ import reports.extraction.AnalysisExtractor;
 import viewModel.OutputFileType;
 import viewModel.ViewFile;
 import applicationconfig.ApplicationContextManager;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+
 import coreprocessing.Analysis;
 
 public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAnalysisListener {

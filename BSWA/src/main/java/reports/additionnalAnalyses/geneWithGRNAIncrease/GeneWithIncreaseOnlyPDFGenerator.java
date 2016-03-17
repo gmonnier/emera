@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import logger.Log4JLogger;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
@@ -12,8 +11,11 @@ import org.apache.logging.log4j.Logger;
 import reports.Report;
 import reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseReport;
-import ui.lookAndFeel.Colors;
 
+import com.gmo.fileGenerator.pdf.GenericPDFGenerator;
+import com.gmo.fileGenerator.pdf.util.PDFPageSize;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.ui.lookAndFeel.Colors;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -22,9 +24,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-
-import fileGenerator.pdf.GenericPDFGenerator;
-import fileGenerator.pdf.util.PDFPageSize;
 
 public class GeneWithIncreaseOnlyPDFGenerator extends GenericPDFGenerator {
 

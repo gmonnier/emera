@@ -8,11 +8,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import viewModel.analyses.preprocessing.ViewPreProcessingConfiguration;
+
+import com.gmo.logger.Log4JLogger;
 
 @Path("/ws-resources/preprocess")
 public class WSAnalysisPreProcessing {

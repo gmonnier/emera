@@ -1,18 +1,16 @@
 package externalInterfaces.basespace.rmiserver;
 
-import interfaces.IDownloadListener;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.Policy;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import rmiconfig.SecurityPolicy;
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.rmiconfig.SecurityPolicy;
 
 public class BaseSpaceRMIDownloadServer implements Runnable {
 

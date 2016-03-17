@@ -1,22 +1,23 @@
 package externalInterfaces.basespace.rmiserver;
 
-import interfaces.IDownloadListener;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.NoSuchElementException;
 
-import logger.Log4JLogger;
 import model.analyses.AnalysisStatus;
 import model.analyses.NoSuchAnalysisException;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
 import applicationconfig.StorageConfigurationManager;
-import coreprocessing.AnalysisManager;
+
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.logger.Log4JLogger;
+
 import coreprocessing.Analysis;
+import coreprocessing.AnalysisManager;
 
 public class DownloadListenerImpl extends UnicastRemoteObject implements IDownloadListener {
 
@@ -73,6 +74,12 @@ public class DownloadListenerImpl extends UnicastRemoteObject implements IDownlo
 		} catch (NoSuchAnalysisException e) {
 			LOG.debug("No analysis found with id " + analyseID);
 		}
+	}
+
+	@Override
+	public void downloadSuccess(String analyseID, FastQFile inputFile) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

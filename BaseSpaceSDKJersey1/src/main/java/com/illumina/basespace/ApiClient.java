@@ -16,6 +16,7 @@
 package com.illumina.basespace;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 
 import com.illumina.basespace.auth.ResourceForbiddenException;
@@ -305,6 +306,16 @@ public interface ApiClient
      * @param listener optional (can be null)listener to be notified of download events
      */
     public void download(com.illumina.basespace.entity.File file,java.io.File target,
+            DownloadListener listener);
+    
+    /**
+     * Transfert the contents of a file
+     * <br><br><span class="strong">Permissions:</span> READ access to the Run, Sample, or AppResult to which the file belongs
+     * @param file the which will be downloaded
+     * @param target the target output stream. 
+     * @param listener optional (can be null)listener to be notified of download events
+     */
+    public void transfert(com.illumina.basespace.entity.File file,OutputStream target,
             DownloadListener listener);
     
     /**

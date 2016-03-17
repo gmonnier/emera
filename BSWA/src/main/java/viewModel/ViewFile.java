@@ -9,7 +9,8 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import basespaceObjects.FastQFile;
+import com.gmo.basespaceService.model.FastQFile;
+
 import model.processconfig.files.ModelFileStored;
 
 @XmlRootElement

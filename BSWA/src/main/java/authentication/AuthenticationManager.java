@@ -1,8 +1,8 @@
 package authentication;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 
 public class AuthenticationManager {
 

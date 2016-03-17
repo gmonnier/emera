@@ -11,18 +11,14 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
 import model.analyses.AnalysisStatus;
 import model.analyses.FileUploadListener;
-import model.data.ChunkResult;
-import model.genelibrary.GeneLibrary;
 import model.processconfig.ConfigurationBuilder;
 import model.processconfig.ProcessConfiguration;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
 import processorserver.IDistantResource;
 import reports.Report;
 import viewModel.BSDownloadInfo;
@@ -30,6 +26,12 @@ import viewModel.ViewCreateProcessConfiguration;
 import viewModel.ViewFile;
 import viewModel.ViewFileOrigin;
 import applicationconfig.StorageConfigurationManager;
+
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+
 import coreprocessing.analysismerger.AnalysisMerger;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;

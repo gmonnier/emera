@@ -14,11 +14,9 @@
  */
 package com.illumina.basespace;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
@@ -103,7 +101,7 @@ class DefaultApiClient implements ApiClient {
 	private final Logger logger = Logger.getLogger(DefaultApiClient.class.getPackage().getName());
 	private ClientConnectionProvider connectionProvider;
 	private Map<String, FileRedirectMetaData> downloadMetaDataCache = new Hashtable<String, FileRedirectMetaData>();
-	
+
 	private boolean cancelAllDownloads;
 
 	/**
@@ -223,8 +221,7 @@ class DefaultApiClient implements ApiClient {
 
 	@Override
 	public URI getDownloadURI(FileCompact file) {
-		WebResource resource = connectionProvider.getClient()
-				.resource(UriBuilder.fromUri(connectionProvider.getConfiguration().getApiRootUri()).path(connectionProvider.getConfiguration().getVersion()).build()).path("files").path(file.getId())
+		WebResource resource = connectionProvider.getClient().resource(UriBuilder.fromUri(connectionProvider.getConfiguration().getApiRootUri()).path(connectionProvider.getConfiguration().getVersion()).build()).path("files").path(file.getId())
 				.path("content");
 		return resource.getURI();
 	}
@@ -242,7 +239,6 @@ class DefaultApiClient implements ApiClient {
 			throw t;
 		}
 	}
-	
 
 	@Override
 	public void cancelDownloads() {
@@ -250,10 +246,63 @@ class DefaultApiClient implements ApiClient {
 		cancelAllDownloads = true;
 	}
 
+	@Override
+	public void transfert(final com.illumina.basespace.entity.File file, OutputStream targetStream, DownloadListener listener) {
+
+		long timeinit = System.currentTimeMillis();
+		// InputStream in = null;
+		GZIPInputStream gzipin = null;
+		long progress = 0;
+		try {
+			final int CHUNK_SIZE = 4096;
+			ProgressInputStream unzipStr = new ProgressInputStream(getFileInputStream(file));
+			gzipin = new GZIPInputStream(unzipStr);
+
+			byte[] outputByte = new byte[CHUNK_SIZE];
+			int bytesRead = 0;
+			while (!cancelAllDownloads && (bytesRead = gzipin.read(outputByte, 0, CHUNK_SIZE)) != -1) {
+				targetStream.write(outputByte, 0, bytesRead);
+				progress = unzipStr.getProgress();
+				if (listener != null) {
+					DownloadEvent evt = new DownloadEvent(file, progress, file.getSize());
+					listener.progress(evt);
+				}
+			}
+			targetStream.close();
+			gzipin.close();
+			targetStream = null;
+			gzipin = null;
+			if (listener != null)
+				listener.complete(new DownloadEvent(file, progress, file.getSize()));
+		} catch (BaseSpaceException bs) {
+			throw bs;
+		} catch (Throwable t) {
+			throw new RuntimeException("Error during file download", t);
+		} finally {
+			try {
+				if (gzipin != null)
+					gzipin.close();
+			} catch (Throwable t) {
+			}
+			try {
+				if (targetStream != null)
+					targetStream.close();
+			} catch (Throwable t) {
+			}
+			if (cancelAllDownloads) {
+				if (listener != null)
+					listener.canceled(new DownloadEvent(file, progress, file.getSize()));
+				// reinit cancel value
+				cancelAllDownloads = false;
+			}
+		}
+
+		System.out.println((System.currentTimeMillis() - timeinit) / 1000);
+	}
 
 	@Override
 	public void download(final com.illumina.basespace.entity.File file, java.io.File target, DownloadListener listener) {
-		
+
 		long timeinit = System.currentTimeMillis();
 		FileOutputStream fos = null;
 		// InputStream in = null;
@@ -309,12 +358,12 @@ class DefaultApiClient implements ApiClient {
 					if (listener != null)
 						listener.canceled(new DownloadEvent(file, progress, file.getSize()));
 					// reinit cancel value
-						cancelAllDownloads = false;
+					cancelAllDownloads = false;
 				}
 			}
 		}
-		
-		System.out.println((System.currentTimeMillis() - timeinit)/1000);
+
+		System.out.println((System.currentTimeMillis() - timeinit) / 1000);
 	}
 
 	@Override
@@ -478,8 +527,8 @@ class DefaultApiClient implements ApiClient {
 	protected InputStream getInputStreamInternal(FileCompact file, long start, long end) {
 		try {
 			FileRedirectMetaData metaData = getRedirectMetaData(file);
-			InputStream in = connectionProvider.getClient().resource(metaData.getHrefContent()).accept(MediaType.APPLICATION_OCTET_STREAM).accept(MediaType.TEXT_HTML)
-					.accept(MediaType.APPLICATION_XHTML_XML).header("Range", "bytes=" + start + "-" + end).get(InputStream.class);
+			InputStream in = connectionProvider.getClient().resource(metaData.getHrefContent()).accept(MediaType.APPLICATION_OCTET_STREAM).accept(MediaType.TEXT_HTML).accept(MediaType.APPLICATION_XHTML_XML)
+					.header("Range", "bytes=" + start + "-" + end).get(InputStream.class);
 			return in;
 		} catch (ResourceForbiddenException forbidden) {
 			downloadMetaDataCache.remove(file.getId());
@@ -533,8 +582,7 @@ class DefaultApiClient implements ApiClient {
 
 	@Override
 	public GetPropertyResponse getProperty(ApiResource resource, String propertyName) {
-		return getConnectionProvider().getResponse(GetPropertyResponse.class,
-				TypeHelper.INSTANCE.getResourcePath(resource.getClass(), true) + "/" + resource.getId() + "/properties/" + propertyName + "/items", null, null);
+		return getConnectionProvider().getResponse(GetPropertyResponse.class, TypeHelper.INSTANCE.getResourcePath(resource.getClass(), true) + "/" + resource.getId() + "/properties/" + propertyName + "/items", null, null);
 	}
 
 	@Override

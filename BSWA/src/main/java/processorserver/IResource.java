@@ -1,6 +1,6 @@
 package processorserver;
 
-import processorserver.util.ClientLocation;
+import com.gmo.network.location.ClientLocation;
 
 public interface IResource {
 
@@ -10,4 +10,5 @@ public interface IResource {
 	
 	// Retrieve the location of this client
 	public ClientLocation getLocation();
+	
 }

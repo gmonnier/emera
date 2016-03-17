@@ -1,16 +1,14 @@
 package rmiImplementations.clients;
 
-import interfaces.IBaseSpaceModel;
-import interfaces.IDownloadListener;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.basespaceService.interfaces.IDownloadListener;
+import com.gmo.logger.Log4JLogger;
 
 public class RMIDownloadNotifClient {
 

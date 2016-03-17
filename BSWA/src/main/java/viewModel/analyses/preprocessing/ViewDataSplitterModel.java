@@ -1,16 +1,10 @@
 package viewModel.analyses.preprocessing;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 
 import coreprocessing.fastQReaderSplitter.DataSplitterModel;
 

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import logger.Log4JLogger;
-import model.data.ChunkResult;
-
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.data.ChunkResult;
 
 public class AnalysisMergerWorker implements Runnable {
 

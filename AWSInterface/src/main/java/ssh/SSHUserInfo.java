@@ -3,10 +3,9 @@ package ssh;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.logger.Log4JLogger;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
 

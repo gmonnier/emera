@@ -1,18 +1,16 @@
 package rmiImplementations;
 
-import interfaces.IBaseSpaceModel;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.Policy;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import rmiconfig.SecurityPolicy;
+import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.rmiconfig.SecurityPolicy;
 
 public class RMIServer implements Runnable {
 

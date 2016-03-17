@@ -7,13 +7,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
-import logger.Log4JLogger;
-import model.parameters.ExtractionPattern;
-import model.parameters.OutputAttributes;
-import model.parameters.PatternAttributes;
-import model.processconfig.files.ModelFileStored;
 import applicationconfig.ApplicationContextManager;
 import applicationconfig.NoSuchPatternException;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
+import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
+import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
+
 import configuration.jaxb.applicationcontext.ApplicationContext;
 
 @XmlRootElement

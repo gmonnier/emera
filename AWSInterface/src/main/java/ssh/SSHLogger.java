@@ -1,8 +1,8 @@
 package ssh;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 
 public class SSHLogger implements com.jcraft.jsch.Logger {
 	static java.util.Hashtable<Integer, String> name = new java.util.Hashtable<Integer, String>();

@@ -3,18 +3,17 @@ package applicationconfig;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import logger.Log4JLogger;
-import model.parameters.ExtractionPattern;
 
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 
 import configuration.jaxb.applicationcontext.ApplicationContext;
 import configuration.jaxb.applicationcontext.Pattern;
 import configuration.jaxb.applicationcontext.PatternsStorage;
 import configuration.jaxb.applicationcontext.SplitPattern;
-import configuration.xmljaxb.AbstractConfigurationManager;
 import coreprocessing.fastQReaderSplitter.DataSplitterModel;
 
 public class ApplicationContextManager extends AbstractConfigurationManager<ApplicationContext> {

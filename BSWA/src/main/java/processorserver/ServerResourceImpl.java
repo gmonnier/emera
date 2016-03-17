@@ -2,14 +2,11 @@ package processorserver;
 
 import java.net.ServerSocket;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
-import client.ClientStatus;
-import network.network_Server.ExtendedSocket;
-import processorserver.util.ClientLocation;
-import processorserver.util.LocationLookup;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.network.location.ClientLocation;
+import com.gmo.network.location.LocationLookup;
 
 public class ServerResourceImpl implements IResource {
 

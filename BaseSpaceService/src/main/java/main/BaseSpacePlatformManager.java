@@ -1,21 +1,21 @@
 package main;
 
+import java.io.OutputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
 import model.BaseSpaceUserModel;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.logger.Log4JLogger;
 import com.illumina.basespace.ApiClient;
 import com.illumina.basespace.ApiClientManager;
 
 import connection.BaseSpaceInitConnection;
 import download.SampleDownloader;
-
+import download.SampleTransferer;
 
 public class BaseSpacePlatformManager {
 
@@ -49,9 +49,9 @@ public class BaseSpacePlatformManager {
 			clientBS = ApiClientManager.instance().createClient(bsConnectionConfig);
 			LOG.info("baseSpace connection instantiated");
 		} catch (Throwable e) {
-			for(int i=0; i<e.getCause().getStackTrace().length; i++) {
+			for (int i = 0; i < e.getCause().getStackTrace().length; i++) {
 				LOG.error(e.getCause().getStackTrace()[i]);
-            }
+			}
 			LOG.error("Error while creating BS client", e);
 		}
 
@@ -69,8 +69,13 @@ public class BaseSpacePlatformManager {
 		return bsUserModel;
 	}
 
-	public void requestNewDownload(String path, FastQFile file, String analyseID) {
-		SampleDownloader downloader = new SampleDownloader(file, path, clientBS, analyseID);
+	public void requestNewDownload(String fileName, FastQFile file, String analyseID) {
+		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, analyseID);
+		fileWriterService.execute(downloader);
+	}
+
+	public void requestNewDownload(String fileName, OutputStream outputStream, FastQFile file, String analyseID) {
+		SampleTransferer downloader = new SampleTransferer(file, fileName, outputStream, clientBS, analyseID);
 		fileWriterService.execute(downloader);
 	}
 

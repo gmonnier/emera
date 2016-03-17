@@ -1,17 +1,14 @@
 package awsinterfaceManager;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import logger.Log4JLogger;
 
 import org.apache.logging.log4j.Logger;
 
 import ssh.SSHClientExecutor;
 
-import com.jcraft.jsch.JSchException;
+import com.gmo.logger.Log4JLogger;
 
 public class AWSWatcherManager implements IAWSInstanceStateChanged {
 
@@ -46,7 +43,7 @@ public class AWSWatcherManager implements IAWSInstanceStateChanged {
 		
 		if(state.equals("running")) {
 			
-			String publicIp = AWSInterfaceManager.getInstance().getInstanceWithID(instID).getPublicIpAddress();
+			String publicIp = AWSEC2InterfaceManager.getInstance().getInstanceWithID(instID).getPublicIpAddress();
 			SSHClientExecutor sshClient = new SSHClientExecutor(publicIp);
 			sshClient.startRemoteClient();
 		}

@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import viewModel.ViewFile;
+
+import com.gmo.logger.Log4JLogger;
 
 @XmlRootElement
 public class ViewPreProcessingConfiguration {

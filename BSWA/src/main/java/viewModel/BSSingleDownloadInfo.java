@@ -2,7 +2,7 @@ package viewModel;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import basespaceObjects.FastQFile;
+import com.gmo.basespaceService.model.FastQFile;
 
 @XmlRootElement
 public class BSSingleDownloadInfo {

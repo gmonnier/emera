@@ -7,9 +7,6 @@ import java.util.Properties;
 
 import javax.servlet.DispatcherType;
 
-import logger.JavaStyleLogger;
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -21,21 +18,18 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import processorserver.ProcessorServerManager;
 import reports.extraction.AnalysisExtractor;
-import systemUtil.SystemCommand;
-import ws.WSAdditionalAnalysis;
-import ws.WSAnalysisConfiguration;
-import ws.WSAnalysisManagement;
-import ws.WSBaseSpace;
-import ws.WSConnection;
-import ws.WSDataStorage;
-import ws.WSNetworkConfiguration;
 import application.connectionsMonitor.ConnectionsMonitor;
 import application.filters.ConnectionFilter;
 import application.mappers.EOFExceptionMapper;
 import application.mappers.WebExceptionMapper;
 import applicationconfig.ApplicationContextManager;
 import applicationconfig.StorageConfigurationManager;
-import awsinterfaceManager.AWSInterfaceManager;
+import awsinterfaceManager.AWSEC2InterfaceManager;
+
+import com.gmo.logger.JavaStyleLogger;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
+
 import externalInterfaces.basespace.BaseSpaceModelManager;
 import externalInterfaces.basespace.rmiserver.BaseSpaceRMIDownloadServer;
 
@@ -106,7 +100,7 @@ public class WebServerApp {
 
 	private static void initAWSModel() {
 		LOG.debug("Init Amazon Web Services Interface");
-		AWSInterfaceManager.getInstance();
+		AWSEC2InterfaceManager.getInstance();
 	}
 
 	private static void initReportExtraction() {

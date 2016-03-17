@@ -1,7 +1,6 @@
 package applicationconfig;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,16 +9,15 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
 
-import systemUtil.SystemCommand;
-import viewModel.ViewFileOrigin;
+import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.systemUtil.SystemCommand;
+
 import configuration.jaxb.storageconfig.StorageConfiguration;
-import configuration.xmljaxb.AbstractConfigurationManager;
 
 public class StorageConfigurationManager extends AbstractConfigurationManager<StorageConfiguration> {
 

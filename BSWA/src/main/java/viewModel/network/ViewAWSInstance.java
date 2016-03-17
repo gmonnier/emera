@@ -2,8 +2,6 @@ package viewModel.network;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import processorserver.util.ClientLocation;
-
 @XmlRootElement
 public class ViewAWSInstance {
 

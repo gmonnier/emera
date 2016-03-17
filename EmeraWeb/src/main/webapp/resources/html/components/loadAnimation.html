@@ -1,0 +1,64 @@
+﻿<script>
+	var items = document.getElementsByClassName('lian');
+	var counter = 1;
+
+	setInterval(function(){
+	  if(items !== undefined && items.length > 0){
+		  items[counter - 1].style.opacity = 0;
+		  items[counter].style.opacity = 1;
+		  counter++;
+		  if(counter == items.length) {
+			counter = 1;
+			items[0].style.opacity = 1;
+			items[items.length - 1].style.opacity = 0;
+		  }
+		}
+	}, 500);
+	
+</script>
+
+<style>
+	.animul{
+		font-size: 24px;
+		color: #185D99;
+		float: left;
+		position: absolute;
+		top: 8px;
+		left: 13px;
+	}
+
+	.lian {
+	  padding: 0 0 0 0;
+	  list-style: none;
+	  position: absolute;
+	 
+	  opacity: 0;
+	  width: 100%;
+	  -webkit-backface-visibility: hidden;
+	  text-shadow: 0 0 1px rgba(0,0,0,1);
+	  transition: opacity 0.4s ease;
+	}
+
+	.lian:first-child {
+	  opacity: 0.2 !important;
+	}
+</style>
+
+<ul class="animul">
+	  <li class="lian">⣿</li>
+	  <li class="lian">⣰</li>
+	  <li class="lian">⣱</li>
+	  <li class="lian">⣲</li>
+	  <li class="lian">⣳</li>
+	  <li class="lian">⣴</li>
+	  <li class="lian">⣵</li>
+	  <li class="lian">⣶</li>
+	  <li class="lian">⣷</li>
+	  <li class="lian">⣸</li>
+	  <li class="lian">⣹</li>
+	  <li class="lian">⣺</li>
+	  <li class="lian">⣻</li>
+	  <li class="lian">⣼</li>
+	  <li class="lian">⣽</li>
+	  <li class="lian">⣾</li>
+</ul>

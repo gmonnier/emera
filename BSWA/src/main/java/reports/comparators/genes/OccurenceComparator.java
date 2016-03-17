@@ -3,7 +3,8 @@ package reports.comparators.genes;
 import java.util.Comparator;
 
 import reports.Report;
-import model.genelibrary.ReferenceGene;
+
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 
 public class OccurenceComparator implements Comparator<ReferenceGene> {
 

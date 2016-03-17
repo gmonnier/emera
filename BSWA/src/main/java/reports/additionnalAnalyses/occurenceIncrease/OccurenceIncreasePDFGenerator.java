@@ -1,55 +1,28 @@
 package reports.additionnalAnalyses.occurenceIncrease;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import logger.Log4JLogger;
-import model.genelibrary.ReferenceGene;
-import model.parameters.ExtractionPattern;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
-import reports.UnfoundStartSeqMap;
 import reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
-import ui.lookAndFeel.Colors;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
+import com.gmo.fileGenerator.pdf.GenericPDFGenerator;
+import com.gmo.fileGenerator.pdf.util.PDFPageSize;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.ui.lookAndFeel.Colors;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.ExceptionConverter;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPHeaderCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfTemplate;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.VerticalPositionMark;
-
-import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
-import fileGenerator.pdf.GenericPDFGenerator;
-import fileGenerator.pdf.util.PDFPageSize;
 
 public class OccurenceIncreasePDFGenerator extends GenericPDFGenerator {
 

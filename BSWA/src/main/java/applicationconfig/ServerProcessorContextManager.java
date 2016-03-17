@@ -2,12 +2,12 @@ package applicationconfig;
 
 import java.io.File;
 
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.logger.Log4JLogger;
+
 import configuration.jaxb.serverprocessorconfig.ServerProcessorConfig;
-import configuration.xmljaxb.AbstractConfigurationManager;
 
 public class ServerProcessorContextManager extends AbstractConfigurationManager<ServerProcessorConfig> {
 

@@ -5,18 +5,25 @@
 	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	jaxb:version="2.1" elementFormDefault="qualified">
 
+	<xs:simpleType name="locationType" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S3" />
+			<xs:enumeration value="Local" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="Pattern">
 		<xs:sequence>
-			<xs:element name="value" type="xs:string"/>
-			<xs:element name="alias" type="xs:string"/>
+			<xs:element name="value" type="xs:string" />
+			<xs:element name="alias" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="SplitPattern">
 		<xs:sequence>
-			<xs:element name="value" type="xs:string"/>
-			<xs:element name="outputName" type="xs:string"/>
-			<xs:element name="alias" type="xs:string"/>
+			<xs:element name="value" type="xs:string" />
+			<xs:element name="outputName" type="xs:string" />
+			<xs:element name="alias" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -24,12 +31,12 @@
 		<xs:sequence>
 			<xs:element name="DefaultPatternIndex" type="xs:int" />
 			<xs:sequence>
-				<xs:element name="Patterns" type="Pattern"
-					minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="Patterns" type="Pattern" minOccurs="0"
+					maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="SplitPatternsStorage">
 		<xs:sequence>
 			<xs:sequence>
@@ -42,6 +49,7 @@
 	<xs:element name="ApplicationContext">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="webServerPort" type="xs:int" />
 				<xs:element name="AllowCharacterError" type="xs:boolean" />
 				<xs:element name="AllowShifting" type="xs:boolean" />
 				<xs:element name="GeneratePDFOutput" type="xs:boolean" />
@@ -50,6 +58,7 @@
 				<xs:element name="SplitPatternsStorage" type="SplitPatternsStorage" />
 				<xs:element name="checkForUnfoundEntries" type="xs:boolean" />
 				<xs:element name="analysisResultsLocation" type="xs:string" />
+				<xs:element name="analysisResultsLocationType" type="locationType" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

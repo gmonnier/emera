@@ -1,0 +1,128 @@
+.file-manager .menu-load-file {
+	display: none;
+	position: absolute;
+	z-index: 100;
+	margin-left: 55px;
+	margin-top: -30px;
+}
+
+.file-manager .menu-load-file ul {
+	min-width: 550px;
+}
+
+.file-manager .open-load-data:hover .menu-load-file {
+	display: block;
+}
+
+.file-manager .add-left {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100px;
+}
+
+.file-manager .add-right {
+	display: table-cell;
+}
+
+.file-manager .align-middle {
+	vertical-align: middle;
+}
+
+.file-manager .align-top {
+	vertical-align: top;
+}
+
+.file-manager .fileTable {
+	letter-spacing: 0.1em;
+	display: table;
+	margin-bottom: 10px;
+}
+
+.file-manager .filerow {
+	display: table-row;
+	height: 30px;
+}
+
+.file-manager .propcell {
+	display: table-cell;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.file-manager .propcell img {
+	display: block;
+	width: 25px;
+}
+
+.file-manager .valuecell {
+	display: table-cell;
+	padding-left: 20px;
+	vertical-align: middle;
+}
+
+.file-manager .sizecell {
+	display: table-cell;
+	margin: 3px;
+	padding: 0.4em;
+	height: 18px;
+	font-size: 10px;
+	vertical-align: middle;
+	padding-left: 20px;
+}
+
+.file-manager .deletecell {
+	display: table-cell;
+	padding-left: 10px;
+	cursor: pointer;
+	vertical-align: middle;
+	padding-top:
+}
+
+.file-manager .deletecell img {
+	display: block;
+	width: 15px;
+	height: 15px;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.file-manager .storedFileNameDisp {
+	font-weight: normal;
+	font-size: 13px;
+	padding: 2px;
+	padding-right: 5px;
+}
+
+.file-manager .storedDateDisp {
+	color: #5785C6;
+	font-weight: normal;
+	padding: 2px;
+	padding-left: 5px;
+}
+
+.file-manager .storedSizeDisp {
+	min-width: 100px;
+}
+
+.file-manager .add-icon {
+	width: 80px;
+	height: 80px;
+}
+
+.file-manager .no-select-message {
+	color: grey;
+}
+
+.file-manager .open-load:hover .add-icon{
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/addFile_hov.svg");
+}
+
+.file-manager .add-icon {
+	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/addFile.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.file-manager .open-load:hover {
+	cursor: pointer;
+}

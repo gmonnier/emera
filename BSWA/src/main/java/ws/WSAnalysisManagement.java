@@ -1,7 +1,6 @@
 package ws;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,22 +15,20 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import logger.Log4JLogger;
 import model.analyses.NoSuchAnalysisException;
-import model.genelibrary.ReferenceGene;
 
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
-import reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseAnalysis;
 import viewModel.StatusChangeRequest;
-import viewModel.ViewCompareAnalysisParam;
-import viewModel.ViewFile;
 import viewModel.ViewPollingInfo;
 import viewModel.network.ViewNetworkConfig;
 import viewModel.report.ViewReportGraphData;
 import applicationconfig.ApplicationContextManager;
-import coreprocessing.Analysis;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+
 import coreprocessing.AnalysisManager;
 
 @Path("/ws-resources/analysis")

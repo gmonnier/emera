@@ -1,7 +1,7 @@
 package coreprocessing;
 
-import model.data.ChunkResult;
-import model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 public interface IAnalysisProcessingListener {
 	

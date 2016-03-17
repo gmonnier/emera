@@ -1,10 +1,7 @@
 package processorserver;
 
-import processorserver.util.ClientLocation;
-import model.data.DataChunk;
-import model.genelibrary.GeneLibrary;
-import model.processconfig.ProcessConfiguration;
-import client.ClientStatus;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.DataChunk;
 
 public interface IDistantResource extends IResource {
 

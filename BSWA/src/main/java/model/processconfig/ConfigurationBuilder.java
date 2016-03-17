@@ -2,17 +2,17 @@ package model.processconfig;
 
 import java.util.NoSuchElementException;
 
-import logger.Log4JLogger;
 import model.analyses.FileUploadListener;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
-import coreprocessing.Analysis;
 import viewModel.ViewCreateProcessConfiguration;
 import viewModel.ViewFile;
 import viewModel.ViewFileOrigin;
 import applicationconfig.StorageConfigurationManager;
+
+import com.gmo.logger.Log4JLogger;
 
 public class ConfigurationBuilder {
 

@@ -1,24 +1,23 @@
 package rmiImplementations;
 
-import interfaces.IBaseSpaceModel;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import logger.Log4JLogger;
 import main.BaseSpacePlatformManager;
 
 import org.apache.logging.log4j.Logger;
 
-import basespaceObjects.FastQFile;
-import basespaceObjects.UserInfo;
-import basespaceObjects.UserRun;
+import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.basespaceService.model.UserInfo;
+import com.gmo.basespaceService.model.UserRun;
+import com.gmo.logger.Log4JLogger;
 
 public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpaceModel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private final static Logger LOG = Log4JLogger.logger;
 
 	public BaseSpaceModelImpl() throws RemoteException {
@@ -38,10 +37,11 @@ public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpac
 	}
 
 	@Override
-	public void requestDownload(String path, FastQFile file, String analyseID) throws RemoteException {
-		LOG.info("Request to downoad " + path + " to : " + file + "     for analyse : " + analyseID);
-		BaseSpacePlatformManager.getInstance().requestNewDownload(path, file, analyseID);
+	public void requestDownload(String fileName, FastQFile file, String analyseID) throws RemoteException {
+		LOG.info("Request to downoad " + fileName + " to : " + fileName + "     for analyse : " + analyseID);
+		
+		Need to figure out how to provide the output stream here!!
+		BaseSpacePlatformManager.getInstance().requestNewDownload(fileName, file, analyseID);
 	}
 
-	
 }

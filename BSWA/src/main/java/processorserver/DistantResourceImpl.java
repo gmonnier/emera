@@ -1,19 +1,21 @@
 package processorserver;
 
+import model.analyses.NoSuchAnalysisException;
+import model.processconfig.ProcessConfiguration;
+
 import org.apache.logging.log4j.Logger;
 
-import processorserver.util.ClientLocation;
-import processorserver.util.LocationLookup;
-import coreprocessing.AnalysisManager;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.network.location.ClientLocation;
+import com.gmo.network.location.LocationLookup;
+import com.gmo.network.network_Server.ExtendedSocket;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.DataChunk;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+
 import coreprocessing.Analysis;
+import coreprocessing.AnalysisManager;
 import coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
-import logger.Log4JLogger;
-import model.analyses.NoSuchAnalysisException;
-import model.data.DataChunk;
-import model.genelibrary.GeneLibrary;
-import model.processconfig.ProcessConfiguration;
-import network.network_Server.ExtendedSocket;
-import client.ClientStatus;
 
 public class DistantResourceImpl implements IDistantResource {
 

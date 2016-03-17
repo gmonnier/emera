@@ -10,17 +10,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import logger.Log4JLogger;
-import model.genelibrary.ReferenceGene;
-import model.parameters.ExtractionPattern;
 import model.processconfig.files.ModelFileStored;
 
 import org.apache.logging.log4j.Logger;
 
 import reports.Report;
 import reports.UnfoundStartSeqMap;
-import ui.lookAndFeel.Colors;
 
+import com.gmo.fileGenerator.pdf.util.PDFPageSize;
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
+import com.gmo.ui.lookAndFeel.Colors;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
@@ -45,9 +46,6 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
-
-import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
-import fileGenerator.pdf.util.PDFPageSize;
 
 public class PDFOutputGenerator extends PdfPageEventHelper {
 

@@ -4,16 +4,16 @@ import com.illumina.basespace.ApiConfiguration;
 
 import configuration.BaseSpaceContextManager;
 
-public class BaseSpaceInitConnection implements ApiConfiguration{
-	
+public class BaseSpaceInitConnection implements ApiConfiguration {
+
 	// Application development specific credentials
 	private String clientSecret;
-	
+
 	private String clientID;
-	
+
 	// Illumina User specific toker
 	private String accessToken;
-	
+
 	public BaseSpaceInitConnection() {
 		clientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
 		clientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();
