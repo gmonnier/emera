@@ -41,12 +41,12 @@
 					<div class="fileTable">
 						<div class="filerow" id="runfile_{{selected.id}}" ng-repeat="selected in ctrl.selectedFiles">
 							<div class="propcell">
-								<img ng-src="{{selected.origin === 'UPLOAD' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/upload.svg' || selected.origin === 'STORED' && 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/stored.svg' || 'http://d2t2bnlh53lbhy.cloudfront.net/fileOrg/basespace.svg'}}" />
+								<img ng-src="{{selected.origin === 'UPLOAD' && 'http://d3q6339sjg0aim.cloudfront.net/fileOrg/upload.svg' || selected.origin === 'STORED' && 'http://d3q6339sjg0aim.cloudfront.net/fileOrg/stored.svg' || 'http://d3q6339sjg0aim.cloudfront.net/fileOrg/basespace.svg'}}" />
 							</div>
 							<div class="sizecell">{{selected.readableSize}}</div>
 							<div class="valuecell">{{selected.name}}</div>
 							<div class="deletecell" ng-click="ctrl.removeSelectedFile(selected)">
-								<span><img src="http://d2t2bnlh53lbhy.cloudfront.net/remove.svg" alt="Delete"></span>
+								<span><img src="http://d3q6339sjg0aim.cloudfront.net/remove.svg" alt="Delete"></span>
 							</div>
 						</div>
 					</div>

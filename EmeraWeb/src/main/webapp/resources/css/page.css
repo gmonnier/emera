@@ -57,7 +57,7 @@ a {
 	border: none;
 	transition: .3s ease-in-out;
 	background-image:
-		url("http://d2t2bnlh53lbhy.cloudfront.net/underline.png");
+		url("http://d3q6339sjg0aim.cloudfront.net/underline.png");
 }
 
 .select1 {
@@ -233,28 +233,28 @@ ul.wtoolbar li {
 
 #buthome {
 	width: 100px;
-	background: url("http://d2t2bnlh53lbhy.cloudfront.net/home.svg")
+	background: url("http://d3q6339sjg0aim.cloudfront.net/home.svg")
 		no-repeat center center;
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but1 {
-	background-image: url("http://d2t2bnlh53lbhy.cloudfront.net/create.svg");
+	background-image: url("http://d3q6339sjg0aim.cloudfront.net/create.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but2 {
 	background-image:
-		url("http://d2t2bnlh53lbhy.cloudfront.net/manageQueue.svg");
+		url("http://d3q6339sjg0aim.cloudfront.net/manageQueue.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
 
 #but3 {
 	background-image:
-		url("http://d2t2bnlh53lbhy.cloudfront.net/net-config.svg");
+		url("http://d3q6339sjg0aim.cloudfront.net/net-config.svg");
 	background-size: 80px 80px;
 	background-position: 10px 10px;
 }
