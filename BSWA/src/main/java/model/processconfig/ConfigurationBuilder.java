@@ -19,7 +19,7 @@ public class ConfigurationBuilder {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public static void initConfigurationFromView(ProcessConfiguration conf, ViewCreateProcessConfiguration viewConf, FileUploadListener uploadListener) {
+	public static void initConfigurationFromView(ProcessConfiguration conf, ViewCreateProcessConfiguration viewConf) {
 
 		conf.setOutputAttributes(viewConf.getOutputAttributes());
 		conf.setPatternAttributes(viewConf.getPatternAttributes());

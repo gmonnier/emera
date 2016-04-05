@@ -25,13 +25,15 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
-	public ProcessConfiguration(FileUploadListener uploadListener) {
-		
-		this.uploadListener = uploadListener;
+	public ProcessConfiguration() {
 		
 		selectedLibraries = new ArrayList<ModelFileStored>();
 		selectedDataFiles = new ArrayList<ModelFileStored>();
 		
+	}
+
+	public void setUploadListener(FileUploadListener uploadListener) {
+		this.uploadListener = uploadListener;
 	}
 
 	public List<ModelFileStored> getSelectedLibraries() {

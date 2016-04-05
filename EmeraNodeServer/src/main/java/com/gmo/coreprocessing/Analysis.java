@@ -1,6 +1,5 @@
 package com.gmo.coreprocessing;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.BSDownloadInfo;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -106,8 +106,8 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		LOG.debug("Init analyse " + id);
 
 		// Init process configuration
-		processConfiguration = new ProcessConfiguration(this);
-		ConfigurationBuilder.initConfigurationFromView(processConfiguration, viewConfiguration, this);
+		processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfiguration);
+		processConfiguration.setUploadListener(this);
 
 		// Ask for BaseSPace download if basespaces files are required (Data
 		// files)
