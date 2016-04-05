@@ -4,7 +4,7 @@
 	<groupId>com.gmo</groupId>
 	<artifactId>EmeraNodeServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
+
 	<build>
 		<finalName>EmeraWeb</finalName>
 		<plugins>
@@ -21,6 +21,19 @@
 	</build>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>com.healthmarketscience.rmiio</groupId>
+			<artifactId>rmiio</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>illumina</groupId>
+			<artifactId>basespace-sdk</artifactId>
+			<version>2.1.1-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.gmo</groupId>
 			<artifactId>RMICommonModel</artifactId>
@@ -37,12 +50,6 @@
 			<groupId>com.gmo.aws</groupId>
 			<artifactId>AWSInterface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.healthmarketscience.rmiio</groupId>
-			<artifactId>rmiio</artifactId>
-			<version>2.1.1</version>
 		</dependency>
 	</dependencies>
 </project>
