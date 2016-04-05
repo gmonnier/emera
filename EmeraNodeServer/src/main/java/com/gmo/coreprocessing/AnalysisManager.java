@@ -46,20 +46,10 @@ public class AnalysisManager {
 		return runningAnalysis;
 	}
 
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration processConfig, String userID) {
-		
-		// Update storage of default values for next analysisconfigurations
-		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(processConfig.getPatternAttributes().isAllowOneMismatch());
-		ApplicationContextManager.getInstance().getConfig().setAllowShifting(processConfig.getPatternAttributes().isCheckForShifted());
-		ApplicationContextManager.getInstance().getConfig().setCheckForUnfoundEntries(processConfig.getOutputAttributes().isGenerateStatisticsOnUnfoundgRNA());
-		ApplicationContextManager.getInstance().getConfig().setGenerateCSVOutput(processConfig.getOutputAttributes().isGenerateCSV());
-		ApplicationContextManager.getInstance().getConfig().setGeneratePDFOutput(processConfig.getOutputAttributes().isGeneratePDF());
-		ApplicationContextManager.getInstance().updateDefaultPatternIndex(processConfig.getPattern());
-		ApplicationContextManager.getInstance().getWriter().marshalXMLFileExternalThread();
-
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID , String bsuserSecret, String bsuserToken) {
 		// Create and start the analysis
-		Analysis newAnalyse = new Analysis(processConfig, userID);
-		newAnalyse.init();
+		Analysis newAnalyse = new Analysis(viewConfig, userID);
+		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
 		runningAnalysis.add(newAnalyse);
 
 		return newAnalyse.getId();

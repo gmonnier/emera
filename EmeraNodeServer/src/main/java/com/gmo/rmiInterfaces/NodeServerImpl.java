@@ -178,9 +178,8 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) throws RemoteException {
+		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken);
 	}
 
 	// ---------- File Transfert ---------

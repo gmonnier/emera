@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -134,10 +135,10 @@ public class NodeRMIClient implements IProcessorNode {
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID,String bsClientID,String bsClientSecret,String bsAccessToken) {
 		if (rmiNodeClient != null) {
 			try {
-				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID);
+				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}

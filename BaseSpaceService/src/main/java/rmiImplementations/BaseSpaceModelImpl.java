@@ -25,15 +25,15 @@ public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpac
 	}
 
 	@Override
-	public List<UserRun> getListUserRuns(String clientID, String clientSecret, String accessToken) throws RemoteException {
+	public List<UserRun> getListUserRuns(String clientID, String clientSecret, String bsAccessToken) throws RemoteException {
 		LOG.info("Asking for list of current user run");
-		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, accessToken).getListRunsCurrentUser();
+		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, bsAccessToken).getListRunsCurrentUser();
 	}
 
 	@Override
-	public UserInfo getUserInfo(String clientID, String clientSecret, String accessToken) throws RemoteException {
+	public UserInfo getUserInfo(String clientID, String clientSecret, String bsAccessToken) throws RemoteException {
 		LOG.info("Asking for current user info");
-		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, accessToken).getCurrentUserInfo();
+		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, bsAccessToken).getCurrentUserInfo();
 	}
 
 }

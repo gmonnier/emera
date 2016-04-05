@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -36,7 +37,23 @@ public class WSAnalysisConfiguration {
 	public String postNewProcessJSON(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
 		LOG.debug("POST: enqueue requested for new analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
-		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID);
+		
+		// Get users's bs connection credentials
+		String bsClientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();
+		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
+		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
+		
+		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
+		
+		// Update storage of default values for next analysisconfigurations
+		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(jsonConfig.getPatternAttributes().isAllowOneMismatch());
+		ApplicationContextManager.getInstance().getConfig().setAllowShifting(jsonConfig.getPatternAttributes().isCheckForShifted());
+		ApplicationContextManager.getInstance().getConfig().setCheckForUnfoundEntries(jsonConfig.getOutputAttributes().isGenerateStatisticsOnUnfoundgRNA());
+		ApplicationContextManager.getInstance().getConfig().setGenerateCSVOutput(jsonConfig.getOutputAttributes().isGenerateCSV());
+		ApplicationContextManager.getInstance().getConfig().setGeneratePDFOutput(jsonConfig.getOutputAttributes().isGeneratePDF());
+		ApplicationContextManager.getInstance().updateDefaultPatternIndex(jsonConfig.getPattern());
+		ApplicationContextManager.getInstance().getWriter().marshalXMLFileExternalThread();
+		
 		LOG.info("new Analysis enqueued with ID " + id);
 		return id;
 	}

@@ -102,7 +102,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		this.additionalAnalyses = new ArrayList<>();
 	}
 
-	public void init() {
+	public void init(String bsUserID, String bsUserSecret, String bsToken) {
 
 		LOG.debug("Init analyse " + id);
 
@@ -116,11 +116,11 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		for (Iterator<ViewFile> iterator = listdataSelected.iterator(); iterator.hasNext();) {
 			ViewFile dataFile = (ViewFile) iterator.next();
 			if (dataFile.getOrigin() == ViewFileOrigin.BASESPACE) {
-				FastQFile fastQFile = BaseSpacePlatformManager.getInstance().getWithID(dataFile.getId());
+				FastQFile fastQFile = BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).getWithID(dataFile.getId());
+				LOG.debug("Request download for fastQFile " + fastQFile.getName());
 				downloadInfo.update(fastQFile, 0);
 				setStatus(AnalysisStatus.RETRIEVE_FILES);
-				LOG.debug("Request download for fastQFile " + fastQFile.getName());
-				BaseSpacePlatformManager.getInstance().requestDownload(id, StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile);
+				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestDownload(id, StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile);
 			}
 		}
 	}
