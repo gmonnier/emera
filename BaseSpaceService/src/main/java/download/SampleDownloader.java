@@ -18,7 +18,7 @@ import com.illumina.basespace.infrastructure.ResourceNotFoundException;
 
 public class SampleDownloader implements Runnable, DownloadListener {
 
-	private String outputPath;
+	private String destinationDirectory;
 	private FastQFile fastqfile;
 	private ApiClient clientBS;
 	private IDownloadListener listener;
@@ -30,8 +30,8 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public SampleDownloader(FastQFile fastqfile, String outputPath, ApiClient clientBS, String analyseID) {
-		this.outputPath = outputPath;
+	public SampleDownloader(FastQFile fastqfile, String destinationDirectory, ApiClient clientBS, String analyseID) {
+		this.destinationDirectory = destinationDirectory;
 		this.clientBS = clientBS;
 		this.fastqfile = fastqfile;
 		this.analyseID = analyseID;
@@ -52,7 +52,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 		try {
 			final File file = clientBS.getFile(fastqfile.getId()).get();
 
-			final java.io.File localFolder = new java.io.File(outputPath);
+			final java.io.File localFolder = new java.io.File(destinationDirectory);
 			clientBS.download(file, localFolder, this);
 
 		} catch (Throwable t) {
@@ -92,7 +92,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 
 	@Override
 	public void complete(DownloadEvent evt) {
-		if (!new java.io.File(outputPath).exists()) {
+		if (!new java.io.File(destinationDirectory).exists()) {
 			LOG.error("Output file not written successfully");
 			try {
 				listener.downloadFailed(analyseID, fastqfile);
@@ -102,7 +102,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 		} else {
 			try {
 				LOG.error("Download complete " + fastqfile + " for analyse " + analyseID);
-				listener.downloadSuccess(analyseID, fastqfile, outputPath);
+				listener.downloadSuccess(analyseID, fastqfile, destinationDirectory);
 			} catch (RemoteException e) {
 				LOG.error("Unable to send to server that download failed : ", e);
 			}

@@ -51,7 +51,6 @@ public class AnalysisManager {
 		Analysis newAnalyse = new Analysis(viewConfig, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
 		runningAnalysis.add(newAnalyse);
-
 		return newAnalyse.getId();
 	}
 

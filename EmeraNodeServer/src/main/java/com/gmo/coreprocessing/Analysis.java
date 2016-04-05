@@ -33,6 +33,7 @@ import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.sharedobjects.util.FileUploadListener;
 
+import download.SampleDownloader;
 import main.BaseSpacePlatformManager;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
@@ -120,7 +121,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 				LOG.debug("Request download for fastQFile " + fastQFile.getName());
 				downloadInfo.update(fastQFile, 0);
 				setStatus(AnalysisStatus.RETRIEVE_FILES);
-				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestDownload(id, StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile);
+				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, id);
 			}
 		}
 	}

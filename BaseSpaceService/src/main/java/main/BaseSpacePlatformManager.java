@@ -3,8 +3,10 @@ package main;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -33,6 +35,8 @@ public class BaseSpacePlatformManager {
 
 	private ApiClient clientBS;
 
+	private List<UserRun> listUserRuns;
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
@@ -46,6 +50,7 @@ public class BaseSpacePlatformManager {
 		LOG.info("Init baseSpace connection");
 
 		BaseSpaceConfiguration bsConnectionConfig = new BaseSpaceConfiguration(clientID, clientSecret, accessToken);
+
 		try {
 			clientBS = ApiClientManager.instance().createClient(bsConnectionConfig);
 			LOG.info("baseSpace connection instantiated");
@@ -55,6 +60,9 @@ public class BaseSpacePlatformManager {
 			}
 			LOG.error("Error while creating BS client", e);
 		}
+
+		listUserRuns = new ArrayList<>();
+		updateListRunsCurrentUser();
 	}
 
 	public static synchronized BaseSpacePlatformManager getInstance(String clientID, String clientSecret, String accessToken) {
@@ -75,6 +83,10 @@ public class BaseSpacePlatformManager {
 	}
 
 	public List<UserRun> getListRunsCurrentUser() {
+		return listUserRuns;
+	}
+
+	public void updateListRunsCurrentUser() {
 
 		LOG.info("Retrieve list of users runs");
 
@@ -121,7 +133,26 @@ public class BaseSpacePlatformManager {
 			listRuns.add(currRun);
 		}
 
-		return listRuns;
+		listUserRuns = listRuns;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return the fastQ file object with the given ID in the current model.
+	 */
+	public FastQFile getWithID(String id) {
+		for (Iterator<UserRun> iterator = listUserRuns.iterator(); iterator.hasNext();) {
+			UserRun userRun = (UserRun) iterator.next();
+			List<FastQFile> listFiles = userRun.getListFilesData();
+			for (Iterator<FastQFile> iterator2 = listFiles.iterator(); iterator2.hasNext();) {
+				FastQFile fastQFile = (FastQFile) iterator2.next();
+				if (fastQFile.getId().equals(id)) {
+					return fastQFile;
+				}
+			}
+		}
+		throw new NoSuchElementException();
 	}
 
 	public UserInfo getCurrentUserInfo() {
