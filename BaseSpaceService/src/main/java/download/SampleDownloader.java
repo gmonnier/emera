@@ -21,16 +21,13 @@ public class SampleDownloader implements Runnable, DownloadListener {
 
 	private int currentProgress;
 
-	private String analyseID;
-
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public SampleDownloader(FastQFile fastqfile, String destinationDirectory, ApiClient clientBS, String analyseID, IDownloadListener listener) {
+	public SampleDownloader(FastQFile fastqfile, String destinationDirectory, ApiClient clientBS, IDownloadListener listener) {
 		this.destinationDirectory = destinationDirectory;
 		this.clientBS = clientBS;
 		this.fastqfile = fastqfile;
-		this.analyseID = analyseID;
 		this.currentProgress = 0;
 		this.listener = listener;
 	}
@@ -58,7 +55,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 
 			// Notify Listeners that download has failed
 			if (listener != null) {
-				listener.downloadFailed(analyseID, fastqfile);
+				listener.downloadFailed(fastqfile);
 			}
 		}
 
@@ -72,7 +69,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 		if (currentProgress != newPercentage) {
 			LOG.debug("Download progress changed to " + newPercentage);
 			if (listener != null) {
-				listener.downloadProgress(newPercentage, analyseID, fastqfile);
+				listener.downloadProgress(newPercentage, fastqfile);
 			}
 			currentProgress = newPercentage;
 		}
@@ -82,12 +79,12 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	public void complete(DownloadEvent evt) {
 		if (!new java.io.File(destinationDirectory).exists()) {
 			if (listener != null) {
-				listener.downloadFailed(analyseID, fastqfile);
+				listener.downloadFailed(fastqfile);
 			}
 		} else {
-			LOG.error("Download complete " + fastqfile + " for analyse " + analyseID);
+			LOG.error("Download complete " + fastqfile);
 			if (listener != null) {
-				listener.downloadSuccess(analyseID, fastqfile, destinationDirectory);
+				listener.downloadSuccess(fastqfile, destinationDirectory);
 			}
 		}
 	}
@@ -96,7 +93,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	public void canceled(DownloadEvent evt) {
 		LOG.info("Download canceld");
 		if (listener != null) {
-			listener.downloadFailed(analyseID, fastqfile);
+			listener.downloadFailed(fastqfile);
 		}
 	}
 

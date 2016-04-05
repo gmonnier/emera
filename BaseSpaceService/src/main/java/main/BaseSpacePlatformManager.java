@@ -71,8 +71,8 @@ public class BaseSpacePlatformManager {
 		return instances.get(clientID);
 	}
 
-	public void requestNewDownload(String fileName, FastQFile file, String analyseID, IDownloadListener downloadListener) {
-		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, analyseID, downloadListener);
+	public void requestNewDownload(String fileName, FastQFile file, IDownloadListener downloadListener) {
+		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, downloadListener);
 		fileWriterService.execute(downloader);
 	}
 

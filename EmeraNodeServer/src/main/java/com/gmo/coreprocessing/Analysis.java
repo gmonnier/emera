@@ -123,7 +123,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 				LOG.debug("Request download for fastQFile " + fastQFile.getName());
 				downloadInfo.update(fastQFile, 0);
 				setStatus(AnalysisStatus.RETRIEVE_FILES);
-				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, id, this);
+				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
 			}
 		}
 	}
