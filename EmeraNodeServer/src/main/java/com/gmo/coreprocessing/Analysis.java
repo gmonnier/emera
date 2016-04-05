@@ -11,7 +11,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
@@ -33,6 +32,8 @@ import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.sharedobjects.util.FileUploadListener;
+
+import main.BaseSpacePlatformManager;
 
 public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener {
 
@@ -115,11 +116,11 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		for (Iterator<ViewFile> iterator = listdataSelected.iterator(); iterator.hasNext();) {
 			ViewFile dataFile = (ViewFile) iterator.next();
 			if (dataFile.getOrigin() == ViewFileOrigin.BASESPACE) {
-				FastQFile fastQFile = BaseSpaceModelManager.getInstance().getWithID(dataFile.getId());
+				FastQFile fastQFile = BaseSpacePlatformManager.getInstance().getWithID(dataFile.getId());
 				downloadInfo.update(fastQFile, 0);
 				setStatus(AnalysisStatus.RETRIEVE_FILES);
 				LOG.debug("Request download for fastQFile " + fastQFile.getName());
-				BaseSpaceModelManager.getInstance().requestDownload(id, StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile);
+				BaseSpacePlatformManager.getInstance().requestDownload(id, StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile);
 			}
 		}
 	}
