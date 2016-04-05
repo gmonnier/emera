@@ -59,14 +59,6 @@ public class BaseSpaceModelManager {
 		throw new NoSuchElementException();
 	}
 
-	public void requestDownload(String analyseID, String uploadDirectory, FastQFile fastqRequest) {
-		LOG.info("Request new download to basespace server");
-		rmiCLient = new BaseSpaceRMIClient();
-		if (rmiCLient.isConnectionOk()) {
-			rmiCLient.requestStartNewDownload(analyseID, uploadDirectory, fastqRequest);
-		}
-	}
-
 	public boolean isConnectionOK() {
 		updateModel();
 		return rmiCLient != null && rmiCLient.isConnectionOk();
