@@ -25,23 +25,15 @@ public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpac
 	}
 
 	@Override
-	public List<UserRun> getListUserRuns() throws RemoteException {
+	public List<UserRun> getListUserRuns(String clientID, String clientSecret, String accessToken) throws RemoteException {
 		LOG.info("Asking for list of current user run");
-		return BaseSpacePlatformManager.getInstance().getListRunsCurrentUser();
+		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, accessToken).getListRunsCurrentUser();
 	}
 
 	@Override
-	public UserInfo getUserInfo() throws RemoteException {
+	public UserInfo getUserInfo(String clientID, String clientSecret, String accessToken) throws RemoteException {
 		LOG.info("Asking for current user info");
-		return BaseSpacePlatformManager.getInstance().getCurrentUserInfo();
-	}
-
-	@Override
-	public void requestDownload(String fileName, FastQFile file, String analyseID) throws RemoteException {
-		LOG.info("Request to downoad " + fileName + " to : " + fileName + "     for analyse : " + analyseID);
-		
-		Need to figure out how to provide the output stream here!!
-		BaseSpacePlatformManager.getInstance().requestNewDownload(fileName, file, analyseID);
+		return BaseSpacePlatformManager.getInstance(clientID, clientSecret, accessToken).getCurrentUserInfo();
 	}
 
 }

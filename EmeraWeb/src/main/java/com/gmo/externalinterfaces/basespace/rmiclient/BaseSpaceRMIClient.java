@@ -9,21 +9,31 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
-import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.basespaceService.model.UserInfo;
 import com.gmo.basespaceService.model.UserRun;
+import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 
 public class BaseSpaceRMIClient {
-	
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
 	private IBaseSpaceModel rmiBSModel;
-	
+
 	private boolean connectionOk;
 
+	private String clientID;
+
+	private String clientSecret;
+
+	private String accessToken;
+
 	public BaseSpaceRMIClient() {
+
+		clientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
+		clientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();
+		accessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 
 		connectionOk = false;
 		try {
@@ -38,38 +48,27 @@ public class BaseSpaceRMIClient {
 			LOG.error("NotBoundException " + e);
 		}
 	}
-	
+
 	public List<UserRun> requestListCurrentUserRuns() {
 		if (rmiBSModel != null) {
 			try {
-				return rmiBSModel.getListUserRuns();
+				return rmiBSModel.getListUserRuns(clientID, clientSecret, accessToken);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException ", e);
 			}
 		}
 		return null;
 	}
-	
+
 	public UserInfo requestUserInfo() {
 		if (rmiBSModel != null) {
 			try {
-				return rmiBSModel.getUserInfo();
+				return rmiBSModel.getUserInfo(clientID, clientSecret, accessToken);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
 		}
 		return null;
-	}
-	
-	public void requestStartNewDownload(String analyseID, FastQFile fastqRequest) {
-		if (rmiBSModel != null) {
-			try {
-				String fileName = fastqRequest.getName().replaceAll(".gz", "");
-				rmiBSModel.requestDownload(fileName, fastqRequest, analyseID);
-			} catch (RemoteException e) {
-				LOG.error("RemoteException " + e);
-			}
-		}
 	}
 
 	public boolean isConnectionOk() {

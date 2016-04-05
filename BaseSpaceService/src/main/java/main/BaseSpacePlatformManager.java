@@ -2,7 +2,9 @@ package main;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -18,7 +20,6 @@ import com.illumina.basespace.entity.FileCompact;
 import com.illumina.basespace.entity.RunCompact;
 import com.illumina.basespace.entity.SampleCompact;
 import com.illumina.basespace.entity.User;
-import com.illumina.basespace.param.FileParams;
 import com.illumina.basespace.param.QueryParams;
 import com.illumina.basespace.response.GetUserResponse;
 
@@ -28,7 +29,7 @@ import download.SampleTransferer;
 
 public class BaseSpacePlatformManager {
 
-	private static BaseSpacePlatformManager instance;
+	private final static Map<String, BaseSpacePlatformManager> instances = new HashMap<String, BaseSpacePlatformManager>();
 
 	private ApiClient clientBS;
 
@@ -41,14 +42,10 @@ public class BaseSpacePlatformManager {
 	 */
 	private static final Executor fileWriterService = Executors.newFixedThreadPool(1);
 
-	private BaseSpacePlatformManager() {
-		init();
-	}
-
-	private void init() {
+	private BaseSpacePlatformManager(String clientID, String clientSecret, String accessToken) {
 		LOG.info("Init baseSpace connection");
 
-		BaseSpaceConfiguration bsConnectionConfig = new BaseSpaceConfiguration();
+		BaseSpaceConfiguration bsConnectionConfig = new BaseSpaceConfiguration(clientID, clientSecret, accessToken);
 		try {
 			clientBS = ApiClientManager.instance().createClient(bsConnectionConfig);
 			LOG.info("baseSpace connection instantiated");
@@ -58,14 +55,13 @@ public class BaseSpacePlatformManager {
 			}
 			LOG.error("Error while creating BS client", e);
 		}
-
 	}
 
-	public static synchronized BaseSpacePlatformManager getInstance() {
-		if (instance == null) {
-			instance = new BaseSpacePlatformManager();
+	public static synchronized BaseSpacePlatformManager getInstance(String clientID, String clientSecret, String accessToken) {
+		if (instances.get(clientID) == null) {
+			instances.put(clientID, new BaseSpacePlatformManager(clientID, clientSecret, accessToken));
 		}
-		return instance;
+		return instances.get(clientID);
 	}
 
 	public void requestNewDownload(String fileName, FastQFile file, String analyseID) {
@@ -98,7 +94,6 @@ public class BaseSpacePlatformManager {
 			currRun.setTotalSize(list[i].getTotalSize());
 
 			SampleCompact[] sc = clientBS.getSamples(list[i], null).items();
-			FileParams fileParams = new FileParams(new String[] { ".fastq" });
 
 			for (int sci = 0; sci < sc.length; sci++) {
 

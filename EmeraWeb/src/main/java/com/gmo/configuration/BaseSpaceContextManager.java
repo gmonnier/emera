@@ -1,4 +1,4 @@
-package configuration;
+package com.gmo.configuration;
 
 import java.io.File;
 

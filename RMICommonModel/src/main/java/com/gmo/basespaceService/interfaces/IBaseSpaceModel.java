@@ -10,10 +10,8 @@ import com.gmo.basespaceService.model.UserRun;
 
 public interface IBaseSpaceModel extends Remote {
 
-	public List<UserRun> getListUserRuns() throws RemoteException;
+	public List<UserRun> getListUserRuns(String clientID, String clientSecret, String accessToken) throws RemoteException;
 	
-	public UserInfo getUserInfo() throws RemoteException;
-	
-	public void requestDownload(String fileName, FastQFile file, String analyseID) throws RemoteException;
+	public UserInfo getUserInfo(String clientID, String clientSecret, String accessToken) throws RemoteException;
 
 }

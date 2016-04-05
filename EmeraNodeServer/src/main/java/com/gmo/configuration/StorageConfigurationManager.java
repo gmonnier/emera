@@ -108,7 +108,8 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 			listFiles = listStoredData;
 			break;
 		}
-		case LIBRARY: {
+		case LIBRARY:
+		default: {
 			listFiles = listStoredLibraries;
 			break;
 		}
