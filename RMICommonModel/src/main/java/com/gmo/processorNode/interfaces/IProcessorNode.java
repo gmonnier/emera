@@ -40,11 +40,4 @@ public interface IProcessorNode extends Remote {
 
 	public InputStream getInputStream(File f) throws IOException;
 
-	// ------- Transfert Notifications ------
-	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) throws RemoteException;
-
-	public void requestDownloadProgressNotification(int percentage, String analyseID, FastQFile inputFile) throws RemoteException;
-
-	public void requestDownloadSuccessNotification(String analyseID, FastQFile inputFile, String outputFileName) throws RemoteException;
-
 }

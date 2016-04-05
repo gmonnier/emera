@@ -1,18 +1,13 @@
 package com.gmo.basespaceService.interfaces;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
 import com.gmo.basespaceService.model.FastQFile;
 
-public interface IDownloadListener extends Remote {
-	
-	public void applicationCrashed() throws RemoteException;
+public interface IDownloadListener {
 
-	public void downloadFailed(String analyseID, FastQFile inputFile) throws RemoteException;
-	
-	public void downloadSuccess(String analyseID, FastQFile inputFile, String outputPath) throws RemoteException;
-	
-	public void downloadProgress(int percentage,String analyseID, FastQFile inputFile) throws RemoteException;
-	
+	public void downloadFailed(FastQFile inputFile);
+
+	public void downloadSuccess(FastQFile inputFile, String outputPath);
+
+	public void downloadProgress(int percentage, FastQFile inputFile);
+
 }

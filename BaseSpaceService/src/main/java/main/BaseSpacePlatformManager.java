@@ -1,6 +1,5 @@
 package main;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.basespaceService.model.UserInfo;
 import com.gmo.basespaceService.model.UserRun;
@@ -27,7 +27,6 @@ import com.illumina.basespace.response.GetUserResponse;
 
 import connection.BaseSpaceConfiguration;
 import download.SampleDownloader;
-import download.SampleTransferer;
 
 public class BaseSpacePlatformManager {
 
@@ -72,13 +71,8 @@ public class BaseSpacePlatformManager {
 		return instances.get(clientID);
 	}
 
-	public void requestNewDownload(String fileName, FastQFile file, String analyseID) {
-		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, analyseID);
-		fileWriterService.execute(downloader);
-	}
-
-	public void requestNewDownload(String fileName, OutputStream outputStream, FastQFile file, String analyseID) {
-		SampleTransferer downloader = new SampleTransferer(file, fileName, outputStream, clientBS, analyseID);
+	public void requestNewDownload(String fileName, FastQFile file, String analyseID, IDownloadListener downloadListener) {
+		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, analyseID, downloadListener);
 		fileWriterService.execute(downloader);
 	}
 

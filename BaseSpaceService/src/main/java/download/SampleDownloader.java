@@ -1,10 +1,6 @@
 package download;
 
-import java.rmi.RemoteException;
-
 import org.apache.logging.log4j.Logger;
-
-import rmiImplementations.clients.RMIDownloadNotifClient;
 
 import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
@@ -30,17 +26,13 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public SampleDownloader(FastQFile fastqfile, String destinationDirectory, ApiClient clientBS, String analyseID) {
+	public SampleDownloader(FastQFile fastqfile, String destinationDirectory, ApiClient clientBS, String analyseID, IDownloadListener listener) {
 		this.destinationDirectory = destinationDirectory;
 		this.clientBS = clientBS;
 		this.fastqfile = fastqfile;
 		this.analyseID = analyseID;
 		this.currentProgress = 0;
-
-		RMIDownloadNotifClient clientRMI = new RMIDownloadNotifClient();
-		if (clientRMI.isConnectionOk()) {
-			listener = clientRMI.getRmiDownloadListener();
-		}
+		this.listener = listener;
 	}
 
 	@Override
@@ -65,10 +57,8 @@ public class SampleDownloader implements Runnable, DownloadListener {
 			}
 
 			// Notify Listeners that download has failed
-			try {
+			if (listener != null) {
 				listener.downloadFailed(analyseID, fastqfile);
-			} catch (RemoteException e) {
-				LOG.error("Unable to send to server that download failed for file " + fastqfile.getName());
 			}
 		}
 
@@ -76,15 +66,13 @@ public class SampleDownloader implements Runnable, DownloadListener {
 
 	@Override
 	public void progress(DownloadEvent evt) {
-		// Send notification that progress change to server if percentage changed.
+		// Send notification that progress change to server if percentage
+		// changed.
 		int newPercentage = (int) ((double) evt.getCurrentBytes() / evt.getTotalBytes() * 100);
 		if (currentProgress != newPercentage) {
 			LOG.debug("Download progress changed to " + newPercentage);
-			try {
+			if (listener != null) {
 				listener.downloadProgress(newPercentage, analyseID, fastqfile);
-			} catch (RemoteException e) {
-				LOG.error("Unable to send to server that download progressed - Abort all downloads ");
-				clientBS.cancelDownloads();
 			}
 			currentProgress = newPercentage;
 		}
@@ -93,18 +81,13 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	@Override
 	public void complete(DownloadEvent evt) {
 		if (!new java.io.File(destinationDirectory).exists()) {
-			LOG.error("Output file not written successfully");
-			try {
+			if (listener != null) {
 				listener.downloadFailed(analyseID, fastqfile);
-			} catch (RemoteException e) {
-				LOG.error("Unable to send to server that download failed : ", e);
 			}
 		} else {
-			try {
-				LOG.error("Download complete " + fastqfile + " for analyse " + analyseID);
+			LOG.error("Download complete " + fastqfile + " for analyse " + analyseID);
+			if (listener != null) {
 				listener.downloadSuccess(analyseID, fastqfile, destinationDirectory);
-			} catch (RemoteException e) {
-				LOG.error("Unable to send to server that download failed : ", e);
 			}
 		}
 	}
@@ -112,10 +95,8 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	@Override
 	public void canceled(DownloadEvent evt) {
 		LOG.info("Download canceld");
-		try {
+		if (listener != null) {
 			listener.downloadFailed(analyseID, fastqfile);
-		} catch (RemoteException e) {
-			LOG.error("Unable to send to server that download failed : ", e);
 		}
 	}
 

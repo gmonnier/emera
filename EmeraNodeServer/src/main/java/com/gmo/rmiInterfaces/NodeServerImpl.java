@@ -215,46 +215,4 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
 	}
 
-	@Override
-	public void requestDownloadDoneNotification(String analyseID, FastQFile inputFile) throws RemoteException {
-		Analysis runningAnalysis;
-		try {
-			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-			runningAnalysis.getDownloadInfo().downloadDone(inputFile);
-		} catch (NoSuchAnalysisException e) {
-			LOG.error("Unable to find analysis with ID" + analyseID);
-		}
-
-	}
-
-	@Override
-	public void requestDownloadProgressNotification(int percentage, String analyseID, FastQFile inputFile) throws RemoteException {
-		Analysis runningAnalysis;
-		try {
-			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-			runningAnalysis.getDownloadInfo().update(inputFile, percentage);
-		} catch (NoSuchAnalysisException e) {
-			LOG.error("Unable to find analysis with ID" + analyseID);
-		}
-	}
-
-	@Override
-	public void requestDownloadSuccessNotification(String analyseID, FastQFile inputFile, String outputFileName) throws RemoteException {
-		Analysis runningAnalysis;
-		try {
-			StorageConfigurationManager.getInstance().updateModel();
-			runningAnalysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
-
-			try {
-				ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputFileName);
-				runningAnalysis.getProcessConfiguration().addToData(mfs);
-				runningAnalysis.getDownloadInfo().downloadDone(inputFile);
-			} catch (NoSuchElementException nse) {
-				LOG.error("No Model File stored element found with path " + outputFileName + " of type : " + InputType.DATA);
-			}
-		} catch (NoSuchAnalysisException e) {
-			LOG.error("Unable to find analysis with ID" + analyseID);
-		}
-	}
-
 }
