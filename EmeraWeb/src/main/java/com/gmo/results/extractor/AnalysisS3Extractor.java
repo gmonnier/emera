@@ -41,8 +41,13 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 		for (int k = 0; k < userRepositories.size(); k++) {
 
-			String userID = userRepositories.get(k);
-			List<String> listAnalysisDir = AWSS3InterfaceManager.getInstance().listDirectories(analysesDirectoryRoot, userID);
+			String userIDPrefix = userRepositories.get(k);
+			String userID = userIDPrefix;
+			if(userID.endsWith("/")) {
+				// Remove remaining directory separator
+				userID = userID.substring(0, userID.length()-1);
+			}
+			List<String> listAnalysisDir = AWSS3InterfaceManager.getInstance().listDirectories(analysesDirectoryRoot, userIDPrefix);
 
 			if (listAnalysisDir.isEmpty()) {
 				LOG.warn("Analyses results directory for user " + userID + " is empty, exits extractor thread.");
@@ -53,7 +58,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 			for (int i = 0; i < listAnalysisDir.size(); i++) {
 
 				String analysePath = listAnalysisDir.get(i);
-				LOG.warn("\tExtracting analysis " + i + "/" + listAnalysisDir.size() + analysePath);
+				LOG.debug("\tExtracting analysis " + i + "/" + listAnalysisDir.size() + "  " + analysePath);
 
 				String[] path = analysePath.split("/");
 				String analyseID = path[path.length - 1];
@@ -78,7 +83,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 					extractAdditionnalAnalyses(analysisDone, analysePath);
 
-					LOG.warn("Analysis extraction done for " + analyseID + ". Add to processed analysis list");
+					LOG.warn("Analysis extraction done for " + analyseID + " assossiated with user : " + userID + ". Add to processed analysis list");
 					ResultsManager.getInstance().addProcessedAnalysis(analysisDone);
 
 				} catch (Throwable ex) {
@@ -99,6 +104,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 		if (listAdditionnalFiles.isEmpty()) {
 			LOG.debug("No additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
 		} else {
+			LOG.debug(listAdditionnalFiles.size() + "Additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
 			for (int i = 0; i < listAdditionnalFiles.size(); i++) {
 				Object[] fileData = listAdditionnalFiles.get(i);
 				String[] filePath = fileData[0].toString().split("/");

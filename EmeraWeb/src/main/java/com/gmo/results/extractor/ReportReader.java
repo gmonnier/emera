@@ -23,6 +23,8 @@ public class ReportReader {
 
 		BufferedReader reader = null;
 		Report ret;
+		
+		LOG.info("Start extracting report");
 
 		try {
 			reader = new BufferedReader(new InputStreamReader(reportStream, "UTF8"));
@@ -81,7 +83,7 @@ public class ReportReader {
 					ret.getOccurencesFound().put(subsplit[0], Integer.parseInt(subsplit[1]));
 				}
 			} else {
-				LOG.error("No occurences found for this repoert!");
+				LOG.error("No occurences found for this report!");
 			}
 
 			ret.setEndDate(endDate);
@@ -90,8 +92,11 @@ public class ReportReader {
 			ret.setTotalChunksProcessed(totalchunksProcessed);
 			ret.setChunkSize(chunkSize);
 			ret.setLibrary(lib);
+			
+			LOG.info("Report extracted successfully");
 
 		} catch (Throwable e) {
+			LOG.error("Error while extracting report ", e);
 			throw e;
 		} finally {
 			try {
