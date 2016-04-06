@@ -1,7 +1,6 @@
 package com.gmo.ws;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -23,8 +22,6 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.StatusChangeRequest;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
-import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
-import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 import com.gmo.processorNode.viewmodel.report.ViewReportGraphData;
 import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
