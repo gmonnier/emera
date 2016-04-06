@@ -53,7 +53,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 			for (int i = 0; i < listAnalysisDir.size(); i++) {
 
 				String analysePath = listAnalysisDir.get(i);
-				LOG.warn("\tExtracting analysis " + analysePath);
+				LOG.warn("\tExtracting analysis " + i + "/" + listAnalysisDir.size() + analysePath);
 
 				String[] path = analysePath.split("/");
 				String analyseID = path[path.length - 1];
