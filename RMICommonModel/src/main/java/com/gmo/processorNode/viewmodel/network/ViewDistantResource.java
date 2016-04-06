@@ -1,11 +1,13 @@
 package com.gmo.processorNode.viewmodel.network;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gmo.network.location.ClientLocation;
 
 @XmlRootElement
-public class ViewDistantResource {
+public class ViewDistantResource implements Serializable {
 
 	private String IP;
 	

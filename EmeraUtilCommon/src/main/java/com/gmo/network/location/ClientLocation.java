@@ -1,9 +1,11 @@
 package com.gmo.network.location;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ClientLocation {
+public class ClientLocation implements Serializable {
 	
 	private String externalIP;
 	

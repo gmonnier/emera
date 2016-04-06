@@ -31,7 +31,7 @@ public class ViewFile implements Serializable {
 
 	private final static DateFormat df = new SimpleDateFormat("dd-MM-yyyy  HH:mm");
 
-	private ViewFile() {
+	public ViewFile() {
 		fileType = OutputFileType.UNKNOWN;
 	}
 

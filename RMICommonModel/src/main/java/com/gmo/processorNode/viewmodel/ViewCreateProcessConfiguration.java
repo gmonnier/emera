@@ -40,6 +40,10 @@ public class ViewCreateProcessConfiguration implements Serializable, StringSeria
 	
 	private StringBuilder sb = new StringBuilder();
 
+	private ViewCreateProcessConfiguration(){
+		// Needed for JAXB serialization
+	}
+			
 	public ViewCreateProcessConfiguration(DefaultConfigurationProvider defaultConfig) {
 
 		selectedLibraries = new ArrayList<ViewFile>();

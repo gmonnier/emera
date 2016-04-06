@@ -1,11 +1,14 @@
 package com.gmo.processorNode.viewmodel.analyses.standard;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
@@ -16,9 +19,10 @@ import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.reports.Report;
 
-public class ViewAnalysis {
+@XmlRootElement
+public class ViewAnalysis implements Serializable {
 
-	private static Logger LOG = Log4JLogger.logger;
+	private transient static Logger LOG = Log4JLogger.logger;
 
 	private String id;
 

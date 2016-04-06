@@ -1,23 +1,27 @@
 package com.gmo.processorNode.viewmodel;
 
+import java.io.Serializable;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 
-public class ViewPollingInfo {
+@XmlRootElement
+public class ViewPollingInfo implements Serializable {
 
 	private ViewNetworkConfig networkConfig;
-	
+
 	private List<ViewAnalysis> runningAnalysis;
-	
+
 	private List<ViewAnalysis> processedAnalysis;
 
-	private ViewPollingInfo(){
+	private ViewPollingInfo() {
 		// Needed for deserialization
 	}
-	
-	public ViewPollingInfo(ViewNetworkConfig networkCOnfig, List<ViewAnalysis> runningAnalysis,  List<ViewAnalysis> processedAnalysis) {
+
+	public ViewPollingInfo(ViewNetworkConfig networkCOnfig, List<ViewAnalysis> runningAnalysis, List<ViewAnalysis> processedAnalysis) {
 		super();
 		this.networkConfig = networkCOnfig;
 		this.runningAnalysis = runningAnalysis;

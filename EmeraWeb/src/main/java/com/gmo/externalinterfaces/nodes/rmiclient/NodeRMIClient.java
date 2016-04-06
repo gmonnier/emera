@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,12 +12,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.basespaceService.model.FastQFile;
-import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.OutputFileType;
@@ -29,7 +26,6 @@ import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.RMIFileTransfertUtil;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.ws.exceptions.NodeStorageException;
 
@@ -52,9 +48,9 @@ public class NodeRMIClient implements IProcessorNode {
 			LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
 			connectionOk = true;
 		} catch (RemoteException e) {
-			LOG.error("RemoteException " + e);
+			LOG.error("Unable to instantiate ProcessorNode : RemoteException " + e);
 		} catch (NotBoundException e) {
-			LOG.error("NotBoundException " + e);
+			LOG.error("Unable to instantiate ProcessorNode : NotBoundException " + e);
 		}
 	}
 
@@ -105,6 +101,7 @@ public class NodeRMIClient implements IProcessorNode {
 	public ViewPollingInfo getViewPollingInfo(String userID) {
 		if (rmiNodeClient != null) {
 			try {
+				LOG.debug("QGMO TMP " + userID);
 				ViewPollingInfo pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
 				pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
 				return pollingInfo;
@@ -138,7 +135,7 @@ public class NodeRMIClient implements IProcessorNode {
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID,String bsClientID,String bsClientSecret,String bsAccessToken) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) {
 		if (rmiNodeClient != null) {
 			try {
 				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
@@ -183,7 +180,7 @@ public class NodeRMIClient implements IProcessorNode {
 			}
 		}
 	}
-	
+
 	@Override
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) {
 		if (rmiNodeClient != null) {

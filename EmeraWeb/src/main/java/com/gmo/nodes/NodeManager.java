@@ -17,6 +17,7 @@ public class NodeManager {
 	private NodeRMIClient rmiClient;
 
 	private NodeManager() {
+		rmiClient = new NodeRMIClient();
 	}
 
 	public static synchronized NodeManager getInstance() {

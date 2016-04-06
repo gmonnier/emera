@@ -1,9 +1,11 @@
 package com.gmo.processorNode.viewmodel.network;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ViewAWSInstance {
+public class ViewAWSInstance implements Serializable{
 
 	private String id;
 

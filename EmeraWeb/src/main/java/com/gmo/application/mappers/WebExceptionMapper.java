@@ -26,7 +26,7 @@ public class WebExceptionMapper implements ExceptionMapper<WebApplicationExcepti
 		
 		if(ex.getResponse().getStatus() == 500) {
 			// Print stack trace only if 500
-			LOG.error(ex);
+			LOG.error("Error stack" + ex);
 		}
 		
 		return Response.status(400).entity("Bad request").type(MediaType.APPLICATION_JSON).build();

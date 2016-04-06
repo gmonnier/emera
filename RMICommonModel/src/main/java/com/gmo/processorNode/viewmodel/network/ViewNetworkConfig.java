@@ -1,20 +1,16 @@
 package com.gmo.processorNode.viewmodel.network;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.network.location.ClientLocation;
-import com.gmo.sharedobjects.client.ClientStatus;
 
 @XmlRootElement
-public class ViewNetworkConfig {
+public class ViewNetworkConfig implements Serializable {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -25,9 +21,9 @@ public class ViewNetworkConfig {
 
 	// current serve the application is running on.
 	private ViewDistantResource thisServer;
-	
+
 	public ViewNetworkConfig() {
-		
+
 	}
 
 	public ViewNetworkConfig(ViewDistantResource thisServer, List<ViewDistantResource> resources, List<ViewAWSInstance> awsInstances) {
