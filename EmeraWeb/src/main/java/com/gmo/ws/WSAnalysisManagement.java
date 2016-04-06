@@ -46,8 +46,7 @@ public class WSAnalysisManagement {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ViewPollingInfo retrieveApplicationsInfoJSON(@PathParam("user_id") String userID) {
 		LOG.debug("Request ViewPollingInfo for user : " + userID);
-		return new ViewPollingInfo(new ViewNetworkConfig(), new ArrayList<ViewAnalysis>(),  new ArrayList<ViewAnalysis>());
-		//return NodeManager.getInstance().getNodeRMIClient().getViewPollingInfo(userID);
+		return NodeManager.getInstance().getNodeRMIClient().getViewPollingInfo(userID);
 	}
 
 	@Path("report/{id}")
