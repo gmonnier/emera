@@ -43,6 +43,7 @@ import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.processorserver.IResource;
 import com.gmo.processorserver.ProcessorServerManager;
+import com.gmo.reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseAnalysis;
 import com.gmo.sharedobjects.client.ClientStatus;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
@@ -219,8 +220,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
 	}
 
 }
