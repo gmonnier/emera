@@ -99,17 +99,18 @@ public class NodeRMIClient implements IProcessorNode {
 
 	@Override
 	public ViewPollingInfo getViewPollingInfo(String userID) {
+		ViewPollingInfo pollingInfo = new ViewPollingInfo(new ViewNetworkConfig(), new ArrayList<ViewAnalysis>(), new ArrayList<ViewAnalysis>());
 		if (rmiNodeClient != null) {
 			try {
-				LOG.debug("QGMO TMP " + userID);
-				ViewPollingInfo pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
-				pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
-				return pollingInfo;
+				pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
 			} catch (RemoteException e) {
-				LOG.error("RemoteException " + e);
+				LOG.warn("Node server not reachable");
 			}
 		}
-		return new ViewPollingInfo(new ViewNetworkConfig(), new ArrayList<ViewAnalysis>(), new ArrayList<ViewAnalysis>());
+		
+		// Append Processed analyses to polling data
+		pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
+		return pollingInfo;
 	}
 
 	@Override
