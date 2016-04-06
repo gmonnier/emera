@@ -97,14 +97,14 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 	private void extractAdditionnalAnalyses(ViewAnalysis analysisDone, String analysisPath) {
 
-		String additionnalPath = analysisPath + ADDITIONAL_ANALYSIS_DIR;
+		String additionnalPath = analysisPath + ADDITIONAL_ANALYSIS_DIR + "/";
 
 		List<Object[]> listAdditionnalFiles = AWSS3InterfaceManager.getInstance().listFiles(analysesDirectoryRoot, additionnalPath);
 
 		if (listAdditionnalFiles.isEmpty()) {
 			LOG.debug("No additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
 		} else {
-			LOG.debug(listAdditionnalFiles.size() + "Additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
+			LOG.debug(listAdditionnalFiles.size() + " additional analyses found for " + analysisDone.getId() + " in " + additionnalPath);
 			for (int i = 0; i < listAdditionnalFiles.size(); i++) {
 				Object[] fileData = listAdditionnalFiles.get(i);
 				String[] filePath = fileData[0].toString().split("/");
