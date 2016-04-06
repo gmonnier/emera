@@ -1,11 +1,13 @@
 package com.gmo.processorNode.viewmodel;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gmo.basespaceService.model.FastQFile;
 
 @XmlRootElement
-public class BSSingleDownloadInfo {
+public class BSSingleDownloadInfo implements Serializable {
 
 	private FastQFile file;
 	

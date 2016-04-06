@@ -105,6 +105,7 @@ public class NodeRMIClient implements IProcessorNode {
 			try {
 				ViewPollingInfo pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
 				pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
+				return pollingInfo;
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}

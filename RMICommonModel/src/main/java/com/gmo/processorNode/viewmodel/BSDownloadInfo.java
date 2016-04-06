@@ -1,5 +1,6 @@
 package com.gmo.processorNode.viewmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +13,7 @@ import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.logger.Log4JLogger;
 
 @XmlRootElement
-public class BSDownloadInfo {
+public class BSDownloadInfo implements Serializable {
 
 	private List<BSSingleDownloadInfo> downloadingFiles;
 	
