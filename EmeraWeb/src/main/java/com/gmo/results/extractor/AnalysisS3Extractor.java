@@ -86,6 +86,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 			}
 		}
+		LOG.warn("Analysis extraction done");
 	}
 
 	private void extractAdditionnalAnalyses(ViewAnalysis analysisDone, String analysisPath) {

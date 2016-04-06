@@ -24,9 +24,9 @@ public abstract class AnalysisExtractor implements Runnable {
 		analysesDirectoryRoot = getResultsRoot();
 
 		if (isRootValid()) {
-			LOG.warn("Analyses storage directory does not exists : " + analysesDirectoryRoot + " ---- abort analyses extractions");
-		} else {
 			fileExtractorService.execute(this);
+		} else {
+			LOG.warn("Analyses storage directory does not exists : " + analysesDirectoryRoot + " ---- abort analyses extractions");
 		}
 	}
 	

@@ -46,7 +46,11 @@ public class AWSS3InterfaceManager {
 	}
 
 	public boolean isBucketValid(String bucketName) {
-		return s3Client.doesBucketExist(bucketName);
+		boolean valid = s3Client.doesBucketExist(bucketName);
+		if(!valid) {
+			LOG.debug("Bucket not found " + bucketName + " List of buckets owned : " + s3Client.listBuckets());
+		}
+		return valid;
 	}
 
 	public List<String> listUsersRepositories(String bucketName) {
