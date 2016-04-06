@@ -1,7 +1,6 @@
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/analysis-selection', {
 		templateUrl : 'html/analysisSelection.html',
-		controller : 'analysisSelectionCtrl',
 		css: 'css/analysis-selection.css',
 		public : true
 	}).when('/create-split-analysis', {

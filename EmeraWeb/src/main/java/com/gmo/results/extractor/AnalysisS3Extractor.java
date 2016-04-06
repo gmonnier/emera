@@ -78,10 +78,11 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 					extractAdditionnalAnalyses(analysisDone, analysePath);
 
+					LOG.warn("Analysis extraction done for " + analyseID + ". Add to processed analysis list");
 					ResultsManager.getInstance().addProcessedAnalysis(analysisDone);
 
 				} catch (Throwable ex) {
-					LOG.error("Unable to deserialize Report file", ex);
+					LOG.error("Unable to deserialize Report file for analysis id " + analyseID, ex);
 				}
 
 			}
