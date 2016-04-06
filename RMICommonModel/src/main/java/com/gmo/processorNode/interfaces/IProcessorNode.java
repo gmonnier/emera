@@ -9,11 +9,13 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public interface IProcessorNode extends Remote {
 
@@ -35,9 +37,12 @@ public interface IProcessorNode extends Remote {
 	
 	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException;
 
+	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException;
+	
 	// ------- File transfert ------
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException;
 
 	public InputStream getInputStream(File f) throws IOException;
+
 
 }

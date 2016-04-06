@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.coreprocessing.Analysis;
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -18,7 +18,6 @@ import com.gmo.reports.additionnalAnalyses.ReferenceGeneData;
 import com.gmo.reports.additionnalAnalyses.common.AdditionnalAnalysisListener;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyCSVGenerator;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyPDFGenerator;
-import com.gmo.reports.extraction.AnalysisExtractor;
 import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
@@ -29,13 +28,13 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 
 	private final static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");;
 
-	private Analysis reference;
+	private Report reference;
 
-	private Analysis comparison;
+	private Report comparison;
 
 	private OutputFileType outputType;
 
-	public OccurencesIncreaseAnalysis(Analysis reference, Analysis comparison, OutputFileType outputType) {
+	public OccurencesIncreaseAnalysis(Report reference, Report comparison, OutputFileType outputType) {
 		this.reference = reference;
 		this.comparison = comparison;
 		this.outputType = outputType;
@@ -46,30 +45,28 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 	@Override
 	public void run() {
 
-		Report refReport = reference.getReport();
-		Report compReport = comparison.getReport();
-
-		boolean checkLibOK = checkLibraries(refReport, compReport);
+		boolean checkLibOK = checkLibraries(reference, comparison);
 		if (!checkLibOK) {
 			additionnalAnalysisFailed("Reference analysis libraries needs to be used in the compared library, Analyses are incompatible for this type of calculation.");
 			return;
 		}
 
-		OccurencesIncreaseReport report = new OccurencesIncreaseReport(refReport, compReport);
+		OccurencesIncreaseReport report = new OccurencesIncreaseReport(reference, comparison);
 
-		List<ReferenceGene> refLib = refReport.getLibrary().getGenes();
+		List<ReferenceGene> refLib = reference.getLibrary().getGenes();
 
 		for (Iterator<ReferenceGene> iterator = refLib.iterator(); iterator.hasNext();) {
 			ReferenceGene referenceGene = (ReferenceGene) iterator.next();
-			ReferenceGeneAndDataCouple dataCouple = new ReferenceGeneAndDataCouple(referenceGene, new ReferenceGeneData(refReport.getOccurenceCount(referenceGene.getAssociatedSequence()),
-					compReport.getOccurenceCount(referenceGene.getAssociatedSequence()), refReport.getOccurencePercent(referenceGene.getAssociatedSequence()), compReport.getOccurencePercent(referenceGene
+			ReferenceGeneAndDataCouple dataCouple = new ReferenceGeneAndDataCouple(referenceGene, new ReferenceGeneData(reference.getOccurenceCount(referenceGene.getAssociatedSequence()),
+					comparison.getOccurenceCount(referenceGene.getAssociatedSequence()), reference.getOccurencePercent(referenceGene.getAssociatedSequence()), comparison.getOccurencePercent(referenceGene
 							.getAssociatedSequence())));
 			report.addReferenceGeneData(dataCouple);
 
 		}
 
-		String resultLocation = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
-		String outputDir = resultLocation + File.separator + reference.getUserid() + File.separator + reference.getAnalysisID() + File.separator + AnalysisExtractor.ADDITIONAL_ANALYSIS_DIR;
+		// TODO use s3 or whatever defined attribute in Emera web application context to store additionnal results here
+		String resultLocation = StorageConfigurationManager.getInstance().getConfig().getAnalysisResultsLocation();
+		String outputDir = resultLocation + File.separator + reference.getUserID() + File.separator + reference.getAnalyseID() + File.separator + "Additional" /*AnalysisExtractor.ADDITIONAL_ANALYSIS_DIR*/;
 		File outputDirectory = new File(outputDir);
 		if (!outputDirectory.exists()) {
 			boolean dirCreated = outputDirectory.mkdirs();
@@ -146,9 +143,9 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 	 *         false otherwise. Note this is not reciproque.
 	 */
 	private boolean checkLibraries(Report r1, Report r2) {
-		List<ModelFileStored> listLibsInReference = r1.getAnalyseConfig().getSelectedLibraries();
-		for (Iterator<ModelFileStored> iterator = listLibsInReference.iterator(); iterator.hasNext();) {
-			ModelFileStored modelFileStored = (ModelFileStored) iterator.next();
+		List<ViewFile> listLibsInReference = r1.getAnalyseConfig().getSelectedLibraries();
+		for (Iterator<ViewFile> iterator = listLibsInReference.iterator(); iterator.hasNext();) {
+			ViewFile modelFileStored = (ViewFile) iterator.next();
 			if (!r2.getAnalyseConfig().getSelectedLibraries().contains(modelFileStored)) {
 				return false;
 			}

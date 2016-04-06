@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.ViewCompareAnalysisParam;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
@@ -26,7 +27,7 @@ import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 @Path("/ws-resources/additional")
 public class WSAdditionalAnalysis {
-	
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
@@ -36,7 +37,7 @@ public class WSAdditionalAnalysis {
 
 	@GET
 	@Path("{analyseId}/{name}")
-	@Produces({TEXT_CSV, APP_PDF})
+	@Produces({ TEXT_CSV, APP_PDF })
 	public Response getAdditionalReport(@PathParam("analyseId") String analyseId, @PathParam("name") String name) {
 
 		LOG.debug("Request for additional analysis download for analyse " + analyseId + " on file index " + name);
@@ -67,7 +68,7 @@ public class WSAdditionalAnalysis {
 
 		return Response.status(404).build();
 	}
-	
+
 	@DELETE
 	@Path("{analyseId}/{name}")
 	public Response deleteAdditionalReport(@PathParam("analyseId") String analyseId, @PathParam("name") String filename) {
@@ -82,7 +83,7 @@ public class WSAdditionalAnalysis {
 
 		return Response.status(404).build();
 	}
-	
+
 	@Path("analysisCompare")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -92,7 +93,7 @@ public class WSAdditionalAnalysis {
 		try {
 			ViewAnalysis anRef = ResultsManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID1());
 			ViewAnalysis anComp = ResultsManager.getInstance().getProcessedAnalysis(compareParam.getAnalysisID2());
-			new OccurencesIncreaseAnalysis(anRef, anComp, compareParam.getOutputFileType());
+			NodeManager.getInstance().getNodeRMIClient().requestOccurencesIncreaseAnalysis(anRef.getReport(), anComp.getReport(), compareParam.getOutputFileType());
 			return Response.status(200).build();
 		} catch (NoSuchAnalysisException e) {
 			LOG.error("Request to change status on unexisting analysis ID");
@@ -100,5 +101,5 @@ public class WSAdditionalAnalysis {
 		}
 
 	}
-	
+
 }

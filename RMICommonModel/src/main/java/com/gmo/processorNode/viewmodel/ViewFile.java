@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 @XmlRootElement
 public class ViewFile implements Serializable {
@@ -166,6 +167,23 @@ public class ViewFile implements Serializable {
 		final String[] units = new String[] { "B", "kB", "MB", "GB", "TB" };
 		int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
 		return new DecimalFormat("#,##0.##").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ViewFile other = (ViewFile) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override

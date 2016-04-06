@@ -19,6 +19,7 @@ import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
@@ -29,6 +30,7 @@ import com.gmo.rmiconfig.RMIFileTransfertUtil;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.ws.exceptions.NodeStorageException;
 
 public class NodeRMIClient implements IProcessorNode {
@@ -181,6 +183,17 @@ public class NodeRMIClient implements IProcessorNode {
 			}
 		}
 	}
+	
+	@Override
+	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) {
+		if (rmiNodeClient != null) {
+			try {
+				rmiNodeClient.requestOccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+	}
 
 	public void uploadFileToNodeServer(InputType inputType, String fileName, InputStream uploadedInputStream, String analyseid) throws NodeStorageException, IOException {
 		if (rmiNodeClient != null) {
@@ -198,5 +211,4 @@ public class NodeRMIClient implements IProcessorNode {
 			}
 		}
 	}
-
 }

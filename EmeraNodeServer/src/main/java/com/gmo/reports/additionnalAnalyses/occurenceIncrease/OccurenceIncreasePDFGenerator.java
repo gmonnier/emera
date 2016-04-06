@@ -31,29 +31,28 @@ public class OccurenceIncreasePDFGenerator extends GenericPDFGenerator {
 	public OccurenceIncreasePDFGenerator(File outputFile, OccurencesIncreaseReport increaseReport) {
 
 		super("gRNA occurences growth rate analysis", outputFile);
-		
+
 		this.increaseReport = increaseReport;
 		if (increaseReport == null) {
 			LOG.error("Report file is null. abort");
 		}
 
 	}
-	
+
 	@Override
 	protected void createChaptersTitles(List<String> listChapters) {
 		listChapters.add("Table of content");
 		listChapters.add("Results - Processing feature overview");
 		listChapters.add("Results - Occurences evolution details");
 	}
-	
+
 	@Override
 	protected void createChaptersContent() throws DocumentException {
 		createChapter(1, createProcessingInfo());
-		
+
 		Rectangle pageSizeTable = new Rectangle(PDFPageSize.A3.getITextFormatPdfPageSize().getWidth(), PDFPageSize.A1.getITextFormatPdfPageSize().getHeight());
-		createChapter(2, createGRNAOccurencesIncreaseTable(),pageSizeTable);
+		createChapter(2, createGRNAOccurencesIncreaseTable(), pageSizeTable);
 	}
-	
 
 	private PdfPTable generateLibraryFilesTable(Report report) {
 		PdfPTable tableLib = new PdfPTable(2);
@@ -142,8 +141,8 @@ public class OccurenceIncreasePDFGenerator extends GenericPDFGenerator {
 		Paragraph p1 = new Paragraph("Library description");
 		p1.setIndentationLeft(20);
 
-		Paragraph pTableContainer1 = new Paragraph("Reference libraries",phraseFont);
-		Paragraph pTableContainer2 = new Paragraph("Initial libraries",phraseFont);
+		Paragraph pTableContainer1 = new Paragraph("Reference libraries", phraseFont);
+		Paragraph pTableContainer2 = new Paragraph("Initial libraries", phraseFont);
 
 		PdfPTable tableLibsRef = generateLibraryFilesTable(increaseReport.getReportRef());
 		PdfPTable tableLibsComp = generateLibraryFilesTable(increaseReport.getReportComp());
@@ -157,29 +156,29 @@ public class OccurenceIncreasePDFGenerator extends GenericPDFGenerator {
 		Paragraph p2 = new Paragraph("Input FastQ description");
 		p2.setIndentationLeft(20);
 
-		Paragraph pTableContainer3 = new Paragraph("Reference input",phraseFont);
+		Paragraph pTableContainer3 = new Paragraph("Reference input", phraseFont);
 		PdfPTable tableDataRef = generateDataInputTable(increaseReport.getReportRef());
 		pTableContainer3.add(tableDataRef);
-		
-		Paragraph pTableContainer4 = new Paragraph("Initial input",phraseFont);
+
+		Paragraph pTableContainer4 = new Paragraph("Initial input", phraseFont);
 		PdfPTable tableDataComp = generateDataInputTable(increaseReport.getReportComp());
 		pTableContainer4.add(tableDataComp);
-		
+
 		p2.add(pTableContainer3);
 		p2.add(pTableContainer4);
-		
+
 		listPar.add(p2);
-		
+
 		Paragraph p3 = new Paragraph("Intent and analysis description");
 		p3.setIndentationLeft(20);
-		
+
 		String description = "This comparative analysis intended to show gRNA occurences growth between two raw analyses. Using a reference raw analysis result, a growth rate is computed with a second analysis that reflect whether each guide RNA has a representation gain compared to the initial representation count.";
-		Paragraph pDescription = new Paragraph(description,phraseFont);
+		Paragraph pDescription = new Paragraph(description, phraseFont);
 		String description2 = "Obvioulsy, following data will display both representation percentages in both reference analysis and initial analysis, as well as the calculated representation growth rate.";
-		Paragraph pDescription2 = new Paragraph(description2,phraseFont);
+		Paragraph pDescription2 = new Paragraph(description2, phraseFont);
 		p3.add(pDescription);
 		p3.add(pDescription2);
-		
+
 		listPar.add(p3);
 
 		return listPar;
@@ -293,10 +292,5 @@ public class OccurenceIncreasePDFGenerator extends GenericPDFGenerator {
 		return listPar;
 
 	}
-
-
-
-
-
 
 }

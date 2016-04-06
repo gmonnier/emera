@@ -32,6 +32,7 @@ import com.gmo.network.rmiutil.RMIInputStreamImpl;
 import com.gmo.network.rmiutil.RMIOutputStream;
 import com.gmo.network.rmiutil.RMIOutputStreamImpl;
 import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
@@ -47,6 +48,7 @@ import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.model.reports.Report;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 
@@ -213,6 +215,12 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	@Override
 	public InputStream getInputStream(File f) throws IOException {
 		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
+	}
+
+	@Override
+	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
