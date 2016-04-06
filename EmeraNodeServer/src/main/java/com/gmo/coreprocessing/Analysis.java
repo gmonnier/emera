@@ -175,13 +175,6 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		this.completionDate = endDate;
 	}
 
-	public String getCompletionDateFormat() {
-		return df.format(new Date(completionDate));
-	}
-
-	public void setCompletionDateFormat(String laundDateFormat) {
-	}
-
 	public AnalysisStatus getStatus() {
 		return status;
 	}

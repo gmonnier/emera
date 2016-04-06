@@ -69,6 +69,7 @@ public class ViewAnalysis implements Serializable {
 	}
 
 	public void setLaunchDateFormat(String laundDateFormat) {
+		// Stub for JSON serialization
 	}
 
 	public long getCompletionDate() {
@@ -89,6 +90,10 @@ public class ViewAnalysis implements Serializable {
 
 	public String getCompletionDateFormat() {
 		return df.format(new Date(completionDate));
+	}
+	
+	public void setCompletionDateFormat(String completionDateFormated) {
+		// Stub for JSON serialization
 	}
 
 	public String getId() {
