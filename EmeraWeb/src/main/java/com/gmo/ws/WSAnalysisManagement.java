@@ -1,6 +1,8 @@
 package com.gmo.ws;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -27,6 +29,8 @@ import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 import com.gmo.sharedobjects.model.reports.Report;
+
+import configuration.jaxb.applicationcontext.LocationType;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {
@@ -69,41 +73,48 @@ public class WSAnalysisManagement {
 	@GET
 	@Path("report/{id}/csv")
 	@Produces(TEXT_CSV)
-	public Response getCSVAnalyseResultFile(@PathParam("id") String analyseID, @QueryParam("user_ID") String userID) {
-
-		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
-
-		String filePath = resultLoc + File.separator + userID + File.separator + analyseID + File.separator + "csv_report.csv";
-		File result = new File(filePath);
-		if (!result.exists()) {
-			LOG.debug("No CSV analysis found for ID " + analyseID);
-		} else {
-			ResponseBuilder response = Response.ok((Object) result);
-			response.header("Content-Disposition", "attachment; filename=" + result.getName());
-			return response.build();
-		}
-
-		return Response.status(404).build();
+	public Response getCSVAnalysisResultFile(@PathParam("id") String analyseID, @QueryParam("user_ID") String userID) {
+		return getResultFileResponse(analyseID, userID, "csv_report.csv");
 	}
 
 	@GET
 	@Path("report/{id}/pdf")
 	@Produces(APP_PDF)
 	public Response getPDFAnalyseResultFile(@PathParam("id") String analyseID, @QueryParam("user_ID") String userID) {
+		return getResultFileResponse(analyseID, userID, "pdf_report.pdf");
+	}
 
+	private Response getResultFileResponse(String analyseID, String userID, String fileName) {
 		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
 
-		String filePath = resultLoc + File.separator + userID + File.separator + analyseID + File.separator + "pdf_report.pdf";
-		File result = new File(filePath);
-		if (!result.exists()) {
-			LOG.debug("No PDF analysis found for path " + filePath);
-		} else {
-			ResponseBuilder response = Response.ok((Object) result);
-			response.header("Content-Disposition", "attachment; filename=" + result.getName());
-			return response.build();
+		switch (locType) {
+		case LOCAL: {
+			String filePath = resultLoc + File.separator + userID + File.separator + analyseID + File.separator + fileName;
+			File result = new File(filePath);
+			if (!result.exists()) {
+				LOG.warn("No analysis result file found for " + filePath);
+			} else {
+				ResponseBuilder response = Response.ok((Object) result);
+				response.header("Content-Disposition", "attachment; filename=" + result.getName());
+				return response.build();
+			}
 		}
+		case S_3: {
+			String filePath = "https://s3.amazonaws.com/" + resultLoc + "/" + userID + "/" + analyseID + "/" + fileName;
 
-		return Response.status(404).build();
+			URI targetURIForRedirection;
+			try {
+				targetURIForRedirection = new URI(filePath);
+				return Response.temporaryRedirect(targetURIForRedirection).build();
+			} catch (URISyntaxException e) {
+				LOG.warn("URISyntaxException :" + filePath);
+				return Response.status(404).build();
+			}
+		}
+		default:
+			return Response.status(404).build();
+		}
 	}
 
 	@Path("stopall")
