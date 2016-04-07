@@ -204,16 +204,6 @@ app.directive('postCompleteRepeatDirective', function() {
 			  items: "> :not(.ui-widget-header)"
 			}
 			);
-			$(".sortMenu").hide();
-			$("#sortToolItem").hover(function(e){
-				$(".sortMenu").width(150);
-				$(".sortMenu").show();
-			}, function(){
-				$(".sortMenu").hide();
-				$(".sortMenu").width(0);
-			});
-			 
-			
 			
 			var menu = $( ".additionalAnalysisMenu" ).menu();
 			$(menu).mouseleave(function () {

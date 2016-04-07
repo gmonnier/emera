@@ -30,6 +30,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
 	background: rgba(255,255,255,0.5); 
 	list-style: none;
 	display:block;
+	z-index: 100;
 	top:50%;
 	
 	border-radius: 0px 15px 15px 0px;
@@ -368,4 +369,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
 	font-size: 1.2em;
 	color: #474d58;
 	background-image:url("http://d3q6339sjg0aim.cloudfront.net/Stripback2.png");
+}
+
+.sortMenu {
+	position: absolute;
+	top: 0;
+	left: 32px;
+	width: 150px;
+	display: none;
+}
+
+#sortToolItem:hover .sortMenu {
+	display: block;
 }

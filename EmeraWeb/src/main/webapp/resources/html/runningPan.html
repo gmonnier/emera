@@ -5,12 +5,13 @@
 			<li title="Expand all tabs"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/expandAll.png" ng-click="expandAll();" /></li>
 			<li title="Collapse all tabs"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/collapseAll.png" ng-click="collapseAll();" /></li>
 			<li style="position: relative;" title="Sort tabs" id="sortToolItem"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/sort.png" />
-				<ul style="position: absolute; top: 0; left: 32px; z-index: 10000;" class="sortMenu shadowed">
+				<ul class="sortMenu shadowed">
 					<li style="text-align: center;" class="ui-widget-header">Sort analyses :</li>
 					<li ng-click="sortByDate();">By completion date</li>
 					<li ng-click="sortByName();">Alphabetically</li>
-				</ul></li>
-			<ul>
+				</ul>
+			</li>
+		</ul>
 	</div>
 	<div class="lightBack" id="runTitle">
 		<p>
@@ -136,13 +137,13 @@
 								<li class="resultbutton" title="Download CSV Report"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/csvdownload.png" ng-click="downloadCSV(completeanalyse.id)" alt="Next" /></li>
 								<li class="resultbutton" title="Download PDF Report"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/pdfdownload.png" ng-click="downloadPDF(completeanalyse.id)" alt="Next" /></li>
 								<li class="resultbutton graph-button" title="View result chart"><img ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/graph.png" ng-click="openGraphData(completeanalyse)" alt="Next" /></li>
-								<ul>
+							</ul>
 						</div>
 					</div>
 
 					<div style="display: table-row;">
-						<div class="lineSeparator1" />
-						<div class="lineSeparator2" />
+						<div class="lineSeparator1"/>
+						<div class="lineSeparator2"/>
 						<div class="additionalAnalyse">
 							<ul class="additionalAnalysisMenu shadowed">
 								<li><img style="vertical-align: middle;" ng-src="http://d3q6339sjg0aim.cloudfront.net/analysemgt/additionalSmall.png" /> Additional Analyses
@@ -153,7 +154,8 @@
 												</span> - <span class="fileNameDisp">{{completeOtherAnalyse.report.analyseConfig.selectedDataFiles[0].name}}</span></li>
 											</ul>
 										</li>
-									</ul></li>
+									</ul>
+								</li>
 							</ul>
 						</div>
 					</div>
