@@ -1,6 +1,8 @@
 package com.gmo.ws;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.ViewCompareAnalysisParam;
@@ -24,6 +27,8 @@ import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+
+import configuration.jaxb.applicationcontext.LocationType;
 
 @Path("/ws-resources/additional")
 public class WSAdditionalAnalysis {
@@ -41,6 +46,10 @@ public class WSAdditionalAnalysis {
 	public Response getAdditionalReport(@PathParam("analyseId") String analyseId, @PathParam("name") String name) {
 
 		LOG.debug("Request for additional analysis download for analyse " + analyseId + " on file index " + name);
+
+		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
+
 		List<ViewFile> viewFiles;
 		try {
 			viewFiles = ResultsManager.getInstance().getProcessedAnalysis(analyseId).getAdditionalAnalyses();
@@ -49,16 +58,34 @@ public class WSAdditionalAnalysis {
 				ViewFile viewFile = (ViewFile) iterator.next();
 				if (viewFile.getName().equals(name)) {
 
-					// the ID is the absolute path
-					File result = new File(viewFile.getId());
-					if (!result.exists()) {
-						LOG.debug("No additional analysis found for path " + result.getAbsolutePath());
-					} else {
-						ResponseBuilder response = Response.ok((Object) result);
-						String contentType = result.getName().toLowerCase().endsWith(".pdf") ? APP_PDF : TEXT_CSV;
-						response.type(contentType);
-						response.header("Content-Disposition", "attachment; filename=" + result.getName());
-						return response.build();
+					switch (locType) {
+					case LOCAL: {
+						// the ID is the absolute path in this case
+						File result = new File(viewFile.getId());
+						if (!result.exists()) {
+							LOG.warn("No additionnal analysis result file found for " + result.getAbsolutePath());
+						} else {
+							ResponseBuilder response = Response.ok((Object) result);
+							String contentType = result.getName().toLowerCase().endsWith(".pdf") ? APP_PDF : TEXT_CSV;
+							response.header("Content-Disposition", "attachment; filename=" + result.getName());
+							return response.build();
+						}
+						break;
+					}
+					case S_3: {
+						String filePath = "https://s3.amazonaws.com/" + resultLoc + "/" + viewFile.getId();
+
+						URI targetURIForRedirection;
+						try {
+							targetURIForRedirection = new URI(filePath);
+							return Response.temporaryRedirect(targetURIForRedirection).build();
+						} catch (URISyntaxException e) {
+							LOG.warn("URISyntaxException :" + filePath);
+							return Response.status(404).build();
+						}
+					}
+					default:
+						return Response.status(404).build();
 					}
 				}
 			}

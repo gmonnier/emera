@@ -109,7 +109,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 				Object[] fileData = listAdditionnalFiles.get(i);
 				String[] filePath = fileData[0].toString().split("/");
 				String name = filePath[filePath.length - 1];
-				analysisDone.getAdditionalAnalyses().add(new ViewFile(ViewFileOrigin.STORED, name, fileData[0].toString(), (long) fileData[2], (long) fileData[1]));
+				analysisDone.getAdditionalAnalyses().add(new ViewFile(ViewFileOrigin.S3, name, fileData[0].toString(), (long) fileData[2], (long) fileData[1]));
 			}
 		}
 	}

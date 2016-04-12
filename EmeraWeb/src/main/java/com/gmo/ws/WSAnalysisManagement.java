@@ -99,6 +99,7 @@ public class WSAnalysisManagement {
 				response.header("Content-Disposition", "attachment; filename=" + result.getName());
 				return response.build();
 			}
+			break;
 		}
 		case S_3: {
 			String filePath = "https://s3.amazonaws.com/" + resultLoc + "/" + userID + "/" + analyseID + "/" + fileName;
@@ -112,9 +113,8 @@ public class WSAnalysisManagement {
 				return Response.status(404).build();
 			}
 		}
-		default:
-			return Response.status(404).build();
 		}
+		return Response.status(404).build();
 	}
 
 	@Path("stopall")
