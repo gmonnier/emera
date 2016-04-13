@@ -12,7 +12,7 @@ import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
 
 @Path("/ws-resources/test")
-public class WSTestEndPOint {
+public class WSTestEndPoint {
 
 	@Path("all-processed")
 	@GET
