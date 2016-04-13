@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.basespaceService.model.UserInfo;
 import com.gmo.basespaceService.model.UserRun;
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.configuration.BaseSpaceContextManager;
 import com.gmo.logger.Log4JLogger;
 
@@ -35,10 +36,14 @@ public class BaseSpaceRMIClient {
 		clientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();
 		accessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 
+		String registryAddr = ApplicationContextManager.getInstance().getConfig().getBasespaceConnectionConfiguration().getRmiRegistryAddress();
+		int registryPort = ApplicationContextManager.getInstance().getConfig().getBasespaceConnectionConfiguration().getRmiRegistryPort();
+		LOG.info("Create new BaseSpace RMI client on  " + registryAddr + "    port: " + registryPort);
+
 		connectionOk = false;
 		try {
 			LOG.debug("Request for the rmi interface");
-			Registry registry = LocateRegistry.getRegistry(8081);
+			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
 			rmiBSModel = (IBaseSpaceModel) registry.lookup("IBaseSpaceModel");
 			LOG.debug("RMI Interface IBaseSpaceModel retrieved from table : " + rmiBSModel);
 			connectionOk = true;

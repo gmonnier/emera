@@ -27,7 +27,6 @@ import com.gmo.results.extractor.AnalysisS3Extractor;
 import com.gmo.systemUtil.SystemCommand;
 
 import configuration.AWSContextManager;
-import configuration.jaxb.applicationcontext.NodeConnectionConfig;
 
 public class WebServerApp {
 
@@ -63,10 +62,10 @@ public class WebServerApp {
 
 		initConnectionMonitor();
 
-		initReportExtraction();
+		// initReportExtraction();
 
-		initJettyServer();
-		
+		// initJettyServer();
+
 	}
 
 	private static void logSystemProperties() {
