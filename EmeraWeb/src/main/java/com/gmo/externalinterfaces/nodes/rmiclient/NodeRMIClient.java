@@ -41,6 +41,15 @@ public class NodeRMIClient implements IProcessorNode {
 	private boolean connectionOk;
 
 	public NodeRMIClient() {
+		initRMIConnection();
+	}
+	
+	private synchronized void initRMIConnection() {
+		
+		if(connectionOk) {
+			// Already initialized
+			return;
+		}
 		
 		String registryAddr = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
 		int registryPort = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
@@ -99,6 +108,8 @@ public class NodeRMIClient implements IProcessorNode {
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
+		} else {
+			initRMIConnection();
 		}
 		return new ArrayList<ViewFile>();
 	}
