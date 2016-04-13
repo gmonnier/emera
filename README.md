@@ -40,7 +40,6 @@ Directly from the eclipse plugin manager, enter the following url : http://downl
 ```
 $ npm install --global gulp
 $ npm install --save-dev gulp gulp-concat
-$ npm install --save-dev gulp gulp-concat
 $ npm install -D gulp-uglify
 $ npm install -D gulp-ng-annotate
 $ npm install --save-dev gulp-clean
