@@ -44,7 +44,7 @@
 					<div class="tableCell"></div>
 					<div class="tableCell">{{feServer.location.cityName}}</div>
 				</div>
-				<div class="tableRow">
+				<div class="tableRow" ng-if="nodeServer">
 					<div class="tableCell" ><img style="position: relative; top:20%;" ng-src="http://d3q6339sjg0aim.cloudfront.net/network/srv.png" alt="res"/></div>
 					<div class="tableCell">{{nodeServer.name}}</div>
 					<div class="tableCell">{{nodeServer.location.externalIP}}</div>
