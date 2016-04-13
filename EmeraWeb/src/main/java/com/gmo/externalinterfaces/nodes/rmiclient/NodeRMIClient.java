@@ -108,8 +108,6 @@ public class NodeRMIClient implements IProcessorNode {
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
-		} else {
-			initRMIConnection();
 		}
 		return new ArrayList<ViewFile>();
 	}
@@ -122,6 +120,8 @@ public class NodeRMIClient implements IProcessorNode {
 			} catch (RemoteException e) {
 				// Do nothng - don't flood logs
 			}
+		} else {
+			initRMIConnection();
 		}
 		
 		return new ViewNodePollingInfo(new ViewNodeNetworkConfig(), new ArrayList<ViewAnalysis>());
