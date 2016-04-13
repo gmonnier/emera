@@ -60,10 +60,10 @@ public class RMIServer implements Runnable {
 
 		try {
 
-			registry = LocateRegistry.createRegistry(8081);
+			registry = LocateRegistry.createRegistry(10000);
 
 			UnicastRemoteObject.unexportObject(bsModel, true);
-			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 8081);
+			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 10000);
 
 			// String name = "//127.0.0.1/IAuthenticationRequest";
 			registry.rebind("IBaseSpaceModel", modelInfoSkeleton);
