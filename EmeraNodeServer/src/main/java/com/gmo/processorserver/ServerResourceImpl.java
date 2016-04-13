@@ -15,7 +15,7 @@ public class ServerResourceImpl implements IResource {
 
 	private ServerSocket serverSock;
 
-	private final static String serverName = "Application Main Server";
+	private final static String serverName = "Node Server";
 	private ClientLocation serverLocation;
 
 	public ServerResourceImpl(ServerSocket serverSocket) {

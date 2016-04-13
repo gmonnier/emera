@@ -31,11 +31,11 @@ import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
-import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewAWSInstance;
 import com.gmo.processorNode.viewmodel.network.ViewDistantResource;
-import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
+import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.processorserver.IResource;
 import com.gmo.processorserver.ProcessorServerManager;
@@ -91,7 +91,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	}
 
 	@Override
-	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException {
+	public ViewNodePollingInfo getViewNodePollingInfo(String userID) throws RemoteException {
 
 		IResource server = ProcessorServerManager.getInstance().getServerResource();
 		ViewDistantResource nodeServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
@@ -128,7 +128,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 				awsInstances.add(new ViewAWSInstance(inst.getInstanceId(), inst.getPrivateIpAddress(), inst.getPublicIpAddress(), inst.getState().getName(), inst.getInstanceType()));
 			}
 		}
-		ViewNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
+		ViewNodeNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
 
 		List<Analysis> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
 		List<ViewAnalysis> usersViewAnalysis = new ArrayList<ViewAnalysis>();
@@ -139,7 +139,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
 		}
 
-		return new ViewPollingInfo(viewNetConfig, usersViewAnalysis, null);
+		return new ViewNodePollingInfo(viewNetConfig, usersViewAnalysis);
 	}
 
 	@Override

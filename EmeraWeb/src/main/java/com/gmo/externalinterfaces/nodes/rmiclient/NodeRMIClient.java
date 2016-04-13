@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,6 +18,7 @@ import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
@@ -98,19 +98,17 @@ public class NodeRMIClient implements IProcessorNode {
 	}
 
 	@Override
-	public ViewPollingInfo getViewPollingInfo(String userID) {
-		ViewPollingInfo pollingInfo = new ViewPollingInfo(new ViewNetworkConfig(), new ArrayList<ViewAnalysis>(), new ArrayList<ViewAnalysis>());
+	public ViewNodePollingInfo getViewNodePollingInfo(String userID) {
+		ViewNodePollingInfo pollingNodeInfo = null;
 		if (rmiNodeClient != null) {
 			try {
-				pollingInfo = rmiNodeClient.getViewPollingInfo(userID);
+				pollingNodeInfo = rmiNodeClient.getViewNodePollingInfo(userID);
 			} catch (RemoteException e) {
 				LOG.warn("Node server not reachable");
 			}
 		}
 		
-		// Append Processed analyses to polling data
-		pollingInfo.setProcessedAnalysis(ResultsManager.getInstance().getUserProcessedAnalysis(userID));
-		return pollingInfo;
+		return pollingNodeInfo;
 	}
 
 	@Override

@@ -12,7 +12,9 @@ import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.reports.Report;
@@ -27,7 +29,7 @@ public interface IProcessorNode extends Remote {
 
 	// ------ Analyses management -----
 
-	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException;
+	public ViewNodePollingInfo getViewNodePollingInfo(String userID) throws RemoteException;
 
 	public void stopAllAnalyses(String userID) throws RemoteException;
 
