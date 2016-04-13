@@ -233,7 +233,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 
 	public void fileUploaded(ModelFileStored modelFile) {
 
-		LOG.debug("New resource assigned to this analysis : " + modelFile.getName());
+		LOG.debug("New data resource assigned to this analysis : " + modelFile.getName());
 
 		LOG.debug("viewConfigurations : " + viewConfiguration + "  processConfiguration : " + processConfiguration);
 		boolean allFilesUploaded = viewConfiguration.getSelectedDataFiles().size() == processConfiguration.getSelectedDataFiles().size() && viewConfiguration.getSelectedLibraries().size() == processConfiguration.getSelectedLibraries().size();

@@ -157,21 +157,4 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 		return listStoredData;
 	}
 
-	public static UploadWorker startUploadWorker(InputStream uploadedInputStream, String uploadedFileLocation, boolean executeInThreadPool) {
-		// write into the file (into a separate thread);
-		if (uploadedInputStream != null) {
-			UploadWorker worker = new UploadWorker(uploadedFileLocation, uploadedInputStream);
-			if (executeInThreadPool) {
-				fileWriterService.execute(worker);
-			} else {
-				worker.run();
-				StorageConfigurationManager.getInstance().updateModel();
-			}
-			return worker;
-		} else {
-			LOG.error("Input stream retrieved is null. Abort.");
-			throw new NullPointerException();
-		}
-	}
-
 }

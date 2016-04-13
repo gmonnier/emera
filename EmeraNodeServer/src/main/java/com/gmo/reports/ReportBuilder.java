@@ -2,9 +2,15 @@ package com.gmo.reports;
 
 import java.io.File;
 
+import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
 import com.gmo.reports.generation.OutputWriterListener;
 
 public class ReportBuilder implements OutputWriterListener {
+
+	// log4j logger - Main logger
+	private static Logger LOG = Log4JLogger.logger;
 
 	@Override
 	public void pdfOutputGenerationFailed() {
