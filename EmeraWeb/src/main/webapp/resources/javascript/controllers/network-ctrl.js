@@ -17,6 +17,7 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 
 			$scope.netresources = data.nodeConfig.resources;
 			$scope.awsInstances = data.nodeConfig.awsInstances;
+			$scope.nodeServer = data.nodeConfig.nodeServer;
 			$scope.feServer = data.frontEndServer;
 			var newMapData = [];
 			

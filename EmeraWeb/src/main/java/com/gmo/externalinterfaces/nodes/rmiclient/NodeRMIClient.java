@@ -109,7 +109,7 @@ public class NodeRMIClient implements IProcessorNode {
 			try {
 				return rmiNodeClient.getViewNodePollingInfo(userID);
 			} catch (RemoteException e) {
-				LOG.warn("Node server not reachable");
+				// Do nothng - don't flood logs
 			}
 		}
 		
