@@ -4,6 +4,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.externalinterfaces.nodes.rmiclient.NodeRMIClient;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.network.location.ClientLocation;
+import com.gmo.network.location.LocationLookup;
+import com.gmo.processorNode.viewmodel.network.ViewDistantResource;
 
 public class NodeManager {
 
@@ -26,5 +29,10 @@ public class NodeManager {
 	
 	public NodeRMIClient getNodeRMIClient() {
 		return rmiClient;
+	}
+
+	public ViewDistantResource getFrontEndServer() {
+		ClientLocation serverLocation = LocationLookup.getLocation("127.0.0.1");
+		return new ViewDistantResource("127.0.0.1", "FE Server", "-" , serverLocation);
 	}
 }

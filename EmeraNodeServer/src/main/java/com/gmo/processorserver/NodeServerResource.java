@@ -8,7 +8,7 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.network.location.ClientLocation;
 import com.gmo.network.location.LocationLookup;
 
-public class ServerResourceImpl implements IResource {
+public class NodeServerResource implements IResource {
 
 	// The logger.
 	private static Logger LOG = Log4JLogger.logger;
@@ -18,7 +18,7 @@ public class ServerResourceImpl implements IResource {
 	private final static String serverName = "Node Server";
 	private ClientLocation serverLocation;
 
-	public ServerResourceImpl(ServerSocket serverSocket) {
+	public NodeServerResource(ServerSocket serverSocket) {
 
 		this.serverSock = serverSocket;
 

@@ -26,6 +26,7 @@ import com.gmo.processorNode.viewmodel.StatusChangeRequest;
 import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
+import com.gmo.processorNode.viewmodel.network.ViewDistantResource;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 import com.gmo.processorNode.viewmodel.report.ViewReportGraphData;
 import com.gmo.results.ResultsManager;
@@ -49,16 +50,18 @@ public class WSAnalysisManagement {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public ViewPollingInfo retrieveApplicationsInfoJSON(@PathParam("user_id") String userID) {
-
+		// Local Data
 		List<ViewAnalysis> listCompleted = ResultsManager.getInstance().getUserProcessedAnalysis(userID);
-		
+		ViewDistantResource frontEndServer = NodeManager.getInstance().getFrontEndServer();
+
+		// Remote Data
 		ViewNodePollingInfo nodeInfo = NodeManager.getInstance().getNodeRMIClient().getViewNodePollingInfo(userID);
-		
+
+		// Final data objects
 		ViewNetworkConfig networkConfig = new ViewNetworkConfig(frontEndServer, nodeInfo.getNetworkConfig());
 
-		ViewPollingInfo pollingData = new ViewPollingInfo(nodeInfo., nodeInfo.getRunningAnalysis(), listCompleted);
-
-		return NodeManager.getInstance().getNodeRMIClient().getViewPollingInfo(userID);
+		ViewPollingInfo pollingData = new ViewPollingInfo(networkConfig, nodeInfo.getRunningAnalysis(), listCompleted);
+		return pollingData;
 	}
 
 	@Path("report/{id}")

@@ -51,7 +51,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 
 		server = new BaseServer(listeningPort, this);
 		server.addServerListener(this);
-		serverResource = new ServerResourceImpl(server.getServerSocket());
+		serverResource = new NodeServerResource(server.getServerSocket());
 
 		errDispatcher = new ErrorDispatcher();
 
