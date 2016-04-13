@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorserver.ProcessorServerManager;
 import com.gmo.rmiInterfaces.NodeRMIServer;
 import com.gmo.systemUtil.SystemCommand;
 
@@ -32,8 +33,18 @@ public class NodeServerApp {
 		LOG.info("---------------------------------------------");
 		LOG.info("-------- START Node server ------------------");
 		LOG.info("---------------------------------------------");
+		
+		initRMIServer();
+		
+		initProcessorServer();
+	}
+
+	private static void initProcessorServer() {
+		ProcessorServerManager.getInstance();
+	}
+	
+	private static void initRMIServer() {
 		LOG.info("Rmi Module --> request to start Node rmi server");
 		new NodeRMIServer();
 	}
-
 }
