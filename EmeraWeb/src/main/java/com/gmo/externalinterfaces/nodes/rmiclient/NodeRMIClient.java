@@ -22,6 +22,7 @@ import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
+import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.RMIFileTransfertUtil;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
@@ -99,16 +100,15 @@ public class NodeRMIClient implements IProcessorNode {
 
 	@Override
 	public ViewNodePollingInfo getViewNodePollingInfo(String userID) {
-		ViewNodePollingInfo pollingNodeInfo = null;
 		if (rmiNodeClient != null) {
 			try {
-				pollingNodeInfo = rmiNodeClient.getViewNodePollingInfo(userID);
+				return rmiNodeClient.getViewNodePollingInfo(userID);
 			} catch (RemoteException e) {
 				LOG.warn("Node server not reachable");
 			}
 		}
 		
-		return pollingNodeInfo;
+		return new ViewNodePollingInfo(new ViewNodeNetworkConfig(), new ArrayList<ViewAnalysis>());
 	}
 
 	@Override

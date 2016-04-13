@@ -16,23 +16,26 @@ public class NodeManager {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
-	
+
 	private NodeRMIClient rmiClient;
+
+	private ViewDistantResource frontEndServer;
 
 	private NodeManager() {
 		rmiClient = new NodeRMIClient();
+		ClientLocation serverLocation = LocationLookup.getLocation("127.0.0.1");
+		frontEndServer = new ViewDistantResource("127.0.0.1", "FE Server", "-", serverLocation);
 	}
 
 	public static synchronized NodeManager getInstance() {
 		return ManagerHolder.instance;
 	}
-	
+
 	public NodeRMIClient getNodeRMIClient() {
 		return rmiClient;
 	}
 
 	public ViewDistantResource getFrontEndServer() {
-		ClientLocation serverLocation = LocationLookup.getLocation("127.0.0.1");
-		return new ViewDistantResource("127.0.0.1", "FE Server", "-" , serverLocation);
+		return frontEndServer;
 	}
 }

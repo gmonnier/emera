@@ -12,7 +12,7 @@ import com.gmo.logger.Log4JLogger;
 @XmlRootElement
 public class ViewNetworkConfig implements Serializable {
 
-	private ViewNodeNetworkConfig resources;
+	private ViewNodeNetworkConfig nodeConfig;
 
 	// current serve the application is running on.
 	private ViewDistantResource frontEndServer;
@@ -21,17 +21,17 @@ public class ViewNetworkConfig implements Serializable {
 
 	}
 
-	public ViewNetworkConfig(ViewDistantResource frontEndServer, ViewNodeNetworkConfig resources) {
+	public ViewNetworkConfig(ViewDistantResource frontEndServer, ViewNodeNetworkConfig nodeConfig) {
 		this.frontEndServer = frontEndServer;
-		this.resources = resources;
+		this.nodeConfig = nodeConfig;
+	}
+	
+	public ViewNodeNetworkConfig getNodeConfig() {
+		return nodeConfig;
 	}
 
-	public ViewNodeNetworkConfig getResources() {
-		return resources;
-	}
-
-	public void setResources(ViewNodeNetworkConfig resources) {
-		this.resources = resources;
+	public void setNodeConfig(ViewNodeNetworkConfig nodeConfig) {
+		this.nodeConfig = nodeConfig;
 	}
 
 	public ViewDistantResource getFrontEndServer() {

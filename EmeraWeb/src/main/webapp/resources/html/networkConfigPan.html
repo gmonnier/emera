@@ -39,12 +39,12 @@
 			<div class="tableList">
 				<div class="tableRow">
 					<div class="tableCell" ><img style="position: relative; top:20%;" ng-src="http://d3q6339sjg0aim.cloudfront.net/network/srv.png" alt="res"/></div>
-					<div class="tableCell">{{serverresource.name}}</div>
-					<div class="tableCell">{{serverresource.location.externalIP}}</div>
+					<div class="tableCell">{{feserver.name}}</div>
+					<div class="tableCell">{{feserver.location.externalIP}}</div>
 					<div class="tableCell"></div>
-					<div class="tableCell">{{serverresource.location.cityName}}</div>
+					<div class="tableCell">{{feserver.location.cityName}}</div>
 				</div>
-				<div class="tableRow" ng-repeat="resource in netresources">
+				<div class="tableRow" ng-repeat="resource in netresources" ng-if="netresources">
 					<div class="tableCell" ><img style="position: relative; top:20%;" ng-src="http://d3q6339sjg0aim.cloudfront.net/network/distResource.png" alt="res"/></div>
 					<div class="tableCell">{{resource.name}}</div>
 					<div class="tableCell">{{resource.IP}}</div>

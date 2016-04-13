@@ -1,9 +1,8 @@
 appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  analysisMgtService, user) {
 	
 	// init with current network config
-	$scope.netresources = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().resources;
-	$scope.awsInstances = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().awsInstances;
-	$scope.serverresource = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().frontEndServer;
+	$scope.nodeConfig = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().nodeConfig;
+	$scope.feServer = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().frontEndServer;
 	
 	analysisMgtService.requestStartPolling();
 
@@ -15,9 +14,10 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 	// listen for the event in the relevant $scope
 	var netConfigChangedListener = $rootScope.$on('netConfigChanged', function (event, data) {
 		if(data !== null) {
-			$scope.netresources = data.resources;
-			$scope.awsInstances = data.awsInstances;
-			$scope.serverresource = data.frontEndServer;
+
+			$scope.netresources = data.nodeConfig.resources;
+			$scope.awsInstances = data.nodeConfig.awsInstances;
+			$scope.feServer = data.frontEndServer;
 			var newMapData = [];
 			
 			// add the server
@@ -28,7 +28,7 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 				newMapData[0] = {"code": "Server","name": serverLoc.cityName || serverLoc.countryName,"value": 1.5,"color": "#56ED38", "ID": data.frontEndServer.IP};
 			}
 			
-			for (i = 0; i < $scope.netresources.length; i++) {
+			for (i = 0; i < $scope.netresources.length && $scope.netresources !== 'undefined'; i++) {
 				var resource = $scope.netresources[i];
 					if(resource.location !== 'undefined' && resource.location !== null && resource.location.latitude != 0) {
 					$scope.latlong["" + (i+1)] = {
