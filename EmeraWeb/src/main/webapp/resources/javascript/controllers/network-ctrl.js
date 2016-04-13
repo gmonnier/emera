@@ -3,7 +3,7 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 	// init with current network config
 	$scope.netresources = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().resources;
 	$scope.awsInstances = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().awsInstances;
-	$scope.serverresource = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().thisServer;
+	$scope.serverresource = analysisMgtService.getNetworkConfig() === null? null : analysisMgtService.getNetworkConfig().frontEndServer;
 	
 	analysisMgtService.requestStartPolling();
 
@@ -17,15 +17,15 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 		if(data !== null) {
 			$scope.netresources = data.resources;
 			$scope.awsInstances = data.awsInstances;
-			$scope.serverresource = data.thisServer;
+			$scope.serverresource = data.frontEndServer;
 			var newMapData = [];
 			
 			// add the server
 			
-			if(data.thisServer !== 'undefined' && serverLoc !== 'undefined' && data.thisServer.location !== null && data.thisServer.location.latitude != 0) {
-				var serverLoc = data.thisServer.location;
+			if(data.frontEndServer !== 'undefined' && serverLoc !== 'undefined' && data.frontEndServer.location !== null && data.frontEndServer.location.latitude != 0) {
+				var serverLoc = data.frontEndServer.location;
 				$scope.latlong["Server"] = {"latitude": serverLoc.latitude , "longitude": serverLoc.longitude};
-				newMapData[0] = {"code": "Server","name": serverLoc.cityName || serverLoc.countryName,"value": 1.5,"color": "#56ED38", "ID": data.thisServer.IP};
+				newMapData[0] = {"code": "Server","name": serverLoc.cityName || serverLoc.countryName,"value": 1.5,"color": "#56ED38", "ID": data.frontEndServer.IP};
 			}
 			
 			for (i = 0; i < $scope.netresources.length; i++) {

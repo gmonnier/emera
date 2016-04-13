@@ -12,48 +12,34 @@ import com.gmo.logger.Log4JLogger;
 @XmlRootElement
 public class ViewNetworkConfig implements Serializable {
 
-	// log4j logger - Main logger
-	private static Logger LOG = Log4JLogger.logger;
-
-	private List<ViewDistantResource> resources;
-
-	private List<ViewAWSInstance> awsInstances;
+	private List<ViewNodeNetworkConfig> resources;
 
 	// current serve the application is running on.
-	private ViewDistantResource thisServer;
+	private ViewDistantResource frontEndServer;
 
 	public ViewNetworkConfig() {
 
 	}
 
-	public ViewNetworkConfig(ViewDistantResource thisServer, List<ViewDistantResource> resources, List<ViewAWSInstance> awsInstances) {
-		this.thisServer = thisServer;
+	public ViewNetworkConfig(ViewDistantResource frontEndServer, List<ViewNodeNetworkConfig> resources) {
+		this.frontEndServer = frontEndServer;
 		this.resources = resources;
-		this.awsInstances = awsInstances;
 	}
 
-	public List<ViewDistantResource> getResources() {
+	public List<ViewNodeNetworkConfig> getResources() {
 		return resources;
 	}
 
-	public void setResources(List<ViewDistantResource> resources) {
+	public void setResources(List<ViewNodeNetworkConfig> resources) {
 		this.resources = resources;
 	}
 
-	public ViewDistantResource getThisServer() {
-		return thisServer;
+	public ViewDistantResource getFrontEndServer() {
+		return frontEndServer;
 	}
 
-	public void setThisServer(ViewDistantResource thisServer) {
-		this.thisServer = thisServer;
-	}
-
-	public List<ViewAWSInstance> getAwsInstances() {
-		return awsInstances;
-	}
-
-	public void setAwsInstances(List<ViewAWSInstance> awsInstances) {
-		this.awsInstances = awsInstances;
+	public void setFrontEndServer(ViewDistantResource frontEndServer) {
+		this.frontEndServer = frontEndServer;
 	}
 
 }

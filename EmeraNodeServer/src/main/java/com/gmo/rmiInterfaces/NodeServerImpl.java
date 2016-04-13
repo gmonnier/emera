@@ -12,14 +12,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.Logger;
 
-import awsinterfaceManager.AWSEC2InterfaceManager;
-
 import com.amazonaws.services.ec2.model.Instance;
-import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
@@ -50,6 +46,8 @@ import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
+
+import awsinterfaceManager.AWSEC2InterfaceManager;
 
 public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
 
@@ -96,7 +94,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	public ViewPollingInfo getViewPollingInfo(String userID) throws RemoteException {
 
 		IResource server = ProcessorServerManager.getInstance().getServerResource();
-		ViewDistantResource thisServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
+		ViewDistantResource nodeServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
 
 		Map<String, IDistantResource> listRes = ProcessorServerManager.getInstance().getMapResourcesConnected();
 		List<ViewDistantResource> resources = new ArrayList<>(listRes.size());
@@ -130,7 +128,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 				awsInstances.add(new ViewAWSInstance(inst.getInstanceId(), inst.getPrivateIpAddress(), inst.getPublicIpAddress(), inst.getState().getName(), inst.getInstanceType()));
 			}
 		}
-		ViewNetworkConfig viewNetConfig = new ViewNetworkConfig(thisServer, resources, awsInstances);
+		ViewNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
 
 		List<Analysis> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
 		List<ViewAnalysis> usersViewAnalysis = new ArrayList<ViewAnalysis>();
