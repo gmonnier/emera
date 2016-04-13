@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.OutputFileType;
@@ -40,11 +41,15 @@ public class NodeRMIClient implements IProcessorNode {
 	private boolean connectionOk;
 
 	public NodeRMIClient() {
+		
+		String registryAddr = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
+		int registryPort = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
+		LOG.info("Create new NodeRMI client on  " + registryAddr + "    port: " + registryPort);
 
 		connectionOk = false;
 		try {
 			LOG.debug("Request for the rmi ProcessorNode interface");
-			Registry registry = LocateRegistry.getRegistry(8081);
+			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
 			rmiNodeClient = (IProcessorNode) registry.lookup("IProcessorNode");
 			LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
 			connectionOk = true;
