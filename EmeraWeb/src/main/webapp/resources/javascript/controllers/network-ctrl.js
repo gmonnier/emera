@@ -22,7 +22,7 @@ appControllers.controller('networkCtrl', function ($scope,$http, $rootScope,  an
 			
 			// add the server
 			
-			if(typeof data.frontEndServer !== 'undefined' && typeof serverLoc !== 'undefined' && data.frontEndServer.location !== null && data.frontEndServer.location.latitude != 0) {
+			if(typeof data.frontEndServer !== 'undefined' && typeof data.frontEndServer.location !== 'undefined' && data.frontEndServer.location !== null && data.frontEndServer.location.latitude != 0) {
 				var serverLoc = data.frontEndServer.location;
 				$scope.latlong["Server"] = {"latitude": serverLoc.latitude , "longitude": serverLoc.longitude};
 				newMapData[0] = {"code": "Server","name": serverLoc.cityName || serverLoc.countryName,"value": 1.5,"color": "#56ED38", "ID": data.frontEndServer.IP};
