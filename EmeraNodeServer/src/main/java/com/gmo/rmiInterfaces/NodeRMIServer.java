@@ -60,10 +60,10 @@ public class NodeRMIServer implements Runnable {
 
 		try {
 
-			registry = LocateRegistry.createRegistry(8081);
+			registry = LocateRegistry.createRegistry(10000);
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
-			IProcessorNode modelInfoSkeleton = (IProcessorNode) UnicastRemoteObject.exportObject(nodeRMIServer, 8081);
+			IProcessorNode modelInfoSkeleton = (IProcessorNode) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
 
 			// String name = "//127.0.0.1/IAuthenticationRequest";
 			registry.rebind("IProcessorNode", modelInfoSkeleton);

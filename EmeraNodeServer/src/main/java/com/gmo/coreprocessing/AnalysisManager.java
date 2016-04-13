@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
-import com.gmo.reports.comparators.analyses.CompletionDateAnalysisComparator;
+import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 public class AnalysisManager {
@@ -46,7 +46,7 @@ public class AnalysisManager {
 		return runningAnalysis;
 	}
 
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID , String bsuserSecret, String bsuserToken) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) {
 		// Create and start the analysis
 		Analysis newAnalyse = new Analysis(viewConfig, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
