@@ -5,9 +5,12 @@ $javaPath
 & "${javaPath}\java.exe" -version
 
 $destDir = "generated"
+$srcDestDir = "../src/main/java/com/gmo/generated/configurations"
 
 Remove-Item -Recurse -Force $destDir
+Remove-Item -Recurse -Force $srcDestDir
 
+New-Item -ItemType directory -Path $srcDestDir
 New-Item -ItemType directory -Path $destDir
 New-Item -ItemType directory -Path $destDir/jar
 
@@ -18,7 +21,7 @@ foreach ($xsdFile in $xsdList)
 {
 	Write-Host " --> Process xsd file : $xsdFile"
 	$xsdBaseName = ${xsdFile} -replace '.xsd',''
-	$sourceDir = "${destDir}\sources\${xsdBaseName}"
+	$sourceDir = "${srcDestDir}\${xsdBaseName}"
 	New-Item -ItemType directory -Path "${sourceDir}"
 	& "${javaPath}\xjc.exe" -extension -Xinject-code -d ${sourceDir} $xsdFile
 	
