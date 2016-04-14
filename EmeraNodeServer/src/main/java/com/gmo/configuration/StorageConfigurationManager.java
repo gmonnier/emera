@@ -1,7 +1,6 @@
 package com.gmo.configuration;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,13 +11,11 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
-import com.gmo.coreprocessing.libExtraction.LibraryExtractionException;
+import com.gmo.generated.configuration.storageconfig.StorageConfiguration;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.systemUtil.SystemCommand;
-
-import configuration.jaxb.storageconfig.StorageConfiguration;
 
 public class StorageConfigurationManager extends AbstractConfigurationManager<StorageConfiguration> {
 

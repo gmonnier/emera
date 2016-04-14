@@ -7,6 +7,10 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.generated.configuration.applicationcontext.ApplicationContext;
+import com.gmo.generated.configuration.applicationcontext.Pattern;
+import com.gmo.generated.configuration.applicationcontext.PatternsStorage;
+import com.gmo.generated.configuration.applicationcontext.SplitPattern;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 import com.gmo.processorNode.viewmodel.defaultproviders.DefaultConfigurationProvider;
@@ -14,11 +18,6 @@ import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.sharedobjects.model.processconfiguration.OutputAttributes;
 import com.gmo.sharedobjects.model.processconfiguration.PatternAttributes;
 import com.gmo.sharedobjects.util.NoSuchPatternException;
-
-import configuration.jaxb.applicationcontext.ApplicationContext;
-import configuration.jaxb.applicationcontext.Pattern;
-import configuration.jaxb.applicationcontext.PatternsStorage;
-import configuration.jaxb.applicationcontext.SplitPattern;
 
 public class ApplicationContextManager extends AbstractConfigurationManager<ApplicationContext> implements DefaultConfigurationProvider {
 

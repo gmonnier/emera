@@ -3,8 +3,7 @@ package configuration;
 import java.io.File;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
-
-import configuration.jaxb.aws.AWSConfiguration;
+import com.gmo.generated.configuration.aws.AWSConfiguration;
 
 
 public class AWSContextManager extends AbstractConfigurationManager<AWSConfiguration> {

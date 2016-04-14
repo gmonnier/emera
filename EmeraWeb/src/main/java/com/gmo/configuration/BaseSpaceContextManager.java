@@ -3,8 +3,7 @@ package com.gmo.configuration;
 import java.io.File;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
-
-import configuration.jaxb.basespace.BaseSpaceConfiguration;
+import com.gmo.generated.configuration.basespace.BaseSpaceConfiguration;
 
 public class BaseSpaceContextManager extends
 		AbstractConfigurationManager<BaseSpaceConfiguration> {

@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.StatusChangeRequest;
@@ -33,8 +34,6 @@ import com.gmo.results.ResultsManager;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
 import com.gmo.sharedobjects.model.reports.Report;
-
-import configuration.jaxb.applicationcontext.LocationType;
 
 @Path("/ws-resources/analysis")
 public class WSAnalysisManagement {
