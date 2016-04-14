@@ -5,9 +5,8 @@ import java.io.File;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.generated.configuration.clientprocessorconfig.ClientProcessorConfig;
 import com.gmo.logger.Log4JLogger;
-
-import configuration.jaxb.clientprocessorconfig.ClientProcessorConfig;
 
 public class ClientContextManager extends AbstractConfigurationManager<ClientProcessorConfig> {
 
