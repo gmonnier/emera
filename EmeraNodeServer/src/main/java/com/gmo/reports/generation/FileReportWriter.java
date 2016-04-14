@@ -7,22 +7,12 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.reports.Report;
 
-public class FileReportWriter implements Runnable {
+public class FileReportWriter extends ReportWriter {
 
 	private static Logger LOG = Log4JLogger.logger;
-	
-	public static final String REPORT_FILENAME = "report.ser_utf8";
 
-	private Report report;
-
-	private OutputWriterListener writerListener;
-	private File outputLocation;
-
-	public FileReportWriter(Report report, OutputWriterListener writerListener) {
-		this.report = report;
-		report.finalizeReport();
-		this.writerListener = writerListener;
-		this.outputLocation = new File(ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation() + File.separator + report.getUserID());
+	public FileReportWriter(Report report, OutputWriterListener writerListener, String analysisResultsLocation) {
+		super(report, writerListener, analysisResultsLocation);
 	}
 
 	@Override
@@ -32,11 +22,12 @@ public class FileReportWriter implements Runnable {
 			LOG.error("No analyse ID associated with current report. Exit writing output process");
 			return;
 		}
-		
+
+		File outputLocation = new File(analysisResultsLocation + File.separator + report.getUserID());
 		File analysisDir = new File(outputLocation, report.getAnalyseID());
 		if (!analysisDir.exists()) {
 			boolean mkdirres = analysisDir.mkdirs();
-			if(!mkdirres){
+			if (!mkdirres) {
 				LOG.warn("Uable to create directory " + analysisDir.getAbsolutePath());
 			}
 		} else {
@@ -64,7 +55,7 @@ public class FileReportWriter implements Runnable {
 				writerListener.pdfOutputGenerationFailed();
 			}
 		}
-		
+
 		// Serialize result object into a file
 		File serializationOutput = new File(analysisDir, REPORT_FILENAME);
 		try {

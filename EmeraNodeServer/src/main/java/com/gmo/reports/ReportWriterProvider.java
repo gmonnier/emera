@@ -6,8 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.reports.generation.FileReportWriter;
 import com.gmo.reports.generation.OutputWriterListener;
 import com.gmo.reports.generation.ReportWriter;
+import com.gmo.reports.generation.S3ReportWriter;
 import com.gmo.sharedobjects.model.reports.Report;
 
 public class ReportWriterProvider implements OutputWriterListener {
@@ -18,13 +20,13 @@ public class ReportWriterProvider implements OutputWriterListener {
 	public ReportWriter getReportWriter(Report report, LocationType locType, String analysisResultsLocation) {
 		switch (locType) {
 		case LOCAL: {
-			return new FileReportWriter
-			break;
+			return new FileReportWriter(report, this, analysisResultsLocation);
 		}
 		case S_3: {
-			break;
+			return new S3ReportWriter(report, this, analysisResultsLocation);
 		}
 		}
+		return null;
 	}
 
 	@Override

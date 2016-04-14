@@ -52,7 +52,7 @@ public class AnalysisMerger implements IMergerInfo {
 			long completionDate = System.currentTimeMillis();
 			report.setEndDate(completionDate);
 			
-			dataMergerService.execute(new ReportWriterProvider().writeReport(report));
+			dataMergerService.execute(new ReportWriterProvider().getReportWriter(report, locType, analysisResultsLocation)));
 
 			// Analysis is finished
 			if (processinglistener != null) {
