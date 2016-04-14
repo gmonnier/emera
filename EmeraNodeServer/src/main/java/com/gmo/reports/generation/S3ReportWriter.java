@@ -17,24 +17,18 @@ public class S3ReportWriter extends ReportWriter {
 
 	@Override
 	public void run() {
+		
+		LOG.error("Start S3 Report writting in " + analysisResultsLocation);
+		
 		if (report.getAnalyseID() == null || report.getAnalyseID().isEmpty()) {
 			LOG.error("No analyse ID associated with current report. Exit writing output process");
 			return;
 		}
 
-		File outputLocation = new File(analysisResultsLocation + File.separator + report.getUserID());
-		File analysisDir = new File(outputLocation, report.getAnalyseID());
-		if (!analysisDir.exists()) {
-			boolean mkdirres = analysisDir.mkdirs();
-			if (!mkdirres) {
-				LOG.warn("Uable to create directory " + analysisDir.getAbsolutePath());
-			}
-		} else {
-			LOG.warn("Analyse results already exists with same ID!");
-		}
+		String outputLocation = analysisResultsLocation + File.separator + report.getUserID() + File.separator + report.getAnalyseID();
 
 		if (report.getAnalyseConfig().getOutputAttributes().isGenerateCSV()) {
-			File csvOutput = new File(analysisDir, "csv_report.csv");
+			String csvOutput = outputLocation + File.separator + "csv_report.csv";
 			try {
 				CSVOutputGenerator.writeOutput(csvOutput, report);
 				writerListener.csvOutputGenerationSucceeded(csvOutput);
@@ -45,7 +39,7 @@ public class S3ReportWriter extends ReportWriter {
 		}
 
 		if (report.getAnalyseConfig().getOutputAttributes().isGeneratePDF()) {
-			File pdfOutput = new File(analysisDir, "pdf_report.pdf");
+			String pdfOutput = outputLocation + File.separator + "pdf_report.pdf";
 			try {
 				new PDFOutputGenerator(pdfOutput, report);
 				writerListener.pdfOutputGenerationSucceeded(pdfOutput);
@@ -56,7 +50,7 @@ public class S3ReportWriter extends ReportWriter {
 		}
 
 		// Serialize result object into a file
-		File serializationOutput = new File(analysisDir, REPORT_FILENAME);
+		String serializationOutput = outputLocation + REPORT_FILENAME;
 		try {
 			ReportSerializer.writeReport(report, serializationOutput);
 		} catch (Throwable e) {

@@ -1,9 +1,9 @@
 package com.gmo.reports.generation;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
 
@@ -20,14 +21,12 @@ public class ReportSerializer {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public static void writeReport(Report report, File output) throws IOException {
+	public static void writeReport(Report report, OutputStream outputStream) throws IOException {
 
-		LOG.debug("Start writing in " + output.getAbsolutePath());
-		
 		BufferedWriter writer = null;
 
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(output), "UTF8"));
+			writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF8"));
 			writer.write(report.getAnalyseID());
 			writer.newLine();
 			writer.write(Long.toString(report.getStartDate()));
@@ -49,31 +48,31 @@ public class ReportSerializer {
 			// Add associated files that are note defined into config
 			// serialization
 			writer.newLine();
-			List<ModelFileStored> mfsdata = report.getAnalyseConfig().getSelectedDataFiles();
+			List<ViewFile> mfsdata = report.getAnalyseConfig().getSelectedDataFiles();
 			for (int i = 0; i < mfsdata.size(); i++) {
-				ModelFileStored current = mfsdata.get(i);
+				ViewFile current = mfsdata.get(i);
 				writer.write(current.getId());
 				writer.write("#");
 				writer.write(current.getName());
 				writer.write("#");
 				writer.write(current.getSystemFile().getAbsolutePath());
 				writer.write("#");
-				writer.write(Long.toString(current.getLastModified().getTime()));
+				writer.write(Long.toString(current.getLastModified()));
 				if (i != mfsdata.size() - 1) {
 					writer.write("##");
 				}
 			}
 			writer.newLine();
-			List<ModelFileStored> mfslib = report.getAnalyseConfig().getSelectedLibraries();
+			List<ViewFile> mfslib = report.getAnalyseConfig().getSelectedLibraries();
 			for (int i = 0; i < mfslib.size(); i++) {
-				ModelFileStored current = mfslib.get(i);
+				ViewFile current = mfslib.get(i);
 				writer.write(current.getId());
 				writer.write("#");
 				writer.write(current.getName());
 				writer.write("#");
 				writer.write(current.getSystemFile().getAbsolutePath());
 				writer.write("#");
-				writer.write(Long.toString(current.getLastModified().getTime()));
+				writer.write(Long.toString(current.getLastModified()));
 				if (i != mfslib.size() - 1) {
 					writer.write("##");
 				}
@@ -90,7 +89,7 @@ public class ReportSerializer {
 					writer.write("##");
 				}
 			}
-			
+
 			LOG.debug("Written successfully into " + output.getAbsolutePath());
 		} catch (IOException ex) {
 			throw ex;

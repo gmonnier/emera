@@ -1,6 +1,7 @@
 package com.gmo.reports.generation;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +18,8 @@ public class FileReportWriter extends ReportWriter {
 
 	@Override
 	public void run() {
+
+		LOG.error("Start Local File Report writting in " + analysisResultsLocation);
 
 		if (report.getAnalyseID() == null || report.getAnalyseID().isEmpty()) {
 			LOG.error("No analyse ID associated with current report. Exit writing output process");
@@ -59,7 +62,7 @@ public class FileReportWriter extends ReportWriter {
 		// Serialize result object into a file
 		File serializationOutput = new File(analysisDir, REPORT_FILENAME);
 		try {
-			ReportSerializer.writeReport(report, serializationOutput);
+			ReportSerializer.writeReport(report, new FileOutputStream(serializationOutput));
 		} catch (Throwable e) {
 			LOG.error("Unable to serialize report to file " + report.getAnalyseID(), e);
 		}
