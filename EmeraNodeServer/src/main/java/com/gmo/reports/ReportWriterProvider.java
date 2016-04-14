@@ -4,13 +4,28 @@ import java.io.File;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.reports.generation.OutputWriterListener;
+import com.gmo.reports.generation.ReportWriter;
+import com.gmo.sharedobjects.model.reports.Report;
 
-public class ReportBuilder implements OutputWriterListener {
+public class ReportWriterProvider implements OutputWriterListener {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
+
+	public ReportWriter getReportWriter(Report report, LocationType locType, String analysisResultsLocation) {
+		switch (locType) {
+		case LOCAL: {
+			return new FileReportWriter
+			break;
+		}
+		case S_3: {
+			break;
+		}
+		}
+	}
 
 	@Override
 	public void pdfOutputGenerationFailed() {
