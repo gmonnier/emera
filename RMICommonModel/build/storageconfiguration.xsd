@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://configuration/jaxb/storageConfig"
-	xmlns:tns="http://configuration/jaxb/storageConfig" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	targetNamespace="http://com/gmo/generated/configuration/storageConfig"
+	xmlns:tns="http://com/gmo/generated/configuration/storageConfig" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	jaxb:version="2.1" elementFormDefault="qualified">
 	<xs:element name="StorageConfiguration">
