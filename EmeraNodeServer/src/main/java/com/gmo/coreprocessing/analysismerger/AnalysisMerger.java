@@ -47,7 +47,7 @@ public class AnalysisMerger implements IMergerInfo {
 		chunkBuffer.remove(chunkID);
 
 		if (chunkBuffer.isBufferTerminated()) {
-			LOG.debug("Chunk buffer terminated. All chunks recived and processed : generate output files");
+			LOG.debug("Chunk buffer terminated. All chunks received and processed : generate output files");
 			long completionDate = System.currentTimeMillis();
 			report.setEndDate(completionDate);
 			

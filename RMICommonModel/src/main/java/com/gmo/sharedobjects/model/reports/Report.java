@@ -15,8 +15,6 @@ import com.gmo.sharedobjects.model.reports.comparators.OccurenceComparator;
 
 public class Report implements Serializable {
 
-	private transient static Logger LOG = Log4JLogger.logger;
-
 	private GeneLibrary library;
 
 	private HashMap<String, Integer> occurencesFound;
