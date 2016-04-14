@@ -1,7 +1,8 @@
 package com.gmo.configuration;
 
 import java.io.File;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
 import com.gmo.logger.Log4JLogger;
