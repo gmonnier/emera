@@ -3,6 +3,11 @@ package com.gmo.configuration;
 import java.io.File;
 import java.util.logging.Logger;
 
+import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
+import com.gmo.logger.Log4JLogger;
+
+import configuration.jaxb.clientprocessorconfig.ClientProcessorConfig;
+
 public class ClientContextManager extends AbstractConfigurationManager<ClientProcessorConfig> {
 
 	private final static String contextFile = "conf/ClientProcessorConfig.xml";

@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import client.ClientStatus;
+import com.gmo.sharedobjects.client.ClientStatus;
 
 public class MainFrame extends JFrame implements IUIInterface {
 

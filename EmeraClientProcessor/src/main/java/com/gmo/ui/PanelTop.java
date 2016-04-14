@@ -9,10 +9,9 @@ import java.awt.Point;
 
 import javax.swing.JPanel;
 
+import com.gmo.sharedobjects.client.ClientStatus;
 import com.gmo.ui.lookAndFeel.Painting;
 import com.gmo.ui.utility.GraphicsUtility;
-
-import client.ClientStatus;
 
 public class PanelTop extends JPanel {
 

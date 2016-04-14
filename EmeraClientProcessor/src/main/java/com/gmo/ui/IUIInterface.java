@@ -1,6 +1,6 @@
 package com.gmo.ui;
 
-import client.ClientStatus;
+import com.gmo.sharedobjects.client.ClientStatus;
 
 public interface IUIInterface {
 	

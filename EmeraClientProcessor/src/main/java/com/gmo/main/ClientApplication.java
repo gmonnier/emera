@@ -1,16 +1,14 @@
 package com.gmo.main;
 
-import logger.JavaStyleLogger;
-import logger.Log4JLogger;
-
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.ClientContextManager;
+import com.gmo.logger.JavaStyleLogger;
+import com.gmo.logger.Log4JLogger;
 import com.gmo.network.ProcessorClient;
 import com.gmo.process.ProcessManager;
+import com.gmo.systemUtil.SystemCommand;
 import com.gmo.ui.MainFrame;
-
-import systemUtil.SystemCommand;
 
 public class ClientApplication {
 

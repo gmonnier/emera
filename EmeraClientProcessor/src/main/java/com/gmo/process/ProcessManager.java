@@ -3,19 +3,17 @@ package com.gmo.process;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import logger.Log4JLogger;
-import model.data.ChunkResult;
-import model.data.DataChunk;
-import model.genelibrary.GeneLibrary;
-import model.parameters.PartialProcessConfiguration;
-
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.logger.Log4JLogger;
 import com.gmo.network.ProcessorClient;
+import com.gmo.sharedobjects.client.ClientStatus;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.data.DataChunk;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.processconfiguration.PartialProcessConfiguration;
 import com.gmo.ui.IUIInterface;
 import com.gmo.ui.Info;
-
-import client.ClientStatus;
 
 public class ProcessManager implements IWorkerProgress {
 	

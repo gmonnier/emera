@@ -3,14 +3,14 @@ package com.gmo.process;
 import java.util.List;
 import java.util.Map;
 
-import logger.Log4JLogger;
-import model.data.ChunkResult;
-import model.data.DataChunk;
-import model.genelibrary.GeneLibrary;
-import model.genelibrary.ReferenceGene;
-import model.parameters.PartialProcessConfiguration;
-
 import org.apache.logging.log4j.Logger;
+
+import com.gmo.logger.Log4JLogger;
+import com.gmo.sharedobjects.model.data.ChunkResult;
+import com.gmo.sharedobjects.model.data.DataChunk;
+import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
+import com.gmo.sharedobjects.model.processconfiguration.PartialProcessConfiguration;
 
 public class ChunkWorker implements Runnable {
 
