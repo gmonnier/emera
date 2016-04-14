@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Loggers>
+		<Root level="DEBUG">
+		</Root>
+		<Logger name="com.gmo.basicLogger" level="OFF" additivity="false">
+		</Logger>
+		<Logger name="com.gmo.connectionLogger" level="OFF" additivity="false">
+		</Logger>
+	</Loggers>
+</Configuration>
