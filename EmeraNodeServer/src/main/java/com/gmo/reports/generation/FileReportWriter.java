@@ -2,6 +2,7 @@ package com.gmo.reports.generation;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +41,15 @@ public class FileReportWriter extends ReportWriter {
 		if (report.getAnalyseConfig().getOutputAttributes().isGenerateCSV()) {
 			File csvOutput = new File(analysisDir, "csv_report.csv");
 			try {
-				CSVOutputGenerator.writeOutput(csvOutput, report);
+				// if file doesnt exists, then create it
+				if (!csvOutput.exists()) {
+					try {
+						csvOutput.createNewFile();
+					} catch (IOException e) {
+						LOG.error(e.getMessage(), e);
+					}
+				}
+				CSVOutputGenerator.writeOutput(new FileOutputStream(csvOutput), report);
 				writerListener.csvOutputGenerationSucceeded(csvOutput);
 			} catch (Throwable e) {
 				LOG.error("CSV report Generation Failed for analyse : " + report.getAnalyseID(), e);
@@ -51,7 +60,15 @@ public class FileReportWriter extends ReportWriter {
 		if (report.getAnalyseConfig().getOutputAttributes().isGeneratePDF()) {
 			File pdfOutput = new File(analysisDir, "pdf_report.pdf");
 			try {
-				new PDFOutputGenerator(pdfOutput, report);
+				// if file doesnt exists, then create it
+				if (!pdfOutput.exists()) {
+					try {
+						pdfOutput.createNewFile();
+					} catch (IOException e) {
+						LOG.error(e.getMessage(), e);
+					}
+				}
+				new PDFOutputGenerator(new FileOutputStream(pdfOutput), report);
 				writerListener.pdfOutputGenerationSucceeded(pdfOutput);
 			} catch (Throwable e) {
 				LOG.error("PDF report Generation Failed for analyse : " + report.getAnalyseID(), e);

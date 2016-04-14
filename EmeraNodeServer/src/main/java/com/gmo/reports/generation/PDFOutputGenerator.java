@@ -2,8 +2,8 @@ package com.gmo.reports.generation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.fileGenerator.pdf.util.PDFPageSize;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.sharedobjects.model.reports.UnfoundStartSeqMap;
@@ -84,7 +84,7 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 	// store the chapters and sections with their title here.
 	private final Map<String, Integer> pageByTitle = new HashMap<>();
 
-	public PDFOutputGenerator(File outputFile, Report report) throws Exception {
+	public PDFOutputGenerator(OutputStream outputStream, Report report) throws Exception {
 
 		header = "Sub sequences analysis";
 		this.report = report;
@@ -94,31 +94,20 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 
 		try {
 			this.baseFont = BaseFont.createFont();
-
-			// if file doesnt exists, then create it
-			if (!outputFile.exists()) {
-				try {
-					outputFile.createNewFile();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
-
-			generatePDFOutput(outputFile.getAbsolutePath());
+			generatePDFOutput(outputStream);
 		} catch (Exception e) {
-			LOG.info("delete file " + outputFile.delete());
 			throw e;
 		}
 
 	}
 
-	private void generatePDFOutput(String outputFile) throws FileNotFoundException, DocumentException {
+	private void generatePDFOutput(OutputStream outputStream) throws FileNotFoundException, DocumentException {
 
 		Rectangle standardA4Size = PDFPageSize.A4.getITextFormatPdfPageSize();
 		Rectangle pageSizeTable = new Rectangle(PDFPageSize.A4.getITextFormatPdfPageSize().getWidth(), PDFPageSize.A1.getITextFormatPdfPageSize().getHeight());
 		Rectangle pageSizeTableUnfound = new Rectangle(PDFPageSize.A3.getITextFormatPdfPageSize().getWidth(), PDFPageSize.A1.getITextFormatPdfPageSize().getHeight());
 		document = new Document(standardA4Size);
-		this.writer = PdfWriter.getInstance(document, new FileOutputStream(outputFile));
+		this.writer = PdfWriter.getInstance(document, outputStream);
 
 		writer.setPageEvent(this);
 		document.open();
@@ -300,7 +289,7 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 			fileIndex.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableFastq.addCell(fileIndex);
 
-			List<ModelFileStored> listDataFiles = report.getAnalyseConfig().getSelectedDataFiles();
+			List<ViewFile> listDataFiles = report.getAnalyseConfig().getSelectedDataFiles();
 			String fastqFile = "";
 			for (int i = 0; i < listDataFiles.size(); i++) {
 				fastqFile += listDataFiles.get(i).getName();

@@ -1,9 +1,9 @@
 package com.gmo.reports.generation;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,18 +20,13 @@ public class CSVOutputGenerator {
 
 	private static Logger LOG = Log4JLogger.logger;
 
-	public static void writeOutput(File outputFile, Report report) throws IOException {
+	public static void writeOutput(OutputStream outputStream, Report report) throws IOException {
 
 		StringBuilder sb = new StringBuilder();
 		List<ReferenceGene> genesIds = report.getLibrary().getGenes();
 
-		// if file doesnt exists, then create it
-		if (!outputFile.exists()) {
-			outputFile.createNewFile();
-		}
-
-		FileWriter fw = new FileWriter(outputFile.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
+		OutputStreamWriter ow = new OutputStreamWriter(outputStream);
+		BufferedWriter bw = new BufferedWriter(ow);
 		
 		for (Iterator<ReferenceGene> iterator = genesIds.iterator(); iterator.hasNext();) {
 			ReferenceGene gene = (ReferenceGene) iterator.next();
