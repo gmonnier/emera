@@ -8,9 +8,9 @@ public class RMIOutputStreamImpl implements RMIOutputStreamInterf {
 
 	private OutputStream out;
 
-	public RMIOutputStreamImpl(OutputStream out) throws IOException {
+	public RMIOutputStreamImpl(OutputStream out, int port) throws IOException {
 		this.out = out;
-		UnicastRemoteObject.exportObject(this, 1099);
+		UnicastRemoteObject.exportObject(this, port);
 	}
 
 	public void write(int b) throws IOException {

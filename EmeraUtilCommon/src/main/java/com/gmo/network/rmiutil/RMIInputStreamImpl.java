@@ -10,9 +10,9 @@ public class RMIInputStreamImpl implements RMIInputStreamInterf {
 	private InputStream in;
 	private byte[] b;
 
-	public RMIInputStreamImpl(InputStream in) throws IOException {
+	public RMIInputStreamImpl(InputStream in, int port) throws IOException {
 		this.in = in;
-		UnicastRemoteObject.exportObject(this, 1099);
+		UnicastRemoteObject.exportObject(this, port);
 	}
 
 	public void close() throws IOException, RemoteException {

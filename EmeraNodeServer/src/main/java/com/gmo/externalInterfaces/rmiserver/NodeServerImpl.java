@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,7 +49,7 @@ import com.gmo.sharedobjects.model.reports.Report;
 
 import awsinterfaceManager.AWSEC2InterfaceManager;
 
-public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNodeControl {
+public class NodeServerImpl implements IProcessorNodeControl {
 
 	private static final long serialVersionUID = 1L;
 
@@ -212,6 +211,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public InputStream getInputStream(File f) throws IOException {
+		
 		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
 	}
 

@@ -16,14 +16,20 @@ public class RMIFileTransfertUtil {
 
 	final public static int BUF_SIZE = 1024 * 64;
 
+	private int port;
+
+	public RMIFileTransfertUtil(int port) {
+		this.port = port;
+	}
+
 	// --------- File transfert --------
 
 	public OutputStream getOutputStream(File f) throws IOException {
-		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(f)));
+		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(f), port));
 	}
 
 	public InputStream getInputStream(File f) throws IOException {
-		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
+		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f), port));
 	}
 
 	public void upload(File src, File dest) throws IOException {

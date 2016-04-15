@@ -9,7 +9,9 @@ import java.security.Policy;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.commonconfiguration.NetworkTopologyManager;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
@@ -36,13 +38,14 @@ public class NodeNotificationsRMIServer implements IProcessorNotifications {
 
 		try {
 
-			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, 10001);
+			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IProcessorNotifications.class.getSimpleName());
+			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, rmiInterface.getExportPort());
 			
 			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
 			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 
 			Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
-			registry.rebind(IProcessorNotifications.class.getSimpleName(), modelInfoSkeleton);
+			registry.rebind(rmiInterface.getValue(), modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] IProcessorNotifications server bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");

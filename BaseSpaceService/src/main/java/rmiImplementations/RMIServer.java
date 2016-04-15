@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.rmiconfig.SecurityPolicy;
 
@@ -67,10 +68,12 @@ public class RMIServer implements Runnable {
 			registry = LocateRegistry.getRegistry(registryAddress, registryPort);
 
 			UnicastRemoteObject.unexportObject(bsModel, true);
-			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 10001);
+			
+			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IBaseSpaceModel.class.getSimpleName());
+			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, rmiInterface.getExportPort());
 
-			registry.rebind("IBaseSpaceModel", modelInfoSkeleton);
-			LOG.info("[RMI-MODULE] BaseSpaceModelImpl bound");
+			registry.rebind(rmiInterface.getValue(), modelInfoSkeleton);
+			LOG.info("[RMI-MODULE] " + rmiInterface.getValue() + " bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");
 			e.printStackTrace();

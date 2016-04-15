@@ -14,7 +14,7 @@ import com.gmo.basespaceService.model.UserInfo;
 import com.gmo.basespaceService.model.UserRun;
 import com.gmo.logger.Log4JLogger;
 
-public class BaseSpaceModelImpl extends UnicastRemoteObject implements IBaseSpaceModel {
+public class BaseSpaceModelImpl implements IBaseSpaceModel {
 
 	private static final long serialVersionUID = 1L;
 

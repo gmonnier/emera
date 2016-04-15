@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.processorNode.viewmodel.OutputFileType;
@@ -225,7 +226,8 @@ public class NodeRMIClient implements IProcessorNodeControl {
 				OutputStream outputStream = getOutputStream(fileName, inputType);
 
 				if (outputStream != null) {
-					new RMIFileTransfertUtil().copy(uploadedInputStream, outputStream);
+					RmiInterface transfertPort = NetworkTopologyManager.getInstance().getByRmiInterfaceName("IFileTransfer");
+					new RMIFileTransfertUtil(transfertPort.getExportPort()).copy(uploadedInputStream, outputStream);
 					rmiNodeClient.uploadToNodeServerDone(inputType, analyseid, fileName);
 				} else {
 					throw new NodeStorageException();

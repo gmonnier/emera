@@ -9,7 +9,9 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.rmiconfig.SecurityPolicy;
@@ -65,10 +67,10 @@ public class NodeRMIServer implements Runnable {
 			Registry registry= LocateRegistry.getRegistry(registryAddress, registryPort);
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
-			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10001);
+			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IProcessorNodeControl.class.getSimpleName());
+			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, rmiInterface.getExportPort());
 
-			// String name = "//127.0.0.1/IAuthenticationRequest";
-			registry.rebind("IProcessorNodeControl", modelInfoSkeleton);
+			registry.rebind(rmiInterface.getValue(), modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] Processor Node server bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");

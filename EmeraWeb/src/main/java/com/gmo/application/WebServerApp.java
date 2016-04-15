@@ -79,7 +79,7 @@ public class WebServerApp {
 		try {
 			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 			java.rmi.registry.LocateRegistry.createRegistry(registryPort);
-			System.out.println("RMI registry ready.");
+			LOG.info("RMI registry started successfully on port " + registryPort);
 		} catch (Exception e) {
 			LOG.error("Exception starting RMI registry:", e);
 		}
