@@ -2,7 +2,7 @@ package com.gmo.application;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.externalInterfaces.NodeRMIServer;
+import com.gmo.externalInterfaces.rmiserver.NodeRMIServer;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorserver.ProcessorServerManager;

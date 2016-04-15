@@ -1,4 +1,4 @@
-package com.gmo.externalInterfaces;
+package com.gmo.externalInterfaces.rmiserver;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -66,7 +66,7 @@ public class NodeRMIServer implements Runnable {
 			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
 
 			// String name = "//127.0.0.1/IAuthenticationRequest";
-			registry.rebind("IProcessorNode", modelInfoSkeleton);
+			registry.rebind("IProcessorNodeControl", modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] Processor Node server bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");

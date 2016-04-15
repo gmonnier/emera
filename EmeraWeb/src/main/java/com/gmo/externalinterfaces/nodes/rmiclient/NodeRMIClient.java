@@ -65,9 +65,9 @@ public class NodeRMIClient implements IProcessorNodeControl {
 				LOG.debug("Request for the rmi ProcessorNode interface");
 			}
 			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
-			rmiNodeClient = (IProcessorNodeControl) registry.lookup("IProcessorNode");
+			rmiNodeClient = (IProcessorNodeControl) registry.lookup("IProcessorNodeControl");
 			if (firstConnectionAttempt) {
-				LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
+				LOG.debug("RMI Interface IProcessorNodeControl retrieved from table : " + rmiNodeClient);
 			}
 			firstConnectionAttempt = true;
 			connectionOk = true;

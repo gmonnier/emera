@@ -1,4 +1,4 @@
-package com.gmo.externalInterfaces;
+package com.gmo.externalInterfaces.rmiserver;
 
 import java.io.File;
 import java.io.FileInputStream;
