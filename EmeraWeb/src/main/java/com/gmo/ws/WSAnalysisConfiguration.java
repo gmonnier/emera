@@ -45,7 +45,9 @@ public class WSAnalysisConfiguration {
 		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 		
 		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
-		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken, resultLocType);
+		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+		
+		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken, resultLocType, resultLocationPath);
 		
 		// Update storage of default values for next analysisconfigurations
 		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(jsonConfig.getPatternAttributes().isAllowOneMismatch());
