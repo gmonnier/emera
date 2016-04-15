@@ -61,7 +61,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException {
-
+		LOG.error("TODO: TO BE IMPLEMENTED");
 	}
 
 	@Override
@@ -168,14 +168,12 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public void stopAllAnalyses(String userID) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		LOG.error("TODO: TO BE IMPLEMENTED");
 	}
 
 	@Override
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		LOG.error("TODO: TO BE IMPLEMENTED");
 	}
 
 	@Override
@@ -218,6 +216,7 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 
 	@Override
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
+		LOG.error("TODO: Pass S3/Files Reference, not the complete report!");
 		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
 	}
 
