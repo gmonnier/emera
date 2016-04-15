@@ -9,6 +9,7 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.rmiconfig.SecurityPolicy;
@@ -59,7 +60,9 @@ public class NodeRMIServer implements Runnable {
 
 		try {
 
-			Registry registry= LocateRegistry.getRegistry();
+			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
+			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
+			Registry registry= LocateRegistry.getRegistry(registryAddress, registryPort);
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
 			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10001);

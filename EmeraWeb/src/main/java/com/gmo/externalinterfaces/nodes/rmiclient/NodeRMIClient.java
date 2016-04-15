@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNodeControl;
@@ -21,11 +21,8 @@ import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
-import com.gmo.processorNode.viewmodel.ViewPollingInfo;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
-import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
-import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.RMIFileTransfertUtil;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
@@ -55,17 +52,17 @@ public class NodeRMIClient implements IProcessorNodeControl {
 			return;
 		}
 
-		String registryAddr = "localhost"; //ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
-		int registryPort = 10000; //ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
-		LOG.info("Create new NodeRMI client on  " + registryAddr + "    port: " + registryPort);
+		String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
+		int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
+		LOG.info("Create new NodeRMI client on  " + registryAddress + "    port: " + registryPort);
 
 		connectionOk = false;
 		try {
 			if (firstConnectionAttempt) {
 				LOG.debug("Request for the rmi ProcessorNode interface");
 			}
-			Registry registry = LocateRegistry.getRegistry();
-			rmiNodeClient = (IProcessorNodeControl) registry.lookup("IProcessorNodeControl");
+			Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
+			rmiNodeClient = (IProcessorNodeControl) registry.lookup(IProcessorNodeControl.class.getSimpleName());
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNodeControl retrieved from table : " + rmiNodeClient);
 			}

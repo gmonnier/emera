@@ -8,6 +8,7 @@ import java.security.Policy;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
@@ -36,9 +37,12 @@ public class NodeNotificationsRMIServer implements IProcessorNotifications {
 		try {
 
 			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, 10001);
+			
+			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
+			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 
-			Registry registry = LocateRegistry.getRegistry();
-			registry.rebind("IProcessorNotifications", modelInfoSkeleton);
+			Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
+			registry.rebind(IProcessorNotifications.class.getSimpleName(), modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] IProcessorNotifications server bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");

@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
@@ -19,7 +20,7 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 		if (instance == null) {
 			instance = new NodeNotificationsRMIClient();
 		}
-		if(!instance.isConnectionOk()) {
+		if (!instance.isConnectionOk()) {
 			instance.initRMIConnection();
 		}
 		return instance;
@@ -47,17 +48,18 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 			return;
 		}
 
-		String registryAddr = "localhost";
-		int registryPort = 10000;
-		LOG.info("Create new NodeRMI client on  " + registryAddr + "    port: " + registryPort);
-
 		connectionOk = false;
 		try {
 			if (firstConnectionAttempt) {
 				LOG.debug("Request for the rmi IProcessorNotifications interface");
 			}
-			Registry registry = LocateRegistry.getRegistry();
-			rmiProcessorNotif = (IProcessorNotifications) registry.lookup("IProcessorNotifications");
+
+			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
+			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
+			LOG.info("Retrieve RMI registry on  " + registryAddress + "    port: " + registryPort);
+			Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
+
+			rmiProcessorNotif = (IProcessorNotifications) registry.lookup(IProcessorNotifications.class.getSimpleName());
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNotifications retrieved from table : " + rmiProcessorNotif);
 			}

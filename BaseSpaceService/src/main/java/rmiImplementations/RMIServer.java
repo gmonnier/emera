@@ -9,6 +9,7 @@ import java.security.Policy;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.rmiconfig.SecurityPolicy;
 
@@ -60,7 +61,10 @@ public class RMIServer implements Runnable {
 
 		try {
 
-			registry = LocateRegistry.getRegistry();
+			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
+			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
+			
+			registry = LocateRegistry.getRegistry(registryAddress, registryPort);
 
 			UnicastRemoteObject.unexportObject(bsModel, true);
 			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 10001);
