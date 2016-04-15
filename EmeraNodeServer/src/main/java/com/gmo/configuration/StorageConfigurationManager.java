@@ -22,12 +22,6 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	/**
-	 * Instantiate unique Executor service of the application. This service is
-	 * used to save and upload files to this server.
-	 */
-	private static final Executor fileWriterService = Executors.newFixedThreadPool(2);
-
 	private final static String contextFile = "conf/StorageConfiguration.xml";
 
 	private static StorageConfigurationManager instance;
