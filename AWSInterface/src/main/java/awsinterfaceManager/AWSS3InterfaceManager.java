@@ -1,5 +1,6 @@
 package awsinterfaceManager;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,10 @@ public class AWSS3InterfaceManager {
 	public InputStream getObjectInputStream(String bucketName, String key) {
 		S3Object object = s3Client.getObject(new GetObjectRequest(bucketName, key));
 		return object.getObjectContent();
+	}
+	
+	public void uploadFile(String bucketName, String destinationKey, File toBeUploaded) {
+		s3Client.putObject(bucketName, destinationKey, toBeUploaded);
 	}
 
 }
