@@ -55,8 +55,8 @@ public class NodeRMIClient implements IProcessorNodeControl {
 			return;
 		}
 
-		String registryAddr = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
-		int registryPort = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
+		String registryAddr = "localhost"; //ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
+		int registryPort = 10000; //ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
 		LOG.info("Create new NodeRMI client on  " + registryAddr + "    port: " + registryPort);
 
 		connectionOk = false;
@@ -64,7 +64,7 @@ public class NodeRMIClient implements IProcessorNodeControl {
 			if (firstConnectionAttempt) {
 				LOG.debug("Request for the rmi ProcessorNode interface");
 			}
-			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
+			Registry registry = LocateRegistry.getRegistry();
 			rmiNodeClient = (IProcessorNodeControl) registry.lookup("IProcessorNodeControl");
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNodeControl retrieved from table : " + rmiNodeClient);

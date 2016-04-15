@@ -14,7 +14,7 @@ import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.SecurityPolicy;
 
-public class NodeNotificationsRMIServer extends UnicastRemoteObject implements IProcessorNotifications {
+public class NodeNotificationsRMIServer implements IProcessorNotifications {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,9 @@ public class NodeNotificationsRMIServer extends UnicastRemoteObject implements I
 	public NodeNotificationsRMIServer() throws RemoteException {
 		super();
 
+	}
+
+	public void initConnection() {
 		LOG.info("[RMI-MODULE] Start NodeNotificationsRMIServer service");
 
 		Policy.setPolicy(new SecurityPolicy());
@@ -32,22 +35,18 @@ public class NodeNotificationsRMIServer extends UnicastRemoteObject implements I
 
 		try {
 
-			Registry registry = LocateRegistry.createRegistry(10000);
+			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, 10001);
 
-			UnicastRemoteObject.unexportObject(this, true);
-			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, 10000);
-
-			// String name = "//127.0.0.1/IAuthenticationRequest";
-			registry.rebind("IProcessorNodeControl", modelInfoSkeleton);
-			LOG.info("[RMI-MODULE] Processor Node server bound");
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind("IProcessorNotifications", modelInfoSkeleton);
+			LOG.info("[RMI-MODULE] IProcessorNotifications server bound");
 		} catch (Exception e) {
 			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");
 			e.printStackTrace();
 
-			LOG.error("[RMI-MODULE] Exit service thread");
+			LOG.error("[RMI-MODULE] Exit Application");
 			System.exit(0);
 		}
-
 	}
 
 	@Override

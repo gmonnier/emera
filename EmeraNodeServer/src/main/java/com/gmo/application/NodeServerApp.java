@@ -2,9 +2,11 @@ package com.gmo.application;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
 import com.gmo.externalInterfaces.rmiserver.NodeRMIServer;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorserver.ProcessorServerManager;
 import com.gmo.systemUtil.SystemCommand;
 
@@ -37,6 +39,8 @@ public class NodeServerApp {
 		initRMIServer();
 		
 		initProcessorServer();
+		
+		NodeNotificationsRMIClient.getInstance().analysisCompleted(new ViewAnalysis());
 	}
 
 	private static void initProcessorServer() {

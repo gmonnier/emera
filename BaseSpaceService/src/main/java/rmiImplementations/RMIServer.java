@@ -60,12 +60,11 @@ public class RMIServer implements Runnable {
 
 		try {
 
-			registry = LocateRegistry.createRegistry(10000);
+			registry = LocateRegistry.getRegistry();
 
 			UnicastRemoteObject.unexportObject(bsModel, true);
-			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 10000);
+			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, 10001);
 
-			// String name = "//127.0.0.1/IAuthenticationRequest";
 			registry.rebind("IBaseSpaceModel", modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] BaseSpaceModelImpl bound");
 		} catch (Exception e) {

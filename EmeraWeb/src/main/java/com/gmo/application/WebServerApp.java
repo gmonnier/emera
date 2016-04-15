@@ -73,10 +73,18 @@ public class WebServerApp {
 	}
 
 	private static void initRMIServers() {
+		
 		try {
-			new NodeNotificationsRMIServer();
+		    java.rmi.registry.LocateRegistry.createRegistry(1099);
+		    System.out.println("RMI registry ready.");
+		} catch (Exception e) {
+			LOG.error("Exception starting RMI registry:", e);
+		} 
+		
+		try {
+			new NodeNotificationsRMIServer().initConnection();
 		} catch (RemoteException e) {
-			LOG.error("Unable to initiate NodeNotificationsRMIServer, exit applictaion");
+			LOG.error("Unable to initiate NodeNotificationsRMIServer, exit applictation");
 		}
 	}
 

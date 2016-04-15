@@ -56,7 +56,7 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 			if (firstConnectionAttempt) {
 				LOG.debug("Request for the rmi IProcessorNotifications interface");
 			}
-			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
+			Registry registry = LocateRegistry.getRegistry();
 			rmiProcessorNotif = (IProcessorNotifications) registry.lookup("IProcessorNotifications");
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNotifications retrieved from table : " + rmiProcessorNotif);

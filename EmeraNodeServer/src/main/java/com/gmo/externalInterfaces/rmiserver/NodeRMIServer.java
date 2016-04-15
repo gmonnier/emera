@@ -3,6 +3,7 @@ package com.gmo.externalInterfaces.rmiserver;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.Policy;
 
@@ -58,10 +59,10 @@ public class NodeRMIServer implements Runnable {
 
 		try {
 
-			Registry registry = LocateRegistry.createRegistry(10000);
+			Registry registry= LocateRegistry.getRegistry();
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
-			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
+			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10001);
 
 			// String name = "//127.0.0.1/IAuthenticationRequest";
 			registry.rebind("IProcessorNodeControl", modelInfoSkeleton);
