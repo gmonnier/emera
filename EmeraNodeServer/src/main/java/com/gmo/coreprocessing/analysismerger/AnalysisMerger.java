@@ -29,9 +29,13 @@ public class AnalysisMerger implements IMergerInfo {
 	private final static Executor dataMergerService = Executors.newSingleThreadExecutor();
 	
 	private Report report;
+	
+	// The writer used at the end of the merge process
+	private ReportWriter reportWriter;
 
-	public AnalysisMerger(Report report, ChunkQueueBuffer chunkBuffer, IAnalysisProcessingListener processinglistener) {
+	public AnalysisMerger(Report report, ReportWriter reportWriter, ChunkQueueBuffer chunkBuffer, IAnalysisProcessingListener processinglistener) {
 		this.chunkBuffer = chunkBuffer;
+		this.reportWriter = reportWriter;
 		this.report = report;
 		this.processinglistener = processinglistener;
 		
@@ -52,7 +56,7 @@ public class AnalysisMerger implements IMergerInfo {
 			long completionDate = System.currentTimeMillis();
 			report.setEndDate(completionDate);
 			
-			dataMergerService.execute(new ReportWriterProvider().getReportWriter(report, locType, analysisResultsLocation)));
+			dataMergerService.execute(reportWriter);
 
 			// Analysis is finished
 			if (processinglistener != null) {

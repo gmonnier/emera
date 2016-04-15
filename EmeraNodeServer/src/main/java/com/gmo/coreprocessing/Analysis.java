@@ -27,6 +27,8 @@ import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorserver.IDistantResource;
+import com.gmo.reports.ReportWriterProvider;
+import com.gmo.reports.generation.ReportWriter;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.data.ChunkResult;
 import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
@@ -194,8 +196,9 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		else if (newstatus == AnalysisStatus.READY_FOR_PROCESSING) {
 			LOG.debug("Analysis " + id + " switch to Ready for processing. Start buffer and dispatcher");
 			report = new Report(viewConfiguration, launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
+			ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report, locType, analysisResultsLocation))
 
-			merger = new AnalysisMerger(report, buffer, this);
+			merger = new AnalysisMerger(report,reportWriter, buffer, this);
 			// Start new reader in separate pool thread (manage by thread pool
 			// executor)
 			AnalysisWorker worker = new AnalysisWorker(processConfiguration, this, this, buffer);
