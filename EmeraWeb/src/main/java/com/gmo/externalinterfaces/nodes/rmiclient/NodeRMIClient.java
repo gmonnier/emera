@@ -40,33 +40,46 @@ public class NodeRMIClient implements IProcessorNode {
 
 	private boolean connectionOk;
 
+	private boolean firstConnectionAttempt;
+
 	public NodeRMIClient() {
+		firstConnectionAttempt = true;
 		initRMIConnection();
 	}
-	
+
 	private synchronized void initRMIConnection() {
-		
-		if(connectionOk) {
+
+		if (connectionOk) {
 			// Already initialized
 			return;
 		}
-		
+
 		String registryAddr = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryAddress();
 		int registryPort = ApplicationContextManager.getInstance().getConfig().getNodeConnectionConfiguration().getRmiRegistryPort();
 		LOG.info("Create new NodeRMI client on  " + registryAddr + "    port: " + registryPort);
 
 		connectionOk = false;
 		try {
-			LOG.debug("Request for the rmi ProcessorNode interface");
+			if (firstConnectionAttempt) {
+				LOG.debug("Request for the rmi ProcessorNode interface");
+			}
 			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
 			rmiNodeClient = (IProcessorNode) registry.lookup("IProcessorNode");
-			LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
+			if (firstConnectionAttempt) {
+				LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
+			}
+			firstConnectionAttempt = true;
 			connectionOk = true;
 		} catch (RemoteException e) {
-			LOG.error("Unable to instantiate ProcessorNode : RemoteException " + e);
+			if (firstConnectionAttempt) {
+				LOG.error("Unable to instantiate ProcessorNode : RemoteException " + e);
+			}
 		} catch (NotBoundException e) {
-			LOG.error("Unable to instantiate ProcessorNode : NotBoundException " + e);
+			if (firstConnectionAttempt) {
+				LOG.error("Unable to instantiate ProcessorNode : NotBoundException " + e);
+			}
 		}
+		firstConnectionAttempt = false;
 	}
 
 	public boolean isConnectionOk() {
@@ -123,7 +136,7 @@ public class NodeRMIClient implements IProcessorNode {
 		} else {
 			initRMIConnection();
 		}
-		
+
 		return new ViewNodePollingInfo(new ViewNodeNetworkConfig(), new ArrayList<ViewAnalysis>());
 	}
 
