@@ -39,8 +39,6 @@ public class NodeServerApp {
 		initRMIServer();
 		
 		initProcessorServer();
-		
-		NodeNotificationsRMIClient.getInstance().analysisCompleted(new ViewAnalysis());
 	}
 
 	private static void initProcessorServer() {
