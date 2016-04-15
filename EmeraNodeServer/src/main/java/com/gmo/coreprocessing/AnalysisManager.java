@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
@@ -64,7 +65,7 @@ public class AnalysisManager {
 		return newAnalyse.getId();
 	}
 
-	public void analyseFinished(Analysis analysis) {
+	public void analyseFinished(ViewAnalysis analysis) {
 		LOG.debug("Analysis detected as done. analysisID = " + analysis.getAnalysisID());
 		runningAnalysis.remove(analysis);
 
