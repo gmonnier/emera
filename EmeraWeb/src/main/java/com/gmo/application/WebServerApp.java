@@ -1,5 +1,6 @@
 package com.gmo.application;
 
+import java.rmi.RemoteException;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -20,6 +21,7 @@ import com.gmo.application.filters.ConnectionFilter;
 import com.gmo.application.mappers.EOFExceptionMapper;
 import com.gmo.application.mappers.WebExceptionMapper;
 import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.externalinterfaces.nodes.rmiserver.NodeNotificationsRMIServer;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.results.extractor.AnalysisFileExtractor;
@@ -63,9 +65,19 @@ public class WebServerApp {
 		initConnectionMonitor();
 
 		// initReportExtraction();
+		
+		initRMIServers();
 
 		initJettyServer();
 
+	}
+
+	private static void initRMIServers() {
+		try {
+			new NodeNotificationsRMIServer();
+		} catch (RemoteException e) {
+			LOG.error("Unable to initiate NodeNotificationsRMIServer, exit applictaion");
+		}
 	}
 
 	private static void logSystemProperties() {
