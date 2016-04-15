@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -32,12 +32,12 @@ import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.ws.exceptions.NodeStorageException;
 
-public class NodeRMIClient implements IProcessorNode {
+public class NodeRMIClient implements IProcessorNodeControl {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	private IProcessorNode rmiNodeClient;
+	private IProcessorNodeControl rmiNodeClient;
 
 	private boolean connectionOk;
 
@@ -65,7 +65,7 @@ public class NodeRMIClient implements IProcessorNode {
 				LOG.debug("Request for the rmi ProcessorNode interface");
 			}
 			Registry registry = LocateRegistry.getRegistry(registryAddr, registryPort);
-			rmiNodeClient = (IProcessorNode) registry.lookup("IProcessorNode");
+			rmiNodeClient = (IProcessorNodeControl) registry.lookup("IProcessorNode");
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNode retrieved from table : " + rmiNodeClient);
 			}

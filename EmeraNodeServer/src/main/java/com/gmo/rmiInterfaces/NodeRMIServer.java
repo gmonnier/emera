@@ -9,7 +9,7 @@ import java.security.Policy;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.rmiconfig.SecurityPolicy;
 
 public class NodeRMIServer implements Runnable {
@@ -63,7 +63,7 @@ public class NodeRMIServer implements Runnable {
 			registry = LocateRegistry.createRegistry(10000);
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
-			IProcessorNode modelInfoSkeleton = (IProcessorNode) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
+			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
 
 			// String name = "//127.0.0.1/IAuthenticationRequest";
 			registry.rebind("IProcessorNode", modelInfoSkeleton);

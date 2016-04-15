@@ -28,7 +28,7 @@ import com.gmo.network.rmiutil.RMIInputStream;
 import com.gmo.network.rmiutil.RMIInputStreamImpl;
 import com.gmo.network.rmiutil.RMIOutputStream;
 import com.gmo.network.rmiutil.RMIOutputStreamImpl;
-import com.gmo.processorNode.interfaces.IProcessorNode;
+import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -50,7 +50,7 @@ import com.gmo.sharedobjects.model.reports.Report;
 
 import awsinterfaceManager.AWSEC2InterfaceManager;
 
-public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNode {
+public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNodeControl {
 
 	private static final long serialVersionUID = 1L;
 
