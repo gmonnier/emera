@@ -2,11 +2,12 @@ package main;
 
 import org.apache.logging.log4j.Logger;
 
-import rmiImplementations.RMIServer;
-
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.logger.JavaStyleLogger;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.systemUtil.SystemCommand;
+
+import rmiImplementations.RMIServer;
 
 public class BaseSpacePlatformApp {
 
@@ -34,6 +35,9 @@ public class BaseSpacePlatformApp {
 		LOG.info("---------------------------------------------");
 		LOG.info("---START BaseSpace Interface APPLICATION-----");
 		LOG.info("---------------------------------------------");
+		// init network Configuration
+		NetworkTopologyManager.getInstance();
+		
 		LOG.info("Rmi Module --> request to start baseSpaceModel rmi interface server");
 		new RMIServer();
 	}

@@ -67,7 +67,7 @@ public class RMIServer implements Runnable {
 			
 			registry = LocateRegistry.getRegistry(registryAddress, registryPort);
 
-			UnicastRemoteObject.unexportObject(bsModel, true);
+			//UnicastRemoteObject.unexportObject(bsModel, true);
 			
 			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IBaseSpaceModel.class.getSimpleName());
 			IBaseSpaceModel modelInfoSkeleton = (IBaseSpaceModel) UnicastRemoteObject.exportObject(bsModel, rmiInterface.getExportPort());
