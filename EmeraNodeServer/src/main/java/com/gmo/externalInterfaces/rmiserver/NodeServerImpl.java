@@ -15,10 +15,12 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.modelconverters.FileStoredConverter;
@@ -205,14 +207,14 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		if (new File(uploadedFileLocation).exists()) {
 			return null;
 		}
-
-		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(uploadedFileLocation)));
+		RmiInterface transfertPort = NetworkTopologyManager.getInstance().getByRmiInterfaceName("IFileTransfer");
+		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(uploadedFileLocation), transfertPort.getExportPort()));
 	}
 
 	@Override
 	public InputStream getInputStream(File f) throws IOException {
-		
-		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
+		RmiInterface transfertPort = NetworkTopologyManager.getInstance().getByRmiInterfaceName("IFileTransfer");
+		return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f), transfertPort.getExportPort()));
 	}
 
 	@Override
