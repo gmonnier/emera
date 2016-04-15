@@ -44,7 +44,7 @@ public class BaseSpaceRMIClient {
 		try {
 			LOG.debug("Request for the rmi interface");
 			Registry registry = LocateRegistry.getRegistry();
-			rmiBSModel = (IBaseSpaceModel) registry.lookup("IBaseSpaceModel");
+			rmiBSModel = (IBaseSpaceModel) registry.lookup(IBaseSpaceModel.class.getSimpleName());
 			LOG.debug("RMI Interface IBaseSpaceModel retrieved from table : " + rmiBSModel);
 			connectionOk = true;
 		} catch (RemoteException e) {

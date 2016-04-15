@@ -1,13 +1,14 @@
 package com.gmo.commonconfiguration;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 import com.gmo.configuration.xmljaxb.AbstractConfigurationManager;
-import com.gmo.generated.configuration.basespace.BaseSpaceConfiguration;
 import com.gmo.generated.configuration.networktopology.NetworkTopology;
+import com.gmo.generated.configuration.networktopology.RmiInterface;
 
-public class NetworkTopologyManager extends
-		AbstractConfigurationManager<NetworkTopology> {
+public class NetworkTopologyManager extends AbstractConfigurationManager<NetworkTopology> {
 
 	private final static String contextFile = "conf/NetworkTopology.xml";
 
@@ -22,6 +23,20 @@ public class NetworkTopologyManager extends
 			instance = new NetworkTopologyManager();
 		}
 		return instance;
+	}
+
+	public RmiInterface getByRmiInterfaceName(String name) {
+
+		List<RmiInterface> availableInterfaces = getConfig().getRmiNetworkConfig().getRmiInterfaces();
+
+		for (Iterator<RmiInterface> iterator = availableInterfaces.iterator(); iterator.hasNext();) {
+			RmiInterface rmiInterface = (RmiInterface) iterator.next();
+			if (rmiInterface.getValue().equals(name)) {
+				return rmiInterface;
+			}
+		}
+
+		return null;
 	}
 
 }
