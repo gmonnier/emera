@@ -58,6 +58,7 @@ public class AnalysisManager {
 		LOG.debug("Analysis detected as done. analysisID = " + analysis.getAnalysisID());
 		runningAnalysis.remove(analysis);
 
+		// Find a way to notify FE server of analysis termination
 		processedAnalysis.add(analysis);
 		Collections.sort(processedAnalysis, new CompletionDateAnalysisComparator());
 	}

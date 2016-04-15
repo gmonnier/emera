@@ -41,11 +41,11 @@ public class ReportWriterProvider implements OutputWriterListener {
 
 	@Override
 	public void pdfOutputGenerationSucceeded(String resultPath) {
-		outputReportFiles.add(result);
+		LOG.error("PDF report success to : " + resultPath);
 	}
 
 	@Override
 	public void csvOutputGenerationSucceeded(String resultPath) {
-		outputReportFiles.add(result);
+		LOG.error("CSV report success to : " + resultPath);
 	}
 }
