@@ -7,8 +7,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
@@ -17,7 +19,7 @@ import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 public class AnalysisManager {
 
 	private List<Analysis> runningAnalysis;
-	
+
 	// Those values should be initialized/synchronized by the FE server
 	private LocationType analysisResultsLocationType;
 	private String analysisResultsLocation;
@@ -65,11 +67,14 @@ public class AnalysisManager {
 		return newAnalyse.getId();
 	}
 
-	public void analyseFinished(ViewAnalysis analysis) {
+	public void analyseFinished(Analysis analysis) {
 		LOG.debug("Analysis detected as done. analysisID = " + analysis.getAnalysisID());
 		runningAnalysis.remove(analysis);
 
-		// Find a way to notify FE server of analysis termination
+		// Notify FE server of analysis completion
+		AnalysisConverter analysisConverter = new AnalysisConverter();
+		NodeNotificationsRMIClient.getInstance().analysisCompleted(analysisConverter.buildViewModelObject(analysis));
+
 		processedAnalysis.add(analysis);
 		Collections.sort(processedAnalysis, new CompletionDateAnalysisComparator());
 	}

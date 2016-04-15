@@ -11,7 +11,19 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
-public class EmeraWebRMIClient implements IProcessorNotifications {
+public class NodeNotificationsRMIClient implements IProcessorNotifications {
+
+	private static NodeNotificationsRMIClient instance;
+
+	public static synchronized NodeNotificationsRMIClient getInstance() {
+		if (instance == null) {
+			instance = new NodeNotificationsRMIClient();
+		}
+		if(!instance.isConnectionOk()) {
+			instance.initRMIConnection();
+		}
+		return instance;
+	}
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -22,7 +34,8 @@ public class EmeraWebRMIClient implements IProcessorNotifications {
 
 	private boolean firstConnectionAttempt;
 
-	public EmeraWebRMIClient() {
+	private NodeNotificationsRMIClient() {
+		connectionOk = false;
 		firstConnectionAttempt = true;
 		initRMIConnection();
 	}
