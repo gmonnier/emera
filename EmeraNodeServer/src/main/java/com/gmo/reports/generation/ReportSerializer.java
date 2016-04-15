@@ -55,7 +55,9 @@ public class ReportSerializer {
 				writer.write("#");
 				writer.write(current.getName());
 				writer.write("#");
-				writer.write(current.getSystemFile().getAbsolutePath());
+				// Legcy - to be compliant with existing reports. ID is now the complete path of the data file
+				//writer.write(current.getSystemFile().getAbsolutePath());
+				writer.write(current.getId());
 				writer.write("#");
 				writer.write(Long.toString(current.getLastModified()));
 				if (i != mfsdata.size() - 1) {
@@ -70,7 +72,9 @@ public class ReportSerializer {
 				writer.write("#");
 				writer.write(current.getName());
 				writer.write("#");
-				writer.write(current.getSystemFile().getAbsolutePath());
+				// Legcy - to be compliant with existing reports. ID is now the complete path of the data file
+				//writer.write(current.getSystemFile().getAbsolutePath());
+				writer.write(current.getId());
 				writer.write("#");
 				writer.write(Long.toString(current.getLastModified()));
 				if (i != mfslib.size() - 1) {
@@ -90,13 +94,14 @@ public class ReportSerializer {
 				}
 			}
 
-			LOG.debug("Written successfully into " + output.getAbsolutePath());
+			LOG.debug("Serialized report written successfully into the output Stream");
 		} catch (IOException ex) {
 			throw ex;
 		} finally {
 			try {
 				writer.close();
 			} catch (Exception ex) {
+				LOG.warn("Unable to close report serialization writer");
 			}
 		}
 

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.reports.Report;
+import com.gmo.systemUtil.SystemCommand;
 
 import awsinterfaceManager.AWSS3InterfaceManager;
 
@@ -33,11 +34,12 @@ public class S3ReportWriter extends ReportWriter {
 		File tmpOutputDir = new File("tmp" + "/" + outputRelativeLocation);
 		if (!tmpOutputDir.exists()) {
 			boolean mkDirResult = tmpOutputDir.mkdirs();
-			if(!mkDirResult) {
+			if (!mkDirResult) {
 				LOG.error("Temporary directory creation failed");
+				return;
 			}
 		}
-		
+
 		if (report.getAnalyseConfig().getOutputAttributes().isGenerateCSV()) {
 
 			String filename = "csv_report.csv";
@@ -97,7 +99,10 @@ public class S3ReportWriter extends ReportWriter {
 			AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, serializationS3OutputKey, serializedOutputTmpFile);
 		} catch (Throwable e) {
 			LOG.error("Unable to serialize report to file " + report.getAnalyseID(), e);
+			return;
 		}
+
+		new SystemCommand().removeAllINDirectory("tmp");
 	}
 
 }
