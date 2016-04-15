@@ -17,7 +17,7 @@ public class NodeManager {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-df
+	private NodeRMIClient rmiClient;
 
 	private ViewDistantResource frontEndServer;
 

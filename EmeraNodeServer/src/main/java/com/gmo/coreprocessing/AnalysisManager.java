@@ -74,9 +74,6 @@ public class AnalysisManager {
 		// Notify FE server of analysis completion
 		AnalysisConverter analysisConverter = new AnalysisConverter();
 		NodeNotificationsRMIClient.getInstance().analysisCompleted(analysisConverter.buildViewModelObject(analysis));
-
-		processedAnalysis.add(analysis);
-		Collections.sort(processedAnalysis, new CompletionDateAnalysisComparator());
 	}
 
 	public void stopAllAnalyses() {

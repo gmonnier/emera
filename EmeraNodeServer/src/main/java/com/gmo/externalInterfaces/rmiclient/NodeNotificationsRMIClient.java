@@ -85,12 +85,12 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 	}
 
 	@Override
-	public void analysisCompleted(ViewAnalysis analysis) throws RemoteException {
+	public void analysisCompleted(ViewAnalysis analysis) {
 		if (rmiProcessorNotif != null) {
 			try {
 				rmiProcessorNotif.analysisCompleted(analysis);
 			} catch (RemoteException e) {
-				LOG.error("RemoteException " + e);
+				LOG.error("Unable to notify WEB Server of analysis completion!! RemoteException " + e);
 			}
 		}
 	}

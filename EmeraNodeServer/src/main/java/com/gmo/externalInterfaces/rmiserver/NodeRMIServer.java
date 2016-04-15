@@ -20,8 +20,6 @@ public class NodeRMIServer implements Runnable {
 
 	private NodeServerImpl nodeRMIServer;
 
-	public static Registry registry;
-
 	public NodeRMIServer() {
 		try {
 			nodeRMIServer = new NodeServerImpl();
@@ -60,7 +58,7 @@ public class NodeRMIServer implements Runnable {
 
 		try {
 
-			registry = LocateRegistry.createRegistry(10000);
+			Registry registry = LocateRegistry.createRegistry(10000);
 
 			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
 			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, 10000);
