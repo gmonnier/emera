@@ -66,7 +66,6 @@ public class NodeRMIServer implements Runnable {
 			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 			Registry registry= LocateRegistry.getRegistry(registryAddress, registryPort);
 
-			UnicastRemoteObject.unexportObject(nodeRMIServer, true);
 			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IProcessorNodeControl.class.getSimpleName());
 			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, rmiInterface.getExportPort());
 
