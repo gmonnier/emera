@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -35,16 +36,15 @@ public interface IProcessorNode extends Remote {
 
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException;
 
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) throws RemoteException;
-	
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken, LocationType resultLocType, String resultLocation) throws RemoteException;
+
 	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException;
 
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException;
-	
+
 	// ------- File transfert ------
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException;
 
 	public InputStream getInputStream(File f) throws IOException;
-
 
 }

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.configuration.BaseSpaceContextManager;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
@@ -43,7 +44,8 @@ public class WSAnalysisConfiguration {
 		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
 		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 		
-		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
+		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
+		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken, resultLocType);
 		
 		// Update storage of default values for next analysisconfigurations
 		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(jsonConfig.getPatternAttributes().isAllowOneMismatch());

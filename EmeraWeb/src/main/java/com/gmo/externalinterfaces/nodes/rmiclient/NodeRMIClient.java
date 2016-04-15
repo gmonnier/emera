@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNode;
 import com.gmo.processorNode.viewmodel.OutputFileType;
@@ -164,10 +165,10 @@ public class NodeRMIClient implements IProcessorNode {
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken, LocationType locType, String locationPath) {
 		if (rmiNodeClient != null) {
 			try {
-				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
+				return rmiNodeClient.enqueueNewAnalysis(viewProcessConfig, userID, bsClientID, bsClientSecret, bsAccessToken, locType, locationPath);
 			} catch (RemoteException e) {
 				LOG.error("RemoteException " + e);
 			}
