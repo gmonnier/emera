@@ -21,6 +21,7 @@ import com.gmo.application.filters.ConnectionFilter;
 import com.gmo.application.mappers.EOFExceptionMapper;
 import com.gmo.application.mappers.WebExceptionMapper;
 import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.externalinterfaces.nodes.rmiserver.NodeNotificationsRMIServer;
 import com.gmo.logger.JavaStyleLogger;
@@ -66,7 +67,7 @@ public class WebServerApp {
 		initConnectionMonitor();
 
 		// initReportExtraction();
-		
+
 		initRMIServers();
 
 		initJettyServer();
@@ -74,14 +75,15 @@ public class WebServerApp {
 	}
 
 	private static void initRMIServers() {
-		
+
 		try {
-		    java.rmi.registry.LocateRegistry.createRegistry(1099);
-		    System.out.println("RMI registry ready.");
+			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
+			java.rmi.registry.LocateRegistry.createRegistry(registryPort);
+			System.out.println("RMI registry ready.");
 		} catch (Exception e) {
 			LOG.error("Exception starting RMI registry:", e);
-		} 
-		
+		}
+
 		try {
 			new NodeNotificationsRMIServer().initConnection();
 		} catch (RemoteException e) {
