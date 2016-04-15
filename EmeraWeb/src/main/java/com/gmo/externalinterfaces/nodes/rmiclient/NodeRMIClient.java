@@ -55,8 +55,7 @@ public class NodeRMIClient implements IProcessorNodeControl {
 
 		String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
 		int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
-		LOG.info("Create new NodeRMI client on  " + registryAddress + "    port: " + registryPort);
-
+		
 		connectionOk = false;
 		try {
 			if (firstConnectionAttempt) {
