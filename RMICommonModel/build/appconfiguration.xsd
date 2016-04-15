@@ -46,13 +46,6 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:complexType name="RMIConnectionConfig">
-		<xs:sequence>
-			<xs:element name="RmiRegistryAddress" type="xs:string" />
-			<xs:element name="RmiRegistryPort" type="xs:int" />
-		</xs:sequence>
-	</xs:complexType>
-
 	<xs:element name="ApplicationContext">
 		<xs:complexType>
 			<xs:sequence>
@@ -66,8 +59,6 @@
 				<xs:element name="checkForUnfoundEntries" type="xs:boolean" />
 				<xs:element name="analysisResultsLocation" type="xs:string" />
 				<xs:element name="analysisResultsLocationType" type="locationType" />
-				<xs:element name="nodeConnectionConfiguration" type="RMIConnectionConfig" />
-				<xs:element name="basespaceConnectionConfiguration" type="RMIConnectionConfig" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

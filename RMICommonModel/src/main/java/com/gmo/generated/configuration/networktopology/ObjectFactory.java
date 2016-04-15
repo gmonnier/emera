@@ -6,7 +6,7 @@
 //
 
 
-package com.gmo.generated.configuration.serverprocessorconfig;
+package com.gmo.generated.configuration.networktopology;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the com.gmo.generated.configuration.serverprocessorconfig package. 
+ * generated in the com.gmo.generated.configuration.networktopology package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -30,18 +30,42 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.gmo.generated.configuration.serverprocessorconfig
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.gmo.generated.configuration.networktopology
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link ServerProcessorConfig }
+     * Create an instance of {@link NetworkTopology }
      * 
      */
-    public ServerProcessorConfig createServerProcessorConfig() {
-        return new ServerProcessorConfig();
+    public NetworkTopology createNetworkTopology() {
+        return new NetworkTopology();
+    }
+
+    /**
+     * Create an instance of {@link RMINetworkingConfig }
+     * 
+     */
+    public RMINetworkingConfig createRMINetworkingConfig() {
+        return new RMINetworkingConfig();
+    }
+
+    /**
+     * Create an instance of {@link RmiInterface }
+     * 
+     */
+    public RmiInterface createRmiInterface() {
+        return new RmiInterface();
+    }
+
+    /**
+     * Create an instance of {@link RMIRegistryParameters }
+     * 
+     */
+    public RMIRegistryParameters createRMIRegistryParameters() {
+        return new RMIRegistryParameters();
     }
 
 }
