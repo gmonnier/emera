@@ -70,6 +70,7 @@ public class NodeRMIClient implements IProcessorNode {
 			}
 			firstConnectionAttempt = true;
 			connectionOk = true;
+			return;
 		} catch (RemoteException e) {
 			if (firstConnectionAttempt) {
 				LOG.error("Unable to instantiate ProcessorNode : RemoteException " + e);
