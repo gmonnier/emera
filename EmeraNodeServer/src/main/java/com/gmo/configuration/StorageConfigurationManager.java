@@ -28,16 +28,9 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 	private List<ModelFileStored> listStoredLibraries;
 
 	private List<ModelFileStored> listStoredData;
-	
-	// Those values should be initialized/synchronized by the FE server
-	private LocationType analysisResultsLocationType;
-	private String analysisResultsLocation;
 
 	private StorageConfigurationManager() {
 		super(new File(contextFile), new StorageConfiguration());
-		
-		analysisResultsLocationType = LocationType.LOCAL;
-		analysisResultsLocation = "results";
 
 		listStoredLibraries = new ArrayList<ModelFileStored>();
 		listStoredData = new ArrayList<ModelFileStored>();
@@ -152,22 +145,6 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 
 	public List<ModelFileStored> getListStoredData() {
 		return listStoredData;
-	}
-
-	public LocationType getAnalysisResultsLocationType() {
-		return analysisResultsLocationType;
-	}
-
-	public void setAnalysisResultsLocationType(LocationType analysisResultsLocationType) {
-		this.analysisResultsLocationType = analysisResultsLocationType;
-	}
-
-	public String getAnalysisResultsLocation() {
-		return analysisResultsLocation;
-	}
-
-	public void setAnalysisResultsLocation(String analysisResultsLocation) {
-		this.analysisResultsLocation = analysisResultsLocation;
 	}
 	
 }

@@ -196,7 +196,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		else if (newstatus == AnalysisStatus.READY_FOR_PROCESSING) {
 			LOG.debug("Analysis " + id + " switch to Ready for processing. Start buffer and dispatcher");
 			report = new Report(viewConfiguration, launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
-			ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report, locType, analysisResultsLocation))
+			ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report);
 
 			merger = new AnalysisMerger(report,reportWriter, buffer, this);
 			// Start new reader in separate pool thread (manage by thread pool

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
@@ -15,6 +16,10 @@ import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 public class AnalysisManager {
 
 	private List<Analysis> runningAnalysis;
+	
+	// Those values should be initialized/synchronized by the FE server
+	private LocationType analysisResultsLocationType;
+	private String analysisResultsLocation;
 
 	private static class AnalysisManagerHolder {
 		public final static AnalysisManager instance = new AnalysisManager();
@@ -26,6 +31,8 @@ public class AnalysisManager {
 	private AnalysisManager() {
 		LOG.info("Instantiate Analyse manager");
 		runningAnalysis = new ArrayList<Analysis>();
+		analysisResultsLocationType = LocationType.LOCAL;
+		analysisResultsLocation = "results";
 	}
 
 	public static synchronized AnalysisManager getInstance() {
@@ -46,7 +53,10 @@ public class AnalysisManager {
 		return runningAnalysis;
 	}
 
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType analysisResultsLocationType, String analysisResultsLocation) {
+		// Set the results/reports locations info
+		this.analysisResultsLocationType = analysisResultsLocationType;
+		this.analysisResultsLocation = analysisResultsLocation;
 		// Create and start the analysis
 		Analysis newAnalyse = new Analysis(viewConfig, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
@@ -108,4 +118,11 @@ public class AnalysisManager {
 		throw new NoSuchAnalysisException();
 	}
 
+	public LocationType getAnalysisResultsLocationType() {
+		return analysisResultsLocationType;
+	}
+
+	public String getAnalysisResultsLocation() {
+		return analysisResultsLocation;
+	}
 }

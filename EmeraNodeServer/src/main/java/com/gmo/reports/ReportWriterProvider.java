@@ -1,9 +1,8 @@
 package com.gmo.reports;
 
-import java.io.File;
-
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.reports.generation.FileReportWriter;
@@ -17,7 +16,11 @@ public class ReportWriterProvider implements OutputWriterListener {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public ReportWriter getReportWriter(Report report, LocationType locType, String analysisResultsLocation) {
+	public ReportWriter getReportWriter(Report report) {
+
+		LocationType locType = AnalysisManager.getInstance().getAnalysisResultsLocationType();
+		String analysisResultsLocation = AnalysisManager.getInstance().getAnalysisResultsLocation();
+
 		switch (locType) {
 		case LOCAL: {
 			return new FileReportWriter(report, this, analysisResultsLocation);

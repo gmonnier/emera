@@ -19,6 +19,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.modelconverters.FileStoredConverter;
@@ -177,8 +178,8 @@ public class NodeServerImpl extends UnicastRemoteObject implements IProcessorNod
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) throws RemoteException {
-		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken);
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType resultLocType, String resultLocation) throws RemoteException {
+		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken, resultLocType, resultLocation);
 	}
 
 	// ---------- File Transfert ---------
