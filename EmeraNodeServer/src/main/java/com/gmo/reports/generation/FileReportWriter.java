@@ -50,7 +50,7 @@ public class FileReportWriter extends ReportWriter {
 					}
 				}
 				CSVOutputGenerator.writeOutput(new FileOutputStream(csvOutput), report);
-				writerListener.csvOutputGenerationSucceeded(csvOutput);
+				writerListener.csvOutputGenerationSucceeded(csvOutput.getAbsolutePath());
 			} catch (Throwable e) {
 				LOG.error("CSV report Generation Failed for analyse : " + report.getAnalyseID(), e);
 				writerListener.csvOutputGenerationFailed();
@@ -69,7 +69,7 @@ public class FileReportWriter extends ReportWriter {
 					}
 				}
 				new PDFOutputGenerator(new FileOutputStream(pdfOutput), report);
-				writerListener.pdfOutputGenerationSucceeded(pdfOutput);
+				writerListener.pdfOutputGenerationSucceeded(pdfOutput.getAbsolutePath());
 			} catch (Throwable e) {
 				LOG.error("PDF report Generation Failed for analyse : " + report.getAnalyseID(), e);
 				writerListener.pdfOutputGenerationFailed();

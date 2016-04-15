@@ -40,12 +40,12 @@ public class ReportWriterProvider implements OutputWriterListener {
 	}
 
 	@Override
-	public void pdfOutputGenerationSucceeded(File result) {
+	public void pdfOutputGenerationSucceeded(String resultPath) {
 		outputReportFiles.add(result);
 	}
 
 	@Override
-	public void csvOutputGenerationSucceeded(File result) {
+	public void csvOutputGenerationSucceeded(String resultPath) {
 		outputReportFiles.add(result);
 	}
 }

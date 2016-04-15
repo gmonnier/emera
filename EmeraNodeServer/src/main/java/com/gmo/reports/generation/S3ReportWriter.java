@@ -30,12 +30,19 @@ public class S3ReportWriter extends ReportWriter {
 		}
 
 		String outputRelativeLocation = report.getUserID() + "/" + report.getAnalyseID();
-
+		File tmpOutputDir = new File("tmp" + "/" + outputRelativeLocation);
+		if (!tmpOutputDir.exists()) {
+			boolean mkDirResult = tmpOutputDir.mkdirs();
+			if(!mkDirResult) {
+				LOG.error("Temporary directory creation failed");
+			}
+		}
+		
 		if (report.getAnalyseConfig().getOutputAttributes().isGenerateCSV()) {
 
 			String filename = "csv_report.csv";
 			try {
-				File csvOutputTmpFile = new File("tmp" + "/" + outputRelativeLocation, filename);
+				File csvOutputTmpFile = new File(tmpOutputDir, filename);
 				// if file doesnt exists, then create it
 				if (!csvOutputTmpFile.exists()) {
 					try {
@@ -49,7 +56,7 @@ public class S3ReportWriter extends ReportWriter {
 				String csvS3Key = outputRelativeLocation + "/" + filename;
 				AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, csvS3Key, csvOutputTmpFile);
 
-				writerListener.csvOutputGenerationSucceeded(csvS3Key);
+				writerListener.csvOutputGenerationSucceeded("https://s3.amazonaws.com/" + analysisResultsLocation + "/" + csvS3Key);
 			} catch (Throwable e) {
 				LOG.error("CSV report Generation Failed for analyse : " + report.getAnalyseID(), e);
 				writerListener.csvOutputGenerationFailed();
@@ -60,7 +67,7 @@ public class S3ReportWriter extends ReportWriter {
 
 			String filename = "pdf_report.pdf";
 			try {
-				File pdfOutputTmpFile = new File("tmp" + "/" + outputRelativeLocation, filename);
+				File pdfOutputTmpFile = new File(tmpOutputDir, filename);
 				// if file doesnt exists, then create it
 				if (!pdfOutputTmpFile.exists()) {
 					try {
@@ -71,10 +78,10 @@ public class S3ReportWriter extends ReportWriter {
 				}
 				new PDFOutputGenerator(new FileOutputStream(pdfOutputTmpFile), report);
 
-				String csvS3Key = outputRelativeLocation + "/" + filename;
-				AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, csvS3Key, pdfOutputTmpFile);
+				String pdfS3Key = outputRelativeLocation + "/" + filename;
+				AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, pdfS3Key, pdfOutputTmpFile);
 
-				writerListener.pdfOutputGenerationSucceeded(csvS3Key);
+				writerListener.pdfOutputGenerationSucceeded("https://s3.amazonaws.com/" + analysisResultsLocation + "/" + pdfS3Key);
 			} catch (Throwable e) {
 				LOG.error("PDF report Generation Failed for analyse : " + report.getAnalyseID(), e);
 				writerListener.pdfOutputGenerationFailed();
@@ -82,7 +89,7 @@ public class S3ReportWriter extends ReportWriter {
 		}
 
 		// Serialize result object into a file
-		File serializedOutputTmpFile = new File("tmp" + "/" + outputRelativeLocation, REPORT_FILENAME);
+		File serializedOutputTmpFile = new File(tmpOutputDir, REPORT_FILENAME);
 		try {
 			ReportSerializer.writeReport(report, new FileOutputStream(serializedOutputTmpFile));
 

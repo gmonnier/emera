@@ -8,8 +8,8 @@ public interface OutputWriterListener {
 
 	public void csvOutputGenerationFailed();
 
-	public void pdfOutputGenerationSucceeded(File result);
+	public void pdfOutputGenerationSucceeded(String resultPath);
 
-	public void csvOutputGenerationSucceeded(File result);
+	public void csvOutputGenerationSucceeded(String resultPath);
 
 }
