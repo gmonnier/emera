@@ -65,7 +65,7 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 		}
 
 		// TODO use s3 or whatever defined attribute in Emera web application context to store additionnal results here
-		String resultLocation = StorageConfigurationManager.getInstance().getConfig().getAnalysisResultsLocation();
+		String resultLocation = "tmp";
 		String outputDir = resultLocation + File.separator + reference.getUserID() + File.separator + reference.getAnalyseID() + File.separator + "Additional" /*AnalysisExtractor.ADDITIONAL_ANALYSIS_DIR*/;
 		File outputDirectory = new File(outputDir);
 		if (!outputDirectory.exists()) {
