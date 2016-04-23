@@ -132,7 +132,7 @@ public class WebServerApp {
 
 	private static void initJettyServer() throws Exception {
 
-		Server jettyServer = new Server(ApplicationContextManager.getInstance().getConfig().getWebServerPort());
+		Server jettyServer = new Server(NetworkTopologyManager.getInstance().getConfig().getEmeraWebServerPort());
 
 		ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		servletHandler.setContextPath("/");
