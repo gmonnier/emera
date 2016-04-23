@@ -72,6 +72,7 @@ public class BaseSpacePlatformManager {
 	}
 
 	public void requestNewDownload(String fileName, FastQFile file, IDownloadListener downloadListener) {
+		LOG.debug("Request download to " + fileName + "  from FQFile = " + file);
 		SampleDownloader downloader = new SampleDownloader(file, fileName, clientBS, downloadListener);
 		fileWriterService.execute(downloader);
 	}

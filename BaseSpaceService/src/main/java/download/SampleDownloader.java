@@ -39,12 +39,21 @@ public class SampleDownloader implements Runnable, DownloadListener {
 
 		// Start download
 		try {
+			
+			LOG.debug("Download executor running");
 			final File file = clientBS.getFile(fastqfile.getId()).get();
 
 			final java.io.File localFolder = new java.io.File(destinationDirectory);
+			if(!localFolder.exists()) {
+				localFolder.mkdirs();
+			}
+			
+			LOG.debug("Remote BaseSPace API call");
 			clientBS.download(file, localFolder, this);
 
 		} catch (Throwable t) {
+			LOG.debug("Download failed ", t);
+			
 			if (t instanceof Exception) {
 				if (t instanceof ResourceNotFoundException) {
 					LOG.error("Resource not found in baseSpace database : ID = " + fastqfile.getId());
