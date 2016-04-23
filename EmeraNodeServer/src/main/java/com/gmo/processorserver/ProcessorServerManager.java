@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.configuration.ServerProcessorContextManager;
+import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
@@ -42,7 +42,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 
 	private ProcessorServerManager() {
 		
-		int listeningPort = ServerProcessorContextManager.getInstance().getConfig().getListeningPort();
+		int listeningPort = NetworkTopologyManager.getInstance().getConfig().getTcpNodeServerPort();
 
 		LOG.info("Create Processor server - Listening port on " + listeningPort);
 
