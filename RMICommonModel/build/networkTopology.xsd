@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://com/gmo/generated/configuration/networkTopology"
+	xmlns="http://com/gmo/generated/configuration/networkTopology"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	jaxb:version="2.1" elementFormDefault="qualified">
+
+	<xs:complexType name="RMIRegistryParameters">
+		<xs:sequence>
+			<xs:element name="RmiRegistryAddress" type="xs:string" />
+			<xs:element name="RmiRegistryPort" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RmiInterface">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="exportPort" type="xs:int" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="RMINetworkingConfig">
+		<xs:sequence>
+			<xs:element name="RmiRegistryParameters" type="RMIRegistryParameters" />
+			<xs:sequence>
+				<xs:element name="RmiInterfaces" type="RmiInterface"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="NetworkTopology">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="emeraWebServerPort" type="xs:int" />
+				<xs:element name="rmiNetworkConfig" type="RMINetworkingConfig" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>

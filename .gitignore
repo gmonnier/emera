@@ -8,10 +8,8 @@
 **/node_modules
 **/*.DS_Store
 **/.settings
-**/build
 **/logs
 **/.classpath
 **/.project
 **/conf/*.xml
 **/target
-**/build/generated/**
