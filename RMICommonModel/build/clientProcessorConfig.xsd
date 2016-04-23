@@ -8,8 +8,6 @@
 	<xs:element name="ClientProcessorConfig">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="serverAdress" type="xs:string" />
-				<xs:element name="connectionPort" type="xs:int" />
 				<xs:element name="uiMode" type="xs:boolean" />
 			</xs:sequence>
 		</xs:complexType>

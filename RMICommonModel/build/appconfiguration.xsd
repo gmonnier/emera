@@ -49,7 +49,6 @@
 	<xs:element name="ApplicationContext">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="webServerPort" type="xs:int" />
 				<xs:element name="AllowCharacterError" type="xs:boolean" />
 				<xs:element name="AllowShifting" type="xs:boolean" />
 				<xs:element name="GeneratePDFOutput" type="xs:boolean" />
