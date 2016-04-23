@@ -110,7 +110,7 @@ public class ProcessorClient implements NetworkListener {
 		sb.append("<#>");
 		sb.append(results.getObjectAsString());
 		String message = sb.toString();
-		
+
 		LOG.debug(message);
 		sendToServer(message);
 	}
@@ -211,7 +211,7 @@ public class ProcessorClient implements NetworkListener {
 		else if (msg.startsWith("STOP_ACTION<#>")) {
 			ProcessManager.getInstance().stopCurrentAction();
 		}
-		
+
 		/*
 		 * Server explicitely required the current status.
 		 */
@@ -227,7 +227,7 @@ public class ProcessorClient implements NetworkListener {
 			}
 			ProcessManager.getInstance().setNetworkInterface(null);
 			ProcessManager.getInstance().initParameters();
-			
+
 			// stop the client Thread.
 			shutdown();
 			launchConnexionThread();
