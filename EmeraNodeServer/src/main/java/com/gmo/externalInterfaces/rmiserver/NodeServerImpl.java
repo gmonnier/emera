@@ -187,7 +187,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public OutputStream getOutputStream(String fileName, InputType inputType) throws IOException {
-
+		LOG.warn("Request outputStream for file upload with type " + inputType + "  and fileName=" + fileName);
 		String uploadedFileLocationRoot;
 		switch (inputType) {
 		case DATA: {
@@ -205,8 +205,10 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		String uploadedFileLocation = uploadedFileLocationRoot + File.pathSeparator + fileName;
 
 		if (new File(uploadedFileLocation).exists()) {
+			LOG.warn(uploadedFileLocation + "  already exists. Abort");
 			return null;
 		}
+		LOG.warn("Create RMI OutputStream for " + uploadedFileLocation);
 		RmiInterface transfertPort = NetworkTopologyManager.getInstance().getByRmiInterfaceName("IFileTransfer");
 		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(uploadedFileLocation), transfertPort.getExportPort()));
 	}
@@ -219,7 +221,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
-		LOG.error("TODO: Pass S3/Files Reference, not the complete report!");
+		LOG.warn("TODO: Pass S3/Files Reference, not the complete report!");
 		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
 	}
 
