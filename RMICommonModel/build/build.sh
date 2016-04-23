@@ -2,41 +2,25 @@
 # Configuration building script
 echo "Building configuration files with JAXB"
 
-javaPath=/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/bin
+javaPath=/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/bin
 "${javaPath}/java" -version
 
-destDir="generated"
+destDir="com/gmo/generated"
+srcDestDirRoot="../src/main/java"
+srcDestDirGenerated="${srcDestDirRoot}/${destDir}"
 
 #remove the existing generated directory
-rm -rf $destDir
+rm -rf $srcDestDirGenerated
 
 echo "create destination root dir"
-mkdir -p $destDir
-mkdir -p $destDir/jar
+mkdir -p $srcDestDirGenerated
 
 # List all xsd files in the current directory
 for xsdFile in *.xsd
 {
 	echo " --> Process xsd file : $xsdFile"
-	xsdBaseName=${xsdFile%.xsd}
 	
-	sourceDir="${destDir}/sources/${xsdBaseName}"
-	mkdir -p ${sourceDir}
+	sourceDir="${srcDestDirRoot}"
 	${javaPath}/xjc -extension -Xinject-code -d ${sourceDir} $xsdFile
 	
-	compileDir="${destDir}/compiled/${xsdBaseName}"
-	mkdir -p "${compileDir}"
-	CLASSPATH="${sourceDir}"
-	
-	# Compile all java sources previously listed in sourceList file
-	echo "compiling sources CLASSPATH=${CLASSPATH}"
-	for file in $(find ${sourceDir} -name '*.java')
-	{
-		echo "compiling $file"
-		${javaPath}/javac -classpath "${CLASSPATH}" -d "${compileDir}" "${file}"  
-	}
-
-	echo "Generate ${xsdBaseName} jar file"
-	# Compile all java sources previously listed in sourceList file
-	${javaPath}/jar cvf $destDir/jar/${xsdBaseName}.jar ${compileDir}/*
 }
