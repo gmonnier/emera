@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
-import com.gmo.sharedobjects.util.FileUploadListener;
+import com.gmo.sharedobjects.util.FileCollectorListener;
 import com.gmo.sharedobjects.util.StringSerializable;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {
@@ -19,21 +19,22 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	// List of library files
 	private List<ModelFileStored> selectedDataFiles;
 	
-	// Listener. Notified eah time a file is added to this configuration.
-	private transient FileUploadListener uploadListener;
+	// Listener. Notified each time a file is added to this configuration.
+	private transient FileCollectorListener uploadListener;
 	
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
 	public ProcessConfiguration() {
-		
+		LOG.debug("Create new process config ");
 		selectedLibraries = new ArrayList<ModelFileStored>();
 		selectedDataFiles = new ArrayList<ModelFileStored>();
 		
 	}
 
-	public void setUploadListener(FileUploadListener uploadListener) {
+	public void setUploadListener(FileCollectorListener uploadListener) {
 		this.uploadListener = uploadListener;
+		uploadListener.checkCollectedFiles();
 	}
 
 	public List<ModelFileStored> getSelectedLibraries() {
@@ -61,14 +62,16 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	public void addToLibraries(ModelFileStored modelUploaded) {
 		selectedLibraries.add(modelUploaded);
 		if(uploadListener != null) {
-			uploadListener.fileUploaded(modelUploaded);
+			LOG.debug("Add new file to process configuration libraries : " + modelUploaded.getName());
+			uploadListener.fileCollected(modelUploaded);
 		}
 	}
 	
 	public void addToData(ModelFileStored modelUploaded) {
 		selectedDataFiles.add(modelUploaded);
 		if(uploadListener != null) {
-			uploadListener.fileUploaded(modelUploaded);
+			LOG.debug("Add new file to process configuration data : " + modelUploaded.getName());
+			uploadListener.fileCollected(modelUploaded);
 		}
 	}
 }

@@ -36,11 +36,11 @@ import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
-import com.gmo.sharedobjects.util.FileUploadListener;
+import com.gmo.sharedobjects.util.FileCollectorListener;
 
 import main.BaseSpacePlatformManager;
 
-public class Analysis implements FileUploadListener, IAnalysisProcessingListener, IReaderDispatcherListener, IDownloadListener {
+public class Analysis implements FileCollectorListener, IAnalysisProcessingListener, IReaderDispatcherListener, IDownloadListener {
 
 	/**
 	 * InstantiateExecutor service for this . This service is used to start
@@ -198,7 +198,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 			report = new Report(viewConfiguration, launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
 			ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report);
 
-			merger = new AnalysisMerger(report,reportWriter, buffer, this);
+			merger = new AnalysisMerger(report, reportWriter, buffer, this);
 			// Start new reader in separate pool thread (manage by thread pool
 			// executor)
 			AnalysisWorker worker = new AnalysisWorker(processConfiguration, this, this, buffer);
@@ -234,18 +234,21 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 		return processConfiguration;
 	}
 
-	public void fileUploaded(ModelFileStored modelFile) {
+	public void fileCollected(ModelFileStored modelFile) {
+		LOG.debug("New resource assigned to this analysis : " + modelFile.getName());
+		checkCollectedFiles();
+	}
 
-		LOG.debug("New data resource assigned to this analysis : " + modelFile.getName());
-
+	@Override
+	public void checkCollectedFiles() {
 		LOG.debug("viewConfigurations : " + viewConfiguration + "  processConfiguration : " + processConfiguration);
-		boolean allFilesUploaded = viewConfiguration.getSelectedDataFiles().size() == processConfiguration.getSelectedDataFiles().size() && viewConfiguration.getSelectedLibraries().size() == processConfiguration.getSelectedLibraries().size();
+		boolean allFilesUploaded = viewConfiguration.getSelectedDataFiles().size() == processConfiguration.getSelectedDataFiles().size()
+				&& viewConfiguration.getSelectedLibraries().size() == processConfiguration.getSelectedLibraries().size();
 
 		if (allFilesUploaded) {
-			LOG.debug("All files successfully uploads/downloads, request to change status");
+			LOG.debug("All files successfully collected, analysis is ready to start.");
 			setStatus(AnalysisStatus.READY_FOR_PROCESSING);
 		}
-
 	}
 
 	@Override
@@ -324,6 +327,7 @@ public class Analysis implements FileUploadListener, IAnalysisProcessingListener
 	 */
 	public synchronized void assignDistantResource(IDistantResource resource) {
 		boolean found = false;
+		LOG.info("Assign distant resource : " + resource.getName() + "  to " + this.id);
 		for (int i = 0; i < assignedResources.size(); i++) {
 			if (assignedResources.get(i).getID().equals(resource.getID())) {
 				// Resource already assigned to this campaign. Replace.
