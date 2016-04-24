@@ -112,6 +112,7 @@ public class StorageConfigurationManager extends AbstractConfigurationManager<St
 			}
 		}
 
+		LOG.error("Model file store with filename : " + fileName + " not found in list: \n" + listFiles);
 		throw new NoSuchElementException();
 	}
 

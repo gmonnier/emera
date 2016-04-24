@@ -158,12 +158,13 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	@Override
 	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException {
 
+		LOG.error("Upload to Node Server completed for " + fileName + " of type " + inputType);
+		StorageConfigurationManager.getInstance().updateModel();
 		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(inputType, fileName);
 
 		switch (inputType) {
 		case DATA: {
 			try {
-				StorageConfigurationManager.getInstance().updateModel();
 				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
 						.addToData(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
@@ -172,7 +173,6 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		}
 		case LIBRARY: {
 			try {
-				StorageConfigurationManager.getInstance().updateModel();
 				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
 						.addToLibraries(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
