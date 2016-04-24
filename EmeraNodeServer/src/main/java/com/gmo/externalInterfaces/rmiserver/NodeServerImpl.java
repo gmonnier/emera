@@ -163,6 +163,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		switch (inputType) {
 		case DATA: {
 			try {
+				StorageConfigurationManager.getInstance().updateModel();
 				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
 						.addToData(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
@@ -171,6 +172,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		}
 		case LIBRARY: {
 			try {
+				StorageConfigurationManager.getInstance().updateModel();
 				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
 						.addToLibraries(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
@@ -188,7 +190,13 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException {
-		LOG.error("TODO: TO BE IMPLEMENTED");
+		LOG.error("Request analysis " + id + " status change to " + newStatus);
+		try {
+			AnalysisManager.getInstance().getRunningAnalysis(id).setStatus(newStatus);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to change analysis staus - analysis not found - id = " + id);
+		}
+		
 	}
 
 	@Override
