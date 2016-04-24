@@ -185,7 +185,8 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void stopAllAnalyses(String userID) throws RemoteException {
-		LOG.error("TODO: TO BE IMPLEMENTED");
+		LOG.debug("Request to stop all currently running analyses belonging to userID : " + userID);
+		AnalysisManager.getInstance().stopAllAnalyses(userID);
 	}
 
 	@Override

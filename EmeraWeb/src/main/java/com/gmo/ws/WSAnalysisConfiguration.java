@@ -47,7 +47,9 @@ public class WSAnalysisConfiguration {
 		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
 		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
 		
+		LOG.info("--> RMI call - enqueue new analysis ");
 		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken, resultLocType, resultLocationPath);
+		LOG.info("<-- RMI call - enqueue new analysis done");
 		
 		// Update storage of default values for next analysisconfigurations
 		ApplicationContextManager.getInstance().getConfig().setAllowCharacterError(jsonConfig.getPatternAttributes().isAllowOneMismatch());
