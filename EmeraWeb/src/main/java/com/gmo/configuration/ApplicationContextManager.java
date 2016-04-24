@@ -45,7 +45,7 @@ public class ApplicationContextManager extends AbstractConfigurationManager<Appl
 
 		List<Pattern> patterns = getConfig().getPatternsStorage().getPatterns();
 		for (int i = patterns.size() - 1; i >= 0; i--) {
-			ExtractionPattern pattern = new ExtractionPattern(patterns.get(i).getValue(), patterns.get(i).getAlias());
+			ExtractionPattern pattern = new ExtractionPattern(patterns.get(i).getValue().trim(), patterns.get(i).getAlias());
 			if (!pattern.isInvalidPattern()) {
 				listPatterns.add(pattern);
 			} else {
