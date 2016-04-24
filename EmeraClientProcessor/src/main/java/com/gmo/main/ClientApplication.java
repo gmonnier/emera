@@ -14,7 +14,7 @@ public class ClientApplication {
 
 	// Application logging.
 	public final static boolean LOG4J_LOGGING = true;
-	public final static boolean LOG4J_LOGGING_CONSOLE_ON = false;
+	public final static boolean LOG4J_LOGGING_CONSOLE_ON = true;
 	public final static boolean JAVA_LOGGING_ON = false;
 
 	// Set up logging properties.
