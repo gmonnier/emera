@@ -40,6 +40,10 @@ public class Report implements Serializable {
 	private String analyseID;
 
 	private String userID;
+	
+	public Report() {
+		// Serialization requirement
+	}
 
 	public Report(ViewCreateProcessConfiguration analyseConfig, long startDate, String analyseID, String userID) {
 		this.analyseConfig = analyseConfig;
