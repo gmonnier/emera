@@ -14,6 +14,9 @@ import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.comparators.OccurenceComparator;
 
 public class Report implements Serializable {
+	
+	// log4j logger - Main logger
+	private static Logger LOG = Log4JLogger.logger;
 
 	private GeneLibrary library;
 
@@ -38,9 +41,6 @@ public class Report implements Serializable {
 
 	private String userID;
 
-	private Report() {
-	}
-
 	public Report(ViewCreateProcessConfiguration analyseConfig, long startDate, String analyseID, String userID) {
 		this.analyseConfig = analyseConfig;
 		this.occurencesFound = new HashMap<String, Integer>();
@@ -52,8 +52,8 @@ public class Report implements Serializable {
 	}
 
 	public Report(ViewCreateProcessConfiguration analyseConfig, long startDate, String analyseID, String userID, int chunksize) {
+		this(analyseConfig, startDate, analyseID, userID);
 		this.chunkSize = chunksize;
-		new Report(analyseConfig, startDate, analyseID, userID);
 	}
 
 	public void finalizeReport() {
