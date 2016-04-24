@@ -35,7 +35,7 @@ public class WSAnalysisConfiguration {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String postNewProcessJSON(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
 		LOG.debug("POST: enqueue requested for new analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
 		
