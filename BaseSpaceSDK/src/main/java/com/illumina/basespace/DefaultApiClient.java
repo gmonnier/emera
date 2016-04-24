@@ -313,7 +313,11 @@ class DefaultApiClient implements ApiClient {
 				if (!target.exists() && !target.mkdirs()) {
 					throw new IllegalArgumentException("Unable to create local folder " + target.toString());
 				}
-				target = new java.io.File(target, file.getName());
+				String fileName = file.getName();
+				if(fileName.endsWith(".gz")) {
+					fileName = fileName.substring(0, fileName.length() - 3);
+				}
+				target = new java.io.File(target, fileName);
 			}
 
 			final int CHUNK_SIZE = 4096;
