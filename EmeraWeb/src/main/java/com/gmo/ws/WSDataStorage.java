@@ -1,6 +1,5 @@
 package com.gmo.ws;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -21,11 +20,9 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
-import com.gmo.nodes.UploadWorker;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewDataSplitterModel;
 import com.gmo.sharedobjects.model.inputs.InputType;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ExtractionPattern;
 import com.gmo.ws.exceptions.NodeStorageException;
 
@@ -65,17 +62,21 @@ public class WSDataStorage extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ViewDataSplitterModel> getSplitPatternsJSON() {
 		LOG.info("Retrieve stored split patterns");
-		List<ViewDataSplitterModel> listViewSplitPattern = ApplicationContextManager.getInstance().getListViewSplitPatterns();
+		List<ViewDataSplitterModel> listViewSplitPattern = ApplicationContextManager.getInstance()
+				.getListViewSplitPatterns();
 		return listViewSplitPattern;
 	}
 
 	@POST
 	@Path("/uploadDataFile")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadDataFile(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("analyseID") String analyseid) {
+	public Response uploadDataFile(@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail,
+			@FormDataParam("analyseID") String analyseid) {
 		LOG.info("Request to upload files on server param found ->" + analyseid);
 		try {
-			NodeManager.getInstance().getNodeRMIClient().uploadFileToNodeServer(InputType.DATA, fileDetail.getFileName(), uploadedInputStream, analyseid);
+			NodeManager.getInstance().getNodeRMIClient().uploadFileToNodeServer(InputType.DATA,
+					fileDetail.getFileName(), uploadedInputStream, analyseid);
 			LOG.info("File successfully uploaded to Node server storage location : " + fileDetail.getFileName());
 			return Response.status(200).build();
 		} catch (NodeStorageException nse) {
@@ -90,10 +91,13 @@ public class WSDataStorage extends Application {
 	@POST
 	@Path("/uploadLibFile")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadLibFile(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("analyseID") String analyseid) {
+	public Response uploadLibFile(@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail,
+			@FormDataParam("analyseID") String analyseid) {
 		LOG.info("Request to upload files on server param found ->" + analyseid);
 		try {
-			NodeManager.getInstance().getNodeRMIClient().uploadFileToNodeServer(InputType.LIBRARY, fileDetail.getFileName(), uploadedInputStream, analyseid);
+			NodeManager.getInstance().getNodeRMIClient().uploadFileToNodeServer(InputType.LIBRARY,
+					fileDetail.getFileName(), uploadedInputStream, analyseid);
 			LOG.info("File successfully uploaded to Node server storage location : " + fileDetail.getFileName());
 			return Response.status(200).build();
 		} catch (NodeStorageException nse) {

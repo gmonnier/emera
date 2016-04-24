@@ -96,7 +96,8 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	public ViewNodePollingInfo getViewNodePollingInfo(String userID) throws RemoteException {
 
 		IResource server = ProcessorServerManager.getInstance().getServerResource();
-		ViewDistantResource nodeServer = new ViewDistantResource(server.getID(), server.getName(), null, server.getLocation());
+		ViewDistantResource nodeServer = new ViewDistantResource(server.getID(), server.getName(), null,
+				server.getLocation());
 
 		Map<String, IDistantResource> listRes = ProcessorServerManager.getInstance().getMapResourcesConnected();
 		List<ViewDistantResource> resources = new ArrayList<>(listRes.size());
@@ -106,28 +107,38 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 		if (userID.equals("guest")) {
 			// Stub resources
-			ViewDistantResource res = new ViewDistantResource("ID 1", "Resource name", ClientStatus.IDLE.toString(), ClientLocation.stubLocation("163.168.80.10", "Irvine", 33.6694, -117.8231));
+			ViewDistantResource res = new ViewDistantResource("ID 1", "Resource name", ClientStatus.IDLE.toString(),
+					ClientLocation.stubLocation("163.168.80.10", "Irvine", 33.6694, -117.8231));
 			resources.add(res);
-			ViewDistantResource res2 = new ViewDistantResource("ID 2", "Resource name 2", ClientStatus.IDLE.toString(), ClientLocation.stubLocation("184.168.85.3", "Zurich", 47.3667, 8.5500));
+			ViewDistantResource res2 = new ViewDistantResource("ID 2", "Resource name 2", ClientStatus.IDLE.toString(),
+					ClientLocation.stubLocation("184.168.85.3", "Zurich", 47.3667, 8.5500));
 			resources.add(res2);
-			ViewDistantResource res3 = new ViewDistantResource("ID 3", "Resource name 3", ClientStatus.PROCESSING.toString(), ClientLocation.stubLocation("183.143.7.31", "Farnay", 45.4942, 4.5986));
+			ViewDistantResource res3 = new ViewDistantResource("ID 3", "Resource name 3",
+					ClientStatus.PROCESSING.toString(),
+					ClientLocation.stubLocation("183.143.7.31", "Farnay", 45.4942, 4.5986));
 			resources.add(res3);
-			ViewDistantResource res4 = new ViewDistantResource("ID 4", "Resource name 4", ClientStatus.PROCESSING.toString(), ClientLocation.stubLocation("145.143.7.31", "Baltimore", 39.2833, -76.6167));
+			ViewDistantResource res4 = new ViewDistantResource("ID 4", "Resource name 4",
+					ClientStatus.PROCESSING.toString(),
+					ClientLocation.stubLocation("145.143.7.31", "Baltimore", 39.2833, -76.6167));
 			resources.add(res4);
-			ViewDistantResource res5 = new ViewDistantResource("ID 5", "Resource name 5", ClientStatus.RETRIEVING_DATA.toString(), ClientLocation.stubLocation("145.143.7.31", "San Francisco", 37.7833, -122.4167));
+			ViewDistantResource res5 = new ViewDistantResource("ID 5", "Resource name 5",
+					ClientStatus.RETRIEVING_DATA.toString(),
+					ClientLocation.stubLocation("145.143.7.31", "San Francisco", 37.7833, -122.4167));
 			resources.add(res5);
 		} else {
 			Iterator<Map.Entry<String, IDistantResource>> it = listRes.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, IDistantResource> pair = (Map.Entry<String, IDistantResource>) it.next();
 				IDistantResource distResource = pair.getValue();
-				ViewDistantResource res = new ViewDistantResource(distResource.getID(), distResource.getName(), distResource.getClientStatus().toString(), distResource.getLocation());
+				ViewDistantResource res = new ViewDistantResource(distResource.getID(), distResource.getName(),
+						distResource.getClientStatus().toString(), distResource.getLocation());
 				resources.add(res);
 			}
 
 			for (int i = 0; i < listInstances.size(); i++) {
 				Instance inst = listInstances.get(i);
-				awsInstances.add(new ViewAWSInstance(inst.getInstanceId(), inst.getPrivateIpAddress(), inst.getPublicIpAddress(), inst.getState().getName(), inst.getInstanceType()));
+				awsInstances.add(new ViewAWSInstance(inst.getInstanceId(), inst.getPrivateIpAddress(),
+						inst.getPublicIpAddress(), inst.getState().getName(), inst.getInstanceType()));
 			}
 		}
 		ViewNodeNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
@@ -152,14 +163,16 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		switch (inputType) {
 		case DATA: {
 			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToData(modelUploaded);
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
+						.addToData(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
 				LOG.error("Unable to add " + modelUploaded + " to data of " + analyseid);
 			}
 		}
 		case LIBRARY: {
 			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToLibraries(modelUploaded);
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration()
+						.addToLibraries(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
 				LOG.error("Unable to add " + modelUploaded + " to libraries of " + analyseid);
 			}
@@ -179,8 +192,11 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	}
 
 	@Override
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType resultLocType, String resultLocation) throws RemoteException {
-		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken, resultLocType, resultLocation);
+	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID,
+			String bsuserSecret, String bsuserToken, LocationType resultLocType, String resultLocation)
+			throws RemoteException {
+		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret,
+				bsuserToken, resultLocType, resultLocation);
 	}
 
 	// ---------- File Transfert ---------
@@ -202,15 +218,22 @@ public class NodeServerImpl implements IProcessorNodeControl {
 			uploadedFileLocationRoot = StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot();
 		}
 		}
-		String uploadedFileLocation = uploadedFileLocationRoot + File.pathSeparator + fileName;
 
-		if (new File(uploadedFileLocation).exists()) {
-			LOG.warn(uploadedFileLocation + "  already exists. Abort");
+		File uploadDest = new File(uploadedFileLocationRoot, fileName);
+		if (uploadDest.exists()) {
+			LOG.warn(uploadDest.getAbsolutePath() + "  already exists. Abort");
 			return null;
+		} else {
+			// Create parent directory if not existing yet
+			if (!uploadDest.getParentFile().isDirectory()) {
+				uploadDest.getParentFile().mkdirs();
+			}
+			uploadDest.createNewFile();
 		}
-		LOG.warn("Create RMI OutputStream for " + uploadedFileLocation);
+		LOG.warn("Create RMI OutputStream for " + uploadDest.getAbsolutePath());
 		RmiInterface transfertPort = NetworkTopologyManager.getInstance().getByRmiInterfaceName("IFileTransfer");
-		return new RMIOutputStream(new RMIOutputStreamImpl(new FileOutputStream(uploadedFileLocation), transfertPort.getExportPort()));
+		return new RMIOutputStream(
+				new RMIOutputStreamImpl(new FileOutputStream(uploadDest), transfertPort.getExportPort()));
 	}
 
 	@Override
@@ -220,7 +243,8 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	}
 
 	@Override
-	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
+	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType)
+			throws RemoteException {
 		LOG.warn("TODO: Pass S3/Files Reference, not the complete report!");
 		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
 	}
