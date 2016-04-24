@@ -63,7 +63,8 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException {
-		LOG.error("TODO: TO BE IMPLEMENTED");
+		LOG.debug("Request to remove distant resource with ID " + clientID);
+		ProcessorServerManager.getInstance().requestClientRemove(clientID);
 	}
 
 	@Override
