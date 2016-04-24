@@ -6,7 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
-import com.gmo.processorNode.viewmodel.network.ViewNetworkConfig;
 import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 
 @XmlRootElement
