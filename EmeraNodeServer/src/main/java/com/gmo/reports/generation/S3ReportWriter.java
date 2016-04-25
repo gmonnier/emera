@@ -22,6 +22,8 @@ public class S3ReportWriter extends ReportWriter {
 
 	@Override
 	public void run() {
+		
+		report.finalizeReport();
 
 		LOG.error("Start S3 Report writting in " + analysisResultsLocation);
 

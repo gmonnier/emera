@@ -19,6 +19,8 @@ public class FileReportWriter extends ReportWriter {
 
 	@Override
 	public void run() {
+		
+		report.finalizeReport();
 
 		LOG.error("Start Local File Report writting in " + analysisResultsLocation);
 

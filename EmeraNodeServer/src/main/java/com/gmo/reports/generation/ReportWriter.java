@@ -19,8 +19,6 @@ public abstract class ReportWriter implements Runnable {
 		this.report = report;
 		this.analysisResultsLocation = analysisResultsLocation;
 		this.writerListener = writerListener;
-
-		report.finalizeReport();
 	}
 
 }

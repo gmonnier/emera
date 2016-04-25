@@ -62,6 +62,7 @@ public class Report implements Serializable {
 
 	public void finalizeReport() {
 		// Sort the library by occurences
+		LOG.debug("Finalize report for " + analyseID);
 		Collections.sort(library.getGenes(), new OccurenceComparator(this));
 	}
 
