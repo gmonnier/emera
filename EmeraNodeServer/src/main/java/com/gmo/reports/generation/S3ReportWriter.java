@@ -103,8 +103,6 @@ public class S3ReportWriter extends ReportWriter {
 			LOG.error("Unable to serialize report to file " + report.getAnalyseID(), e);
 			return;
 		}
-
-		new SystemCommand().removeAllINDirectory("tmp");
 	}
 
 }
