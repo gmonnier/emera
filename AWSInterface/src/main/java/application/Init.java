@@ -35,7 +35,7 @@ public class Init {
 		LOG.info("--------- START AWS Interface ---------------");
 		LOG.info("---------------------------------------------");
 
-		String analysesDirectoryRoot = "emera-results";
+		String analysesDirectoryRoot = "emera-result";
 
 		List<String> userRepositories = AWSS3InterfaceManager.getInstance().listUsersRepositories(analysesDirectoryRoot);
 		
