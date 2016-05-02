@@ -26,6 +26,7 @@ public class ReportWriterProvider implements OutputWriterListener {
 			return new FileReportWriter(report, this, analysisResultsLocation);
 		}
 		case S_3: {
+			//return new FileReportWriter(report, this, "/Users/gillesmonnier/Work_Area/Emera/Emera_data/Storage/Results");
 			return new S3ReportWriter(report, this, analysisResultsLocation);
 		}
 		}
