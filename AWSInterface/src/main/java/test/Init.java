@@ -1,13 +1,14 @@
-package application;
+package test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import awsinterfaceManager.AWSS3InterfaceManager;
-
 import com.gmo.logger.Log4JLogger;
 import com.gmo.systemUtil.SystemCommand;
+
+import awsinterfaceManager.AWSS3InterfaceManager;
 
 public class Init {
 
@@ -37,8 +38,10 @@ public class Init {
 
 		String analysesDirectoryRoot = "emera-result";
 
-		List<String> userRepositories = AWSS3InterfaceManager.getInstance().listUsersRepositories(analysesDirectoryRoot);
-		
+		List<Object[]> userRepositories = AWSS3InterfaceManager.getInstance().listAllFilesInBucket(analysesDirectoryRoot);
+		for (int i = 0; i < userRepositories.size(); i++) {
+			LOG.debug(Arrays.toString(userRepositories.get(i)));
+		}
 
 	}
 }

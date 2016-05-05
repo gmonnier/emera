@@ -48,7 +48,7 @@ public class AWSS3InterfaceManager {
 
 	public boolean isBucketValid(String bucketName) {
 		boolean valid = s3Client.doesBucketExist(bucketName);
-		if(!valid) {
+		if (!valid) {
 			LOG.debug("Bucket not found " + bucketName + " List of buckets owned : " + s3Client.listBuckets());
 		}
 		return valid;
@@ -95,7 +95,32 @@ public class AWSS3InterfaceManager {
 			objectListing = s3Client.listObjects(listObjectsRequest);
 			for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
 				LOG.debug("\t\t--- " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
-				files.add(new Object[]{objectSummary.getKey(), objectSummary.getSize(), objectSummary.getLastModified().getTime()});
+				files.add(new Object[] { objectSummary.getKey(), objectSummary.getSize(), objectSummary.getLastModified().getTime() });
+			}
+			listObjectsRequest.setMarker(objectListing.getNextMarker());
+		} while (objectListing.isTruncated());
+
+		return files;
+	}
+
+	/**
+	 * 
+	 * @param bucketName
+	 *            the S3 Bucket name
+	 * @return a list of objects array with the following format: {@code [(String)
+	 *         ObjectKey, (String) ObjectSize, (long) LatModifiedTime]}
+	 *         representing the list of files stored in this bucket.
+	 */
+	public List<Object[]> listAllFilesInBucket(String bucketName) {
+		List<Object[]> files = new ArrayList<Object[]>();
+		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName);
+		ObjectListing objectListing;
+
+		do {
+			objectListing = s3Client.listObjects(listObjectsRequest);
+			for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+				LOG.debug("\t\t--- " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
+				files.add(new Object[] { objectSummary.getKey(), objectSummary.getSize(), objectSummary.getLastModified().getTime() });
 			}
 			listObjectsRequest.setMarker(objectListing.getNextMarker());
 		} while (objectListing.isTruncated());
@@ -107,7 +132,7 @@ public class AWSS3InterfaceManager {
 		S3Object object = s3Client.getObject(new GetObjectRequest(bucketName, key));
 		return object.getObjectContent();
 	}
-	
+
 	public void uploadFile(String bucketName, String destinationKey, File toBeUploaded) {
 		s3Client.putObject(bucketName, destinationKey, toBeUploaded);
 	}
