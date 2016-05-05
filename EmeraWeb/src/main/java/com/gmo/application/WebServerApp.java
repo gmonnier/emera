@@ -66,7 +66,7 @@ public class WebServerApp {
 
 		initConnectionMonitor();
 
-		// initReportExtraction();
+		initReportExtraction();
 
 		initRMIServers();
 
