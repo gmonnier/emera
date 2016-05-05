@@ -20,7 +20,6 @@ import com.gmo.application.connectionsMonitor.ConnectionsMonitor;
 import com.gmo.application.filters.ConnectionFilter;
 import com.gmo.application.mappers.EOFExceptionMapper;
 import com.gmo.application.mappers.WebExceptionMapper;
-import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.externalinterfaces.nodes.rmiserver.NodeNotificationsRMIServer;
