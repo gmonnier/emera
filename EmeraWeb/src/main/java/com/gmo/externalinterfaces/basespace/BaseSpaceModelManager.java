@@ -33,7 +33,7 @@ public class BaseSpaceModelManager {
 	public void updateModel() {
 		LOG.info("Update baseSpace model");
 		rmiCLient = new BaseSpaceRMIClient();
-		if (rmiCLient.isConnectionOk()) {
+		if (rmiCLient != null) {
 			LOG.info("Request list of users runs from RMI Client.");
 			listRuns = rmiCLient.requestListCurrentUserRuns();
 			userInfo = rmiCLient.requestUserInfo();
@@ -73,10 +73,12 @@ public class BaseSpaceModelManager {
 	}
 
 	public List<UserRun> getListRuns() {
+		updateModel();
 		return listRuns;
 	}
 
 	public UserInfo getUserInfo() {
+		updateModel();
 		return userInfo;
 	}
 }
