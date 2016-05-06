@@ -15,6 +15,7 @@ import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
 import com.gmo.processorNode.viewmodel.ViewPollingInfo;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
@@ -38,6 +39,8 @@ public interface IProcessorNodeControl extends Remote {
 
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken, LocationType resultLocType, String resultLocation) throws RemoteException;
 
+	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration jsonConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) throws RemoteException;
+	
 	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException;
 
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException;

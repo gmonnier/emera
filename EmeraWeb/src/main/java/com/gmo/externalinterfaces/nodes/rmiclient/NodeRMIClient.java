@@ -22,6 +22,7 @@ import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewNodeNetworkConfig;
 import com.gmo.rmiconfig.RMIFileTransfertUtil;
@@ -208,7 +209,7 @@ public class NodeRMIClient implements IProcessorNodeControl {
 		}
 	}
 
-	@Override
+	
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) {
 		if (rmiNodeClient != null) {
 			try {
@@ -217,6 +218,18 @@ public class NodeRMIClient implements IProcessorNodeControl {
 				LOG.error("RemoteException " + e);
 			}
 		}
+	}
+	
+	@Override
+	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration jsonConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) {
+		if (rmiNodeClient != null) {
+			try {
+				return rmiNodeClient.enqueueNewPreprocessingAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
+			} catch (RemoteException e) {
+				LOG.error("RemoteException " + e);
+			}
+		}
+		return null;
 	}
 
 	public void uploadFileToNodeServer(InputType inputType, String fileName, InputStream uploadedInputStream, String analyseid) throws NodeStorageException, IOException {
@@ -236,4 +249,6 @@ public class NodeRMIClient implements IProcessorNodeControl {
 			}
 		}
 	}
+
+
 }

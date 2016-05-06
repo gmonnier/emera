@@ -10,7 +10,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.configuration.BaseSpaceContextManager;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 
 @Path("/ws-resources/preprocess")
@@ -27,7 +31,19 @@ public class WSAnalysisPreProcessing {
 		LOG.debug("POST: enqueue pre-processing analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
 
-		String analyseID = "AnalyseID";
+		// Get users's bs connection credentials
+		String bsClientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();
+		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
+		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
+
+		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
+		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+
+		LOG.info("--> RMI call - enqueue new preprocessing analysis ");
+		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewPreprocessingAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
+		LOG.info("<-- RMI call - enqueue new preprocessing analysis done");
+
+		String analyseID = id;
 		LOG.info("new Analysis enqueued with ID " + analyseID);
 		return analyseID;
 	}
