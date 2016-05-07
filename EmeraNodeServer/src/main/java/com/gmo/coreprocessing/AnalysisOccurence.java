@@ -40,7 +40,7 @@ import com.gmo.sharedobjects.util.FileCollectorListener;
 
 import main.BaseSpacePlatformManager;
 
-public class Analysis implements FileCollectorListener, IAnalysisProcessingListener, IReaderDispatcherListener, IDownloadListener {
+public class AnalysisOccurence extends Analysis implements FileCollectorListener, IAnalysisProcessingListener, IReaderDispatcherListener, IDownloadListener {
 
 	/**
 	 * InstantiateExecutor service for this . This service is used to start
@@ -89,11 +89,11 @@ public class Analysis implements FileCollectorListener, IAnalysisProcessingListe
 	private final ChunkQueueBuffer buffer = new ChunkQueueBuffer();
 
 	// Mandatory for jaxb
-	public Analysis() {
+	public AnalysisOccurence() {
 		this.additionalAnalyses = new ArrayList<>();
 	}
 
-	public Analysis(ViewCreateProcessConfiguration viewconfiguration, String userID) {
+	public AnalysisOccurence(ViewCreateProcessConfiguration viewconfiguration, String userID) {
 		progress = 0;
 		completionDate = -1;
 		geneLibrary = null;
