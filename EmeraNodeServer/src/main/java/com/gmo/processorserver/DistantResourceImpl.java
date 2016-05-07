@@ -2,7 +2,7 @@ package com.gmo.processorserver;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.coreprocessing.Analysis;
+import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ChunkQueueBuffer;
 import com.gmo.logger.Log4JLogger;
@@ -65,7 +65,7 @@ public class DistantResourceImpl implements IDistantResource {
 		}
 
 		if (clientStatus == ClientStatus.WAITING_FOR_DATA) {
-			Analysis analysis;
+			AnalysisOccurence analysis;
 			try {
 				analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 				ChunkQueueBuffer buffer = analysis.getBuffer();
@@ -84,7 +84,7 @@ public class DistantResourceImpl implements IDistantResource {
 		}
 		
 		else if (clientStatus == ClientStatus.IDLE) {
-			Analysis analysis;
+			AnalysisOccurence analysis;
 			try {
 				analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 				analysis.removeDistantResource(this.getID());
@@ -143,7 +143,7 @@ public class DistantResourceImpl implements IDistantResource {
 	@Override
 	public void requestAssignmentToAnalysis(String analyseId) {
 		this.analyseID = analyseId;
-		Analysis analysis;
+		AnalysisOccurence analysis;
 		try {
 			analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseId);
 			analysis.assignDistantResource(this);

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.coreprocessing.Analysis;
+import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
@@ -20,7 +20,7 @@ public class ErrorDispatcher {
 		LOG.error("Reason : " + t.getMessage());
 
 		try {
-			Analysis analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
+			AnalysisOccurence analysis = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 			// remove from analysis and release potential chunks
 			LOG.warn("Ask analysis to remove " + ip + " from its distant resource list");
 			analysis.removeDistantResource(ip);
@@ -31,8 +31,8 @@ public class ErrorDispatcher {
 
 	public void unableToRetrieveDataChunkResults(String ip, Throwable t) {
 		LOG.error("unableToRetrieveDataChunkResults from " + ip, t);
-		List<Analysis> listAnalysis = AnalysisManager.getInstance().getAllRunningAnalysis();
-		for (Analysis analysis : listAnalysis) {
+		List<AnalysisOccurence> listAnalysis = AnalysisManager.getInstance().getAllRunningAnalysis();
+		for (AnalysisOccurence analysis : listAnalysis) {
 			// remove from analysis and release potential chunks
 			analysis.removeDistantResource(ip);
 		}

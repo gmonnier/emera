@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.commonconfiguration.NetworkTopologyManager;
-import com.gmo.coreprocessing.Analysis;
+import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.network.network_Server.BaseServer;
@@ -87,8 +87,8 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 		mapResourcesConnected.remove(clientSock.getIP());
 		mapResourcesAvailable.remove(clientSock.getIP());
 
-		List<Analysis> listAnalyses = AnalysisManager.getInstance().getAllRunningAnalysis();
-		for (Analysis runningAnalysis : listAnalyses) {
+		List<AnalysisOccurence> listAnalyses = AnalysisManager.getInstance().getAllRunningAnalysis();
+		for (AnalysisOccurence runningAnalysis : listAnalyses) {
 			runningAnalysis.removeDistantResource(clientSock.getIP());
 		}
 	}
@@ -100,9 +100,9 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 		mapResourcesAvailable.put(ires.getID(), ires);
 		ires.requestStatus();
 
-		List<Analysis> analysisList = AnalysisManager.getInstance().getAllRunningAnalysis();
-		for (Iterator<Analysis> iterator = analysisList.iterator(); iterator.hasNext();) {
-			Analysis analysis = (Analysis) iterator.next();
+		List<AnalysisOccurence> analysisList = AnalysisManager.getInstance().getAllRunningAnalysis();
+		for (Iterator<AnalysisOccurence> iterator = analysisList.iterator(); iterator.hasNext();) {
+			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
 			if (analysis.getStatus() == AnalysisStatus.RUNNING) {
 				ires.requestAssignmentToAnalysis(analysis.getAnalysisID());
 				mapResourcesAvailable.remove(ires.getID());
@@ -111,7 +111,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 
 	}
 
-	public void requestAllAvailableResources(Analysis runningAnalysis) {
+	public void requestAllAvailableResources(AnalysisOccurence runningAnalysis) {
 		Iterator<Map.Entry<String, IDistantResource>> it = mapResourcesConnected.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<String, IDistantResource> pair = (Map.Entry<String, IDistantResource>) it.next();
@@ -149,7 +149,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 
 				LOG.info("Received new data chunk result for chunkID = " + result.getChunkId() + " from " + distRes.getID());
 
-				Analysis analyse = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
+				AnalysisOccurence analyse = AnalysisManager.getInstance().getRunningAnalysis(analyseID);
 				analyse.analysisResultsReceived(result);
 
 			} catch (StringSerializationException e) {

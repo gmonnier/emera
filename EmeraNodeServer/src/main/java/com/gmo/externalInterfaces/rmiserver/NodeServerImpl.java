@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import com.amazonaws.services.ec2.model.Instance;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.StorageConfigurationManager;
-import com.gmo.coreprocessing.Analysis;
+import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.coreprocessing.AnalysisManager;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.generated.configuration.networktopology.RmiInterface;
@@ -34,6 +34,7 @@ import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewNodePollingInfo;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.network.ViewAWSInstance;
 import com.gmo.processorNode.viewmodel.network.ViewDistantResource;
@@ -136,12 +137,12 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 		ViewNodeNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
 
-		List<Analysis> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
+		List<AnalysisOccurence> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
 		List<ViewAnalysis> usersViewAnalysis = new ArrayList<ViewAnalysis>();
 
 		AnalysisConverter analysisConverter = new AnalysisConverter();
-		for (Iterator<Analysis> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
-			Analysis analysis = (Analysis) iterator.next();
+		for (Iterator<AnalysisOccurence> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
+			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
 		}
 
@@ -243,6 +244,12 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
 		LOG.warn("TODO: Pass S3/Files Reference, not the complete report!");
 		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
+	}
+
+	@Override
+	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration jsonConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
