@@ -18,7 +18,7 @@ import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 public class AnalysisManager {
 
-	private List<AnalysisOccurence> runningAnalysis;
+	private List<Analysis> runningAnalysis;
 
 	// Those values should be initialized/synchronized by the FE server
 	private LocationType analysisResultsLocationType;
@@ -33,7 +33,7 @@ public class AnalysisManager {
 
 	private AnalysisManager() {
 		LOG.info("Instantiate Analyse manager");
-		runningAnalysis = new ArrayList<AnalysisOccurence>();
+		runningAnalysis = new ArrayList<Analysis>();
 		analysisResultsLocationType = LocationType.LOCAL;
 		analysisResultsLocation = "results";
 	}
@@ -42,9 +42,9 @@ public class AnalysisManager {
 		return AnalysisManagerHolder.instance;
 	}
 
-	public List<AnalysisOccurence> getUserRunningAnalysis(String userID) {
-		List<AnalysisOccurence> runningUsersList = new ArrayList<>();
-		for (AnalysisOccurence analysis : runningAnalysis) {
+	public List<Analysis> getUserRunningAnalysis(String userID) {
+		List<Analysis> runningUsersList = new ArrayList<>();
+		for (Analysis analysis : runningAnalysis) {
 			if (analysis.getUserid().equals(userID)) {
 				runningUsersList.add(analysis);
 			}
@@ -52,7 +52,7 @@ public class AnalysisManager {
 		return runningUsersList;
 	}
 
-	public List<AnalysisOccurence> getAllRunningAnalysis() {
+	public List<Analysis> getAllRunningAnalysis() {
 		return runningAnalysis;
 	}
 
@@ -61,14 +61,14 @@ public class AnalysisManager {
 		this.analysisResultsLocationType = analysisResultsLocationType;
 		this.analysisResultsLocation = analysisResultsLocation;
 		// Create and start the analysis
-		AnalysisOccurence newAnalyse = new AnalysisOccurence(viewConfig, userID);
+		Analysis newAnalyse = new AnalysisOccurence(viewConfig, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
 		runningAnalysis.add(newAnalyse);
 		return newAnalyse.getId();
 	}
 
-	public void analyseFinished(AnalysisOccurence analysis) {
-		LOG.debug("Analysis detected as done. analysisID = " + analysis.getAnalysisID());
+	public void analyseFinished(Analysis analysis) {
+		LOG.debug("Analysis detected as done. analysisID = " + analysis.getId());
 		runningAnalysis.remove(analysis);
 
 		// Notify FE server of analysis completion
@@ -78,8 +78,8 @@ public class AnalysisManager {
 
 	public void stopAllAnalyses() {
 		LOG.debug("Request to stop all currently running analyses");
-		for (Iterator<AnalysisOccurence> iterator = runningAnalysis.iterator(); iterator.hasNext();) {
-			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
+		for (Iterator<Analysis> iterator = runningAnalysis.iterator(); iterator.hasNext();) {
+			Analysis analysis = (Analysis) iterator.next();
 			analysis.stopAnalyse();
 		}
 		runningAnalysis.clear();
@@ -88,9 +88,9 @@ public class AnalysisManager {
 	public void stopAllAnalyses(String userID) {
 		LOG.debug("Request to stop all currently running analyses of userID : " + userID);
 		for (int i = runningAnalysis.size() - 1; i >= 0; i--) {
-			AnalysisOccurence analysis = runningAnalysis.get(i);
+			Analysis analysis = runningAnalysis.get(i);
 			if (analysis.getUserid().equals(userID)) {
-				LOG.debug("Stop analyse " + analysis.getAnalysisID());
+				LOG.debug("Stop analyse " + analysis.getId());
 				analysis.stopAnalyse();
 				runningAnalysis.remove(i);
 			}
@@ -100,7 +100,7 @@ public class AnalysisManager {
 	public void stopAnalyse(String ID) {
 		LOG.debug("Request to stop analyse with ID " + ID);
 		try {
-			AnalysisOccurence analyse = getRunningAnalysis(ID);
+			Analysis analyse = getRunningAnalysis(ID);
 			analyse.stopAnalyse();
 			boolean removed = runningAnalysis.remove(analyse);
 			LOG.debug("Analyse with ID " + ID + " successfully removed : " + removed);
@@ -109,11 +109,11 @@ public class AnalysisManager {
 		}
 	}
 
-	public AnalysisOccurence getRunningAnalysis(String id) throws NoSuchAnalysisException {
+	public Analysis getRunningAnalysis(String id) throws NoSuchAnalysisException {
 		if (id == null || id.isEmpty()) {
 			throw new NoSuchAnalysisException();
 		}
-		for (AnalysisOccurence analysis : runningAnalysis) {
+		for (Analysis analysis : runningAnalysis) {
 			if (analysis.getId().equals(id)) {
 				return analysis;
 			}

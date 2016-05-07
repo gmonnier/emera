@@ -2,6 +2,7 @@ package com.gmo.modelconverters;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
