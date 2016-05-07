@@ -7,15 +7,15 @@ import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
-public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, AnalysisOccurence> {
+public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Analysis> {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
 	@Override
-	public ViewAnalysis buildViewModelObject(AnalysisOccurence input) {
+	public ViewAnalysis buildViewModelObject(Analysis input) {
 		ViewAnalysis viewObject = new ViewAnalysis();
-		viewObject.setId(input.getAnalysisID());
+		viewObject.setId(input.getId());
 		viewObject.setProgress(input.getProgress());
 		viewObject.setStatus(input.getStatus());
 		viewObject.setUserid(input.getUserid());

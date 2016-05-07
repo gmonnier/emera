@@ -1,37 +1,44 @@
 package com.gmo.coreprocessing;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.basespaceService.model.FastQFile;
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.BSDownloadInfo;
+import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 
+import main.BaseSpacePlatformManager;
+
 public abstract class Analysis {
-	
+
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
-	
+
 	protected String id;
 
 	protected String userid;
-	
+
 	private AnalysisStatus status;
-	
+
 	private long launchDate;
 
 	private long completionDate;
-	
+
 	private int progress;
 
 	private List<IDistantResource> assignedResources;
-	
+
+	private BSDownloadInfo downloadInfo;
+
 	public Analysis(String userID) {
 		this.userid = userID;
 		this.id = UUID.randomUUID().toString();
@@ -39,6 +46,23 @@ public abstract class Analysis {
 		this.completionDate = -1;
 		this.status = AnalysisStatus.IDLE;
 		this.assignedResources = new ArrayList<IDistantResource>();
+		this.downloadInfo = new BSDownloadInfo();
+	}
+
+	protected void checkForDownload() {
+		// Ask for BaseSPace download if basespaces files are required (Data
+		// files)
+		List<ViewFile> listdataSelected = viewConfiguration.getSelectedDataFiles();
+		for (Iterator<ViewFile> iterator = listdataSelected.iterator(); iterator.hasNext();) {
+			ViewFile dataFile = (ViewFile) iterator.next();
+			if (dataFile.getOrigin() == ViewFileOrigin.BASESPACE) {
+				FastQFile fastQFile = BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).getWithID(dataFile.getId());
+				LOG.debug("Request download for fastQFile " + fastQFile.getName());
+				downloadInfo.update(fastQFile, 0);
+				setStatus(AnalysisStatus.RETRIEVE_FILES);
+				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
+			}
+		}
 	}
 
 	public String getId() {
@@ -56,7 +80,7 @@ public abstract class Analysis {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	
+
 	public int getProgress() {
 		return progress;
 	}
@@ -64,7 +88,7 @@ public abstract class Analysis {
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
-	
+
 	public long getLaunchDate() {
 		return launchDate;
 	}
@@ -80,11 +104,27 @@ public abstract class Analysis {
 	public void setCompletionDate(long endDate) {
 		this.completionDate = endDate;
 	}
-	
+
 	public AnalysisStatus getStatus() {
 		return status;
 	}
-	
+
+	public List<IDistantResource> getAssignedResources() {
+		return assignedResources;
+	}
+
+	public void setAssignedResources(List<IDistantResource> assignedResources) {
+		this.assignedResources = assignedResources;
+	}
+
+	public BSDownloadInfo getDownloadInfo() {
+		return downloadInfo;
+	}
+
+	public void setDownloadInfo(BSDownloadInfo downloadInfo) {
+		this.downloadInfo = downloadInfo;
+	}
+
 	/*
 	 * Resources management ----->
 	 */
@@ -103,7 +143,7 @@ public abstract class Analysis {
 			assignedResources.add(resource);
 		}
 	}
-	
+
 	public synchronized void removeDistantResource(String resourceID) {
 		for (int i = assignedResources.size() - 1; i >= 0; i--) {
 			if (resourceID.equals(assignedResources.get(i).getID())) {
@@ -119,7 +159,7 @@ public abstract class Analysis {
 		}
 		LOG.warn(resourceID + " not found into assignedResources list : current list = " + printAssignedResourcesID());
 	}
-	
+
 	public synchronized void removeAllDistantResource() {
 		for (int i = assignedResources.size() - 1; i >= 0; i--) {
 			if (buffer != null) {
@@ -130,7 +170,19 @@ public abstract class Analysis {
 		}
 		assignedResources.clear();
 	}
-	
+
+	private String printAssignedResourcesID() {
+		StringBuilder sb = new StringBuilder();
+		for (Iterator<IDistantResource> iterator = assignedResources.iterator(); iterator.hasNext();) {
+			IDistantResource resource = (IDistantResource) iterator.next();
+			sb.append(resource.getID());
+			if (iterator.hasNext()) {
+				sb.append(" , ");
+			}
+		}
+		return sb.toString();
+	}
+
 	/*
 	 * <----- Resources management
 	 */
@@ -139,4 +191,6 @@ public abstract class Analysis {
 
 	public abstract void stopAnalyse();
 	
+	public abstract void setStatus(AnalysisStatus status);
+
 }
