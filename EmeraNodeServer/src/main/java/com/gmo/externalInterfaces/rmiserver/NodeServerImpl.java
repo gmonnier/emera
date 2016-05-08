@@ -156,21 +156,10 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		StorageConfigurationManager.getInstance().updateModel();
 		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(inputType, fileName);
 
-		switch (inputType) {
-		case DATA: {
-			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getFileCollector().addToData(modelUploaded);
-			} catch (NoSuchAnalysisException e) {
-				LOG.error("Unable to add " + modelUploaded + " to data of " + analyseid);
-			}
-		}
-		case LIBRARY: {
-			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getFileCollector().fileCollectedgetProcessConfiguration().addToLibraries(modelUploaded);
-			} catch (NoSuchAnalysisException e) {
-				LOG.error("Unable to add " + modelUploaded + " to libraries of " + analyseid);
-			}
-		}
+		try {
+			AnalysisManager.getInstance().getRunningAnalysis(analyseid).getFileCollector().fileCollected(modelUploaded, inputType);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to add " + modelUploaded + " to data of " + analyseid);
 		}
 
 	}
