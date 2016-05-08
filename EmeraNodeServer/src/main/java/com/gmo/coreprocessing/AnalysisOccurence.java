@@ -24,7 +24,7 @@ import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
 
-public class AnalysisOccurence extends Analysis implements IAnalysisProcessingListener, IReaderDispatcherListener {
+public class AnalysisOccurence extends Analysis implements IAnalysisOccurenceProcessingListener, IReaderDispatcherListener {
 
 	/**
 	 * InstantiateExecutor service for this . This service is used to start
@@ -77,38 +77,6 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 
 	public ProcessConfiguration getProcessConfiguration() {
 		return processConfiguration;
-	}
-
-	@Override
-	public void analysisStarted() {
-		synchronized (this) {
-			setStatus(AnalysisStatus.RUNNING);
-		}
-	}
-
-	@Override
-	public void analysisError() {
-		synchronized (this) {
-			setStatus(AnalysisStatus.RUNNING_ERROR);
-		}
-	}
-
-	@Override
-	public void analysisPreProcessStarted() {
-		synchronized (this) {
-			setStatus(AnalysisStatus.PREPROCESSING);
-		}
-	}
-
-	@Override
-	public void analysisDone(final long dateFinished) {
-		synchronized (this) {
-			LOG.debug("Analysis done request to change status accordingly");
-			progress = 100;
-			completionDate = dateFinished;
-			setStatus(AnalysisStatus.DONE);
-			AnalysisManager.getInstance().analyseFinished(this);
-		}
 	}
 
 	@Override

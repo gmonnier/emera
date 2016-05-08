@@ -16,8 +16,8 @@ import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
 public class AnalysisWorker implements Runnable {
 
-	private IAnalysisProcessingListener processinglistener;
-	
+	private IAnalysisOccurenceProcessingListener processinglistener;
+
 	private IReaderDispatcherListener dispatcherlistener;
 
 	private ProcessConfiguration configuration;
@@ -27,7 +27,7 @@ public class AnalysisWorker implements Runnable {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	public AnalysisWorker(ProcessConfiguration configuration, IAnalysisProcessingListener processinglistener,IReaderDispatcherListener dispatcherlistener, ChunkQueueBuffer chunkBuffer) {
+	public AnalysisWorker(ProcessConfiguration configuration, IAnalysisOccurenceProcessingListener processinglistener, IReaderDispatcherListener dispatcherlistener, ChunkQueueBuffer chunkBuffer) {
 		LOG.debug("Create analysis worker for analysis ID " + processinglistener.getId());
 		this.processinglistener = processinglistener;
 		this.dispatcherlistener = dispatcherlistener;
@@ -53,13 +53,13 @@ public class AnalysisWorker implements Runnable {
 			LOG.error("Exception catched while extraction libraries, switching state of current analysis to error");
 			processinglistener.analysisError();
 			return;
-		} catch(InterruptedException ie) {
+		} catch (InterruptedException ie) {
 			LOG.debug("Library extraction interrupted");
 			return;
 		}
 
 		processinglistener.analysisStarted();
-		
+
 		try {
 			ProcessorServerManager.getInstance().requestAllAvailableResources(AnalysisManager.getInstance().getRunningAnalysis(processinglistener.getId()));
 		} catch (NoSuchAnalysisException e1) {
@@ -72,7 +72,7 @@ public class AnalysisWorker implements Runnable {
 			LOG.debug("Exception catched while reading input data files.");
 			processinglistener.analysisError();
 			return;
-		} catch(InterruptedException ie) {
+		} catch (InterruptedException ie) {
 			LOG.debug("DataReaderDispatcher interrupted, exit run method");
 			return;
 		}

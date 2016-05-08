@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +13,13 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.coreprocessing.ConfigurationAnalysisSplitter;
+import com.gmo.coreprocessing.IAnalysisProcessingListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.ReadDispatchException;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
-public class DataReaderSplitter {
+public class DataReaderSplitter implements Runnable {
 
 	private static Logger LOG = Log4JLogger.logger;
 
@@ -26,12 +28,15 @@ public class DataReaderSplitter {
 	private int currentPercent;
 
 	private ConfigurationAnalysisSplitter processConfiguration;
+
+	private IAnalysisProcessingListener processinglistener;
 	private IReaderDispatcherListener dispatcherListener;
 
-	public DataReaderSplitter(ConfigurationAnalysisSplitter processConfiguration, IReaderDispatcherListener processListener) {
+	public DataReaderSplitter(ConfigurationAnalysisSplitter processConfiguration, IReaderDispatcherListener processListener, IAnalysisProcessingListener processinglistener) {
 
 		this.currentPercent = 0;
 		this.dispatcherListener = processListener;
+		this.processinglistener = processinglistener;
 		this.processConfiguration = processConfiguration;
 
 		// Get the total size in bytes to be treated from the data files
@@ -48,7 +53,7 @@ public class DataReaderSplitter {
 	 * @throws ReadDispatchException
 	 * @throws InterruptedException
 	 */
-	public void readAndSplit() throws ReadDispatchException, InterruptedException {
+	public void run() {
 
 		LOG.info("Enter reading and splitting fastq input");
 
@@ -97,11 +102,11 @@ public class DataReaderSplitter {
 					}
 
 					BufferedWriter writter = null;
-					if(modelFound != null) {
+					if (modelFound != null) {
 						// retrieve writer associated with he current line
 						writter = writters.get(modelFound.getOutputName());
 					}
-					
+
 					if (writter != null) {
 						totalByteReads += line.length();
 						writter.write(line);
@@ -127,16 +132,13 @@ public class DataReaderSplitter {
 					}
 
 					if (Thread.interrupted()) {
-						LOG.debug("Thread interrupted, throw an interrupted exception");
-						throw new InterruptedException();
+						LOG.debug("Thread interrupted");
 					}
 				}
 
 			} catch (IOException e) {
 				LOG.error("IO exception thrown : ", e);
-				throw new ReadDispatchException();
-			} catch (InterruptedException e) {
-				throw e;
+				processinglistener.analysisError();
 			} finally {
 				try {
 					reader.close();
@@ -155,6 +157,7 @@ public class DataReaderSplitter {
 		LOG.debug("<-- Split results");
 		currentPercent = (int) ((totalByteReads * 100) / totalByteToProcess);
 		dispatcherListener.readDone(totalCount);
+		processinglistener.analysisDone(new Date().getTime());
 	}
 
 	private int skipAndWriteLine(BufferedReader reader, BufferedWriter writer) throws IOException {

@@ -25,7 +25,7 @@ import com.gmo.sharedobjects.util.FileCollectorListener;
 
 import main.BaseSpacePlatformManager;
 
-public abstract class Analysis implements FileCollectorListener {
+public abstract class Analysis implements FileCollectorListener, IAnalysisProcessingListener {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -67,7 +67,7 @@ public abstract class Analysis implements FileCollectorListener {
 		}
 
 	}
-	
+
 	public synchronized void setStatus(AnalysisStatus newstatus) {
 		if (newstatus == status) {
 			return;
@@ -207,14 +207,48 @@ public abstract class Analysis implements FileCollectorListener {
 		LOG.debug("All files successfully collected, analysis is ready to start.");
 		setStatus(AnalysisStatus.READY_FOR_PROCESSING);
 	}
-	
+
 	@Override
 	public void collectionFailed() {
-		setStatus(AnalysisStatus.UPLOAD_ERROR);
+		synchronized (this) {
+			setStatus(AnalysisStatus.UPLOAD_ERROR);
+		}
+	}
+
+	@Override
+	public void analysisStarted() {
+		synchronized (this) {
+			setStatus(AnalysisStatus.RUNNING);
+		}
+	}
+
+	@Override
+	public void analysisError() {
+		synchronized (this) {
+			setStatus(AnalysisStatus.RUNNING_ERROR);
+		}
+	}
+
+	@Override
+	public void analysisPreProcessStarted() {
+		synchronized (this) {
+			setStatus(AnalysisStatus.PREPROCESSING);
+		}
+	}
+	
+	@Override
+	public void analysisDone(final long dateFinished) {
+		synchronized (this) {
+			LOG.debug("Analysis done request to change status accordingly");
+			progress = 100;
+			completionDate = dateFinished;
+			setStatus(AnalysisStatus.DONE);
+			AnalysisManager.getInstance().analyseFinished(this);
+		}
 	}
 
 	protected abstract void cleanupAfterResourceRelease(String resourceID);
-	
+
 	protected abstract void startProcessing();
 
 	public abstract void stopAnalyse();
