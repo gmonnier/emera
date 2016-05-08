@@ -48,7 +48,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 				localFolder.mkdirs();
 			}
 			
-			LOG.debug("Remote BaseSPace API call");
+			LOG.debug("Remote BaseSPace API call " + file.getName() + "   to : " + localFolder);
 			clientBS.download(file, localFolder, this);
 
 		} catch (Throwable t) {
