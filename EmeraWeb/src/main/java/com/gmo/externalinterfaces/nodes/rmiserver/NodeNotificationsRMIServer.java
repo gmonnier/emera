@@ -58,6 +58,7 @@ public class NodeNotificationsRMIServer implements IProcessorNotifications {
 
 	@Override
 	public void analysisCompleted(ViewAnalysis analysis) throws RemoteException {
+		LOG.info("[RMI-MODULE] Analysis received as done from node server : " + analysis.getId());
 		ResultsManager.getInstance().addProcessedAnalysis(analysis);
 	}
 

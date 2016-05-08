@@ -71,9 +71,6 @@ public class AnalysisSplit extends Analysis implements IReaderDispatcherListener
 		LOG.debug("Reading done on associated data file. Number of lines read : " + totalCount);
 		synchronized (this) {
 			progress = 100;
-			completionDate = new Date().getTime();
-			setStatus(AnalysisStatus.DONE);
-			AnalysisManager.getInstance().analyseFinished(this);
 		}
 	}
 
