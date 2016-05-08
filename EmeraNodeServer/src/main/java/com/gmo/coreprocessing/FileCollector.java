@@ -11,6 +11,7 @@ import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.modelconverters.FileStoredConverter;
 import com.gmo.processorNode.viewmodel.BSDownloadInfo;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewFileOrigin;
@@ -96,7 +97,7 @@ public class FileCollector implements IDownloadListener {
 	
 	public void fileCollected(ModelFileStored mfs, InputType type) {
 		collectorListener.fileCollected(type, mfs);
-		collectedFiles.add(new ViewFile(ViewFileOrigin.STORED, mfs.getName(), mfs.getId(), mfs.getLastModified().getTime(), mfs.getSize()));
+		collectedFiles.add(new FileStoredConverter().buildViewModelObject(mfs));
 		checkCollectedFiles();
 	}
 
