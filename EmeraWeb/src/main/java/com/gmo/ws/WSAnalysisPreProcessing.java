@@ -27,8 +27,7 @@ public class WSAnalysisPreProcessing {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response postNewProcessJSON(ViewPreProcessingConfiguration jsonConfig, @QueryParam("user_id") String userID) {
-		LOG.debug("POST: enqueue pre-processing analysis : " + jsonConfig);
-		LOG.debug("POST: User ID = : " + userID);
+		LOG.debug("enqueue pre-processing analysis : " + jsonConfig + "   User ID = : " + userID);
 
 		// Get users's bs connection credentials
 		String bsClientID = BaseSpaceContextManager.getInstance().getConfig().getBsClientID();

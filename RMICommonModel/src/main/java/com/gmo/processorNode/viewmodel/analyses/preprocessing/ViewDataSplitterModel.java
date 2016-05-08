@@ -1,9 +1,11 @@
 package com.gmo.processorNode.viewmodel.analyses.preprocessing;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ViewDataSplitterModel {
+public class ViewDataSplitterModel implements Serializable {
 
 	private String regexp;
 
