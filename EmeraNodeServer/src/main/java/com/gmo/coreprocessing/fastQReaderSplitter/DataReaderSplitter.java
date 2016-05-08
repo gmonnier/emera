@@ -79,7 +79,11 @@ public class DataReaderSplitter implements Runnable {
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
 				for (int i = 0; i < splitModel.size(); i++) {
-					String outputName = FilenameUtils.removeExtension(modelFileStored.getName()) + "_FILTERED_" + splitModel.get(i).getOutputName() + FilenameUtils.getExtension(modelFileStored.getName());
+					String fileExt = FilenameUtils.getExtension(modelFileStored.getName());
+					String outputName = FilenameUtils.removeExtension(modelFileStored.getName()) + "_FILTERED_" + splitModel.get(i).getOutputName();
+					if(fileExt != null && !fileExt.isEmpty()) {
+						outputName += "." + fileExt;
+					}
 					BufferedWriter writter = new BufferedWriter(new FileWriter(new File(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), outputName)));
 					writters.put(outputName, writter);
 					// Writte first line
@@ -159,6 +163,9 @@ public class DataReaderSplitter implements Runnable {
 		LOG.debug("     Ignored lines count : " + ignoredLinesCount);
 		LOG.debug("<-- Split results");
 		currentPercent = (int) ((totalByteReads * 100) / totalByteToProcess);
+		
+		StorageConfigurationManager.getInstance().updateModel();
+		
 		dispatcherListener.readDone(totalCount);
 		processinglistener.analysisDone(new Date().getTime());
 	}
