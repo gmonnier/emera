@@ -2,6 +2,7 @@ package com.gmo.coreprocessing.fastQReaderSplitter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.ConfigurationAnalysisSplitter;
 import com.gmo.coreprocessing.IAnalysisProcessingListener;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
@@ -76,8 +78,8 @@ public class DataReaderSplitter implements Runnable {
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
 				for (int i = 0; i < splitModel.size(); i++) {
-					String outputName = splitModel.get(i).getOutputName();
-					BufferedWriter writter = new BufferedWriter(new FileWriter(outputName));
+					String outputName = modelFileStored.getName() + "_FILTERED_" + splitModel.get(i).getOutputName();
+					BufferedWriter writter = new BufferedWriter(new FileWriter(new File(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), outputName)));
 					writters.put(outputName, writter);
 					// Writte first line
 					writter.write(line);
