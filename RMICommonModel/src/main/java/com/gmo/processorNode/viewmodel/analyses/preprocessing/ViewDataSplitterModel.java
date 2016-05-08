@@ -2,19 +2,13 @@ package com.gmo.processorNode.viewmodel.analyses.preprocessing;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.logging.log4j.Logger;
-
-import com.gmo.logger.Log4JLogger;
-
 @XmlRootElement
 public class ViewDataSplitterModel {
-	
-	private static Logger LOG = Log4JLogger.logger;
 
 	private String regexp;
 
 	private String outputName;
-	
+
 	private String alias;
 
 	public ViewDataSplitterModel() {
@@ -50,7 +44,5 @@ public class ViewDataSplitterModel {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-	
-	
 
 }

@@ -52,7 +52,7 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 			userID = user.current.user_id;
 		}
 		var urlenqueue = '/ws-resources/process/enqueue?user_id=' + userID;
-		
+		console.log($scope.configuration);
 		var request = $http({method: 'POST', 
 							url: urlenqueue,
 							data: $scope.configuration});

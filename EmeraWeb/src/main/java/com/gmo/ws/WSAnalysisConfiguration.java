@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +36,7 @@ public class WSAnalysisConfiguration {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
+	public Response enqueueNewAnalysis(ViewCreateProcessConfiguration jsonConfig, @QueryParam("user_id") String userID) {
 		LOG.debug("POST: enqueue requested for new analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
 		
@@ -60,8 +61,12 @@ public class WSAnalysisConfiguration {
 		ApplicationContextManager.getInstance().updateDefaultPatternIndex(jsonConfig.getPattern());
 		ApplicationContextManager.getInstance().getWriter().marshalXMLFileExternalThread();
 		
+		
+		if(id == null) {
+			return Response.status(500).build();
+		}
 		LOG.info("new Analysis enqueued with ID " + id);
-		return id;
+		return Response.ok().entity(id).build();
 	}
 
 	@Path("addPattern")

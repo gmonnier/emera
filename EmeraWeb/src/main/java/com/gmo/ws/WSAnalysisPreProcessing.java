@@ -7,12 +7,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.Logger;
 
-import com.gmo.configuration.ApplicationContextManager;
 import com.gmo.configuration.BaseSpaceContextManager;
-import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.nodes.NodeManager;
 import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
@@ -27,7 +26,7 @@ public class WSAnalysisPreProcessing {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String postNewProcessJSON(ViewPreProcessingConfiguration jsonConfig, @QueryParam("user_id") String userID) {
+	public Response postNewProcessJSON(ViewPreProcessingConfiguration jsonConfig, @QueryParam("user_id") String userID) {
 		LOG.debug("POST: enqueue pre-processing analysis : " + jsonConfig);
 		LOG.debug("POST: User ID = : " + userID);
 
@@ -40,9 +39,10 @@ public class WSAnalysisPreProcessing {
 		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewPreprocessingAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
 		LOG.info("<-- RMI call - enqueue new preprocessing analysis done");
 
-		String analyseID = id;
-		LOG.info("new Analysis enqueued with ID " + analyseID);
-		return analyseID;
+		if(id == null) {
+			return Response.status(500).build();
+		}
+		return Response.ok().entity(id).build();
 	}
 
 	@Path("confinit")

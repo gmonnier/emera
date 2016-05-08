@@ -63,7 +63,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 		var request = $http({method: 'POST', 
 							url: urlenqueue,
 							data: $scope.configuration});
-		
+		console.log($scope.configuration);
 		request.success(function(data, status, headers, config) {
 			var uploadNeeded = uploadService.uploadNeeded();
 			$scope.uploadmessage = uploadNeeded ? 'Upload process will start now. Please do not leave the page while transfering files to server.' : '';
@@ -73,7 +73,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 			} else {
 				if(!data) {
 					// should never occurs!
-					alert('an error occured when uploading files, unable to retrieve analyse id');
+					$scope.showDialog("#dialog-message-failed" );
 				}
 			}
 			$scope.showDialog("#dialog-message-ok", function() {
