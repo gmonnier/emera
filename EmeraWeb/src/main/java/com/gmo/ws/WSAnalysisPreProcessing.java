@@ -34,10 +34,10 @@ public class WSAnalysisPreProcessing {
 		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
 		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 
-		LOG.info("--> RMI call - enqueue new preprocessing analysis ");
+		
 		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewPreprocessingAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
-		LOG.info("<-- RMI call - enqueue new preprocessing analysis done");
 
+		LOG.info("Analysis enqueue request performed : id = " + id);
 		if(id == null) {
 			return Response.status(500).build();
 		}

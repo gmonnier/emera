@@ -81,8 +81,9 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 			});
 		}).
 		error(function(data, status, headers, config) {
-			$scope.showDialog("#dialog-message-failed" );
-			$scope.changeRoute('/home');
+			$scope.showDialog("#dialog-message-failed", function() {
+				$scope.changeRoute('/');
+			});
 		});
 	}
     

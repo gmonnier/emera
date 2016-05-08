@@ -74,8 +74,9 @@ appControllers.controller('createLookupCtrl', function ($scope,$rootScope, $http
 			});
 		}).
 		error(function(data, status, headers, config) {
-			$scope.showDialog("#dialog-message-failed" );
-			$scope.changeRoute('/home');
+			$scope.showDialog("#dialog-message-failed", function() {
+				$scope.changeRoute('/');
+			});
 		});
 	}
 	

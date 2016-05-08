@@ -1,6 +1,5 @@
 package com.gmo.processorNode.viewmodel.analyses.preprocessing;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.gmo.processorNode.viewmodel.ViewFile;
 
 @XmlRootElement
-public class ViewPreProcessingConfiguration implements Serializable {
+public class ViewPreProcessingConfiguration {
 
 	// List of data files
 	private List<ViewFile> selectedDataFiles;
@@ -36,7 +35,7 @@ public class ViewPreProcessingConfiguration implements Serializable {
 	public void setSelectedDataFiles(List<ViewFile> selectedDataFiles) {
 		this.selectedDataFiles = selectedDataFiles;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ViewPreProcessingConfiguration [selectedDataFiles=" + selectedDataFiles + "]";
