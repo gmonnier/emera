@@ -17,8 +17,9 @@ import org.apache.logging.log4j.Logger;
 import com.amazonaws.services.ec2.model.Instance;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.StorageConfigurationManager;
-import com.gmo.coreprocessing.AnalysisOccurence;
+import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisManager;
+import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
@@ -137,11 +138,11 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 		ViewNodeNetworkConfig viewNetConfig = new ViewNodeNetworkConfig(nodeServer, resources, awsInstances);
 
-		List<AnalysisOccurence> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
+		List<Analysis> usersAnalysis = AnalysisManager.getInstance().getUserRunningAnalysis(userID);
 		List<ViewAnalysis> usersViewAnalysis = new ArrayList<ViewAnalysis>();
 
 		AnalysisConverter analysisConverter = new AnalysisConverter();
-		for (Iterator<AnalysisOccurence> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
+		for (Iterator<Analysis> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
 			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
 		}

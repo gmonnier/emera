@@ -11,7 +11,7 @@ public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Anal
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
-	
+
 	@Override
 	public ViewAnalysis buildViewModelObject(Analysis input) {
 		ViewAnalysis viewObject = new ViewAnalysis();
@@ -19,11 +19,15 @@ public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Anal
 		viewObject.setProgress(input.getProgress());
 		viewObject.setStatus(input.getStatus());
 		viewObject.setUserid(input.getUserid());
-		viewObject.setViewConfiguration(input.getConfiguration());
-		viewObject.setReport(input.getReport());
 		viewObject.setLaunchDate(input.getLaunchDate());
 		viewObject.setCompletionDate(input.getCompletionDate());
-		viewObject.setDownloadInfo(input.getDownloadInfo());
+		viewObject.setDownloadInfo(input.getFileCollector().getDownloadInfo());
+		
+		if(input instanceof AnalysisOccurence) {
+			AnalysisOccurence analysisOcc = (AnalysisOccurence) input;
+			viewObject.setViewConfiguration(new ProcessConfigurationConverter().buildViewModelObject(analysisOcc.getProcessConfiguration()));
+			viewObject.setReport(analysisOcc.getReport());
+		}
 		
 		return viewObject;
 	}

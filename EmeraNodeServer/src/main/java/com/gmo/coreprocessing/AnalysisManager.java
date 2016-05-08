@@ -1,11 +1,8 @@
 package com.gmo.coreprocessing;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.text.View;
 
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +12,6 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
-import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
-import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
