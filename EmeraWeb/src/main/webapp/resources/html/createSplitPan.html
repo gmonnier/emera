@@ -46,7 +46,7 @@
 						</li>
 					</ol>
 					<img class="arrow-down" ng-src="http://d3q6339sjg0aim.cloudfront.net/create_analysis/arrow-down.svg"/>
-					<ol id="selected-patterns-list" ng-class="{two-columns: configuration.dataSplitterModels.length >== 2}">
+					<ol id="selected-patterns-list" ng-class="configuration.dataSplitterModels.length >= 2 ? 'twocolumns' : ''">
 						<li ng-repeat="splitPattern in configuration.dataSplitterModels">
 							<img class="input-picture" src='http://d3q6339sjg0aim.cloudfront.net/fileOrg/stored.svg'/>
 							<span class="pattern-regex">{{splitPattern.outputName}}.fastq</span>

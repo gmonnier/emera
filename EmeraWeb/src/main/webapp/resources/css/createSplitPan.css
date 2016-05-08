@@ -156,12 +156,11 @@
 
 #analyse-split-content #selected-patterns-list {
 	list-style-type: none;
-	-webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
-
 }
 
-#analyse-split-content #selected-patterns-list .two-columns{
+#analyse-split-content #selected-patterns-list .twocolumns{
+	-webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
     column-count: 2;
     column-gap: 1em;
 }

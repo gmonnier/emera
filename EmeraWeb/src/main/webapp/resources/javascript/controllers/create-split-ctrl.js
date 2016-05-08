@@ -60,7 +60,6 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 			userID = user.current.user_id;
 		}
 		var urlenqueue = '/ws-resources/preprocess/enqueue?user_id=' + userID;
-		
 		var request = $http({method: 'POST', 
 							url: urlenqueue,
 							data: $scope.configuration});

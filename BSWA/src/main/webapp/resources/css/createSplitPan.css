@@ -161,7 +161,7 @@
 
 }
 
-#analyse-split-content #selected-patterns-list .two-columns{
+#analyse-split-content #selected-patterns-list .twocolumns{
     column-count: 2;
     column-gap: 1em;
 }

@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
-import com.gmo.sharedobjects.util.FileCollectorListener;
 import com.gmo.sharedobjects.util.StringSerializable;
 
 public class ProcessConfiguration extends PartialProcessConfiguration implements Serializable, StringSerializable {

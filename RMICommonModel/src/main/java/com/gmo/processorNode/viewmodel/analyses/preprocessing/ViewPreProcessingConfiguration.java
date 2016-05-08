@@ -24,7 +24,6 @@ public class ViewPreProcessingConfiguration {
 	public ViewPreProcessingConfiguration() {
 		dataSplitterModels = new ArrayList<ViewDataSplitterModel>();
 		selectedDataFiles = new ArrayList<ViewFile>();
-
 	}
 
 	public List<ViewDataSplitterModel> getDataSplitterModels() {

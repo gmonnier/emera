@@ -34,7 +34,7 @@ public class ProcessConfigurationConverter implements IViewModelConverter<ViewCr
 
 		// Init list of libraries files that are already stored in the server
 		for (ModelFileStored modelFile : dataConfigurations.getSelectedLibraries()) {
-			viewConf.getSelectedDataFiles().add(fileConverter.buildViewModelObject(modelFile));
+			viewConf.getSelectedLibraries().add(fileConverter.buildViewModelObject(modelFile));
 		}
 		
 		return viewConf;

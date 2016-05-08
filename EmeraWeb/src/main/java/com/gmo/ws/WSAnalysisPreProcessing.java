@@ -36,9 +36,6 @@ public class WSAnalysisPreProcessing {
 		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
 		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 
-		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
-		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
-
 		LOG.info("--> RMI call - enqueue new preprocessing analysis ");
 		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewPreprocessingAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken);
 		LOG.info("<-- RMI call - enqueue new preprocessing analysis done");
