@@ -19,9 +19,6 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 	// List of library files
 	private List<ModelFileStored> selectedDataFiles;
 	
-	// Listener. Notified each time a file is added to this configuration.
-	private transient FileCollectorListener uploadListener;
-	
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 	
@@ -29,12 +26,6 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 		LOG.debug("Create new process config ");
 		selectedLibraries = new ArrayList<ModelFileStored>();
 		selectedDataFiles = new ArrayList<ModelFileStored>();
-		
-	}
-
-	public void setUploadListener(FileCollectorListener uploadListener) {
-		this.uploadListener = uploadListener;
-		uploadListener.checkCollectedFiles();
 	}
 
 	public List<ModelFileStored> getSelectedLibraries() {

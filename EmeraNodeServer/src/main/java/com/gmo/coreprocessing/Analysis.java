@@ -13,7 +13,6 @@ import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.BSDownloadInfo;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewFileOrigin;
@@ -21,10 +20,11 @@ import com.gmo.processorserver.IDistantResource;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
+import com.gmo.sharedobjects.util.FileCollectorListener;
 
 import main.BaseSpacePlatformManager;
 
-public abstract class Analysis implements IDownloadListener {
+public abstract class Analysis implements IDownloadListener, FileCollectorListener {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -45,6 +45,8 @@ public abstract class Analysis implements IDownloadListener {
 
 	private BSDownloadInfo downloadInfo;
 
+	private FileCollector fileCollector;
+
 	public Analysis(String userID) {
 		this.userid = userID;
 		this.id = UUID.randomUUID().toString();
@@ -55,22 +57,18 @@ public abstract class Analysis implements IDownloadListener {
 		this.downloadInfo = new BSDownloadInfo();
 	}
 
-	public void init(String bsuserID, String bsuserSecret, String bsuserToken) {
-
+	public void init(String bsuserID, String bsuserSecret, String bsuserToken, List<ViewFile> requestedFiles) {
 		LOG.debug("Init analyse " + id);
 		setLaunchDate(new Date().getTime());
 
-		// Ask for BaseSPace download if basespaces files are required (Data
-		// files)
-		List<ViewFile> listdataSelected = viewConfiguration.getSelectedDataFiles();
-		for (Iterator<ViewFile> iterator = listdataSelected.iterator(); iterator.hasNext();) {
+		for (Iterator<ViewFile> iterator = requestedFiles.iterator(); iterator.hasNext();) {
 			ViewFile dataFile = (ViewFile) iterator.next();
 			if (dataFile.getOrigin() == ViewFileOrigin.BASESPACE) {
-				FastQFile fastQFile = BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).getWithID(dataFile.getId());
+				FastQFile fastQFile = BaseSpacePlatformManager.getInstance(bsuserID, bsuserSecret, bsuserToken).getWithID(dataFile.getId());
 				LOG.debug("Request download for fastQFile " + fastQFile.getName());
 				downloadInfo.update(fastQFile, 0);
 				setStatus(AnalysisStatus.RETRIEVE_FILES);
-				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
+				BaseSpacePlatformManager.getInstance(bsuserID, bsuserSecret, bsuserToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
 			}
 		}
 	}
@@ -135,6 +133,10 @@ public abstract class Analysis implements IDownloadListener {
 
 	public void setDownloadInfo(BSDownloadInfo downloadInfo) {
 		this.downloadInfo = downloadInfo;
+	}
+
+	public FileCollector getFileCollector() {
+		return fileCollector;
 	}
 
 	/*
@@ -211,6 +213,7 @@ public abstract class Analysis implements IDownloadListener {
 		StorageConfigurationManager.getInstance().updateModel();
 		try {
 			ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputPath);
+			fileCollector.fileCollected(InputType.DATA, mfs);
 			processConfiguration.addToData(mfs);
 			downloadInfo.downloadDone(inputFile);
 		} catch (NoSuchElementException nse) {
@@ -222,6 +225,12 @@ public abstract class Analysis implements IDownloadListener {
 	@Override
 	public void downloadProgress(int percentage, FastQFile inputFile) {
 		downloadInfo.update(inputFile, percentage);
+	}
+
+	@Override
+	public void fileCollectionDone() {
+		LOG.debug("All files successfully collected, analysis is ready to start.");
+		setStatus(AnalysisStatus.READY_FOR_PROCESSING);
 	}
 
 	public abstract void stopAnalyse();

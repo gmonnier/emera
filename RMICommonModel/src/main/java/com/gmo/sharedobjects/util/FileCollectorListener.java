@@ -4,8 +4,6 @@ import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 public interface FileCollectorListener {
 
-	public void fileCollected(ModelFileStored modelFile);
-	
-	public void checkCollectedFiles();
+	public void fileCollectionDone();
 	
 }

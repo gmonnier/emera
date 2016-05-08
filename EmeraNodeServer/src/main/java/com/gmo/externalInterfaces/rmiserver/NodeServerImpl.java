@@ -159,7 +159,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		switch (inputType) {
 		case DATA: {
 			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToData(modelUploaded);
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getFileCollector().addToData(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
 				LOG.error("Unable to add " + modelUploaded + " to data of " + analyseid);
 			}

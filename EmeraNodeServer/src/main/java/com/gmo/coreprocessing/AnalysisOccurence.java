@@ -25,7 +25,7 @@ import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.sharedobjects.util.FileCollectorListener;
 
-public class AnalysisOccurence extends Analysis implements FileCollectorListener, IAnalysisProcessingListener, IReaderDispatcherListener {
+public class AnalysisOccurence extends Analysis implements IAnalysisProcessingListener, IReaderDispatcherListener {
 
 	/**
 	 * InstantiateExecutor service for this . This service is used to start
@@ -55,10 +55,10 @@ public class AnalysisOccurence extends Analysis implements FileCollectorListener
 	public AnalysisOccurence(ProcessConfiguration configuration, String userID) {
 		super(userID);
 		geneLibrary = null;
-		
+
 		this.processConfiguration = configuration;
 		this.processConfiguration.setUploadListener(this);
-		
+
 		this.additionalAnalyses = new ArrayList<>();
 	}
 
@@ -97,23 +97,6 @@ public class AnalysisOccurence extends Analysis implements FileCollectorListener
 
 	public ProcessConfiguration getProcessConfiguration() {
 		return processConfiguration;
-	}
-
-	public void fileCollected(ModelFileStored modelFile) {
-		LOG.debug("New resource assigned to this analysis : " + modelFile.getName());
-		checkCollectedFiles();
-	}
-
-	@Override
-	public void checkCollectedFiles() {
-		LOG.debug("viewConfigurations : " + viewConfiguration + "  processConfiguration : " + processConfiguration);
-		boolean allFilesUploaded = viewConfiguration.getSelectedDataFiles().size() == processConfiguration.getSelectedDataFiles().size()
-				&& viewConfiguration.getSelectedLibraries().size() == processConfiguration.getSelectedLibraries().size();
-
-		if (allFilesUploaded) {
-			LOG.debug("All files successfully collected, analysis is ready to start.");
-			setStatus(AnalysisStatus.READY_FOR_PROCESSING);
-		}
 	}
 
 	@Override

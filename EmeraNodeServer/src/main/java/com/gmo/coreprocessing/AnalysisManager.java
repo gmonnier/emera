@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.text.View;
+
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
@@ -65,7 +67,8 @@ public class AnalysisManager {
 		// Create and start the analysis
 		ProcessConfiguration processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfig);
 		Analysis newAnalyse = new AnalysisOccurence(processConfiguration, userID);
-		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
+	
+		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken, viewConfig.getAllRequestedFiles());
 		runningAnalysis.add(newAnalyse);
 		return newAnalyse.getId();
 	}

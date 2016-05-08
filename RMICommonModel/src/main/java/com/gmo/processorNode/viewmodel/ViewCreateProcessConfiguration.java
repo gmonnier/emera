@@ -135,4 +135,11 @@ public class ViewCreateProcessConfiguration implements Serializable, StringSeria
 		}
 	}
 
+	public List<ViewFile> getAllRequestedFiles() {
+		ArrayList<ViewFile> requestedFiles = new ArrayList<>();
+		requestedFiles.addAll(selectedDataFiles);
+		requestedFiles.addAll(selectedLibraries);
+		return requestedFiles;
+	}
+
 }
