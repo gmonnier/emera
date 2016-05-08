@@ -96,8 +96,13 @@ public class DataReaderSplitter {
 						}
 					}
 
-					BufferedWriter writter = writters.get(modelFound.getOutputName());
-					if (modelFound != null && writter != null) {
+					BufferedWriter writter = null;
+					if(modelFound != null) {
+						// retrieve writer associated with he current line
+						writter = writters.get(modelFound.getOutputName());
+					}
+					
+					if (writter != null) {
 						totalByteReads += line.length();
 						writter.write(line);
 						writter.newLine();

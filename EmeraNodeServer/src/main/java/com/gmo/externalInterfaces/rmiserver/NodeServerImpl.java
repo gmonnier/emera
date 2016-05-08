@@ -143,7 +143,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 		AnalysisConverter analysisConverter = new AnalysisConverter();
 		for (Iterator<Analysis> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
-			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
+			Analysis analysis = iterator.next();
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
 		}
 

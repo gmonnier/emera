@@ -55,10 +55,10 @@ public class PreProcessConfigurationConverter implements IViewModelConverter<Vie
 			}
 		}
 
-		DataSplitterConverter fileConverter = new DataSplitterConverter();
+		DataSplitterConverter patternConverter = new DataSplitterConverter();
 		// Init list of data files that are already stored in the server
 		for (ViewDataSplitterModel viewDataSplitterModel : view.getDataSplitterModels()) {
-			dataConfiguration.getDataSplitterModels().add(fileConverter.buildDataModelObject(viewDataSplitterModel));
+			dataConfiguration.getDataSplitterModels().add(patternConverter.buildDataModelObject(viewDataSplitterModel));
 		}
 
 		return dataConfiguration;
