@@ -65,6 +65,26 @@ public abstract class Analysis implements FileCollectorListener {
 		}
 
 	}
+	
+	public synchronized void setStatus(AnalysisStatus newstatus) {
+		if (newstatus == status) {
+			return;
+		}
+
+		LOG.debug("Request to change analysis status from " + status + " to " + newstatus);
+
+		if (this.status == AnalysisStatus.UPLOAD_ERROR || this.status == AnalysisStatus.RUNNING_ERROR) {
+			LOG.debug("Analysis is in Upload error status. Cannot be updated");
+			return;
+		}
+
+		else if (newstatus == AnalysisStatus.READY_FOR_PROCESSING) {
+			LOG.debug("Analysis " + id + " switch to Ready for processing. Start buffer and dispatcher");
+			startProcessing();
+		}
+
+		this.status = newstatus;
+	}
 
 	public String getId() {
 		return id;
@@ -146,7 +166,7 @@ public abstract class Analysis implements FileCollectorListener {
 			if (resourceID.equals(assignedResources.get(i).getID())) {
 				// Release current resources (especially in the buffer if
 				// exists)
-				cleanupAfterResourceRealease(resourceID);
+				cleanupAfterResourceRelease(resourceID);
 				assignedResources.remove(i);
 				LOG.debug(resourceID + " removed from analysis");
 				return;
@@ -157,7 +177,7 @@ public abstract class Analysis implements FileCollectorListener {
 
 	public synchronized void removeAllDistantResource() {
 		for (int i = assignedResources.size() - 1; i >= 0; i--) {
-			cleanupAfterResourceRealease(assignedResources.get(i).getID());
+			cleanupAfterResourceRelease(assignedResources.get(i).getID());
 			// Notify client to stop current action
 			assignedResources.get(i).requestStopCurrent();
 		}
@@ -191,11 +211,11 @@ public abstract class Analysis implements FileCollectorListener {
 		setStatus(AnalysisStatus.UPLOAD_ERROR);
 	}
 
-	protected abstract void cleanupAfterResourceRealease(String resourceID);
+	protected abstract void cleanupAfterResourceRelease(String resourceID);
+	
+	protected abstract void startProcessing();
 
 	public abstract void stopAnalyse();
-
-	public abstract void setStatus(AnalysisStatus status);
 
 	public abstract void analysisResultsReceived(ChunkResult result);
 

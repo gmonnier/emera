@@ -59,33 +59,16 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 		this.additionalAnalyses = new ArrayList<>();
 	}
 
-	public synchronized void setStatus(AnalysisStatus newstatus) {
-		if (newstatus == status) {
-			return;
-		}
+	protected void startProcessing() {
+		report = new Report(new ProcessConfigurationConverter().buildViewModelObject(processConfiguration), launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
+		ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report);
 
-		LOG.debug("Request to change analysis status from " + status + " to " + newstatus);
+		merger = new AnalysisMerger(report, reportWriter, buffer, this);
+		// Start new reader in separate pool thread (manage by thread pool
+		// executor)
+		AnalysisWorker worker = new AnalysisWorker(processConfiguration, this, this, buffer);
 
-		if (this.status == AnalysisStatus.UPLOAD_ERROR || this.status == AnalysisStatus.RUNNING_ERROR) {
-			LOG.debug("Analysis is in Upload error status. Cannot be updated");
-			return;
-		}
-
-		else if (newstatus == AnalysisStatus.READY_FOR_PROCESSING) {
-			LOG.debug("Analysis " + id + " switch to Ready for processing. Start buffer and dispatcher");
-			report = new Report(new ProcessConfigurationConverter().buildViewModelObject(processConfiguration), launchDate, id, userid, DataReaderDispatcher.CHUNK_SIZE);
-			ReportWriter reportWriter = new ReportWriterProvider().getReportWriter(report);
-
-			merger = new AnalysisMerger(report, reportWriter, buffer, this);
-			// Start new reader in separate pool thread (manage by thread pool
-			// executor)
-			AnalysisWorker worker = new AnalysisWorker(processConfiguration, this, this, buffer);
-
-			dataAnalysisService.execute(worker);
-
-		}
-
-		this.status = newstatus;
+		dataAnalysisService.execute(worker);
 	}
 
 	public GeneLibrary getGeneLibrary() {
@@ -118,6 +101,17 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 	}
 
 	@Override
+	public void analysisDone(final long dateFinished) {
+		synchronized (this) {
+			LOG.debug("Analysis done request to change status accordingly");
+			progress = 100;
+			completionDate = dateFinished;
+			setStatus(AnalysisStatus.DONE);
+			AnalysisManager.getInstance().analyseFinished(this);
+		}
+	}
+
+	@Override
 	public void readProgress(int lineRead, int percent) {
 		synchronized (this) {
 			progress = percent;
@@ -129,17 +123,6 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 		LOG.debug("Reading done on associated data file. Number of lines read : " + totalCount);
 		synchronized (this) {
 			progress = 100;
-		}
-	}
-
-	@Override
-	public void analysisDone(final long dateFinished) {
-		synchronized (this) {
-			LOG.debug("Analysis done request to change status accordingly");
-			progress = 100;
-			completionDate = dateFinished;
-			setStatus(AnalysisStatus.DONE);
-			AnalysisManager.getInstance().analyseFinished(this);
 		}
 	}
 
@@ -190,7 +173,7 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 	}
 
 	@Override
-	protected void cleanupAfterResourceRealease(String resourceID) {
+	protected void cleanupAfterResourceRelease(String resourceID) {
 		if (buffer != null) {
 			buffer.releaseChunks(resourceID);
 		}
