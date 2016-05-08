@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.StorageConfigurationManager;
@@ -78,7 +79,7 @@ public class DataReaderSplitter implements Runnable {
 				// First line @SEQ_ID -->skip
 				String line = reader.readLine();
 				for (int i = 0; i < splitModel.size(); i++) {
-					String outputName = modelFileStored.getName() + "_FILTERED_" + splitModel.get(i).getOutputName();
+					String outputName = FilenameUtils.removeExtension(modelFileStored.getName()) + "_FILTERED_" + splitModel.get(i).getOutputName() + FilenameUtils.getExtension(modelFileStored.getName());
 					BufferedWriter writter = new BufferedWriter(new FileWriter(new File(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), outputName)));
 					writters.put(outputName, writter);
 					// Writte first line
