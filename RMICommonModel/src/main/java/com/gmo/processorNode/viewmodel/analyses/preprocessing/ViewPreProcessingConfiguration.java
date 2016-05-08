@@ -1,5 +1,6 @@
 package com.gmo.processorNode.viewmodel.analyses.preprocessing;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.gmo.processorNode.viewmodel.ViewFile;
 
 @XmlRootElement
-public class ViewPreProcessingConfiguration {
+public class ViewPreProcessingConfiguration implements Serializable {
 
 	// List of data files
 	private List<ViewFile> selectedDataFiles;

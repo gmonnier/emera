@@ -14,7 +14,6 @@ public class ViewDataSplitterModel implements Serializable {
 	private String alias;
 
 	public ViewDataSplitterModel() {
-
 	}
 
 	public ViewDataSplitterModel(String regexp, String outputFullPath, String alias) {

@@ -19,7 +19,8 @@ public class DataSplitterConverter implements IViewModelConverter<ViewDataSplitt
 
 	@Override
 	public DataSplitterModel buildDataModelObject(ViewDataSplitterModel input) throws UnsupportedOperationException {
-		throw new UnsupportedOperationException();
+		DataSplitterModel dataModel = new DataSplitterModel(input.getRegexp(), input.getOutputName(), input.getAlias());
+		return dataModel;
 	}
 
 }
