@@ -19,8 +19,6 @@ public class ProcessConfigurationConverter implements IViewModelConverter<ViewCr
 
 	@Override
 	public ViewCreateProcessConfiguration buildViewModelObject(ProcessConfiguration dataConfigurations) {
-		
-		LOG.debug("Build view configuration from model configuration object");
 		ViewCreateProcessConfiguration viewConf = new ViewCreateProcessConfiguration(null);
 
 		viewConf.setOutputAttributes(dataConfigurations.getOutputAttributes());

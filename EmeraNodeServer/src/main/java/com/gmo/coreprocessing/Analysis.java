@@ -62,6 +62,8 @@ public abstract class Analysis implements FileCollectorListener {
 		fileCollector = new FileCollector(requestedFiles, this, bsuserID, bsuserSecret, bsuserToken);
 		if (fileCollector.needsCollection()) {
 			setStatus(AnalysisStatus.RETRIEVE_FILES);
+		} else {
+			setStatus(AnalysisStatus.READY_FOR_PROCESSING);
 		}
 
 	}
