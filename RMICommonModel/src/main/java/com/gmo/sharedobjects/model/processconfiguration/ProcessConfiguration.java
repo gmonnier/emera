@@ -52,17 +52,9 @@ public class ProcessConfiguration extends PartialProcessConfiguration implements
 
 	public void addToLibraries(ModelFileStored modelUploaded) {
 		selectedLibraries.add(modelUploaded);
-		if(uploadListener != null) {
-			LOG.debug("Add new file to process configuration libraries : " + modelUploaded.getName());
-			uploadListener.fileCollected(modelUploaded);
-		}
 	}
 	
 	public void addToData(ModelFileStored modelUploaded) {
 		selectedDataFiles.add(modelUploaded);
-		if(uploadListener != null) {
-			LOG.debug("Add new file to process configuration data : " + modelUploaded.getName());
-			uploadListener.fileCollected(modelUploaded);
-		}
 	}
 }
