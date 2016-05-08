@@ -15,6 +15,7 @@
 
 package com.illumina.basespace.file;
 
+import java.io.File;
 import java.util.EventObject;
 
 import com.illumina.basespace.entity.FileCompact;
@@ -29,10 +30,12 @@ public class DownloadEvent extends EventObject
     private long currentBytes;
     private long totalBytes;
     private boolean canceled;
+    private final File target;
     
-    public DownloadEvent(FileCompact file,long currentBytes,long totalBytes)
+    public DownloadEvent(FileCompact file, File target, long currentBytes,long totalBytes)
     {
         super(file);
+        this.target = target;
         this.currentBytes = currentBytes;
         this.totalBytes = totalBytes;
     }
@@ -72,6 +75,9 @@ public class DownloadEvent extends EventObject
         return totalBytes;
     }
 
+	public File getTarget() {
+		return target;
+	}
 
     
 }

@@ -1,5 +1,6 @@
 package com.gmo.coreprocessing;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,7 +51,8 @@ public class FileCollector implements IDownloadListener {
 				downloadInfo.update(fastQFile, 0);
 				BaseSpacePlatformManager.getInstance(bsuserID, bsuserSecret, bsuserToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
 			} else {
-				// Do not used fileCollected method here since those files are already populated in the analysis config
+				// Do not used fileCollected method here since those files are
+				// already populated in the analysis config
 				collectedFiles.add(dataFile);
 			}
 		}
@@ -82,19 +84,19 @@ public class FileCollector implements IDownloadListener {
 	}
 
 	@Override
-	public void downloadSuccess(FastQFile inputFile, String outputPath) {
+	public void downloadSuccess(FastQFile inputFile, File target) {
 		StorageConfigurationManager.getInstance().updateModel();
 		try {
-			ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputPath);
+			ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, target.getAbsolutePath());
 			downloadInfo.downloadDone(inputFile);
 			fileCollected(mfs, InputType.DATA);
-			
+
 		} catch (NoSuchElementException nse) {
-			LOG.error("No Model File stored element found with path " + outputPath + " of type : " + InputType.DATA);
+			LOG.error("No Model File stored element found with path " + target.getAbsolutePath() + " of type : " + InputType.DATA);
 			collectorListener.collectionFailed();
 		}
 	}
-	
+
 	public void fileCollected(ModelFileStored mfs, InputType type) {
 		collectorListener.fileCollected(type, mfs);
 		collectedFiles.add(new FileStoredConverter().buildViewModelObject(mfs));

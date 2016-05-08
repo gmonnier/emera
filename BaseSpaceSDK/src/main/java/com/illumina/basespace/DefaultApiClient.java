@@ -221,7 +221,8 @@ class DefaultApiClient implements ApiClient {
 
 	@Override
 	public URI getDownloadURI(FileCompact file) {
-		WebResource resource = connectionProvider.getClient().resource(UriBuilder.fromUri(connectionProvider.getConfiguration().getApiRootUri()).path(connectionProvider.getConfiguration().getVersion()).build()).path("files").path(file.getId())
+		WebResource resource = connectionProvider.getClient()
+				.resource(UriBuilder.fromUri(connectionProvider.getConfiguration().getApiRootUri()).path(connectionProvider.getConfiguration().getVersion()).build()).path("files").path(file.getId())
 				.path("content");
 		return resource.getURI();
 	}
@@ -246,59 +247,6 @@ class DefaultApiClient implements ApiClient {
 		cancelAllDownloads = true;
 	}
 
-	@Override
-	public void transfert(final com.illumina.basespace.entity.File file, OutputStream targetStream, DownloadListener listener) {
-
-		long timeinit = System.currentTimeMillis();
-		// InputStream in = null;
-		GZIPInputStream gzipin = null;
-		long progress = 0;
-		try {
-			final int CHUNK_SIZE = 4096;
-			ProgressInputStream unzipStr = new ProgressInputStream(getFileInputStream(file));
-			gzipin = new GZIPInputStream(unzipStr);
-
-			byte[] outputByte = new byte[CHUNK_SIZE];
-			int bytesRead = 0;
-			while (!cancelAllDownloads && (bytesRead = gzipin.read(outputByte, 0, CHUNK_SIZE)) != -1) {
-				targetStream.write(outputByte, 0, bytesRead);
-				progress = unzipStr.getProgress();
-				if (listener != null) {
-					DownloadEvent evt = new DownloadEvent(file, progress, file.getSize());
-					listener.progress(evt);
-				}
-			}
-			targetStream.close();
-			gzipin.close();
-			targetStream = null;
-			gzipin = null;
-			if (listener != null)
-				listener.complete(new DownloadEvent(file, progress, file.getSize()));
-		} catch (BaseSpaceException bs) {
-			throw bs;
-		} catch (Throwable t) {
-			throw new RuntimeException("Error during file download", t);
-		} finally {
-			try {
-				if (gzipin != null)
-					gzipin.close();
-			} catch (Throwable t) {
-			}
-			try {
-				if (targetStream != null)
-					targetStream.close();
-			} catch (Throwable t) {
-			}
-			if (cancelAllDownloads) {
-				if (listener != null)
-					listener.canceled(new DownloadEvent(file, progress, file.getSize()));
-				// reinit cancel value
-				cancelAllDownloads = false;
-			}
-		}
-
-		System.out.println((System.currentTimeMillis() - timeinit) / 1000);
-	}
 
 	@Override
 	public void download(final com.illumina.basespace.entity.File file, java.io.File target, DownloadListener listener) {
@@ -314,7 +262,7 @@ class DefaultApiClient implements ApiClient {
 					throw new IllegalArgumentException("Unable to create local folder " + target.toString());
 				}
 				String fileName = file.getName();
-				if(fileName.endsWith(".gz")) {
+				if (fileName.endsWith(".gz")) {
 					fileName = fileName.substring(0, fileName.length() - 3);
 				}
 				target = new java.io.File(target, fileName);
@@ -331,7 +279,7 @@ class DefaultApiClient implements ApiClient {
 				fos.write(outputByte, 0, bytesRead);
 				progress = unzipStr.getProgress();
 				if (listener != null) {
-					DownloadEvent evt = new DownloadEvent(file, progress, file.getSize());
+					DownloadEvent evt = new DownloadEvent(file, target, progress, file.getSize());
 					listener.progress(evt);
 				}
 			}
@@ -340,7 +288,7 @@ class DefaultApiClient implements ApiClient {
 			fos = null;
 			gzipin = null;
 			if (listener != null)
-				listener.complete(new DownloadEvent(file, progress, file.getSize()));
+				listener.complete(new DownloadEvent(file, target, progress, file.getSize()));
 		} catch (BaseSpaceException bs) {
 			throw bs;
 		} catch (Throwable t) {
@@ -360,14 +308,14 @@ class DefaultApiClient implements ApiClient {
 				if (target != null) {
 					target.delete();
 					if (listener != null)
-						listener.canceled(new DownloadEvent(file, progress, file.getSize()));
+						listener.canceled(new DownloadEvent(file, target, progress, file.getSize()));
 					// reinit cancel value
 					cancelAllDownloads = false;
 				}
 			}
 		}
-
 		System.out.println((System.currentTimeMillis() - timeinit) / 1000);
+
 	}
 
 	@Override
@@ -531,8 +479,8 @@ class DefaultApiClient implements ApiClient {
 	protected InputStream getInputStreamInternal(FileCompact file, long start, long end) {
 		try {
 			FileRedirectMetaData metaData = getRedirectMetaData(file);
-			InputStream in = connectionProvider.getClient().resource(metaData.getHrefContent()).accept(MediaType.APPLICATION_OCTET_STREAM).accept(MediaType.TEXT_HTML).accept(MediaType.APPLICATION_XHTML_XML)
-					.header("Range", "bytes=" + start + "-" + end).get(InputStream.class);
+			InputStream in = connectionProvider.getClient().resource(metaData.getHrefContent()).accept(MediaType.APPLICATION_OCTET_STREAM).accept(MediaType.TEXT_HTML)
+					.accept(MediaType.APPLICATION_XHTML_XML).header("Range", "bytes=" + start + "-" + end).get(InputStream.class);
 			return in;
 		} catch (ResourceForbiddenException forbidden) {
 			downloadMetaDataCache.remove(file.getId());
@@ -586,7 +534,8 @@ class DefaultApiClient implements ApiClient {
 
 	@Override
 	public GetPropertyResponse getProperty(ApiResource resource, String propertyName) {
-		return getConnectionProvider().getResponse(GetPropertyResponse.class, TypeHelper.INSTANCE.getResourcePath(resource.getClass(), true) + "/" + resource.getId() + "/properties/" + propertyName + "/items", null, null);
+		return getConnectionProvider().getResponse(GetPropertyResponse.class,
+				TypeHelper.INSTANCE.getResourcePath(resource.getClass(), true) + "/" + resource.getId() + "/properties/" + propertyName + "/items", null, null);
 	}
 
 	@Override

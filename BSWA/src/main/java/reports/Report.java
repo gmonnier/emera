@@ -8,17 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.processconfig.ProcessConfiguration;
-
 import org.apache.logging.log4j.Logger;
-
-import reports.comparators.genes.OccurenceComparator;
-import reports.generation.OutputWriterListener;
 
 import com.gmo.logger.Log4JLogger;
 import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
 
 import coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
+import model.processconfig.ProcessConfiguration;
+import reports.comparators.genes.OccurenceComparator;
+import reports.generation.OutputWriterListener;
 
 public class Report implements OutputWriterListener, Serializable {
 

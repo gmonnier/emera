@@ -304,20 +304,12 @@ public interface ApiClient
      * @param file the which will be downloaded
      * @param targetFolder local path which is the target of the download. If target is a file, the source contents will be copied to that file. If target is a directory, a file with the same name as the source file will be created in the target folder and its contents copied
      * @param listener optional (can be null)listener to be notified of download events
+     * @return 
      */
     public void download(com.illumina.basespace.entity.File file,java.io.File target,
             DownloadListener listener);
     
-    /**
-     * Transfert the contents of a file
-     * <br><br><span class="strong">Permissions:</span> READ access to the Run, Sample, or AppResult to which the file belongs
-     * @param file the which will be downloaded
-     * @param target the target output stream. 
-     * @param listener optional (can be null)listener to be notified of download events
-     */
-    public void transfert(com.illumina.basespace.entity.File file,OutputStream target,
-            DownloadListener listener);
-    
+
     /**
      * Cancel all currently running downloads
      */

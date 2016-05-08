@@ -18,6 +18,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 	private FastQFile fastqfile;
 	private ApiClient clientBS;
 	private IDownloadListener listener;
+	private java.io.File outputFile;
 
 	private int currentProgress;
 
@@ -92,7 +93,7 @@ public class SampleDownloader implements Runnable, DownloadListener {
 		} else {
 			LOG.error("Download complete " + fastqfile);
 			if (listener != null) {
-				listener.downloadSuccess(fastqfile, destinationDirectory);
+				listener.downloadSuccess(fastqfile, evt.getTarget());
 			}
 		}
 	}
