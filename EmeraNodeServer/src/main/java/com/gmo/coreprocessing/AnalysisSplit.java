@@ -1,5 +1,8 @@
 package com.gmo.coreprocessing;
 
+
+import java.util.Date;
+
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
@@ -55,14 +58,31 @@ public class AnalysisSplit extends Analysis implements IReaderDispatcherListener
 
 	@Override
 	public void stopAnalyse() {
-		// TODO Auto-generated method stub
-		
+		setStatus(AnalysisStatus.DONE);
+		removeAllDistantResource();
 	}
 
 	@Override
 	public void analysisResultsReceived(ChunkResult result) {
-		// TODO Auto-generated method stub
-		
+		// No remote computation for this kind of analyses
+	}
+
+	@Override
+	public void readProgress(int lineRead, int percent) {
+		synchronized (this) {
+			progress = percent;
+		}
+	}
+
+	@Override
+	public void readDone(int totalCount) {
+		LOG.debug("Reading done on associated data file. Number of lines read : " + totalCount);
+		synchronized (this) {
+			progress = 100;
+			completionDate = new Date().getTime();
+			setStatus(AnalysisStatus.DONE);
+			AnalysisManager.getInstance().analyseFinished(this);
+		}
 	}
 
 }

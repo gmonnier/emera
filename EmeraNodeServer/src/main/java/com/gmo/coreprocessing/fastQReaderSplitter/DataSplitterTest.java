@@ -53,7 +53,7 @@ public class DataSplitterTest {
 			models.add(new DataSplitterModel("\\A...GTAG", "/Users/gmonnie/Documents/emera_data/splitted/GTAGA.fastq", ""));
 			models.add(new DataSplitterModel("\\A...CAAT", "/Users/gmonnie/Documents/emera_data/splitted/CAATG.fastq", ""));
 
-			DataReaderSplitter splitter = new DataReaderSplitter(input, models, listener);
+			/*DataReaderSplitter splitter = new DataReaderSplitter(input, models, listener);
 			try {
 				splitter.readAndSplit();
 			} catch (ReadDispatchException e) {
@@ -62,6 +62,6 @@ public class DataSplitterTest {
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 		}
 }
