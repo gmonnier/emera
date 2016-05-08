@@ -11,10 +11,12 @@ import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
+import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.processorNode.viewmodel.analyses.standard.comparator.CompletionDateAnalysisComparator;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
+import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
 public class AnalysisManager {
 
@@ -61,7 +63,8 @@ public class AnalysisManager {
 		this.analysisResultsLocationType = analysisResultsLocationType;
 		this.analysisResultsLocation = analysisResultsLocation;
 		// Create and start the analysis
-		Analysis newAnalyse = new AnalysisOccurence(viewConfig, userID);
+		ProcessConfiguration processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfiguration);
+		Analysis newAnalyse = new AnalysisOccurence(processConfiguration, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
 		runningAnalysis.add(newAnalyse);
 		return newAnalyse.getId();

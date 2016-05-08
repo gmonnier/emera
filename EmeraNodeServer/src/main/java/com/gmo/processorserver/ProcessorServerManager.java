@@ -104,7 +104,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 		for (Iterator<AnalysisOccurence> iterator = analysisList.iterator(); iterator.hasNext();) {
 			AnalysisOccurence analysis = (AnalysisOccurence) iterator.next();
 			if (analysis.getStatus() == AnalysisStatus.RUNNING) {
-				ires.requestAssignmentToAnalysis(analysis.getAnalysisID());
+				ires.requestAssignmentToAnalysis(analysis.getId());
 				mapResourcesAvailable.remove(ires.getID());
 			}
 		}
@@ -116,7 +116,7 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 		while (it.hasNext()) {
 			Map.Entry<String, IDistantResource> pair = (Map.Entry<String, IDistantResource>) it.next();
 			IDistantResource ires = pair.getValue();
-			ires.requestAssignmentToAnalysis(runningAnalysis.getAnalysisID());
+			ires.requestAssignmentToAnalysis(runningAnalysis.getId());
 			mapResourcesAvailable.remove(pair.getKey());
 		}
 	}

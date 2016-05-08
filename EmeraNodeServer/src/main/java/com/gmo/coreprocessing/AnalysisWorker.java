@@ -28,7 +28,7 @@ public class AnalysisWorker implements Runnable {
 	private static Logger LOG = Log4JLogger.logger;
 
 	public AnalysisWorker(ProcessConfiguration configuration, IAnalysisProcessingListener processinglistener,IReaderDispatcherListener dispatcherlistener, ChunkQueueBuffer chunkBuffer) {
-		LOG.debug("Create analysis worker for analysis ID " + processinglistener.getAnalysisID());
+		LOG.debug("Create analysis worker for analysis ID " + processinglistener.getId());
 		this.processinglistener = processinglistener;
 		this.dispatcherlistener = dispatcherlistener;
 		this.configuration = configuration;
@@ -38,7 +38,7 @@ public class AnalysisWorker implements Runnable {
 	@Override
 	public void run() {
 
-		LOG.debug("Entering run method in AnalysisWorker for analysis " + processinglistener.getAnalysisID());
+		LOG.debug("Entering run method in AnalysisWorker for analysis " + processinglistener.getId());
 
 		processinglistener.analysisPreProcessStarted();
 
@@ -61,9 +61,9 @@ public class AnalysisWorker implements Runnable {
 		processinglistener.analysisStarted();
 		
 		try {
-			ProcessorServerManager.getInstance().requestAllAvailableResources(AnalysisManager.getInstance().getRunningAnalysis(processinglistener.getAnalysisID()));
+			ProcessorServerManager.getInstance().requestAllAvailableResources(AnalysisManager.getInstance().getRunningAnalysis(processinglistener.getId()));
 		} catch (NoSuchAnalysisException e1) {
-			LOG.error("No analysis found with given ID " + processinglistener.getAnalysisID());
+			LOG.error("No analysis found with given ID " + processinglistener.getId());
 		}
 
 		try {

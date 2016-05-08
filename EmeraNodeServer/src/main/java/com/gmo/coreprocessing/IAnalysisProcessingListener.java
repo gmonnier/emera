@@ -15,7 +15,7 @@ public interface IAnalysisProcessingListener {
 	
 	public void analysisResultsReceived(ChunkResult result);
 	
-	public String getAnalysisID();
+	public String getId();
 
 	public void librariesExtracted(GeneLibrary library);
 	

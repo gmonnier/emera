@@ -1,24 +1,30 @@
 package com.gmo.coreprocessing;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.apache.logging.log4j.Logger;
 
+import com.gmo.basespaceService.interfaces.IDownloadListener;
 import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.BSDownloadInfo;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.inputs.InputType;
+import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 
 import main.BaseSpacePlatformManager;
 
-public abstract class Analysis {
+public abstract class Analysis implements IDownloadListener {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -27,13 +33,13 @@ public abstract class Analysis {
 
 	protected String userid;
 
-	private AnalysisStatus status;
+	protected AnalysisStatus status;
 
-	private long launchDate;
+	protected long launchDate;
 
-	private long completionDate;
+	protected long completionDate;
 
-	private int progress;
+	protected int progress;
 
 	private List<IDistantResource> assignedResources;
 
@@ -49,7 +55,11 @@ public abstract class Analysis {
 		this.downloadInfo = new BSDownloadInfo();
 	}
 
-	protected void checkForDownload() {
+	public void init(String bsuserID, String bsuserSecret, String bsuserToken) {
+
+		LOG.debug("Init analyse " + id);
+		setLaunchDate(new Date().getTime());
+
 		// Ask for BaseSPace download if basespaces files are required (Data
 		// files)
 		List<ViewFile> listdataSelected = viewConfiguration.getSelectedDataFiles();
@@ -63,6 +73,8 @@ public abstract class Analysis {
 				BaseSpacePlatformManager.getInstance(bsUserID, bsUserSecret, bsToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
 			}
 		}
+	}
+
 	}
 
 	public String getId() {
@@ -187,10 +199,33 @@ public abstract class Analysis {
 	 * <----- Resources management
 	 */
 
-	public abstract void init(String bsuserID, String bsuserSecret, String bsuserToken);
+	@Override
+	public void downloadFailed(FastQFile inputFile) {
+		LOG.debug("Server side Download failed received for " + inputFile.getName());
+		setStatus(AnalysisStatus.UPLOAD_ERROR);
+		downloadInfo.downloadDone(inputFile);
+	}
+
+	@Override
+	public void downloadSuccess(FastQFile inputFile, String outputPath) {
+		StorageConfigurationManager.getInstance().updateModel();
+		try {
+			ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputPath);
+			processConfiguration.addToData(mfs);
+			downloadInfo.downloadDone(inputFile);
+		} catch (NoSuchElementException nse) {
+			LOG.error("No Model File stored element found with path " + outputPath + " of type : " + InputType.DATA);
+			setStatus(AnalysisStatus.UPLOAD_ERROR);
+		}
+	}
+
+	@Override
+	public void downloadProgress(int percentage, FastQFile inputFile) {
+		downloadInfo.update(inputFile, percentage);
+	}
 
 	public abstract void stopAnalyse();
-	
+
 	public abstract void setStatus(AnalysisStatus status);
 
 }
