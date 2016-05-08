@@ -13,17 +13,16 @@ import com.gmo.coreprocessing.fastQReaderDispatcher.DataReaderDispatcher;
 import com.gmo.coreprocessing.fastQReaderDispatcher.IReaderDispatcherListener;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.ProcessConfigurationConverter;
-import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.reports.ReportWriterProvider;
 import com.gmo.reports.generation.ReportWriter;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.data.ChunkResult;
 import com.gmo.sharedobjects.model.genelibrary.GeneLibrary;
+import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 import com.gmo.sharedobjects.model.reports.Report;
-import com.gmo.sharedobjects.util.FileCollectorListener;
 
 public class AnalysisOccurence extends Analysis implements IAnalysisProcessingListener, IReaderDispatcherListener {
 
@@ -57,8 +56,6 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 		geneLibrary = null;
 
 		this.processConfiguration = configuration;
-		this.processConfiguration.setUploadListener(this);
-
 		this.additionalAnalyses = new ArrayList<>();
 	}
 
@@ -190,5 +187,25 @@ public class AnalysisOccurence extends Analysis implements IAnalysisProcessingLi
 
 	public void setAdditionalAnalyses(List<ViewFile> additionalAnalyses) {
 		this.additionalAnalyses = additionalAnalyses;
+	}
+
+	@Override
+	protected void cleanupAfterResourceRealease(String resourceID) {
+		if (buffer != null) {
+			buffer.releaseChunks(resourceID);
+		}
+	}
+
+	@Override
+	public void fileCollected(InputType type, ModelFileStored mfs) {
+		switch (type) {
+		case LIBRARY: {
+			processConfiguration.addToLibraries(mfs);
+			break;
+		}
+		case DATA: {
+			processConfiguration.addToData(mfs);
+		}
+		}
 	}
 }

@@ -166,7 +166,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 		}
 		case LIBRARY: {
 			try {
-				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getProcessConfiguration().addToLibraries(modelUploaded);
+				AnalysisManager.getInstance().getRunningAnalysis(analyseid).getFileCollector().fileCollectedgetProcessConfiguration().addToLibraries(modelUploaded);
 			} catch (NoSuchAnalysisException e) {
 				LOG.error("Unable to add " + modelUploaded + " to libraries of " + analyseid);
 			}

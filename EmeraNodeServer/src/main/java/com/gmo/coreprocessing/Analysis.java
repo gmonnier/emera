@@ -18,13 +18,14 @@ import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.processorserver.IDistantResource;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
+import com.gmo.sharedobjects.model.data.ChunkResult;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.util.FileCollectorListener;
 
 import main.BaseSpacePlatformManager;
 
-public abstract class Analysis implements IDownloadListener, FileCollectorListener {
+public abstract class Analysis implements FileCollectorListener {
 
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
@@ -43,8 +44,6 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 
 	private List<IDistantResource> assignedResources;
 
-	private BSDownloadInfo downloadInfo;
-
 	private FileCollector fileCollector;
 
 	public Analysis(String userID) {
@@ -54,24 +53,16 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 		this.completionDate = -1;
 		this.status = AnalysisStatus.IDLE;
 		this.assignedResources = new ArrayList<IDistantResource>();
-		this.downloadInfo = new BSDownloadInfo();
 	}
 
 	public void init(String bsuserID, String bsuserSecret, String bsuserToken, List<ViewFile> requestedFiles) {
 		LOG.debug("Init analyse " + id);
 		setLaunchDate(new Date().getTime());
 
-		for (Iterator<ViewFile> iterator = requestedFiles.iterator(); iterator.hasNext();) {
-			ViewFile dataFile = (ViewFile) iterator.next();
-			if (dataFile.getOrigin() == ViewFileOrigin.BASESPACE) {
-				FastQFile fastQFile = BaseSpacePlatformManager.getInstance(bsuserID, bsuserSecret, bsuserToken).getWithID(dataFile.getId());
-				LOG.debug("Request download for fastQFile " + fastQFile.getName());
-				downloadInfo.update(fastQFile, 0);
-				setStatus(AnalysisStatus.RETRIEVE_FILES);
-				BaseSpacePlatformManager.getInstance(bsuserID, bsuserSecret, bsuserToken).requestNewDownload(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), fastQFile, this);
-			}
+		fileCollector = new FileCollector(requestedFiles, this, bsuserID, bsuserSecret, bsuserToken);
+		if (fileCollector.needsCollection()) {
+			setStatus(AnalysisStatus.RETRIEVE_FILES);
 		}
-	}
 
 	}
 
@@ -127,14 +118,6 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 		this.assignedResources = assignedResources;
 	}
 
-	public BSDownloadInfo getDownloadInfo() {
-		return downloadInfo;
-	}
-
-	public void setDownloadInfo(BSDownloadInfo downloadInfo) {
-		this.downloadInfo = downloadInfo;
-	}
-
 	public FileCollector getFileCollector() {
 		return fileCollector;
 	}
@@ -163,9 +146,7 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 			if (resourceID.equals(assignedResources.get(i).getID())) {
 				// Release current resources (especially in the buffer if
 				// exists)
-				if (buffer != null) {
-					buffer.releaseChunks(resourceID);
-				}
+				cleanupAfterResourceRealease(resourceID);
 				assignedResources.remove(i);
 				LOG.debug(resourceID + " removed from analysis");
 				return;
@@ -176,9 +157,7 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 
 	public synchronized void removeAllDistantResource() {
 		for (int i = assignedResources.size() - 1; i >= 0; i--) {
-			if (buffer != null) {
-				buffer.releaseChunks(assignedResources.get(i).getID());
-			}
+			cleanupAfterResourceRealease(assignedResources.get(i).getID());
 			// Notify client to stop current action
 			assignedResources.get(i).requestStopCurrent();
 		}
@@ -202,39 +181,22 @@ public abstract class Analysis implements IDownloadListener, FileCollectorListen
 	 */
 
 	@Override
-	public void downloadFailed(FastQFile inputFile) {
-		LOG.debug("Server side Download failed received for " + inputFile.getName());
-		setStatus(AnalysisStatus.UPLOAD_ERROR);
-		downloadInfo.downloadDone(inputFile);
-	}
-
-	@Override
-	public void downloadSuccess(FastQFile inputFile, String outputPath) {
-		StorageConfigurationManager.getInstance().updateModel();
-		try {
-			ModelFileStored mfs = StorageConfigurationManager.getInstance().getWithPath(InputType.DATA, outputPath);
-			fileCollector.fileCollected(InputType.DATA, mfs);
-			processConfiguration.addToData(mfs);
-			downloadInfo.downloadDone(inputFile);
-		} catch (NoSuchElementException nse) {
-			LOG.error("No Model File stored element found with path " + outputPath + " of type : " + InputType.DATA);
-			setStatus(AnalysisStatus.UPLOAD_ERROR);
-		}
-	}
-
-	@Override
-	public void downloadProgress(int percentage, FastQFile inputFile) {
-		downloadInfo.update(inputFile, percentage);
-	}
-
-	@Override
 	public void fileCollectionDone() {
 		LOG.debug("All files successfully collected, analysis is ready to start.");
 		setStatus(AnalysisStatus.READY_FOR_PROCESSING);
 	}
+	
+	@Override
+	public void collectionFailed() {
+		setStatus(AnalysisStatus.UPLOAD_ERROR);
+	}
+
+	protected abstract void cleanupAfterResourceRealease(String resourceID);
 
 	public abstract void stopAnalyse();
 
 	public abstract void setStatus(AnalysisStatus status);
+
+	public abstract void analysisResultsReceived(ChunkResult result);
 
 }
