@@ -18,11 +18,10 @@ public class BaseSpacePlatformApp {
 	// Set up logging properties.
 	static {
 		// Clear logs directory
-	    new SystemCommand().removeAllINDirectory("logs");
+		new SystemCommand().removeAllINDirectory("logs");
 
 		// Set up the log4j logger
-		Log4JLogger.setup(LOG4J_LOGGING, LOG4J_LOGGING_CONSOLE_ON,
-				"conf/logging", "BaseSpacePlatform");
+		Log4JLogger.setup(LOG4J_LOGGING, LOG4J_LOGGING_CONSOLE_ON, "conf/logging", "BaseSpacePlatform");
 
 		JavaStyleLogger.setup(true, "conf/logging");
 	}
@@ -37,7 +36,7 @@ public class BaseSpacePlatformApp {
 		LOG.info("---------------------------------------------");
 		// init network Configuration
 		NetworkTopologyManager.getInstance();
-		
+
 		LOG.info("Rmi Module --> request to start baseSpaceModel rmi interface server");
 		new RMIServer();
 	}

@@ -50,7 +50,6 @@ public class SampleDownloader implements Runnable, DownloadListener {
 			
 			LOG.debug("Remote BaseSPace API call " + file.getName() + "   to : " + localFolder);
 			clientBS.download(file, localFolder, this);
-
 		} catch (Throwable t) {
 			LOG.debug("Download failed ", t);
 			
