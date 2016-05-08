@@ -87,7 +87,7 @@ appControllers.controller('createSplitCtrl', function($scope, $http,$location, u
 	}
     
 	$scope.validateParameters = function() {
-		return !($scope.isEmpty(configuration.dataSplitterModels) || $scope.isEmpty(configuration.selectedDataFiles));
+		return !($scope.isEmpty($scope.configuration.dataSplitterModels) || $scope.isEmpty($scope.configuration.selectedDataFiles));
 	}
     
     // TODO Refactor this method

@@ -58,7 +58,7 @@ public class BaseServer implements Runnable {
 			serverSocket.setSoTimeout(1000);
 		} catch (IOException ioe) {
 			if (networkInfoListener != null) {
-				networkInfoListener.initialisationError("Error while attempting to connecting port ne" + portEcoute);
+				networkInfoListener.initialisationError("Error while attempting to connecting port ne" + portEcoute, ioe);
 			}
 		}
 

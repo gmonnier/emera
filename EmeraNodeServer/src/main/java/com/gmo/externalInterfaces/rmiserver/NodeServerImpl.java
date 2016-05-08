@@ -65,7 +65,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException {
-		LOG.debug("Request to remove distant resource with ID " + clientID);
+		LOG.info("[RMI-MODULE] Request to remove distant resource with ID " + clientID);
 		ProcessorServerManager.getInstance().requestClientRemove(clientID);
 	}
 
@@ -153,7 +153,7 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	@Override
 	public void uploadToNodeServerDone(InputType inputType, String analyseid, String fileName) throws RemoteException {
 
-		LOG.error("Upload to Node Server completed for " + fileName + " of type " + inputType);
+		LOG.info("[RMI-MODULE] Upload to Node Server completed for " + fileName + " of type " + inputType);
 		StorageConfigurationManager.getInstance().updateModel();
 		ModelFileStored modelUploaded = StorageConfigurationManager.getInstance().getWithPath(inputType, fileName);
 
@@ -167,13 +167,13 @@ public class NodeServerImpl implements IProcessorNodeControl {
 
 	@Override
 	public void stopAllAnalyses(String userID) throws RemoteException {
-		LOG.debug("Request to stop all currently running analyses belonging to userID : " + userID);
+		LOG.debug("[RMI-MODULE] Request to stop all currently running analyses belonging to userID : " + userID);
 		AnalysisManager.getInstance().stopAllAnalyses(userID);
 	}
 
 	@Override
 	public void requestRunningAnalysisChangeStatus(String id, AnalysisStatus newStatus) throws RemoteException {
-		LOG.error("Request analysis " + id + " status change to " + newStatus);
+		LOG.error("[RMI-MODULE] Request analysis " + id + " status change to " + newStatus);
 		try {
 			AnalysisManager.getInstance().getRunningAnalysis(id).setStatus(newStatus);
 		} catch (NoSuchAnalysisException e) {
@@ -185,11 +185,13 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	@Override
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType resultLocType,
 			String resultLocation) throws RemoteException {
+		LOG.info("[RMI-MODULE] Request to enqueue new occurence analysis");
 		return AnalysisManager.getInstance().enqueueNewOccurenceAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken, resultLocType, resultLocation);
 	}
 	
 	@Override
 	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) throws RemoteException {
+		LOG.info("[RMI-MODULE] Request to enqueue new split analysis");
 		return AnalysisManager.getInstance().enqueueNewSplitAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken);
 	}
 

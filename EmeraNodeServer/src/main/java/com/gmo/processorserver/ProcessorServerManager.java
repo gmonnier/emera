@@ -1,5 +1,6 @@
 package com.gmo.processorserver;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,8 +74,8 @@ public class ProcessorServerManager implements ServerListener, INetworkServerInf
 	}
 
 	@Override
-	public void initialisationError(String string) {
-		LOG.info("Error while initializing the server");
+	public void initialisationError(String string, IOException ioe) {
+		LOG.error("Error while initializing the server", ioe);
 	}
 
 	public void requestClientRemove(String clientID) {
