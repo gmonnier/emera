@@ -185,7 +185,12 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	@Override
 	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType resultLocType,
 			String resultLocation) throws RemoteException {
-		return AnalysisManager.getInstance().enqueueNewAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken, resultLocType, resultLocation);
+		return AnalysisManager.getInstance().enqueueNewOccurenceAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken, resultLocType, resultLocation);
+	}
+	
+	@Override
+	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) throws RemoteException {
+		return AnalysisManager.getInstance().enqueueNewSplitAnalysis(viewProcessConfig, userID, bsuserID, bsuserSecret, bsuserToken);
 	}
 
 	// ---------- File Transfert ---------
@@ -234,12 +239,6 @@ public class NodeServerImpl implements IProcessorNodeControl {
 	public void requestOccurencesIncreaseAnalysis(Report refReport, Report compReport, OutputFileType outputFileType) throws RemoteException {
 		LOG.warn("TODO: Pass S3/Files Reference, not the complete report!");
 		new OccurencesIncreaseAnalysis(refReport, compReport, outputFileType);
-	}
-
-	@Override
-	public String enqueueNewPreprocessingAnalysis(ViewPreProcessingConfiguration jsonConfig, String userID, String bsClientID, String bsClientSecret, String bsAccessToken) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

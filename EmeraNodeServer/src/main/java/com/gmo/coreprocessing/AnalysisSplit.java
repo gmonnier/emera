@@ -33,14 +33,12 @@ public class AnalysisSplit extends Analysis implements IReaderDispatcherListener
 
 	@Override
 	public void fileCollected(InputType type, ModelFileStored mfs) {
-		// TODO Auto-generated method stub
-		
+		processConfiguration.getSelectedDataFiles().add(mfs);
 	}
 
 	@Override
 	protected void cleanupAfterResourceRelease(String resourceID) {
-		// TODO Auto-generated method stub
-		
+		// Nothing to cleanup here
 	}
 
 	@Override

@@ -10,8 +10,10 @@ import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
+import com.gmo.modelconverters.PreProcessConfigurationConverter;
 import com.gmo.modelconverters.ProcessConfigurationConverter;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
+import com.gmo.processorNode.viewmodel.analyses.preprocessing.ViewPreProcessingConfiguration;
 import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 import com.gmo.sharedobjects.model.processconfiguration.ProcessConfiguration;
 
@@ -55,17 +57,28 @@ public class AnalysisManager {
 		return runningAnalysis;
 	}
 
-	public String enqueueNewAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken, LocationType analysisResultsLocationType, String analysisResultsLocation) {
+	public String enqueueNewOccurenceAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken,
+			LocationType analysisResultsLocationType, String analysisResultsLocation) {
 		// Set the results/reports locations info
 		this.analysisResultsLocationType = analysisResultsLocationType;
 		this.analysisResultsLocation = analysisResultsLocation;
 		// Create and start the analysis
 		ProcessConfiguration processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfig);
-		Analysis newAnalyse = new AnalysisOccurence(processConfiguration, userID);
-	
-		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken, viewConfig.getAllRequestedFiles());
-		runningAnalysis.add(newAnalyse);
-		return newAnalyse.getId();
+		Analysis newAnalysis = new AnalysisOccurence(processConfiguration, userID);
+
+		newAnalysis.init(bsuserID, bsuserSecret, bsuserToken, viewConfig.getAllRequestedFiles());
+		runningAnalysis.add(newAnalysis);
+		return newAnalysis.getId();
+	}
+
+	public String enqueueNewSplitAnalysis(ViewPreProcessingConfiguration viewProcessConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken) {
+		// Create and start the analysis
+		ConfigurationAnalysisSplitter processConfiguration = new PreProcessConfigurationConverter().buildDataModelObject(viewProcessConfig);
+		Analysis newAnalysis = new AnalysisSplit(processConfiguration, userID);
+
+		newAnalysis.init(bsuserID, bsuserSecret, bsuserToken, viewProcessConfig.getSelectedDataFiles());
+		runningAnalysis.add(newAnalysis);
+		return newAnalysis.getId();
 	}
 
 	public void analyseFinished(Analysis analysis) {
@@ -129,4 +142,5 @@ public class AnalysisManager {
 	public String getAnalysisResultsLocation() {
 		return analysisResultsLocation;
 	}
+
 }
