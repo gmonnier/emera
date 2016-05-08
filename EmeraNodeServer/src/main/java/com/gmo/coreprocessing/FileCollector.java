@@ -9,4 +9,12 @@ public class FileCollector {
 	private List<ViewFile> collectedFiles;
 	
 	private List<ViewFile> requestedFiles;
+
+	public FileCollector(List<ViewFile> collectedFiles, List<ViewFile> requestedFiles) {
+		super();
+		this.collectedFiles = collectedFiles;
+		this.requestedFiles = requestedFiles;
+	}
+	
+	
 }

@@ -63,7 +63,7 @@ public class AnalysisManager {
 		this.analysisResultsLocationType = analysisResultsLocationType;
 		this.analysisResultsLocation = analysisResultsLocation;
 		// Create and start the analysis
-		ProcessConfiguration processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfiguration);
+		ProcessConfiguration processConfiguration = new ProcessConfigurationConverter().buildDataModelObject(viewConfig);
 		Analysis newAnalyse = new AnalysisOccurence(processConfiguration, userID);
 		newAnalyse.init(bsuserID, bsuserSecret, bsuserToken);
 		runningAnalysis.add(newAnalyse);
