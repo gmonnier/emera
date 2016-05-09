@@ -85,7 +85,7 @@ public class DataReaderSplitter implements Runnable {
 						outputName += "." + fileExt;
 					}
 					BufferedWriter writter = new BufferedWriter(new FileWriter(new File(StorageConfigurationManager.getInstance().getConfig().getDataFilesRoot(), outputName)));
-					writters.put(outputName, writter);
+					writters.put(splitModel.get(i).getOutputName(), writter);
 					// Writte first line
 					writter.write(line);
 					writter.newLine();

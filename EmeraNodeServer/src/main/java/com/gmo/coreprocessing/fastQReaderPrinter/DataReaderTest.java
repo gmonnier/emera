@@ -32,7 +32,7 @@ public class DataReaderTest {
 
 	public static void main(String[] args) {
 		List<ModelFileStored> input = new ArrayList<ModelFileStored>();
-		ModelFileStored mfs = new ModelFileStored(new File("/Users/gmonnie/Documents/emera_data/splitted/CAATG.fastq"));
+		ModelFileStored mfs = new ModelFileStored(new File("/Users/gillesmonnier/Work_Area/Emera/Emera_data/Storage/Data/160503-YL-CM-Paul_S1_L001_R1_001.fastq"));
 		input.add(mfs);
 
 		IReaderDispatcherListener listener = new IReaderDispatcherListener() {
