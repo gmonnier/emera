@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://com/gmo/generated/configuration/applicationContext" xmlns="http://com/gmo/generated/configuration/applicationContext"
+	targetNamespace="http://com/gmo/generated/configuration/applicationContext"
+	xmlns="http://com/gmo/generated/configuration/applicationContext"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	jaxb:version="2.1" elementFormDefault="qualified">
+
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings generateIsSetMethod="true">
+				<xjc:serializable uid="1" />
+			</jaxb:globalBindings>
+		</xs:appinfo>
+	</xs:annotation>
 
 	<xs:simpleType name="locationType" final="restriction">
 		<xs:restriction base="xs:string">
@@ -24,6 +33,13 @@
 			<xs:element name="value" type="xs:string" />
 			<xs:element name="outputName" type="xs:string" />
 			<xs:element name="alias" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ResultLocation">
+		<xs:sequence>
+			<xs:element name="analysisResultsLocationRoot" type="xs:string" />
+			<xs:element name="analysisResultsLocationType" type="locationType" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -56,8 +72,7 @@
 				<xs:element name="PatternsStorage" type="PatternsStorage" />
 				<xs:element name="SplitPatternsStorage" type="SplitPatternsStorage" />
 				<xs:element name="checkForUnfoundEntries" type="xs:boolean" />
-				<xs:element name="analysisResultsLocation" type="xs:string" />
-				<xs:element name="analysisResultsLocationType" type="locationType" />
+				<xs:element name="analysisResultsLocation" type="ResultLocation" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
