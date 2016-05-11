@@ -8,10 +8,6 @@ public class ReferenceGeneAndDataCouple {
 
 	private ReferenceGeneData gRNAData;
 
-	private ReferenceGeneAndDataCouple() {
-
-	}
-
 	public ReferenceGeneAndDataCouple(ReferenceGene gRNA, ReferenceGeneData gRNADataInterface) {
 		super();
 		this.gRNA = gRNA;
