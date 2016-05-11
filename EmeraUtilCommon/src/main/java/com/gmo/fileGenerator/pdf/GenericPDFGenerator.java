@@ -3,6 +3,7 @@ package com.gmo.fileGenerator.pdf;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,7 +83,7 @@ public abstract class GenericPDFGenerator extends PdfPageEventHelper {
 
 	private boolean invalidOperation;
 
-	public GenericPDFGenerator(String header, File outputFile) {
+	public GenericPDFGenerator(String header, OutputStream outputStream) {
 
 		this.invalidOperation = false;
 		this.header = header;
@@ -90,22 +91,13 @@ public abstract class GenericPDFGenerator extends PdfPageEventHelper {
 
 		try {
 			this.baseFont = BaseFont.createFont();
-			// if file doesnt exists, then create it
-			if (!outputFile.exists()) {
-				try {
-					outputFile.createNewFile();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
 			document = new Document(standardA4Size);
-			this.writer = PdfWriter.getInstance(document, new FileOutputStream(outputFile));
+			this.writer = PdfWriter.getInstance(document, outputStream);
 			writer.setPageEvent(this);
 
 		} catch (Exception e) {
-			LOG.info("delete file " + outputFile.delete());
 			invalidOperation = true;
-		}
+		} 
 	}
 
 	public final void generatePDFFile() throws InvalidPdfException, DocumentException {
@@ -118,7 +110,7 @@ public abstract class GenericPDFGenerator extends PdfPageEventHelper {
 				createTOC(chapterTitles);
 				createChaptersContent();
 			} catch (Throwable e) {
-
+				LOG.error("Exception caught : ", e);
 			} finally {
 				if (document != null) {
 					document.close();

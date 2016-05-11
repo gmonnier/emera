@@ -1,9 +1,9 @@
 package com.gmo.fileGenerator.csv;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import org.apache.logging.log4j.Logger;
 
@@ -13,20 +13,15 @@ public abstract class GenericCSVGenerator {
 
 	private static Logger LOG = Log4JLogger.logger;
 
-	private File outputFile;
+	private OutputStream outputStream;
 
-	public GenericCSVGenerator(File outputFile) {
-		this.outputFile = outputFile;
+	public GenericCSVGenerator(OutputStream outputStream) {
+		this.outputStream = outputStream;
 	}
 
 	public final void generateCSVFile() throws IOException {
-		// if file doesnt exists, then create it
-		if (!outputFile.exists()) {
-			outputFile.createNewFile();
-		}
 
-		FileWriter fw = new FileWriter(outputFile.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
 
 		try {
 			defineContent(bw);
