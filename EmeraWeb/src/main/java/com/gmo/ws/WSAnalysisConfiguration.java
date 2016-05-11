@@ -45,8 +45,8 @@ public class WSAnalysisConfiguration {
 		String bsClientSecret = BaseSpaceContextManager.getInstance().getConfig().getBsClientSecret();
 		String bsAccessToken = BaseSpaceContextManager.getInstance().getConfig().getBsAccessToken();
 		
-		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
-		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+		LocationType resultLocType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationType();
+		String resultLocationPath = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationRoot();
 		
 		LOG.info("--> RMI call - enqueue new analysis ");
 		String id = NodeManager.getInstance().getNodeRMIClient().enqueueNewAnalysis(jsonConfig, userID, bsClientID, bsClientSecret, bsAccessToken, resultLocType, resultLocationPath);

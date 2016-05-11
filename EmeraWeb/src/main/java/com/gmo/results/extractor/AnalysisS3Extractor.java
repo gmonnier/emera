@@ -30,7 +30,7 @@ public class AnalysisS3Extractor extends AnalysisExtractor {
 
 	@Override
 	protected String getResultsRoot() {
-		return ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+		return ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationRoot();
 	}
 
 	@Override

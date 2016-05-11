@@ -99,8 +99,8 @@ public class WSAnalysisManagement {
 	}
 
 	private Response getResultFileResponse(String analyseID, String userID, String fileName) {
-		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
-		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
+		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationRoot();
+		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationType();
 
 		switch (locType) {
 		case LOCAL: {

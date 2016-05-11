@@ -46,8 +46,8 @@ public class WSAdditionalAnalysis {
 
 		LOG.debug("Request for additional analysis download for analyse " + analyseId + " on file index " + name);
 
-		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
-		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType();
+		String resultLoc = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationRoot();
+		LocationType locType = ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationType();
 
 		List<ViewFile> viewFiles;
 		try {
