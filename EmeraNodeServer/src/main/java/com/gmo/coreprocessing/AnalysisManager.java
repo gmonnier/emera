@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
 import com.gmo.generated.configuration.applicationcontext.LocationType;
+import com.gmo.generated.configuration.applicationcontext.ResultLocation;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.modelconverters.AnalysisConverter;
 import com.gmo.modelconverters.PreProcessConfigurationConverter;
@@ -55,6 +56,11 @@ public class AnalysisManager {
 
 	public List<Analysis> getAllRunningAnalysis() {
 		return runningAnalysis;
+	}
+	
+	public void setAnalysisResultsLocationParameters(LocationType analysisResultsLocationType, String analysisResultsLocation) {
+		this.analysisResultsLocationType = analysisResultsLocationType;
+		this.analysisResultsLocation = analysisResultsLocation;
 	}
 
 	public String enqueueNewOccurenceAnalysis(ViewCreateProcessConfiguration viewConfig, String userID, String bsuserID, String bsuserSecret, String bsuserToken,
@@ -141,6 +147,13 @@ public class AnalysisManager {
 
 	public String getAnalysisResultsLocation() {
 		return analysisResultsLocation;
+	}
+
+	public void setAnalysisResultsLocationParameters(ResultLocation fetchResultsLocation) {
+		if(fetchResultsLocation != null) {
+			this.analysisResultsLocationType = fetchResultsLocation.getAnalysisResultsLocationType();
+			this.analysisResultsLocation = fetchResultsLocation.getAnalysisResultsLocationRoot();
+		}
 	}
 
 }

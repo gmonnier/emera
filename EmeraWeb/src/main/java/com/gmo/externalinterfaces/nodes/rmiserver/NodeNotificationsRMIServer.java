@@ -9,13 +9,16 @@ import java.security.Policy;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.commonconfiguration.NetworkTopologyManager;
+import com.gmo.configuration.ApplicationContextManager;
+import com.gmo.generated.configuration.applicationcontext.ResultLocation;
 import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.interfaces.IProcessorNodeControl;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 import com.gmo.results.ResultsManager;
 import com.gmo.rmiconfig.SecurityPolicy;
+import com.gmo.sharedobjects.model.analysis.NoSuchAnalysisException;
 
 public class NodeNotificationsRMIServer implements IProcessorNotifications {
 
@@ -40,7 +43,7 @@ public class NodeNotificationsRMIServer implements IProcessorNotifications {
 
 			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IProcessorNotifications.class.getSimpleName());
 			IProcessorNotifications modelInfoSkeleton = (IProcessorNotifications) UnicastRemoteObject.exportObject(this, rmiInterface.getExportPort());
-			
+
 			String registryAddress = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryAddress();
 			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 
@@ -60,6 +63,27 @@ public class NodeNotificationsRMIServer implements IProcessorNotifications {
 	public void analysisCompleted(ViewAnalysis analysis) throws RemoteException {
 		LOG.info("[RMI-MODULE] Analysis received as done from node server : " + analysis.getId());
 		ResultsManager.getInstance().addProcessedAnalysis(analysis);
+	}
+
+	@Override
+	public void additionnalAnalysisCompleted(String analysisID, ViewFile output) throws RemoteException {
+		LOG.debug("Request to add new additionnal analysis report to analysis " + analysisID);
+		try {
+			ResultsManager.getInstance().getProcessedAnalysis(analysisID).getAdditionalAnalyses().add(output);
+		} catch (NoSuchAnalysisException e) {
+			LOG.error("Unable to retrieve analysis with ID - abort additionnal analysis report addition: " + analysisID);
+		}
+	}
+
+	@Override
+	public ResultLocation fetchResultsLocation() throws RemoteException {
+		return ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation();
+	}
+
+	@Override
+	public void additionnalAnalysisFailed(String analysisID, String reasonMessage) throws RemoteException {
+		LOG.debug("Additionnal analysis failure " + analysisID + "  : " + reasonMessage);
+		
 	}
 
 }
