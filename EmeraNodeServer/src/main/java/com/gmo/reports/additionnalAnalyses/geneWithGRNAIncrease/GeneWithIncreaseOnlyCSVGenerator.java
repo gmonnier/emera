@@ -1,8 +1,9 @@
 package com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease;
 
 import java.io.BufferedWriter;
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class GeneWithIncreaseOnlyCSVGenerator extends GenericCSVGenerator {
 
 	private OccurencesIncreaseReport increaseReport;
 
-	public GeneWithIncreaseOnlyCSVGenerator(File outputFile, OccurencesIncreaseReport increaseReport) {
-		super(outputFile);
+	public GeneWithIncreaseOnlyCSVGenerator(OutputStream outputStream, OccurencesIncreaseReport increaseReport) {
+		super(outputStream);
 		this.increaseReport = increaseReport;
 	}
 

@@ -1,8 +1,6 @@
 package com.gmo.reports.generation;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -479,7 +477,8 @@ public class PDFOutputGenerator extends PdfPageEventHelper {
 			occCell.setBackgroundColor(baseBackgroundCellColorImportant);
 			tableInfo.addCell(occCell);
 
-			PdfPCell occCell2 = new PdfPCell(new Paragraph(Long.toString(report.getTotalOccurencesFound()) + "  (" + formatSansExpo(100.0 * report.getTotalOccurencesFound() / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
+			PdfPCell occCell2 = new PdfPCell(new Paragraph(
+					Long.toString(report.getTotalOccurencesFound()) + "  (" + formatSansExpo(100.0 * report.getTotalOccurencesFound() / (report.getTotalLineProcessed()), 2) + " %)", phraseFont));
 			occCell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			occCell2.setBackgroundColor(baseBackgroundCellColorImportant);
 			tableInfo.addCell(occCell2);

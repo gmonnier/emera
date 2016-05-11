@@ -65,7 +65,7 @@ public class WebServerApp {
 
 		initConnectionMonitor();
 
-		//initReportExtraction();
+		initReportExtraction();
 
 		initRMIServers();
 
@@ -112,7 +112,7 @@ public class WebServerApp {
 
 	private static void initReportExtraction() {
 		LOG.debug("Extract stored analyses results");
-		switch (ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocationType()) {
+		switch (ApplicationContextManager.getInstance().getConfig().getAnalysisResultsLocation().getAnalysisResultsLocationType()) {
 		case LOCAL: {
 			LOG.error("Local File Analysis Extractor defined -> Start extraction");
 			new AnalysisFileExtractor();

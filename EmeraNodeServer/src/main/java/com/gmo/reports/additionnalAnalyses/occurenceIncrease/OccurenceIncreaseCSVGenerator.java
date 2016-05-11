@@ -3,6 +3,7 @@ package com.gmo.reports.additionnalAnalyses.occurenceIncrease;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import com.gmo.fileGenerator.csv.GenericCSVGenerator;
@@ -12,8 +13,8 @@ public class OccurenceIncreaseCSVGenerator extends GenericCSVGenerator {
 
 	private OccurencesIncreaseReport increaseReport;
 
-	public OccurenceIncreaseCSVGenerator(File outputFile, OccurencesIncreaseReport increaseReport) {
-		super(outputFile);
+	public OccurenceIncreaseCSVGenerator(OutputStream outputStream, OccurencesIncreaseReport increaseReport) {
+		super(outputStream);
 		this.increaseReport = increaseReport;
 	}
 

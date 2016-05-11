@@ -8,8 +8,10 @@ import java.rmi.registry.Registry;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.commonconfiguration.NetworkTopologyManager;
+import com.gmo.generated.configuration.applicationcontext.ResultLocation;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.interfaces.IProcessorNotifications;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
 public class NodeNotificationsRMIClient implements IProcessorNotifications {
@@ -93,6 +95,40 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 				rmiProcessorNotif.analysisCompleted(analysis);
 			} catch (RemoteException e) {
 				LOG.error("Unable to notify WEB Server of analysis completion!! RemoteException " + e);
+			}
+		}
+	}
+
+	@Override
+	public void additionnalAnalysisCompleted(String analysisID, ViewFile outputPDF) {
+		if (rmiProcessorNotif != null) {
+			try {
+				rmiProcessorNotif.additionnalAnalysisCompleted(analysisID, outputPDF);
+			} catch (RemoteException e) {
+				LOG.error("Unable to notify WEB Server of additionnal analysis completion!! RemoteException " + e);
+			}
+		}
+	}
+
+	@Override
+	public ResultLocation fetchResultsLocation() {
+		if (rmiProcessorNotif != null) {
+			try {
+				return rmiProcessorNotif.fetchResultsLocation();
+			} catch (RemoteException e) {
+				LOG.error("Unable to fetch results location parameters " + e);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void additionnalAnalysisFailed(String analysisID, String reasonMessage) {
+		if (rmiProcessorNotif != null) {
+			try {
+				rmiProcessorNotif.additionnalAnalysisFailed(analysisID, reasonMessage);
+			} catch (RemoteException e) {
+				LOG.error("Unable to send additionnal analysis failed message" + e);
 			}
 		}
 	}

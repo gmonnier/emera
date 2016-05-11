@@ -1,6 +1,6 @@
 package com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease;
 
-import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +9,9 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.fileGenerator.pdf.GenericPDFGenerator;
 import com.gmo.fileGenerator.pdf.util.PDFPageSize;
 import com.gmo.logger.Log4JLogger;
+import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import com.gmo.reports.additionnalAnalyses.occurenceIncrease.OccurencesIncreaseReport;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
 import com.gmo.ui.lookAndFeel.Colors;
 import com.itextpdf.text.DocumentException;
@@ -29,9 +29,9 @@ public class GeneWithIncreaseOnlyPDFGenerator extends GenericPDFGenerator {
 
 	private OccurencesIncreaseReport increaseReport;
 
-	public GeneWithIncreaseOnlyPDFGenerator(File outputFile, OccurencesIncreaseReport increaseReport) {
+	public GeneWithIncreaseOnlyPDFGenerator(OutputStream outputStream, OccurencesIncreaseReport increaseReport) {
 
-		super("Targeted genes with gRNA representation increase", outputFile);
+		super("Targeted genes with gRNA representation increase", outputStream);
 
 		this.increaseReport = increaseReport;
 		if (increaseReport == null) {
@@ -103,7 +103,7 @@ public class GeneWithIncreaseOnlyPDFGenerator extends GenericPDFGenerator {
 			fileIndex.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			tableFastq.addCell(fileIndex);
 
-			List<ModelFileStored> listDataFiles = report.getAnalyseConfig().getSelectedDataFiles();
+			List<ViewFile> listDataFiles = report.getAnalyseConfig().getSelectedDataFiles();
 			String fastqFile = "";
 			for (int i = 0; i < listDataFiles.size(); i++) {
 				fastqFile += listDataFiles.get(i).getName();

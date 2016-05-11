@@ -1,6 +1,8 @@
 package com.gmo.reports.additionnalAnalyses.occurenceIncrease;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,17 +12,22 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.configuration.StorageConfigurationManager;
+import com.gmo.coreprocessing.AnalysisManager;
+import com.gmo.externalInterfaces.rmiclient.NodeNotificationsRMIClient;
+import com.gmo.generated.configuration.applicationcontext.LocationType;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.ViewFileOrigin;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneAndDataCouple;
 import com.gmo.reports.additionnalAnalyses.ReferenceGeneData;
 import com.gmo.reports.additionnalAnalyses.common.AdditionnalAnalysisListener;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyCSVGenerator;
 import com.gmo.reports.additionnalAnalyses.geneWithGRNAIncrease.GeneWithIncreaseOnlyPDFGenerator;
 import com.gmo.sharedobjects.model.genelibrary.ReferenceGene;
-import com.gmo.sharedobjects.model.inputs.ModelFileStored;
 import com.gmo.sharedobjects.model.reports.Report;
+
+import awsinterfaceManager.AWSS3InterfaceManager;
 
 public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAnalysisListener {
 
@@ -47,7 +54,7 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 
 		boolean checkLibOK = checkLibraries(reference, comparison);
 		if (!checkLibOK) {
-			additionnalAnalysisFailed("Reference analysis libraries needs to be used in the compared library, Analyses are incompatible for this type of calculation.");
+			additionnalAnalysisFailed(reference.getAnalyseID(), "Reference analysis libraries needs to be used in the compared library, Analyses are incompatible for this type of calculation.");
 			return;
 		}
 
@@ -57,27 +64,28 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 
 		for (Iterator<ReferenceGene> iterator = refLib.iterator(); iterator.hasNext();) {
 			ReferenceGene referenceGene = (ReferenceGene) iterator.next();
-			ReferenceGeneAndDataCouple dataCouple = new ReferenceGeneAndDataCouple(referenceGene, new ReferenceGeneData(reference.getOccurenceCount(referenceGene.getAssociatedSequence()),
-					comparison.getOccurenceCount(referenceGene.getAssociatedSequence()), reference.getOccurencePercent(referenceGene.getAssociatedSequence()), comparison.getOccurencePercent(referenceGene
-							.getAssociatedSequence())));
+			ReferenceGeneAndDataCouple dataCouple = new ReferenceGeneAndDataCouple(referenceGene,
+					new ReferenceGeneData(reference.getOccurenceCount(referenceGene.getAssociatedSequence()), comparison.getOccurenceCount(referenceGene.getAssociatedSequence()),
+							reference.getOccurencePercent(referenceGene.getAssociatedSequence()), comparison.getOccurencePercent(referenceGene.getAssociatedSequence())));
 			report.addReferenceGeneData(dataCouple);
 
 		}
 
-		// TODO use s3 or whatever defined attribute in Emera web application context to store additionnal results here
-		String resultLocation = "tmp";
-		String outputDir = resultLocation + File.separator + reference.getUserID() + File.separator + reference.getAnalyseID() + File.separator + "Additional" /*AnalysisExtractor.ADDITIONAL_ANALYSIS_DIR*/;
-		File outputDirectory = new File(outputDir);
-		if (!outputDirectory.exists()) {
-			boolean dirCreated = outputDirectory.mkdirs();
+		// context to store additionnal results here
+		LocationType locType = AnalysisManager.getInstance().getAnalysisResultsLocationType();
+		String analysisResultsLocation = AnalysisManager.getInstance().getAnalysisResultsLocation();
+
+		String tmpRootDir = locType == LocationType.S_3 ? "tmp" : analysisResultsLocation;
+		String outputDir = reference.getUserID() + "/" + reference.getAnalyseID() + "/" + "Additional";
+		File outputTmpDirectory = new File(tmpRootDir + "/" + outputDir);
+		if (!outputTmpDirectory.exists()) {
+			boolean dirCreated = outputTmpDirectory.mkdirs();
 			if (!dirCreated) {
-				LOG.error("Unable to create " + outputDirectory.getAbsolutePath());
-				additionnalAnalysisFailed("File error on server side. Unable to create the report.");
+				LOG.error("Unable to create " + outputTmpDirectory.getAbsolutePath());
+				additionnalAnalysisFailed(reference.getAnalyseID(), "File error on server side. Unable to create the report.");
 				return;
 			}
 		}
-
-		
 
 		Date currentTime = new Date();
 
@@ -95,21 +103,49 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 			break;
 		}
 
-		File outputSimple = new File(outputDir, fileNameSimple);
-		File outputGeneFocus = new File(outputDir, fileNameGeneWithIncrease);
+		File outputSimple = new File(outputTmpDirectory, fileNameSimple);
+		File outputGeneFocus = new File(outputTmpDirectory, fileNameGeneWithIncrease);
+
+		// if file doesnt exists, then create it
+		if (!outputSimple.exists()) {
+			try {
+				outputSimple.createNewFile();
+				outputGeneFocus.createNewFile();
+			} catch (IOException e) {
+				LOG.error(e.getMessage(), e);
+				additionnalAnalysisFailed(reference.getAnalyseID(), "Unable to create additionnal analysis file");
+				return;
+			}
+		}
 
 		switch (outputType) {
 		case CSV: {
 			try {
 				report.sortByGrowthRate();
-				new OccurenceIncreaseCSVGenerator(outputSimple, report).generateCSVFile();
-				additionnalAnalysisPerformed(outputSimple);
+				new OccurenceIncreaseCSVGenerator(new FileOutputStream(outputSimple), report).generateCSVFile();
+				if (locType == LocationType.S_3) {
+					AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, outputDir + "/" + fileNameSimple, outputSimple);
+
+					ViewFile outputS3ViewFile = new ViewFile(ViewFileOrigin.S3, fileNameSimple, outputDir + "/" + fileNameSimple, outputSimple.lastModified(), outputSimple.length());
+					additionnalAnalysisPerformed(reference.getAnalyseID(), outputS3ViewFile);
+				} else {
+					additionnalAnalysisPerformed(reference.getAnalyseID(), new ViewFile(outputSimple));
+				}
 
 				report.sortByGeneName();
-				new GeneWithIncreaseOnlyCSVGenerator(outputGeneFocus, report).generateCSVFile();
-				additionnalAnalysisPerformed(outputGeneFocus);
+				new GeneWithIncreaseOnlyCSVGenerator(new FileOutputStream(outputGeneFocus), report).generateCSVFile();
+				if (locType == LocationType.S_3) {
+					AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, outputDir + "/" + fileNameGeneWithIncrease, outputGeneFocus);
+
+					ViewFile outputS3ViewFile = new ViewFile(ViewFileOrigin.S3, fileNameGeneWithIncrease, outputDir + "/" + fileNameGeneWithIncrease, outputGeneFocus.lastModified(),
+							outputGeneFocus.length());
+					additionnalAnalysisPerformed(reference.getAnalyseID(), outputS3ViewFile);
+				} else {
+					additionnalAnalysisPerformed(reference.getAnalyseID(), new ViewFile(outputGeneFocus));
+				}
 			} catch (Exception e) {
-				additionnalAnalysisFailed("Error while generating csv file. Abort report generation.");
+				LOG.error("Exception caught: ", e);
+				additionnalAnalysisFailed(reference.getAnalyseID(), "Error while generating csv file. Abort report generation.");
 				return;
 			}
 			break;
@@ -117,18 +153,38 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 		case PDF: {
 			try {
 				report.sortByGrowthRate();
-				new OccurenceIncreasePDFGenerator(outputSimple, report).generatePDFFile();
-				additionnalAnalysisPerformed(outputSimple);
+				new OccurenceIncreasePDFGenerator(new FileOutputStream(outputSimple), report).generatePDFFile();
+				if (locType == LocationType.S_3) {
+					AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, outputDir + "/" + fileNameSimple, outputSimple);
+
+					ViewFile outputS3ViewFile = new ViewFile(ViewFileOrigin.S3, fileNameSimple, outputDir + "/" + fileNameSimple, outputSimple.lastModified(), outputSimple.length());
+					additionnalAnalysisPerformed(reference.getAnalyseID(), outputS3ViewFile);
+				} else {
+					additionnalAnalysisPerformed(reference.getAnalyseID(), new ViewFile(outputSimple));
+				}
 
 				report.sortByGeneName();
-				new GeneWithIncreaseOnlyPDFGenerator(outputGeneFocus, report).generatePDFFile();
-				additionnalAnalysisPerformed(outputGeneFocus);
+				new GeneWithIncreaseOnlyPDFGenerator(new FileOutputStream(outputGeneFocus), report).generatePDFFile();
+				if (locType == LocationType.S_3) {
+					AWSS3InterfaceManager.getInstance().uploadFile(analysisResultsLocation, outputDir + "/" + fileNameGeneWithIncrease, outputGeneFocus);
+
+					ViewFile outputS3ViewFile = new ViewFile(ViewFileOrigin.S3, fileNameGeneWithIncrease, outputDir + "/" + fileNameGeneWithIncrease, outputGeneFocus.lastModified(),
+							outputGeneFocus.length());
+					additionnalAnalysisPerformed(reference.getAnalyseID(), outputS3ViewFile);
+				} else {
+					additionnalAnalysisPerformed(reference.getAnalyseID(), new ViewFile(outputGeneFocus));
+				}
+
 			} catch (Exception e) {
-				additionnalAnalysisFailed("Error while generating pdf file. Abort report generation.");
+				LOG.error("Exception caught: ", e);
+				additionnalAnalysisFailed(reference.getAnalyseID(), "Error while generating pdf file. Abort report generation.");
 				return;
 			}
 			break;
 		}
+		default:
+			LOG.error("Unable to write on an unknown output type");
+			additionnalAnalysisFailed(reference.getAnalyseID(), "Unsupported output type.");
 		}
 
 	}
@@ -143,25 +199,19 @@ public class OccurencesIncreaseAnalysis extends Thread implements AdditionnalAna
 	 *         false otherwise. Note this is not reciproque.
 	 */
 	private boolean checkLibraries(Report r1, Report r2) {
-		List<ViewFile> listLibsInReference = r1.getAnalyseConfig().getSelectedLibraries();
-		for (Iterator<ViewFile> iterator = listLibsInReference.iterator(); iterator.hasNext();) {
-			ViewFile modelFileStored = (ViewFile) iterator.next();
-			if (!r2.getAnalyseConfig().getSelectedLibraries().contains(modelFileStored)) {
-				return false;
-			}
-		}
-
-		return true;
+		LOG.debug("Check for library compatibility : " + r1.getLibrary().getGenes().size() + "    and    " + r2.getLibrary().getGenes().size());
+		return r1.getLibrary().getGenes().size() == r2.getLibrary().getGenes().size();
 	}
 
 	@Override
-	public void additionnalAnalysisFailed(String reasonMessage) {
+	public void additionnalAnalysisFailed(String analysisID, String reasonMessage) {
+		NodeNotificationsRMIClient.getInstance().additionnalAnalysisFailed(analysisID, reasonMessage);
 		LOG.error("Additionnal analysis generation failed : " + reasonMessage);
 	}
 
 	@Override
-	public void additionnalAnalysisPerformed(File outputPDF) {
-		reference.getAdditionalAnalyses().add(new ViewFile(outputPDF));
+	public void additionnalAnalysisPerformed(String analysisID, ViewFile outputPDF) {
+		NodeNotificationsRMIClient.getInstance().additionnalAnalysisCompleted(analysisID, outputPDF);
 		LOG.debug("Additionnal analysis generation succeeded");
 	}
 }

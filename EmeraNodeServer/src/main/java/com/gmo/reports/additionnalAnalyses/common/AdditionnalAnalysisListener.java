@@ -1,11 +1,11 @@
 package com.gmo.reports.additionnalAnalyses.common;
 
-import java.io.File;
+import com.gmo.processorNode.viewmodel.ViewFile;
 
 public interface AdditionnalAnalysisListener {
 
-	public void additionnalAnalysisFailed(String reasonMessage);
-	
-	public void additionnalAnalysisPerformed(File outputPDF);
-	
+	public void additionnalAnalysisFailed(String analysisID, String reasonMessage);
+
+	public void additionnalAnalysisPerformed(String analysisID, ViewFile outputPDF);
+
 }
