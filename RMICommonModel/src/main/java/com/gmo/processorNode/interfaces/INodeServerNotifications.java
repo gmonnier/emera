@@ -7,7 +7,7 @@ import com.gmo.generated.configuration.applicationcontext.ResultLocation;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
-public interface IProcessorNotifications extends Remote {
+public interface INodeServerNotifications extends Remote {
 
 	public void analysisCompleted(ViewAnalysis analysis) throws RemoteException;
 

@@ -10,11 +10,11 @@ import org.apache.logging.log4j.Logger;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.generated.configuration.applicationcontext.ResultLocation;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.interfaces.IProcessorNotifications;
+import com.gmo.processorNode.interfaces.INodeServerNotifications;
 import com.gmo.processorNode.viewmodel.ViewFile;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
 
-public class NodeNotificationsRMIClient implements IProcessorNotifications {
+public class NodeNotificationsRMIClient implements INodeServerNotifications {
 
 	private static NodeNotificationsRMIClient instance;
 
@@ -31,7 +31,7 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 	// log4j logger - Main logger
 	private static Logger LOG = Log4JLogger.logger;
 
-	private IProcessorNotifications rmiProcessorNotif;
+	private INodeServerNotifications rmiProcessorNotif;
 
 	private boolean connectionOk;
 
@@ -61,7 +61,7 @@ public class NodeNotificationsRMIClient implements IProcessorNotifications {
 			LOG.info("Retrieve RMI registry on  " + registryAddress + "    port: " + registryPort);
 			Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
 
-			rmiProcessorNotif = (IProcessorNotifications) registry.lookup(IProcessorNotifications.class.getSimpleName());
+			rmiProcessorNotif = (INodeServerNotifications) registry.lookup(INodeServerNotifications.class.getSimpleName());
 			if (firstConnectionAttempt) {
 				LOG.debug("RMI Interface IProcessorNotifications retrieved from table : " + rmiProcessorNotif);
 			}

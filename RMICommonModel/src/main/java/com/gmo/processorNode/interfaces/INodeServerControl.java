@@ -21,7 +21,7 @@ import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.inputs.InputType;
 import com.gmo.sharedobjects.model.reports.Report;
 
-public interface IProcessorNodeControl extends Remote {
+public interface INodeServerControl extends Remote {
 
 	public void requestNodeProcessorClientRemove(String clientID) throws RemoteException;
 

@@ -13,7 +13,7 @@ import com.gmo.basespaceService.interfaces.IBaseSpaceModel;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.generated.configuration.networktopology.RmiInterface;
 import com.gmo.logger.Log4JLogger;
-import com.gmo.processorNode.interfaces.IProcessorNodeControl;
+import com.gmo.processorNode.interfaces.INodeServerControl;
 import com.gmo.rmiconfig.SecurityPolicy;
 
 public class NodeRMIServer implements Runnable {
@@ -66,8 +66,8 @@ public class NodeRMIServer implements Runnable {
 			int registryPort = NetworkTopologyManager.getInstance().getConfig().getRmiNetworkConfig().getRmiRegistryParameters().getRmiRegistryPort();
 			Registry registry= LocateRegistry.getRegistry(registryAddress, registryPort);
 
-			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(IProcessorNodeControl.class.getSimpleName());
-			IProcessorNodeControl modelInfoSkeleton = (IProcessorNodeControl) UnicastRemoteObject.exportObject(nodeRMIServer, rmiInterface.getExportPort());
+			RmiInterface rmiInterface = NetworkTopologyManager.getInstance().getByRmiInterfaceName(INodeServerControl.class.getSimpleName());
+			INodeServerControl modelInfoSkeleton = (INodeServerControl) UnicastRemoteObject.exportObject(nodeRMIServer, rmiInterface.getExportPort());
 
 			registry.rebind(rmiInterface.getValue(), modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] Processor Node server bound");
