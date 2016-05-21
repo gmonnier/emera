@@ -43,6 +43,10 @@ $ npm install --save-dev gulp gulp-concat
 $ npm install -D gulp-uglify
 $ npm install -D gulp-ng-annotate
 $ npm install --save-dev gulp-clean
+$ npm install gulp-clean-css --save-dev
+$ npm install --save-dev gulp-concat-css
 ```
 
 + Run ```gulp js``` command line to precompile js assets
++ Run ```gulp css``` command line to minify and clean css
++ Run ```gulp watch``` command line to run watcher service on javascript files
