@@ -1,11 +1,15 @@
 package com.gmo.modelconverters;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 
 import com.gmo.coreprocessing.Analysis;
 import com.gmo.coreprocessing.AnalysisOccurence;
 import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.analyses.standard.ViewAnalysis;
+import com.gmo.processorserver.IDistantResource;
 
 public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Analysis> {
 
@@ -22,6 +26,12 @@ public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Anal
 		viewObject.setLaunchDate(input.getLaunchDate());
 		viewObject.setCompletionDate(input.getCompletionDate());
 		viewObject.setDownloadInfo(input.getFileCollector().getDownloadInfo());
+		
+		List<IDistantResource> listAssignedResources = input.getAssignedResources();
+		for (Iterator iterator = listAssignedResources.iterator(); iterator.hasNext();) {
+			IDistantResource iDistantResource = (IDistantResource) iterator.next();
+			viewObject.getListAssignedResources().add();
+		}
 		
 		if(input instanceof AnalysisOccurence) {
 			AnalysisOccurence analysisOcc = (AnalysisOccurence) input;

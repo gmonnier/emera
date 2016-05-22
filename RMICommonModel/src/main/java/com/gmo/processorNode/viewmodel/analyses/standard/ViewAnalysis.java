@@ -16,6 +16,7 @@ import com.gmo.logger.Log4JLogger;
 import com.gmo.processorNode.viewmodel.BSDownloadInfo;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
+import com.gmo.processorNode.viewmodel.network.ViewDistantResource;
 import com.gmo.sharedobjects.model.analysis.AnalysisStatus;
 import com.gmo.sharedobjects.model.reports.Report;
 
@@ -42,6 +43,8 @@ public class ViewAnalysis implements Serializable {
 	private AnalysisStatus status;
 
 	private List<ViewFile> additionalAnalyses;
+	
+	private List<ViewDistantResource> listAssignedResources;
 
 	private BSDownloadInfo downloadInfo;
 
@@ -50,6 +53,7 @@ public class ViewAnalysis implements Serializable {
 
 	public ViewAnalysis() {
 		this.additionalAnalyses = new ArrayList<>();
+		this.listAssignedResources = new ArrayList<>();
 		progress = 0;
 		completionDate = -1;
 		status = AnalysisStatus.IDLE;
@@ -167,6 +171,14 @@ public class ViewAnalysis implements Serializable {
 		if (deleted != null) {
 			additionalAnalyses.remove(deleted);
 		}
+	}
+
+	public List<ViewDistantResource> getListAssignedResources() {
+		return listAssignedResources;
+	}
+
+	public void setListAssignedResources(List<ViewDistantResource> listAssignedResources) {
+		this.listAssignedResources = listAssignedResources;
 	}
 
 	public BSDownloadInfo getDownloadInfo() {
