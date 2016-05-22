@@ -26,19 +26,20 @@ public class AnalysisConverter implements IViewModelConverter<ViewAnalysis, Anal
 		viewObject.setLaunchDate(input.getLaunchDate());
 		viewObject.setCompletionDate(input.getCompletionDate());
 		viewObject.setDownloadInfo(input.getFileCollector().getDownloadInfo());
-		
+
 		List<IDistantResource> listAssignedResources = input.getAssignedResources();
-		for (Iterator iterator = listAssignedResources.iterator(); iterator.hasNext();) {
+		DistantResourceConverter ResourceConverter = new DistantResourceConverter();
+		for (Iterator<IDistantResource> iterator = listAssignedResources.iterator(); iterator.hasNext();) {
 			IDistantResource iDistantResource = (IDistantResource) iterator.next();
-			viewObject.getListAssignedResources().add();
+			viewObject.getListAssignedResources().add(ResourceConverter.buildViewModelObject(iDistantResource));
 		}
-		
-		if(input instanceof AnalysisOccurence) {
+
+		if (input instanceof AnalysisOccurence) {
 			AnalysisOccurence analysisOcc = (AnalysisOccurence) input;
 			viewObject.setViewConfiguration(new ProcessConfigurationConverter().buildViewModelObject(analysisOcc.getProcessConfiguration()));
 			viewObject.setReport(analysisOcc.getReport());
 		}
-		
+
 		return viewObject;
 	}
 
