@@ -92,8 +92,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
   display: table-column;
 }
 
+.running-analysis-content {
+	display: table;
+	width: 100%;
+}
+
+.running-analysis-content .progressbar {
+	width: 100%;
+}
+
 .runAnimContent {
-	float: left;
+	display: table-cell;
 	margin-right: 20px;
 	margin-top: 15px;
 	margin-bottom: -15px;
