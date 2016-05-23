@@ -51,8 +51,7 @@ public class NodeNotificationsRMIServer implements INodeServerNotifications {
 			registry.rebind(rmiInterface.getValue(), modelInfoSkeleton);
 			LOG.info("[RMI-MODULE] IProcessorNotifications server bound");
 		} catch (Exception e) {
-			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:");
-			e.printStackTrace();
+			LOG.error("[RMI-MODULE] Exception thrown while trying to bind RMI interfaces:", e);
 
 			LOG.error("[RMI-MODULE] Exit Application");
 			System.exit(0);
