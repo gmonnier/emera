@@ -21,7 +21,7 @@
 
     width: 20px;
     height: 20px;
-    top: -60px;
+    top: -65px;
 
     content: '';
     border: 1px solid #85a838;
@@ -30,12 +30,12 @@
 [data-loader='jumping']:before
 {
     left: 0;
-    animation: jumping .5s infinite alternate;
+    animation: jumping .8s infinite alternate;
 }
 [data-loader='jumping']:after
 {
     right: 0;
-    animation: jumping2 .5s infinite alternate;
+    animation: jumping2 .8s infinite alternate;
     animation-delay: .15s;
 }
 
