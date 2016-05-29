@@ -109,6 +109,11 @@
 	display: table-cell;
 }
 
+.run-details {
+	padding-left: 20px;
+	width: 100%;
+}
+
 .completeAnimContent {
 	float: left;
 	margin-right: 20px;
