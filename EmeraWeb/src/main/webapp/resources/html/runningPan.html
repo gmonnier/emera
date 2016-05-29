@@ -43,12 +43,10 @@
 			</h3>
 			<div ng-class="{analysisError: runanalyse.status == 'UPLOAD_ERROR'}">
 				<div ng-controller="runningInfosCtrl"
-					ng-init="init(runningAnalyses[$index].id)" class="running-analysis-content">
+					ng-init="init(runningAnalyses[$index].id)"
+					class="running-analysis-content">
 					<div class="runAnimContent">
-						<div id="ball1"
-							ng:class="{true:'ballpropserror', false:'ballpropsnormal'}[runningAnalyses[$index].status == 'UPLOAD_ERROR']"></div>
-						<div id="ball2"
-							ng:class="{true:'ballpropserror', false:'ballpropsnormal'}[runningAnalyses[$index].status == 'UPLOAD_ERROR']"></div>
+						<div data-loader="jumping"></div>
 					</div>
 					<div>
 						<div class="propTable" style="float: left;">
@@ -87,7 +85,6 @@
 						</div>
 						<div id="progressbar_{{$index}}" class="progressbar"></div>
 					</div>
-					
 				</div>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/running', {
 		templateUrl : 'html/runningPan.html',
 		controller : 'runningCtrl',
-		css: 'css/running-pan.css',
+		css: ['css/running-pan.css','css/components/running-animation.css'],
 		public : true
 	}).when('/config', {
 		templateUrl : 'html/networkConfigPan.html',
