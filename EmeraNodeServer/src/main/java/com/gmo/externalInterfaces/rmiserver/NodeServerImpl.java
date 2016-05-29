@@ -8,13 +8,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.logging.log4j.Logger;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.gmo.basespaceService.model.FastQFile;
 import com.gmo.commonconfiguration.NetworkTopologyManager;
 import com.gmo.configuration.StorageConfigurationManager;
 import com.gmo.coreprocessing.Analysis;
@@ -31,6 +34,8 @@ import com.gmo.network.rmiutil.RMIInputStreamImpl;
 import com.gmo.network.rmiutil.RMIOutputStream;
 import com.gmo.network.rmiutil.RMIOutputStreamImpl;
 import com.gmo.processorNode.interfaces.INodeServerControl;
+import com.gmo.processorNode.viewmodel.BSDownloadInfo;
+import com.gmo.processorNode.viewmodel.BSSingleDownloadInfo;
 import com.gmo.processorNode.viewmodel.OutputFileType;
 import com.gmo.processorNode.viewmodel.ViewCreateProcessConfiguration;
 import com.gmo.processorNode.viewmodel.ViewFile;
@@ -145,6 +150,26 @@ public class NodeServerImpl implements INodeServerControl {
 		for (Iterator<Analysis> iterator = usersAnalysis.iterator(); iterator.hasNext();) {
 			Analysis analysis = iterator.next();
 			usersViewAnalysis.add(analysisConverter.buildViewModelObject(analysis));
+		}
+		
+		if (userID.equals("guest")) {
+			ViewAnalysis analysisTest = new ViewAnalysis();
+			analysisTest.setId(UUID.randomUUID().toString());
+			analysisTest.setProgress(32);
+			analysisTest.setStatus(AnalysisStatus.RETRIEVE_FILES);
+			analysisTest.setUserid("guest");
+			analysisTest.setLaunchDate(new Date().getTime());
+			
+			BSDownloadInfo downloadInfo = new BSDownloadInfo();
+			FastQFile testDown = new FastQFile("fatsq-test");
+			testDown.setName("Test stub File");
+			testDown.setPath("path to file");
+			testDown.setSize(1234567l);
+			testDown.setDateCreated(new Date());
+			downloadInfo.getDownloadingFiles().add(new BSSingleDownloadInfo(testDown, 46));
+			downloadInfo.setIsdownloading(true);
+			analysisTest.setDownloadInfo(downloadInfo);
+			usersViewAnalysis.add(analysisTest);
 		}
 
 		return new ViewNodePollingInfo(viewNetConfig, usersViewAnalysis);
