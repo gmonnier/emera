@@ -9,7 +9,6 @@ if [ -d ${deploymentDir} ]; then
 fi
 mkdir ${deploymentDir}
 
-
 java_install_needed=false
 if type -p java; then
     echo "found java executable in PATH"
@@ -43,4 +42,11 @@ if [ "$java_install_needed" = true ] ; then
 	apt-get install -y oracle-java8-installer
 fi
 
-mkdir -p /EmeraWeb/conf
+mkdir -p ${deploymentDir}/conf
+mkdir -p ${deploymentDir}/logs
+
+chown ubuntu:ubuntu ${deploymentDir}
+chown ubuntu:ubuntu ${deploymentDir}/conf
+chown ubuntu:ubuntu ${deploymentDir}/logs
+
+chmod -R 777 ${deploymentDir}
