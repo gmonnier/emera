@@ -18,5 +18,5 @@ echo "Configuring instance prior to deployment - $instance ..."
 ssh ubuntu@$instance -i ${keyFile} -y 'bash -s' < setup.sh
 
 echo "Deploying Emera application on $instance ..."
-scp -r -i ${keyFile} ../conf ${instance}:/EmeraWeb/
+scp -i ${keyFile} -r ../conf ${instance}:/EmeraWeb/
 scp -i ${keyFile} ../executable/EmeraWeb.jar ${instance}:/EmeraWeb/
