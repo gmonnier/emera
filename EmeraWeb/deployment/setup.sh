@@ -44,6 +44,7 @@ fi
 
 mkdir -p ${deploymentDir}/conf
 mkdir -p ${deploymentDir}/logs
+mkdir -p ${deploymentDir}/src/main/webapp/resources 
 
 chown ubuntu:ubuntu ${deploymentDir}
 chown ubuntu:ubuntu ${deploymentDir}/conf
