@@ -9,7 +9,7 @@ instance=ec2-52-201-216-121.compute-1.amazonaws.com
 read -p "Provide instance IP or ID?" instance
 
 if [ -z "$instance" ]; then
-	instance="54.227.227.221"
+	instance="54.227.227.150"
 fi
 
 keyFile=~/Work_Area/Emera/Emera_WS/EmeraWeb/deployment/awskey/EmeraWebKey.pem
