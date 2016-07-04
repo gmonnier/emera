@@ -26,7 +26,7 @@ public class WebExceptionMapper implements ExceptionMapper<WebApplicationExcepti
 		
 		if(ex.getResponse().getStatus() == 500) {
 			// Print stack trace only if 500
-			LOG.error("Error stack : ", ex);
+			LOG.error("500 Error caught while processing request : ", ex);
 		}
 		
 		return ex.getResponse();
