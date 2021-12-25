@@ -1,4 +1,4 @@
-Emera <img src="https://cloud.githubusercontent.com/assets/11952499/13207451/544a2f2c-d8c3-11e5-821c-9512e11ee8ad.png" width="350" align="right"> 
+Heliks <img src="https://cloud.githubusercontent.com/assets/11952499/13207451/544a2f2c-d8c3-11e5-821c-9512e11ee8ad.png" width="350" align="right"> 
 ====================
 **DNA Sequences analysis platform**
  
@@ -13,7 +13,7 @@ This project provide a highly scalable, fault tolerant system based on Amazon We
 Current status info
 ---------------------
 
-+ Yet, deployment on [Emera](http://www.gilles-monnier.com:8082) Emiting on port 8082. Be sure your firewall allow connections to this port.
++ Deployment on [Heliks](http://www.heliks.ch). Be sure your firewall allow connections to this port.
 + Contact gilles_monnier@yahoo.fr for detailed info.
 
 High level architecture
